@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "985549682733",
+    "firebase_url": "https://phramabox-default-rtdb.firebaseio.com",
+    "project_id": "phramabox",
+    "storage_bucket": "phramabox.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:985549682733:android:e035f61a1842ff431a20a4",
+        "android_client_info": {
+          "package_name": "com.application.pharmaboxmain"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "985549682733-lav094q0pltek6op7vo70gr67rheu4q0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.application.pharmaboxmain",
+            "certificate_hash": "ea29f7f5e50b45dcab2a3825380b2aee3735e572"
+          }
+        },
+        {
+          "client_id": "985549682733-2guo4moqc9lv60oqf9sfbqgrkqsvsur0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA89J6CcRQlJEPVDDVd9MBGNXKJq4gZ8ek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "985549682733-2guo4moqc9lv60oqf9sfbqgrkqsvsur0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

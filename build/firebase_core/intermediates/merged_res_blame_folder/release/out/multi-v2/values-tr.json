@@ -1,0 +1,82 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/interlink/Documents/client/PharmaBox-main/build/firebase_core/intermediates/merged_res/release/values-tr/values-tr.xml",
+            "map": [
+                {
+                    "source": "/Users/interlink/.gradle/caches/transforms-3/1377ecc082df76fa18d0a5c00a428a5e/transformed/core-1.6.0/res/values-tr/values-tr.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "202",
+                        "endColumns": "100",
+                        "endOffsets": "298"
+                    }
+                },
+                {
+                    "source": "/Users/interlink/.gradle/caches/transforms-3/df1ef28bbcf1d61ed33c6e37eec9bc90/transformed/jetified-play-services-basement-18.1.0/res/values-tr/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "195",
+                        "endColumns": "142",
+                        "endOffsets": "337"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "146",
+                        "endOffsets": "197"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/Users/interlink/Documents/client/PharmaBox-main/build/firebase_core/intermediates/incremental/mergeReleaseResources/merged.dir/values-tr/values-tr.xml",
+            "map": [
+                {
+                    "source": "/Users/interlink/.gradle/caches/transforms-3/1377ecc082df76fa18d0a5c00a428a5e/transformed/core-1.6.0/res/values-tr/values-tr.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "202",
+                        "endColumns": "100",
+                        "endOffsets": "298"
+                    }
+                },
+                {
+                    "source": "/Users/interlink/.gradle/caches/transforms-3/df1ef28bbcf1d61ed33c6e37eec9bc90/transformed/jetified-play-services-basement-18.1.0/res/values-tr/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "195",
+                        "endColumns": "142",
+                        "endOffsets": "337"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "146",
+                        "endOffsets": "197"
+                    }
+                }
+            ]
+        }
+    ]
+}
