@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
 import 'package:get/get.dart';
 import 'package:pharmabox/Home/map.dart';
 import 'package:pharmabox/Widgets/membersBox.dart';
@@ -9,6 +10,7 @@ import 'package:pharmabox/pharmacyProfile/pharmacy_controller.dart';
 import 'package:pharmabox/pharmacyProfile/pharmacyrow.dart';
 import 'package:pharmabox/pharmacyProfile/textfield.dart';
 
+import '../Home/search_place.dart';
 import '../Theme/text.dart';
 import '../Widgets/space_values.dart';
 import '../general/widgets/custom_switch_widget.dart';
@@ -21,6 +23,8 @@ class ProfilEditPharmacy extends StatelessWidget {
   TextEditingController? pharDesController;
   PharmacyModel? myPharmacy;
   bool nonStop = false;
+
+  var placeText = ''.obs;
 
   ProfilEditPharmacy(
       {Key? key,
@@ -53,6 +57,8 @@ class ProfilEditPharmacy extends StatelessWidget {
     bool workConcil = false;
 
     bool nonStop = false;
+
+
 
     final List<Icon> confortIcons = <Icon>[
       const Icon(
@@ -309,12 +315,43 @@ class ProfilEditPharmacy extends StatelessWidget {
             SizedBox(
               height: height * 0.02,
             ),
-            CustomPharmacyTextField(
-              label: 'Adresse',
-              prefixIcon: Icon(
-                Icons.location_on_outlined,
+            GestureDetector(
+              onTap: () async {
+                _navigateAndRefresh();
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color:  Colors.black87,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                width: width * 0.8,
+                child: Row(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.location_on_outlined,
+                        size: 25,
+                        color: Color.fromRGBO(208, 209, 222, 1),
+                      ),
+                    ),
+                    Obx(() {
+                      return Text(placeText.value);
+                    })
+
+                  ],
+                ),
               ),
-              controller: addressController,
+              // child: CustomPharmacyTextField(
+              //   label: 'Adresse',
+              //   prefixIcon: Icon(
+              //     Icons.location_on_outlined,
+              //   ),
+              //   controller: addressController,
+              //   textInputType: TextInputType.none,
+              // ),
             ),
             SizedBox(
               height: height * 0.02,
@@ -1036,7 +1073,7 @@ class ProfilEditPharmacy extends StatelessWidget {
               return;
             }
 
-            if (addressController.text.isEmpty) {
+            if (placeText.value.isEmpty) {
               Utility.showSnack('alert'.tr, 'add_pharmacy_address'.tr);
               return;
             }
@@ -1044,7 +1081,7 @@ class ProfilEditPharmacy extends StatelessWidget {
             var pharModel = PharmacyModel();
             pharModel.email = emailController.text;
             pharModel.phone = phoneController.text;
-            pharModel.address = addressController.text;
+            pharModel.address = placeText.value;
             pharModel.rer = rerController.text;
             pharModel.metro = metroController.text;
             pharModel.bus = busController.text;
@@ -1113,6 +1150,28 @@ class ProfilEditPharmacy extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _navigateAndRefresh() async {
+    final result = await Get.to(() => AutoCompleteSearch());
+    if (result != null) {
+      var place = result as Place?;
+
+      if (place != null && place.latLng != null) {
+        placeText.value = place.name ?? '';
+
+        //latLng = Gmap.LatLng(place.latLng?.lat ?? 0.0, place.latLng?.lng ?? 0.0);
+        //widget.googleMapController?.animateCamera(CameraUpdate.newLatLng(latLng!));
+
+      }
+
+      // setState(() {
+      //   placeText = place?.name ?? '';
+      //
+      // });
+
+    }
+
   }
 }
 
@@ -1279,4 +1338,6 @@ class CalenderPharmacy extends StatelessWidget {
       ],
     );
   }
+
+
 }
