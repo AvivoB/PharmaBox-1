@@ -21,6 +21,7 @@ import 'package:sizer/sizer.dart';
 
 import '../Widgets/bottomsheet.dart';
 import '../Widgets/gradientText.dart';
+import '../Widgets/space_values.dart';
 import '../model/user_model.dart';
 
 part 'member_registration_header.dart';
@@ -972,9 +973,13 @@ class AjouterContainerReg extends StatelessWidget {
             ),
           ),
           context: context,
-          builder: (context) => SizedBox(
-            height: MediaQuery.of(context).size.height * 0.3,
+          isScrollControlled: true,
+          builder: (context) => Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            //height: MediaQuery.of(context).size.height * 0.3,
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(15.0),
@@ -1017,6 +1022,7 @@ class AjouterContainerReg extends StatelessWidget {
                   text: 'Enregistrer',
                   icon: false,
                 ),
+                Spaces.y2,
               ],
             ),
           ),

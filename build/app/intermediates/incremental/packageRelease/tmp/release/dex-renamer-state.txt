@@ -1,4 +1,0 @@
-#Sat Jan 21 16:49:13 PKT 2023
-base.0=/Users/interlink/Documents/client/PharmaBox-main/build/app/intermediates/dex/release/minifyReleaseWithR8/classes.dex
-renamed.0=classes.dex
-path.0=classes.dex
