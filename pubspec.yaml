@@ -53,6 +53,8 @@ dependencies:
   hive_flutter: ^1.1.0
   flutter_google_places: ^0.3.0
   flutter_google_places_sdk: ^0.3.2+2
+  image_picker: ^0.8.4+3
+  permission_handler: ^10.0.0
 
 dev_dependencies:
   hive_generator: ^1.1.2

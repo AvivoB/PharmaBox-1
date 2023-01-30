@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmabox/Home/HomePage.dart';
 import 'package:pharmabox/Theme/text.dart';
 import 'package:pharmabox/Widgets/utility.dart';
@@ -21,8 +22,12 @@ import 'package:sizer/sizer.dart';
 
 import '../Widgets/bottomsheet.dart';
 import '../Widgets/gradientText.dart';
+import '../Widgets/my_image_picker.dart';
 import '../Widgets/space_values.dart';
 import '../model/user_model.dart';
+
+import 'dart:convert';
+import 'dart:io';
 
 part 'member_registration_header.dart';
 
@@ -69,7 +74,7 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
     return Scaffold(
       body: Column(
         children: [
-          const MemberRegistrationAppBar(),
+           MemberRegistrationAppBar(),
           Flexible(
             child: SingleChildScrollView(
               child: Column(

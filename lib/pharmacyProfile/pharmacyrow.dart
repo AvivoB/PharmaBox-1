@@ -26,6 +26,7 @@ class PharmacyRow extends StatelessWidget {
                   ? Icon(icon)
                   : Image(
                       image: AssetImage(image),
+                      width: 30,
                     ),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.02,

@@ -525,7 +525,7 @@ class ProfilEditPharmacy extends StatelessWidget {
         ),
         Container(
           padding: const EdgeInsets.only(left: 8, right: 8),
-          height: height * 0.45,
+          //height: height * 0.45,
           width: width * 0.9,
           decoration: const BoxDecoration(
             color: Colors.white,
@@ -1023,11 +1023,11 @@ class ProfilEditPharmacy extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Image(
-                      height: height * 0.06,
-                      image: AssetImage(
-                        'assets/images/Button Add.png',
-                      )),
+                  // Image(
+                  //     height: height * 0.06,
+                  //     image: AssetImage(
+                  //       'assets/images/Button Add.png',
+                  //     )),
                 ],
               ),
               Column(
