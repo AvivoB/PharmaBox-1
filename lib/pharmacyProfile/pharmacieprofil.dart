@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
 import 'package:get/get.dart';
-import 'package:pharmabox/Home/map.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pharmabox/Widgets/membersBox.dart';
 import 'package:pharmabox/Widgets/utility.dart';
-import 'package:pharmabox/general/widgets/custom_slider_with_gradient.dart';
 import 'package:pharmabox/pharmacyProfile/gradientSlider.dart';
 import 'package:pharmabox/pharmacyProfile/pharmacy_controller.dart';
 import 'package:pharmabox/pharmacyProfile/pharmacyrow.dart';
 import 'package:pharmabox/pharmacyProfile/textfield.dart';
+import 'package:sizer/sizer.dart';
 
 import '../Home/search_place.dart';
 import '../Theme/text.dart';
+import '../Widgets/color_constants.dart';
 import '../Widgets/space_values.dart';
-import '../general/widgets/custom_switch_widget.dart';
-import '../general/widgets/custom_switch_with_suffix_and_text.dart';
 import '../model/pharmacy_model.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart' as Gmap;
 
 class ProfilEditPharmacy extends StatelessWidget {
   TextEditingController? pharNameController;
@@ -57,8 +57,6 @@ class ProfilEditPharmacy extends StatelessWidget {
     bool workConcil = false;
 
     bool nonStop = false;
-
-
 
     final List<Icon> confortIcons = <Icon>[
       const Icon(
@@ -110,6 +108,13 @@ class ProfilEditPharmacy extends StatelessWidget {
     bool typoRula = false;
     final TextEditingController noPatientPerDay = TextEditingController();
 
+    var searchedItem = <AutocompletePrediction>[].obs;
+    final List<PlaceField> _placeFields = [
+      PlaceField.Location,
+      PlaceField.Name,
+    ];
+    GoogleMapController? googleMapController;
+
     ///mission
     bool testCovid = false;
     bool vaccination = false;
@@ -150,6 +155,8 @@ class ProfilEditPharmacy extends StatelessWidget {
 
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
+
+    final places = FlutterGooglePlacesSdk(kGoogleApiKey);
 
     ///editing controllers
     ///team
@@ -280,9 +287,11 @@ class ProfilEditPharmacy extends StatelessWidget {
         SizedBox(
           height: height * 0.02,
         ),
+
+        //localisation
         Container(
           padding: const EdgeInsets.only(left: 8, right: 8),
-          height: height * 0.4,
+          //height: height * 0.4,
           width: width * 0.9,
           decoration: const BoxDecoration(
             color: Colors.white,
@@ -297,77 +306,165 @@ class ProfilEditPharmacy extends StatelessWidget {
               ),
             ],
           ),
-          child: Column(children: [
-            SizedBox(
-              height: height * 0.015,
-            ),
-            Row(
-              children: [
+          child: Stack(
+            children: [
+              Column(children: [
                 SizedBox(
-                  width: width * 0.05,
+                  height: height * 0.015,
                 ),
-                Text(
-                  'Localisation',
-                  style: heading,
-                ),
-              ],
-            ),
-            SizedBox(
-              height: height * 0.02,
-            ),
-            GestureDetector(
-              onTap: () async {
-                _navigateAndRefresh();
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color:  Colors.black87,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                width: width * 0.8,
-                child: Row(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.location_on_outlined,
-                        size: 25,
-                        color: Color.fromRGBO(208, 209, 222, 1),
-                      ),
-                    ),
-                    Obx(() {
-                      return Text(placeText.value);
-                    })
 
+                //title
+                Row(
+                  children: [
+                    SizedBox(
+                      width: width * 0.05,
+                    ),
+                    Text(
+                      'Localisation',
+                      style: heading,
+                    ),
                   ],
                 ),
-              ),
-              // child: CustomPharmacyTextField(
-              //   label: 'Adresse',
-              //   prefixIcon: Icon(
-              //     Icons.location_on_outlined,
-              //   ),
-              //   controller: addressController,
-              //   textInputType: TextInputType.none,
-              // ),
-            ),
-            SizedBox(
-              height: height * 0.02,
-            ),
-            Container(
-              height: height * 0.2,
-              width: width * 0.9,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
+                SizedBox(
+                  height: height * 0.02,
                 ),
-              ),
-              child: Maps(),
-            )
-          ]),
+                // GestureDetector(
+                //   onTap: () async {
+                //     _navigateAndRefresh();
+                //   },
+                //   child: Container(
+                //     decoration: BoxDecoration(
+                //       border: Border.all(
+                //         color:  Colors.black87,
+                //       ),
+                //       borderRadius: BorderRadius.circular(10),
+                //     ),
+                //     width: width * 0.8,
+                //     child: Row(
+                //       children: [
+                //         const Padding(
+                //           padding: EdgeInsets.all(8.0),
+                //           child: Icon(
+                //             Icons.location_on_outlined,
+                //             size: 25,
+                //             color: Color.fromRGBO(208, 209, 222, 1),
+                //           ),
+                //         ),
+                //         Obx(() {
+                //           return Text(placeText.value);
+                //         })
+                //
+                //       ],
+                //     ),
+                //   ),
+                //
+                // ),
+
+                CustomPharmacyTextField(
+                  label: 'Adresse',
+                  prefixIcon: const Icon(
+                    Icons.location_on_outlined,
+                  ),
+                  onTextChange: (val) async {
+                    if (val.isNotEmpty) {
+                      final predictions =
+                      await places.findAutocompletePredictions(val);
+                      print('Result: $predictions');
+                      searchedItem.clear();
+                      searchedItem.addAll(predictions.predictions);
+                    }
+                    else {
+                      searchedItem.clear();
+                    }
+
+                  },
+                  controller: addressController,
+                  textInputType: TextInputType.none,
+                ),
+
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                Container(
+                  height: height * 0.2,
+                  width: width * 0.9,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                  ),
+                  child: GoogleMap(
+                      onMapCreated: (controller){
+                        googleMapController = controller;
+                      },
+                      compassEnabled: true,
+                      zoomGesturesEnabled: true,
+                      zoomControlsEnabled: true,
+
+                      mapType: MapType.normal,
+                      initialCameraPosition: CameraPosition(
+                        target: Gmap.LatLng(45.521563, -122.677433),
+                        zoom: 12.0,
+                      )
+                  ),
+                ),
+
+                Spaces.y2,
+              ]),
+
+              //suggestion view
+              Obx(() {
+                return Visibility(
+                    visible: searchedItem.isNotEmpty,
+                    child: Container(
+                        height: 22.h,
+                        margin: EdgeInsets.only(top: 14.h),
+                        width: double.maxFinite,
+                        decoration: BoxDecoration(color: Colors.white),
+                        child: ListView.builder(
+                            itemCount: searchedItem.length,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () async {
+                                  var res = await places.fetchPlace(
+                                      searchedItem[index].placeId,
+                                      fields: _placeFields);
+                                  addressController.text =
+                                      res.place?.name ?? '';
+                                  var latLng = Gmap.LatLng(res.place?.latLng?.lat ?? 0.0, res.place?.latLng?.lng ?? 0.0);
+                                  googleMapController?.animateCamera(CameraUpdate.newLatLng(latLng));
+
+                                  searchedItem.clear();
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: ColorConstants.grayLevel15),
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: 5.w, vertical: 0.5.h),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 5.w, vertical: 0.5.h),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(searchedItem[index].primaryText),
+                                      Text(
+                                        searchedItem[index].secondaryText,
+                                        style: TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 10.sp),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            })));
+              }),
+            ],
+          ),
         ),
         SizedBox(
           height: height * 0.02,
@@ -845,7 +942,7 @@ class ProfilEditPharmacy extends StatelessWidget {
               children: [
                 PharmacyRow(
                   text: confortList[0],
-                  icon:   Icons.cruelty_free_outlined,
+                  icon: Icons.cruelty_free_outlined,
                   initialSwitchValue: breakRoom,
                   onChanged: (value) {
                     breakRoom = value;
@@ -872,7 +969,7 @@ class ProfilEditPharmacy extends StatelessWidget {
 
                 PharmacyRow(
                   text: confortList[3],
-                  icon:   Icons.self_improvement_outlined,
+                  icon: Icons.self_improvement_outlined,
                   initialSwitchValue: autoCm,
                   onChanged: (value) {
                     autoCm = value;
@@ -890,7 +987,7 @@ class ProfilEditPharmacy extends StatelessWidget {
 
                 PharmacyRow(
                   text: confortList[5],
-                  icon:  Icons.cottage_outlined,
+                  icon: Icons.cottage_outlined,
                   initialSwitchValue: heating,
                   onChanged: (value) {
                     heating = value;
@@ -899,7 +996,7 @@ class ProfilEditPharmacy extends StatelessWidget {
 
                 PharmacyRow(
                   text: confortList[6],
-                  icon:  Icons.airplane_ticket_outlined,
+                  icon: Icons.airplane_ticket_outlined,
                   initialSwitchValue: vigil,
                   onChanged: (value) {
                     vigil = value;
@@ -1073,7 +1170,7 @@ class ProfilEditPharmacy extends StatelessWidget {
               return;
             }
 
-            if (placeText.value.isEmpty) {
+            if (addressController.text.isEmpty) {
               Utility.showSnack('alert'.tr, 'add_pharmacy_address'.tr);
               return;
             }
@@ -1081,7 +1178,7 @@ class ProfilEditPharmacy extends StatelessWidget {
             var pharModel = PharmacyModel();
             pharModel.email = emailController.text;
             pharModel.phone = phoneController.text;
-            pharModel.address = placeText.value;
+            pharModel.address = addressController.text;
             pharModel.rer = rerController.text;
             pharModel.metro = metroController.text;
             pharModel.bus = busController.text;
@@ -1117,7 +1214,6 @@ class ProfilEditPharmacy extends StatelessWidget {
             pharModel.ac = ac;
             pharModel.heating = heating;
             pharModel.vigil = vigil;
-
 
             if (myPharmacy == null) {
               controller.createOrUpdatePharmacy(pharModel, null);
@@ -1171,7 +1267,6 @@ class ProfilEditPharmacy extends StatelessWidget {
       // });
 
     }
-
   }
 }
 
@@ -1338,6 +1433,4 @@ class CalenderPharmacy extends StatelessWidget {
       ],
     );
   }
-
-
 }

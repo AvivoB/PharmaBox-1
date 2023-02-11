@@ -230,13 +230,13 @@ class _SignUpState extends State<SignUp> {
               },
               child: InkWell(
                 onTap: () async {
-                  // Navigator.pushReplacement(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //       builder: (context) =>
-                  //       const MemberRegistrationScreen(),
-                  //     ));
-                  // return;
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                        const MemberRegistrationScreen(),
+                      ));
+                  return;
 
 
                   final isValid = formKey.currentState!.validate();

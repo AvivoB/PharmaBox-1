@@ -107,12 +107,19 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                       Positioned(
                         right: 7.w,
                         child: DropdownButton<String>(
-                          items: <String>[
-                            'Pharmacy owner',
-                            'Admin',
-                            'Tutor',
-                            'NonTutor'
-                          ].map((String value) {
+                          // items: <String>[
+                          //   'Pharmacy owner',
+                          //   'Admin',
+                          //   'Tutor',
+                          //   'NonTutor'
+                          // ]
+                            items: <String>[
+                            'Director of Pharmacy',
+                            'Pharmacist',
+                            'Apprentice',
+                            'Preparer'
+                            ]
+                              .map((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(value),

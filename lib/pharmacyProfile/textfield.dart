@@ -9,6 +9,7 @@ class CustomPharmacyTextField extends StatefulWidget {
   int padding;
   TextEditingController? controller;
   final TextInputType textInputType;
+  Function(String)? onTextChange;
 
   CustomPharmacyTextField({
     super.key,
@@ -19,7 +20,8 @@ class CustomPharmacyTextField extends StatefulWidget {
     this.showSuffix = false,
     this.padding = 0,
     this.textInputType = TextInputType.text,
-    this.controller
+    this.controller,
+    this.onTextChange
   });
 
   @override
@@ -38,6 +40,7 @@ class _CustomPharmacyTextFieldState extends State<CustomPharmacyTextField> {
         autofocus: false,
         controller: widget.controller,
         textInputAction: TextInputAction.next,
+        onChanged: widget.onTextChange,
         keyboardType: widget.textInputType,
         obscureText: widget.obsecureText
             ? showText

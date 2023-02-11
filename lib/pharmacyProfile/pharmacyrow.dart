@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmabox/general/widgets/custom_switch_widget.dart';
+import 'package:sizer/sizer.dart';
 
 class PharmacyRow extends StatelessWidget {
   var icon;
@@ -26,7 +27,7 @@ class PharmacyRow extends StatelessWidget {
                   ? Icon(icon)
                   : Image(
                       image: AssetImage(image),
-                      width: 30,
+                      width: 5.5.w,
                     ),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.02,
