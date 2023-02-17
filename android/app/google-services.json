@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "258018021289",
+    "project_id": "pharmabox-effd0",
+    "storage_bucket": "pharmabox-effd0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:258018021289:android:5e33d5d6b80ba6a90bbeb8",
+        "android_client_info": {
+          "package_name": "com.application.pharmaboxmain"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "258018021289-nl5efilvroti7u09is1ra14apph3l91c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.application.pharmaboxmain",
+            "certificate_hash": "6f0e45113b4bad6edad40379bac3134865cde8eb"
+          }
+        },
+        {
+          "client_id": "258018021289-qlornfqb1f6c3j506k1i77v6eg3fmd7b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALfCP1dpMD0Qm4vHI9_rknQ0XtEWT77FM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "258018021289-9qlkciq9g0888r893odpkp93pi9smq8g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "258018021289-q1mb9o4b8pudlqhsvfrdrmmj6uso84hv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.pharmabox"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

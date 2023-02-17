@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "D:\\freelance projects\\pharmabox\\PharmaBox-1\\build\\google_sign_in_android\\intermediates\\merged_res\\release\\drawable-watch-v20\\common_google_signin_btn_text_light_normal.xml",
+        "source": "D:\\.gradle\\caches\\transforms-3\\d31ade428e7e27477330765c57de69ee\\transformed\\jetified-play-services-auth-20.4.0\\res\\drawable-watch-v20\\common_google_signin_btn_text_light_normal.xml"
+    },
+    {
+        "merged": "D:\\freelance projects\\pharmabox\\PharmaBox-1\\build\\google_sign_in_android\\intermediates\\merged_res\\release\\drawable-watch-v20\\common_google_signin_btn_text_dark_normal.xml",
+        "source": "D:\\.gradle\\caches\\transforms-3\\d31ade428e7e27477330765c57de69ee\\transformed\\jetified-play-services-auth-20.4.0\\res\\drawable-watch-v20\\common_google_signin_btn_text_dark_normal.xml"
+    },
+    {
+        "merged": "D:\\freelance projects\\pharmabox\\PharmaBox-1\\build\\google_sign_in_android\\intermediates\\merged_res\\release\\drawable-watch-v20\\common_google_signin_btn_text_disabled.xml",
+        "source": "D:\\.gradle\\caches\\transforms-3\\d31ade428e7e27477330765c57de69ee\\transformed\\jetified-play-services-auth-20.4.0\\res\\drawable-watch-v20\\common_google_signin_btn_text_disabled.xml"
+    }
+]
