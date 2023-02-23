@@ -53,265 +53,262 @@ class _BottomNavbarState extends State<BottomNavbar> {
   ];
   var color = const Color.fromRGBO(89, 90, 113, 1);
 
-  var user;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    user = BlocProvider.of<UsersBlocBloc>(context).currentUser;
-    if (user != null) {
-      if (user.poste == UserType.tutor) {
-            BlocProvider.of<PharmacieBloc>(context).add(GetPharmacie());
-        tabs.removeLast();
-        tabs.add( PharmacieHeader());
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      // appBar: appBarCustom(),
-      body: tabs[widget.startIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: widget.startIndex,
-        onTap: (index) {
-          setState(() {
-            widget.startIndex = index;
-          });
-          if (index == 4) {
-            showModalBottomSheet(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(25.0),
-                ),
-              ),
-              context: context,
-              builder: (context) => SizedBox(
-                height: MediaQuery.of(context).size.height * 0.3,
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
-
-                    ///profile pramacy
-                    if (user.poste == UserType.tutor)
-                      InkWell(
-                        onTap: () {
-                          BlocProvider.of<PharmacieBloc>(context).add(GetPharmacie());
-                          setState(() {
-                            tabs.removeLast();
-                            
-                            tabs.add( PharmacieHeader());
-                            Navigator.pop(context);
-                          });
-                        },
-                        child: Row(children: [
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Icon(Icons.local_hospital),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'Profil pharmacie',
-                              style: paragraph,
-                            ),
-                          ),
-                        ]),
+    return BlocBuilder<UsersBlocBloc, UsersBlocState>(
+      builder: (context, state) {
+        if (state is UserAdded) {
+          return Scaffold(
+            backgroundColor: Colors.white,
+            appBar: appBarCustom(),
+            body: tabs[widget.startIndex],
+            bottomNavigationBar: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              currentIndex: widget.startIndex,
+              onTap: (index) {
+                setState(() {
+                  widget.startIndex = index;
+                });
+                if (index == 4) {
+                  showModalBottomSheet(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(25.0),
                       ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          tabs.removeLast();
-                          tabs.add(const ProfilTabBar());
-                          Navigator.pop(context);
-                        });
-                      },
-                      child: Row(children: [
-                        const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Icon(Icons.person),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Profil membre',
-                            style: paragraph,
-                          ),
-                        ),
-                      ]),
                     ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const Configuration(),
+                    context: context,
+                    builder: (context) => SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 20,
                           ),
-                        );
-                      },
-                      child: Row(children: [
-                        const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Icon(Icons.settings),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Configurations',
-                            style: paragraph,
-                          ),
-                        ),
-                      ]),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        //GoogleSignIn().signOut();
-                        /*showDialog(
-                            barrierDismissible: false,
-                            context: context,
-                            builder: (context) => const Center(
-                                  child: CircularProgressIndicator(),
-                                ));*/
-                        FirebaseAuth.instance.signOut().then(
-                              (value) => Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const SignUp(),
+
+                          ///profile pramacy
+                          if (state.user!.poste == UserType.tutor)
+                            InkWell(
+                              onTap: () {
+                                BlocProvider.of<PharmacieBloc>(context)
+                                    .add(GetPharmacie());
+                                setState(() {
+                                  tabs.removeLast();
+
+                                  tabs.add(PharmacieHeader());
+                                  Navigator.pop(context);
+                                });
+                              },
+                              child: Row(children: [
+                                const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Icon(Icons.local_hospital),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Profil pharmacie',
+                                    style: paragraph,
+                                  ),
+                                ),
+                              ]),
+                            ),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                tabs.removeLast();
+                                tabs.add(const ProfilTabBar());
+                                Navigator.pop(context);
+                              });
+                            },
+                            child: Row(children: [
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Icon(Icons.person),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Profil membre',
+                                  style: paragraph,
                                 ),
                               ),
-                            );
-                        BlocProvider.of<CompetencesBloc>(context)
-                            .add(InitialiseCompetence(competences: [
-                          Competence(
-                              nom: "Test COVID",
-                              enabled: false,
-                              asset: "assets/icons/covid.png"),
-                          Competence(
-                              nom: "Vaccination",
-                              enabled: false,
-                              asset: "assets/icons/covid.png"),
-                          Competence(
-                              nom: "Gestion du tiers payant",
-                              enabled: false,
-                              asset: "assets/icons/covid.png"),
-                          Competence(
-                              nom: "Gestion des labos",
-                              enabled: false,
-                              asset: "assets/icons/covid.png"),
-                        ]));
-                        BlocProvider.of<ExperiencesBloc>(context)
-                            .add(InitialiseExperience(experiences: const []));
-                        BlocProvider.of<LanguesBloc>(context)
-                            .add(InitialiseLangue(langues: const []));
-                        BlocProvider.of<LgoBloc>(context)
-                            .add(InitialiseLgo(lgos: const []));
-                        BlocProvider.of<UniversitesBloc>(context).add(Initi());
-                        BlocProvider.of<SpecialisationsBloc>(context)
-                            .add(InitialiseSpecialisation(specialisations:const []));
-                        // BlocProvider.of<TitulaireBloc>(context).add(InitTitu());
-                      },
-                      child: Row(children: const [
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Icon(Icons.logout, color: Colors.red),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            'Deconnexion',
-                            style: TextStyle(
-                                color: Colors.red,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400),
+                            ]),
                           ),
-                        ),
-                      ]),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const Configuration(),
+                                ),
+                              );
+                            },
+                            child: Row(children: [
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Icon(Icons.settings),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Configurations',
+                                  style: paragraph,
+                                ),
+                              ),
+                            ]),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              //GoogleSignIn().signOut();
+                              /*showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (context) => const Center(
+                                      child: CircularProgressIndicator(),
+                                    ));*/
+                              FirebaseAuth.instance.signOut().then(
+                                    (value) => Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const SignUp(),
+                                      ),
+                                    ),
+                                  );
+                              BlocProvider.of<CompetencesBloc>(context)
+                                  .add(InitialiseCompetence(competences: [
+                                Competence(
+                                    nom: "Test COVID",
+                                    enabled: false,
+                                    asset: "assets/icons/covid.png"),
+                                Competence(
+                                    nom: "Vaccination",
+                                    enabled: false,
+                                    asset: "assets/icons/covid.png"),
+                                Competence(
+                                    nom: "Gestion du tiers payant",
+                                    enabled: false,
+                                    asset: "assets/icons/covid.png"),
+                                Competence(
+                                    nom: "Gestion des labos",
+                                    enabled: false,
+                                    asset: "assets/icons/covid.png"),
+                              ]));
+                              BlocProvider.of<ExperiencesBloc>(context).add(
+                                  InitialiseExperience(experiences: const []));
+                              BlocProvider.of<LanguesBloc>(context)
+                                  .add(InitialiseLangue(langues: const []));
+                              BlocProvider.of<LgoBloc>(context)
+                                  .add(InitialiseLgo(lgos: const []));
+                              BlocProvider.of<UniversitesBloc>(context)
+                                  .add(Initi());
+                              BlocProvider.of<SpecialisationsBloc>(context).add(
+                                  InitialiseSpecialisation(
+                                      specialisations: const []));
+                              // BlocProvider.of<TitulaireBloc>(context).add(InitTitu());
+                            },
+                            child: Row(children: const [
+                              Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Icon(Icons.logout, color: Colors.red),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Deconnexion',
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                            ]),
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
+                  );
+                }
+                if (index == 1) {
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.topToBottom,
+                      child: PharmaJob(),
+                      isIos: true,
+                      duration: Duration(milliseconds: 400),
+                    ),
+                  );
+                }
+              },
+              backgroundColor: Colors.white,
+              selectedFontSize: 10,
+              unselectedFontSize: 10,
+              elevation: 2.0,
+              items: [
+                BottomNavigationBarItem(
+                  activeIcon: Image(
+                    height: MediaQuery.of(context).size.height * 0.035,
+                    image: AssetImage('assets/images/search.png'),
+                  ),
+                  icon: Image(
+                    height: MediaQuery.of(context).size.height * 0.035,
+                    image: const AssetImage('assets/images/search.png'),
+                    color: color,
+                  ),
+                  label: 'Explorer',
                 ),
-              ),
-            );
-          }
-          if (index == 1) {
-            Navigator.push(
-              context,
-              PageTransition(
-                type: PageTransitionType.topToBottom,
-                child: PharmaJob(),
-                isIos: true,
-                duration: Duration(milliseconds: 400),
-              ),
-            );
-          }
-        },
-        backgroundColor: Colors.white,
-        selectedFontSize: 10,
-        unselectedFontSize: 10,
-        elevation: 2.0,
-        items: [
-          BottomNavigationBarItem(
-            activeIcon: Image(
-              height: MediaQuery.of(context).size.height * 0.035,
-              image: AssetImage('assets/images/search.png'),
+                BottomNavigationBarItem(
+                  activeIcon: Image(
+                    height: MediaQuery.of(context).size.height * 0.035,
+                    image: AssetImage('assets/images/Pharmajob green.png'),
+                  ),
+                  icon: Image(
+                    height: MediaQuery.of(context).size.height * 0.035,
+                    image: AssetImage('assets/images/pharmjob.png'),
+                  ),
+                  label: 'PharmaJob',
+                ),
+                BottomNavigationBarItem(
+                  activeIcon: Image(
+                    height: MediaQuery.of(context).size.height * 0.035,
+                    image:
+                        const AssetImage('assets/icons/PharmadvisorGreen.png'),
+                  ),
+                  icon: Image(
+                    height: MediaQuery.of(context).size.height * 0.035,
+                    image: AssetImage('assets/images/like.png'),
+                  ),
+                  label: 'PharmAdvisor',
+                ),
+                BottomNavigationBarItem(
+                  activeIcon: Image(
+                    height: MediaQuery.of(context).size.height * 0.032,
+                    image: const AssetImage('assets/images/persongreen.png'),
+                  ),
+                  icon: Image(
+                    height: MediaQuery.of(context).size.height * 0.035,
+                    image: AssetImage('assets/images/person.png'),
+                  ),
+                  label: 'Réseau',
+                ),
+                BottomNavigationBarItem(
+                  activeIcon: Image(
+                    height: MediaQuery.of(context).size.height * 0.035,
+                    image: AssetImage('assets/images/profilegreen.png'),
+                  ),
+                  icon: Image(
+                    height: MediaQuery.of(context).size.height * 0.035,
+                    image: AssetImage('assets/images/Profil.png'),
+                  ),
+                  label: 'Profil',
+                ),
+              ],
             ),
-            icon: Image(
-              height: MediaQuery.of(context).size.height * 0.035,
-              image: const AssetImage('assets/images/search.png'),
-              color: color,
-            ),
-            label: 'Explorer',
-          ),
-          BottomNavigationBarItem(
-            activeIcon: Image(
-              height: MediaQuery.of(context).size.height * 0.035,
-              image: AssetImage('assets/images/Pharmajob green.png'),
-            ),
-            icon: Image(
-              height: MediaQuery.of(context).size.height * 0.035,
-              image: AssetImage('assets/images/pharmjob.png'),
-            ),
-            label: 'PharmaJob',
-          ),
-          BottomNavigationBarItem(
-            activeIcon: Image(
-              height: MediaQuery.of(context).size.height * 0.035,
-              image: const AssetImage('assets/icons/PharmadvisorGreen.png'),
-            ),
-            icon: Image(
-              height: MediaQuery.of(context).size.height * 0.035,
-              image: AssetImage('assets/images/like.png'),
-            ),
-            label: 'PharmAdvisor',
-          ),
-          BottomNavigationBarItem(
-            activeIcon: Image(
-              height: MediaQuery.of(context).size.height * 0.032,
-              image: const AssetImage('assets/images/persongreen.png'),
-            ),
-            icon: Image(
-              height: MediaQuery.of(context).size.height * 0.035,
-              image: AssetImage('assets/images/person.png'),
-            ),
-            label: 'Réseau',
-          ),
-          BottomNavigationBarItem(
-            activeIcon: Image(
-              height: MediaQuery.of(context).size.height * 0.035,
-              image: AssetImage('assets/images/profilegreen.png'),
-            ),
-            icon: Image(
-              height: MediaQuery.of(context).size.height * 0.035,
-              image: AssetImage('assets/images/Profil.png'),
-            ),
-            label: 'Profil',
-          ),
-        ],
-      ),
+          );
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 }

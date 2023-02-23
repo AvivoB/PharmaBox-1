@@ -197,7 +197,7 @@ class _ProfilTabBarState extends State<ProfilTabBar>
     return DefaultTabController(
       length: _tabs.length,
       child: Scaffold(
-        appBar: appBarCustom(),
+        // appBar: appBarCustom(),
         backgroundColor: Colors.white,
         body: SafeArea(
           child: SingleChildScrollView(

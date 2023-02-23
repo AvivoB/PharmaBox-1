@@ -1003,6 +1003,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                 print("pressed");
                 if (widget.formKey.currentState!.validate()) {
                   if (formKey11.currentState!.validate()) {
+                    print(BlocProvider.of<LgoBloc>(context).state.lgos[0]);
                     print(BlocProvider.of<TitulaireBloc>(context).titulaires);
                     Pharmacie pharmacie = Pharmacie(
                         email: emailController.text,

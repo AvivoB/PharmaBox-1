@@ -107,9 +107,9 @@ class _PharmacieHeaderState extends State<PharmacieHeader>
     var height = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         backgroundColor: const Color.fromRGBO(245, 245, 245, 1),
-        appBar: appBarCustom(),
+        //appBar: appBarCustom(),
         body: BlocBuilder<PharmacieBloc, PharmacieState>(
             builder: (context, state) {
           if (state is PharmacieReady) {
@@ -464,7 +464,7 @@ class _PharmacieHeaderState extends State<PharmacieHeader>
                     child: Form(
                       key: formKey,
                       child: Column(children: [
-                       PharmacieNom(pharmacyName: pharmacyName),
+                        PharmacieNom(pharmacyName: pharmacyName),
                         SizedBox(
                           height: height * 0.01,
                         ),
