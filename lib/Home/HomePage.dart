@@ -16,6 +16,7 @@ import 'package:pharmabox/business_logic/competences_bloc/competences_bloc.dart'
 import 'package:pharmabox/business_logic/experiences_bloc/experiences_bloc.dart';
 import 'package:pharmabox/business_logic/langues_bloc/langues_bloc.dart';
 import 'package:pharmabox/business_logic/lgo_bloc/lgo_bloc.dart';
+import 'package:pharmabox/business_logic/specialisations_bloc/specialisations_bloc.dart';
 import 'package:pharmabox/business_logic/universites_bloc/universites_bloc.dart';
 import 'package:pharmabox/business_logic/users_bloc/users_bloc_bloc.dart';
 import 'package:pharmabox/enums/user_type.dart';
@@ -44,17 +45,20 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     NonTitulaire? user = BlocProvider.of<UsersBlocBloc>(context).state.user;
+    if (user != null) {
+      BlocProvider.of<UniversitesBloc>(context)
+          .add(IntiailiseUniversite(universites: user.universites));
+      BlocProvider.of<LgoBloc>(context).add(InitialiseLgo(lgos: user.lgos));
+      BlocProvider.of<LanguesBloc>(context)
+          .add(InitialiseLangue(langues: user.langues));
+      BlocProvider.of<ExperiencesBloc>(context)
+          .add(InitialiseExperience(experiences: user.experiences));
+      BlocProvider.of<CompetencesBloc>(context)
+          .add(InitialiseCompetence(competences: user.competences));
+            BlocProvider.of<SpecialisationsBloc>(context)
+          .add(InitialiseSpecialisation(specialisations: user.specialisations));
 
-    BlocProvider.of<UniversitesBloc>(context)
-        .add(IntiailiseUniversite(universites: user!.universites));
-    BlocProvider.of<LgoBloc>(context).add(InitialiseLgo(lgos: user!.lgos));
-    BlocProvider.of<LanguesBloc>(context)
-        .add(InitialiseLangue(langues: user!.langues));
-    BlocProvider.of<ExperiencesBloc>(context)
-        .add(InitialiseExperience(experiences: user!.experiences));
-    BlocProvider.of<CompetencesBloc>(context)
-        .add(InitialiseCompetence(competences: user!.competences));
-    
+    }
   }
 
   @override

@@ -3,7 +3,7 @@ import 'package:pharmabox/Home/map.dart';
 import 'package:pharmabox/Widgets/membersBox.dart';
 import 'package:pharmabox/general/widgets/custom_slider_with_gradient.dart';
 import 'package:pharmabox/pharmacyProfile/gradientSlider.dart';
-import 'package:pharmabox/pharmacyProfile/pharmacieprofil.dart';
+import 'package:pharmabox/pharmacyProfile/pharmacie_content.dart';
 import 'package:pharmabox/pharmacyProfile/pharmacyrow.dart';
 import 'package:pharmabox/pharmacyProfile/textfield.dart';
 
@@ -11,6 +11,7 @@ import '../Theme/text.dart';
 import '../Widgets/button.dart';
 import '../general/widgets/custom_switch_widget.dart';
 import '../general/widgets/custom_switch_with_suffix_and_text.dart';
+import '../model/tendance.dart';
 
 class PharmacyTabBar extends StatelessWidget {
   const PharmacyTabBar({Key? key}) : super(key: key);
@@ -57,7 +58,11 @@ class PharmacyTabBar extends StatelessWidget {
       Icons.directions_bus_outlined,
       Icons.local_parking_outlined,
     ];
-
+    Tendance premirere_tendance = Tendance(niveau: 0, nom: "Ordonnances");
+    Tendance deuxieme_tendance = Tendance(niveau: 0, nom: "Cosmétiques");
+    Tendance troisieme_tendance = Tendance(niveau: 0, nom: "Phyto/aroma");
+    Tendance quatrieme_tendance = Tendance(niveau: 0, nom: "Nutrition");
+    Tendance cinqieme_tendance = Tendance(niveau: 0, nom: "Conseil");
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Column(
@@ -269,7 +274,9 @@ class PharmacyTabBar extends StatelessWidget {
                   SizedBox(
                     width: width * 0.02,
                   ),
-                  const CalenderPharmacy(),
+                  const CalenderPharmacy(
+                    workHours: [],
+                  ),
                 ],
               ),
             ],
@@ -543,30 +550,30 @@ class PharmacyTabBar extends StatelessWidget {
               ],
             ),
             Flexible(
-              child: Column(children: const [
+              child: Column(children: [
                 CustomTextWithGradientSliderNoText(
                     title: 'Ordonnances',
-                    initialValue: 100,
+                    tendance: premirere_tendance,
                     assetImage: 'assets/icons/Tendance (5).png',
                     categoryCount: 3),
                 CustomTextWithGradientSliderNoText(
                     title: 'Cosmétiques',
-                    initialValue: 60,
+                    tendance: deuxieme_tendance,
                     assetImage: 'assets/icons/Tendance (4).png',
                     categoryCount: 3),
                 CustomTextWithGradientSliderNoText(
                     title: 'Phyto/aroma',
-                    initialValue: 30,
+                    tendance: troisieme_tendance,
                     assetImage: 'assets/icons/Tendance (3).png',
                     categoryCount: 3),
                 CustomTextWithGradientSliderNoText(
                     title: 'Nutrition',
-                    initialValue: 60,
+                    tendance: quatrieme_tendance,
                     assetImage: 'assets/icons/Tendance (2).png',
                     categoryCount: 3),
                 CustomTextWithGradientSliderNoText(
                     title: 'Conseil',
-                    initialValue: 100,
+                    tendance: cinqieme_tendance,
                     assetImage: 'assets/icons/Tendance (1).png',
                     categoryCount: 3),
               ]),

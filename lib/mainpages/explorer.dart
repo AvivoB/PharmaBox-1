@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pharmabox/Home/HomePage.dart';
 import 'package:pharmabox/Widgets/countContainer.dart';
@@ -8,6 +9,7 @@ import 'package:pharmabox/Widgets/membersBox.dart';
 import 'package:pharmabox/Widgets/pharmaciesbox.dart';
 import '../Home/map.dart';
 import '../Theme/text.dart';
+import 'package:geocoding/geocoding.dart';
 
 class Explorer extends StatefulWidget {
   const Explorer({Key? key}) : super(key: key);
@@ -84,7 +86,9 @@ class _ExplorerState extends State<Explorer> {
                           color: Colors.transparent,
                         ),
                         height: height * 0.25,
-                        child: Maps(),
+                        child: Maps(
+                          latLng: const LatLng(lat:44,lng:44),
+                        ),
                       ),
                     ),
                     ClipRRect(

@@ -8,25 +8,25 @@ part 'pharmacie_event.dart';
 part 'pharmacie_state.dart';
 
 class PharmacieBloc extends Bloc<PharmacieEvent, PharmacieState> {
-  List<Pharmacie>? pharmacies = [];
-  String? imagePath;
-
+  Pharmacie? pharmacie;
+  List<String> images = [];
+  String groupement = "Groupement";
+  String groupementImage =
+      "https://firebasestorage.googleapis.com/v0/b/pharmabox-effd0.appspot.com/o/groupements%2FAPP%20C%C3%B4te%20d'azur.jpg?alt=media&token=af8be44d-fb70-456a-9339-1202d9ff251b";
   final PharmacieCalls pharmacieCalls = PharmacieCalls();
   PharmacieBloc() : super(PharmacieInitial()) {
     on<AddPharmacie>((event, emit) async {
-      pharmacies = [...pharmacies!, event.pharmacie];
+      pharmacie = event.pharmacie;
       await pharmacieCalls.createPharmacie(event.pharmacie);
-      emit(PharmacieReady(pharmacies: pharmacies!));
-      // TODO: implement event handler
+      emit(PharmacieReady(pharmacie: pharmacie!));
     });
-    on<GetAllPharmacies>((event, emit) async {
+    on<GetPharmacie>((event, emit) async {
       try {
-        List<Pharmacie?> pharmacies = await pharmacieCalls.getAllPharmacies();
-        print(pharmacies.length);
-        if (pharmacies.isEmpty) {
-          throw Exception("empty pharmacies");
-        }
-        emit(PharmacieReady(pharmacies: pharmacies));
+        pharmacie = await pharmacieCalls.getPharmacie();
+        images = pharmacie!.images;
+        print("${images.length} alo");
+        print("origianl est:${pharmacie!.images.length}");
+        emit(PharmacieReady(pharmacie: pharmacie!));
       } catch (e) {
         emit(PharmacieFailed());
       }

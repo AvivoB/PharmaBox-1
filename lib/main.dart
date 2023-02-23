@@ -6,6 +6,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmabox/Home/HomePage.dart';
 import 'package:pharmabox/Onboarding/Login.dart';
+import 'package:pharmabox/bloc/groupement_bloc.dart';
 import 'package:pharmabox/bloc/pharmacie_bloc.dart';
 import 'package:pharmabox/bloc/titulaires_bloc.dart';
 import 'package:pharmabox/business_logic/competences_bloc/competences_bloc.dart';
@@ -87,7 +88,10 @@ class MyApp extends StatelessWidget {
                 ])),
         BlocProvider(create: (_) => UsersBlocBloc(userService: UserService())),
         BlocProvider(create: (_) => PharmacieBloc()),
-        BlocProvider(create: (_)=> TitulaireBloc(titulaires: []),)
+        BlocProvider(create: (_) => GroupementBloc()),
+        BlocProvider(
+          create: (_) => TitulaireBloc(titulaires: []),
+        )
       ],
       child: const HomeApp(),
     );
@@ -123,18 +127,17 @@ class _HomeAppState extends State<HomeApp> {
         scrollBehavior: MyBehavior(),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.grey,
-        ),
+            primaryColor: Color.fromARGB(255, 63, 222, 185),
+            appBarTheme: AppBarTheme(
+              backgroundColor: Colors.white,
+            )),
         home: BlocBuilder<UsersBlocBloc, UsersBlocState>(
             builder: (context, state) {
           print(state);
-         if(state is UserAdded) {
-          
+          if (state is UserAdded) {
             return HomePage();
-          }
-          else{
+          } else {
             return const LogIn();
-
           }
         }),
       ),

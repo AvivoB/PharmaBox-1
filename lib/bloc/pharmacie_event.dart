@@ -9,5 +9,5 @@ class AddPharmacie extends PharmacieEvent {
     required this.pharmacie,
   });
 }
-class GetAllPharmacies extends PharmacieEvent{
+class GetPharmacie extends PharmacieEvent{
 }

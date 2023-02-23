@@ -13,17 +13,21 @@ class UserService {
   Future creerNonTitulaire(NonTitulaire user) async {
     try {
       User? authUser = firebaseAuth.currentUser!;
-
-      if (user.photoUrl !=
-          "https://firebasestorage.googleapis.com/v0/b/pharmabox-effd0.appspot.com/o/user.png?alt=media&token=fa1292f7-7679-4c3b-b6e5-7831a9ac4ca4") {
-        final storageRef = FirebaseStorage.instance.ref();
-        final profileRef = storageRef.child("users/profile/${authUser.uid}");
+      print(user.photoUrl);
+      final storageRef = FirebaseStorage.instance.ref();
+      final profileRef = storageRef.child("users/profile/${authUser.uid}");
+      await profileRef.getDownloadURL().then((value) async {
+        await profileRef.delete();
+        await profileRef.putFile(File(user.photoUrl));
         await profileRef.getDownloadURL().then((value) async {
           user.photoUrl = value;
-        }).catchError((error)async{
-                    await profileRef.putFile(File(user.photoUrl));
         });
-      }
+      }).catchError((error) async {
+        await profileRef.putFile(File(user.photoUrl));
+        await profileRef.getDownloadURL().then((value) async {
+          user.photoUrl = value;
+        });
+      });
 
       await _firebaseFirestore
           .collection("users")

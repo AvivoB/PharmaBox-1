@@ -1,14 +1,20 @@
+import 'package:flutter/material.dart';
 import 'package:pharmabox/model/lgo.dart';
 import 'package:pharmabox/model/localisation.dart';
 import 'package:pharmabox/model/telephone.dart';
-import 'package:pharmabox/model/tenance.dart';
+import 'package:pharmabox/model/work_hours.dart';
+
+import '../tendance.dart';
 
 class Pharmacie {
   final String nom;
   List<String> titulaires;
   final List<String> images;
+  final List<WorkHours> workHours;
   final String presentation;
   final bool maitre;
+  final String groupementName;
+  final String groupementImage;
   final bool nonStop;
   final String email;
   final Telephone telephone;
@@ -56,6 +62,7 @@ class Pharmacie {
       "code-postal": localisation.codePostal,
       "ville": localisation.ville,
       "presentation": presentation,
+      "work_hours": workHours.map((e) => e.toJson()).toList(),
       "images": images,
       "maitre": maitre,
       "rer": rer,
@@ -67,6 +74,8 @@ class Pharmacie {
       "centre-commercial": centreCommercial,
       "centre-ville": centreVille,
       "aeroport": aeroport,
+      "groupement-name": groupementName,
+      "groupement-image": groupementImage,
       "gareTyp": gareTyp,
       "quartier": quartier,
       "titulaires": titulaires,
@@ -94,6 +103,7 @@ class Pharmacie {
 
   static Pharmacie fromJson(dynamic json) {
     List<dynamic> lgosJson = json['lgos'];
+    List<dynamic> workHoursJson = json['work_hours'];
     List<String> images = [];
     List<String> titulaires = [];
     if (json.containsKey("images")) {
@@ -103,16 +113,18 @@ class Pharmacie {
     }
     if (json.containsKey("titulaires")) {
       List<dynamic> titulairesJson = json['titulaires'];
-      titulaires =
-          titulairesJson.map((e) => e.toString()).toList();
+      titulaires = titulairesJson.map((e) => e.toString()).toList();
     }
-      print(images[0]);
-
+    print(images[0]);
+    List<WorkHours> workHours = WorkHours.fromJson(workHoursJson);
     List<Lgo> lgos = Lgo.fromJson(lgosJson);
     List<dynamic> tendancesJson = json['tendances'];
     List<Tendance> tendances = Tendance.fromJson(tendancesJson);
     ////
     return Pharmacie(
+      workHours: workHours,
+      groupementImage: json["groupement-image"],
+      groupementName: json["groupement-name"],
       nom: json.containsKey("nom") ? json['nom'] ?? "" : "",
       email: json.containsKey("email") ? json["email"] ?? "" : "",
       aeroport: json.containsKey("aeroport") ? json["aeroport"] ?? "" : "",
@@ -160,6 +172,8 @@ class Pharmacie {
 
   Pharmacie({
     required this.nom,
+    required this.groupementImage,
+    required this.groupementName,
     required this.titulaires,
     required this.images,
     required this.presentation,
@@ -173,6 +187,7 @@ class Pharmacie {
     required this.nonStop,
     required this.bus,
     required this.tramway,
+    required this.workHours,
     required this.gareAccess,
     required this.parking,
     required this.centreCommercial,

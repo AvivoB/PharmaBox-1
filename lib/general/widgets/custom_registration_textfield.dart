@@ -6,6 +6,7 @@ class CustomRegistrationTextField extends StatefulWidget {
   int maxLines;
   int? maxLength;
   bool obsecureText;
+  bool readOnly;
   final TextEditingController controller;
   final bool showSuffix;
   int padding;
@@ -15,6 +16,7 @@ class CustomRegistrationTextField extends StatefulWidget {
       {super.key,
       required this.label,
       this.prefixIcon,
+      this.readOnly = false,
       required this.controller,
       this.maxLines = 1,
       this.obsecureText = false,
@@ -42,6 +44,7 @@ class _CustomRegistrationTextFieldState
             )
           : EdgeInsets.zero,
       child: TextFormField(
+        readOnly: widget.readOnly,
         controller: widget.controller,
         autofocus: false,
         validator: (value) => value!.isEmpty ? "Entrez une valeur" : null,

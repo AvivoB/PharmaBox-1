@@ -71,9 +71,11 @@ class SpecialisationContainer extends StatelessWidget {
           BlocBuilder<SpecialisationsBloc, SpecialisationsState>(
             bloc: specialisationsBloc,
             builder: (context, state) {
+              print(state);
               if (state is SpecialisationsInitial) {
-                return const Center(child: Text("Pas de diplômes"));
+                return const Center(child: Text("Pas de spécialisations"));
               } else {
+                print(state.specialisations.length);
                 return Column(
                     children: List.generate(
                   state.specialisations.length,

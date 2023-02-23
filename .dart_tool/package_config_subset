@@ -230,6 +230,14 @@ frontend_server_client
 2.12
 file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/frontend_server_client-3.2.0/
 file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/frontend_server_client-3.2.0/lib/
+geocoding
+2.12
+file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/geocoding-2.0.5/
+file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/geocoding-2.0.5/lib/
+geocoding_platform_interface
+2.12
+file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/geocoding_platform_interface-2.0.1/
+file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/geocoding_platform_interface-2.0.1/lib/
 get
 2.15
 file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/get-4.6.5/

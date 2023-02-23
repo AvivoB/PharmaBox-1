@@ -5,15 +5,17 @@ import 'package:pharmabox/Widgets/gradientText.dart';
 import 'package:pharmabox/constants.dart';
 import 'package:pharmabox/custom_decorations_class/custom_gradient_slider.dart';
 
+import '../model/tendance.dart';
+
 class CustomTextWithGradientSliderNoText extends StatefulWidget {
   final String title;
-  final double initialValue;
+  final Tendance tendance;
   final String assetImage;
   final int categoryCount;
   const CustomTextWithGradientSliderNoText({
     Key? key,
     required this.title,
-    required this.initialValue,
+    required this.tendance,
     required this.assetImage,
     required this.categoryCount,
   }) : super(key: key);
@@ -25,7 +27,7 @@ class CustomTextWithGradientSliderNoText extends StatefulWidget {
 
 class _CustomTextWithGradientSliderNoTextState
     extends State<CustomTextWithGradientSliderNoText> {
-  double value = 0.0;
+  late Tendance tend;
   String labelText = '';
 
   LinearGradient _gradient = const LinearGradient(colors: []);
@@ -33,7 +35,7 @@ class _CustomTextWithGradientSliderNoTextState
   @override
   void initState() {
     super.initState();
-    value = widget.initialValue;
+    tend = widget.tendance;
     setState(() {});
   }
 
@@ -42,10 +44,10 @@ class _CustomTextWithGradientSliderNoTextState
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     if (widget.categoryCount == 3) {
-      if (value < 50) {
+      if (tend.niveau < 50) {
         labelText = 'Basique';
         _gradient = kbasicGradient;
-      } else if (value > 50 && value < 80) {
+      } else if (tend.niveau > 50 && tend.niveau < 80) {
         labelText = 'Intérmédiaire';
         _gradient = kintermediateLevelGradient;
       } else {
@@ -54,7 +56,7 @@ class _CustomTextWithGradientSliderNoTextState
       }
       setState(() {});
     } else {
-      if (value < 50) {
+      if (tend.niveau < 50) {
         labelText = 'Moyen';
         _gradient = kintermediateLevelGradient;
       } else {
@@ -102,12 +104,12 @@ class _CustomTextWithGradientSliderNoTextState
                     showValueIndicator: ShowValueIndicator.never,
                     minThumbSeparation: 0.00,
                     thumbColor: widget.categoryCount == 3
-                        ? value < 50
+                        ? tend.niveau < 50
                             ? const Color.fromRGBO(248, 153, 153, 1)
-                            : value > 50 && value < 80
+                            : tend.niveau > 50 && tend.niveau < 80
                                 ? const Color.fromRGBO(253, 197, 113, 1)
                                 : const Color.fromRGBO(124, 237, 172, 1)
-                        : value < 50
+                        : tend.niveau < 50
                             ? const Color.fromRGBO(255, 222, 172, 1)
                             : const Color.fromRGBO(124, 237, 172, 1),
                     trackHeight: 2,
@@ -118,12 +120,13 @@ class _CustomTextWithGradientSliderNoTextState
                   child: Slider(
                     min: 0,
                     max: 100,
-                    value: value,
+                    value: tend.niveau,
                     // divisions: 4,
 
                     onChanged: (double val) {
                       setState(() {
-                        value = val;
+                        tend.niveau = val;
+                        print(widget.tendance.niveau);
                       });
                     },
                   ),

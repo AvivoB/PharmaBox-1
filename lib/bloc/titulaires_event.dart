@@ -10,7 +10,7 @@ abstract class TitulairesEvent extends Equatable {
 class InitialiseTitulaire extends TitulairesEvent {
   final List<String> titulaires;
 
-  InitialiseTitulaire({required this.titulaires});
+  const InitialiseTitulaire({required this.titulaires});
 }
 
 class AddLocalTitulaire extends TitulairesEvent {

@@ -11,27 +11,31 @@ class SpecialisationsBloc
       : _specialisations = specialisations,
         super(SpecialisationsInitial([])) {
     on<AddLocalSpecialisation>((event, emit) {
+      print("called");
+
       _specialisations = [..._specialisations, event._specialisation];
-      emit(SpecialisationsReady(specialisations));
+      print(_specialisations.length);
+      print("alo");
+      emit(SpecialisationsReady(_specialisations));
     });
     on<RemoveLocalSpecialisation>((event, emit) {
       _specialisations.remove(event._specialisation);
-      emit(SpecialisationsReady(specialisations));
+      emit(SpecialisationsReady(_specialisations));
     });
     on<AddRemoteSpecialisation>((event, emit) {
       _specialisations = [..._specialisations, event._specialisation];
-      emit(SpecialisationsReady(specialisations));
+      emit(SpecialisationsReady(_specialisations));
     });
     on<RemoveRemoteSpecialisation>((event, emit) {
       _specialisations.remove(event._specialisation);
-      emit(SpecialisationsReady(specialisations));
+      emit(SpecialisationsReady(_specialisations));
     });
     on<UpdateSpecialisation>((event, emit) {
-      emit(SpecialisationsReady(specialisations));
+      emit(SpecialisationsReady(_specialisations));
     });
     on<InitialiseSpecialisation>((event, emit) {
-      _specialisations.clear();
-      emit(SpecialisationsReady(specialisations));
+      _specialisations = event._specialisations;
+      emit(SpecialisationsReady(_specialisations));
     });
   }
 }

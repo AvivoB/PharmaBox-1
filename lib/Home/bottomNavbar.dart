@@ -20,12 +20,14 @@ import 'package:pharmabox/business_logic/lgo_bloc/lgo_bloc.dart';
 import 'package:pharmabox/business_logic/specialisations_bloc/specialisations_bloc.dart';
 import 'package:pharmabox/business_logic/universites_bloc/universites_bloc.dart';
 import 'package:pharmabox/configurations/mainConfig.dart';
-import 'package:pharmabox/mainpages/Profilnavbar.dart';
+import 'package:pharmabox/mainpages/profile_member_header.dart';
 import 'package:pharmabox/mainpages/explorer.dart';
-import 'package:pharmabox/mainpages/pharmacie_profile.dart';
+import 'package:pharmabox/pharmacyProfile/pharmacie_content.dart';
+import 'package:pharmabox/pharmacyProfile/pharmacie_list.dart';
 import 'package:pharmabox/mainpages/pharmadvisor.dart';
 import 'package:pharmabox/mainpages/pharmajobNav.dart';
 import 'package:pharmabox/mainpages/reseau.dart';
+import 'package:pharmabox/pharmacyProfile/pharmcie_header.dart';
 
 import '../business_logic/users_bloc/users_bloc_bloc.dart';
 import '../enums/user_type.dart';
@@ -59,8 +61,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
     user = BlocProvider.of<UsersBlocBloc>(context).currentUser;
     if (user != null) {
       if (user.poste == UserType.tutor) {
+            BlocProvider.of<PharmacieBloc>(context).add(GetPharmacie());
         tabs.removeLast();
-        tabs.add(const PharmaciesList());
+        tabs.add( PharmacieHeader());
       }
     }
   }
@@ -98,9 +101,11 @@ class _BottomNavbarState extends State<BottomNavbar> {
                     if (user.poste == UserType.tutor)
                       InkWell(
                         onTap: () {
+                          BlocProvider.of<PharmacieBloc>(context).add(GetPharmacie());
                           setState(() {
                             tabs.removeLast();
-                            tabs.add(const PharmaciesList());
+                            
+                            tabs.add( PharmacieHeader());
                             Navigator.pop(context);
                           });
                         },
@@ -207,7 +212,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                             .add(InitialiseLgo(lgos: const []));
                         BlocProvider.of<UniversitesBloc>(context).add(Initi());
                         BlocProvider.of<SpecialisationsBloc>(context)
-                            .add(InitialiseSpecialisation());
+                            .add(InitialiseSpecialisation(specialisations:const []));
                         // BlocProvider.of<TitulaireBloc>(context).add(InitTitu());
                       },
                       child: Row(children: const [

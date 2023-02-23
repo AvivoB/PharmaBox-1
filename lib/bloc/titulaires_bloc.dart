@@ -8,14 +8,15 @@ part 'titulaires_state.dart';
 
 class TitulaireBloc extends Bloc<TitulairesEvent, TitulairesState> {
   List<String> titulaires;
-  TitulaireBloc({required List<String> titulaires})
-      : titulaires = titulaires,
+  TitulaireBloc({required this.titulaires})
+      :
         super(const TitulairesInitial([])) {
     on<AddLocalTitulaire>((event, emit) {
       titulaires = [...titulaires, event._titulaires];
       emit(TitulairesReady(titulaires));
     });
     on<InitialiseTitulaire>((event, emit) {
+      print("called");
       titulaires = event.titulaires;
       emit(TitulairesReady(titulaires));
     });
@@ -41,6 +42,7 @@ class TitulaireBloc extends Bloc<TitulairesEvent, TitulairesState> {
       emit(TitulairesReady(titulaires));
     });
     on<InitTitu>((event, emit) async {
+      print("called");
       titulaires.clear();
       emit(const TitulairesInitial([]));
     });

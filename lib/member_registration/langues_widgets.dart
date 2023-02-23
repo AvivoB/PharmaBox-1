@@ -73,7 +73,7 @@ class LanguesContainer extends StatelessWidget {
             bloc: languesBloc,
             builder: (context, state) {
               if (state is LanguesInitial) {
-                return const Center(child: Text("Pas de diplômes"));
+                return const Center(child: Text("Pas de Langues"));
               } else {
                 return Column(
                     children: List.generate(

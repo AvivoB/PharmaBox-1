@@ -21,12 +21,14 @@ import 'package:pharmabox/general/widgets/custom_registration_date_picker.dart';
 import 'package:pharmabox/general/widgets/custom_registration_textfield.dart';
 
 import 'package:pharmabox/general/widgets/custom_elevated_button.dart';
+import 'package:pharmabox/member_registration/specialisations_widget.dart';
 import 'package:pharmabox/member_registration/universite_widgets.dart';
 import 'package:pharmabox/model/user_models/non_titulaire.dart';
 import 'package:sizer/sizer.dart';
 
 import '../Widgets/bottomsheet.dart';
 import '../Widgets/gradientText.dart';
+import '../business_logic/specialisations_bloc/specialisations_bloc.dart';
 import '../firebase/image_service.dart';
 import '../model/localisation.dart';
 import '../model/telephone.dart';
@@ -111,6 +113,7 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                       children: [
                         CustomRegistrationTextField(
                           label: 'Poste',
+                          readOnly: true,
                           prefixIcon: const Icon(
                             CupertinoIcons.bag,
                           ),
@@ -120,8 +123,12 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                         Positioned(
                           right: 7.w,
                           child: DropdownButton<String>(
-                            items: <String>['Tutor', 'NonTutor']
-                                .map((String value) {
+                            items: <String>[
+                              'Préparateur',
+                              'Apprenti',
+                              'Pharmacien',
+                              'Responsable de Pharmacie'
+                            ].map((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(value),
@@ -183,29 +190,14 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                     ),
                     Column(
                       children: [
-                        SizedBox(
-                          height: height * 0.02,
-                        ),
+                      
                         UniversiteContainer(height: height, width: width),
-                        SizedBox(
-                          height: height * 0.025,
-                        ),
-                        LanguesContainer(height: height, width: width),
-                        SizedBox(
-                          height: height * 0.025,
-                        ),
-                        LgoContainer(height: height, width: width),
-                        SizedBox(
-                          height: height * 0.025,
-                        ),
+                       
+                        SpecialisationContainer(width: width, height: height),                       
+                        LgoContainer(height: height, width: width),                      
                         CompetencesContainer(height: height, width: width),
-                        SizedBox(
-                          height: height * 0.025,
-                        ),
+                        LanguesContainer(height: height, width: width),
                         ExperiencesContainer(width: width, height: height),
-                        SizedBox(
-                          height: height * 0.025,
-                        ),
                         AutresContainer(
                           height: height,
                           width: width,
@@ -255,6 +247,7 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                               experiences: BlocProvider.of<ExperiencesBloc>(context)
                                   .state
                                   .experiences,
+                                  specialisations: BlocProvider.of<SpecialisationsBloc>(context).state.specialisations,
                               lgos:
                                   BlocProvider.of<LgoBloc>(context).state.lgos,
                               universites: BlocProvider.of<UniversitesBloc>(context)

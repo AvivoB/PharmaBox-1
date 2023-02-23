@@ -24,7 +24,7 @@ class _AddMemberState extends State<AddMember> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Color.fromRGBO(239, 246, 247, 1),
+      backgroundColor:const Color.fromRGBO(239, 246, 247, 1),
       appBar: appBarCustom(),
       body: SingleChildScrollView(
         child: Column(

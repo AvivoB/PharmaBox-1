@@ -17,24 +17,24 @@ class UsersBlocBloc extends Bloc<UsersBlocEvent, UsersBlocState> {
   UsersBlocBloc({required this.userService})
       : super(const UsersBlocInitial(null)) {
     on<AddUser>((event, emit) async {
-      await userService.creerNonTitulaire(event._user).catchError((error) {});
+      await userService.creerNonTitulaire(event._user);
       currentUser = event._user;
       emit(UserAdded(event._user));
     });
     on<GetCurrentUser>((event, emit) async {
       try {
-      final DocumentSnapshot<Map<String, dynamic>>? userDoc =
-          await userService.getCurrentUser();
-      if (userDoc == null || !userDoc.exists) {
-        throw Exception("user doc doesn't exist");
-      }
-      currentUser = NonTitulaire.fromJson(userDoc.data()!);
-      print("wa alooooo");
-      emit(UserAdded(currentUser));
-        } catch (e) {
+        final DocumentSnapshot<Map<String, dynamic>>? userDoc =
+            await userService.getCurrentUser();
+        if (userDoc == null || !userDoc.exists) {
+          throw Exception("user doc doesn't exist");
+        }
+        currentUser = NonTitulaire.fromJson(userDoc.data()!);
+        print("wa alooooo");
+        emit(UserAdded(currentUser));
+      } catch (e) {
         print("exception throwns");
-       emit(const NoUserState(null));
-       }
+        emit(const NoUserState(null));
+      }
     });
     on<ChangeDroits>((event, emit) async {
       currentUser!.droitOffres = currentUser!.droitOffres;

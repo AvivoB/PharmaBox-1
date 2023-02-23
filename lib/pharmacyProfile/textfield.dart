@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 class CustomPharmacyTextField extends StatefulWidget {
   final String label;
   final Icon? prefixIcon;
+  final Function() onChanged;
+  final Function(String) onRealChanged;
+  final void Function(String?) onSaved;
   int maxLines;
+  bool readOnly;
   bool obsecureText;
   final bool showSuffix;
   int padding;
@@ -13,14 +17,21 @@ class CustomPharmacyTextField extends StatefulWidget {
   CustomPharmacyTextField(
       {super.key,
       required this.label,
+      this.readOnly = false,
       this.prefixIcon,
+      this.onSaved = emptyFunction2,
+      this.onRealChanged = emptyFunction1,
+      this.onChanged = emptyFunction,
       this.maxLines = 1,
       this.obsecureText = false,
       this.showSuffix = false,
       this.padding = 0,
       this.textInputType = TextInputType.text,
       this.controller});
+  static void emptyFunction1(String val) {}
+  static void emptyFunction2(String? val) {}
 
+  static void emptyFunction() {}
   @override
   State<CustomPharmacyTextField> createState() =>
       _CustomPharmacyTextFieldState();
@@ -34,6 +45,10 @@ class _CustomPharmacyTextFieldState extends State<CustomPharmacyTextField> {
     return Padding(
       padding: EdgeInsets.only(top: 8),
       child: TextFormField(
+        onTap: widget.onChanged,
+        onChanged: widget.onRealChanged,
+        onFieldSubmitted: widget.onSaved,
+        readOnly: widget.readOnly,
         validator: (value) => value!.isEmpty ? "Entrez une valeur" : null,
         controller: widget.controller,
         textInputAction: TextInputAction.next,
@@ -53,7 +68,7 @@ class _CustomPharmacyTextFieldState extends State<CustomPharmacyTextField> {
         ),
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(
-            // left: 10,
+            left: 10,
             // right: 10,
             top: widget.maxLines == 1 ? 2 : 25,
           ),

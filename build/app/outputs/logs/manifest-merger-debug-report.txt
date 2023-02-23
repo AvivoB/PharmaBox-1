@@ -94,6 +94,7 @@ MERGED from [:flutter_plugin_android_lifecycle] D:\freelance projects\pharmabox\
 MERGED from [:path_provider_android] D:\freelance projects\pharmabox\PharmaBox-1\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:google_sign_in_android] D:\freelance projects\pharmabox\PharmaBox-1\build\google_sign_in_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-11:12
 MERGED from [:permission_handler_android] D:\freelance projects\pharmabox\PharmaBox-1\build\permission_handler_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:geocoding] D:\freelance projects\pharmabox\PharmaBox-1\build\geocoding\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:google_api_headers] D:\freelance projects\pharmabox\PharmaBox-1\build\google_api_headers\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:package_info_plus] D:\freelance projects\pharmabox\PharmaBox-1\build\package_info_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.window:window-java:1.0.0-beta04] D:\.gradle\caches\transforms-3\61c303306e817ea428638eb973cfa3dd\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:17:1-23:12
@@ -276,6 +277,8 @@ MERGED from [:google_sign_in_android] D:\freelance projects\pharmabox\PharmaBox-
 MERGED from [:google_sign_in_android] D:\freelance projects\pharmabox\PharmaBox-1\build\google_sign_in_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:permission_handler_android] D:\freelance projects\pharmabox\PharmaBox-1\build\permission_handler_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:permission_handler_android] D:\freelance projects\pharmabox\PharmaBox-1\build\permission_handler_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:geocoding] D:\freelance projects\pharmabox\PharmaBox-1\build\geocoding\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:geocoding] D:\freelance projects\pharmabox\PharmaBox-1\build\geocoding\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:google_api_headers] D:\freelance projects\pharmabox\PharmaBox-1\build\google_api_headers\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:google_api_headers] D:\freelance projects\pharmabox\PharmaBox-1\build\google_api_headers\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:package_info_plus] D:\freelance projects\pharmabox\PharmaBox-1\build\package_info_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41

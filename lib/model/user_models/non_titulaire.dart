@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:pharmabox/model/lgo.dart';
 import 'package:pharmabox/model/localisation.dart';
-import 'package:pharmabox/model/slider_parent.dart';
+import 'package:pharmabox/model/models.dart';
 
 import '../competence.dart';
 import '../experience.dart';
@@ -17,6 +17,7 @@ class NonTitulaire extends Equatable {
   Telephone _telephone;
   String _poste;
   String photoUrl;
+  List<Specialisation> specialisations;
   List<Competence> _competences;
   List<Langue> _langues;
   Localisation _localisation;
@@ -75,6 +76,7 @@ class NonTitulaire extends Equatable {
     required String prenom,
     required String email,
     required Telephone telephone,
+    required this.specialisations,
     required String poste,
     required bool droitOffres,
     required this.photoUrl,
@@ -99,6 +101,7 @@ class NonTitulaire extends Equatable {
   NonTitulaire.creation({
     required String nom,
     required this.photoUrl,
+    required this.specialisations,
     required String prenom,
     required String email,
     required Telephone telephone,
@@ -134,7 +137,8 @@ class NonTitulaire extends Equatable {
       "prenom": prenom,
       "poste": poste,
       "email": email,
-      "photo":photoUrl,
+      "specialisations": specialisations.map((e) => e.toJson()).toList(),
+      "photo": photoUrl,
       "date-naissance": _dateNaissance,
       "telephone": _telephone.numeroTelephone,
       "code-postal": _localisation.codePostal,
@@ -157,6 +161,9 @@ class NonTitulaire extends Equatable {
 
   static NonTitulaire fromJson(Map<String, dynamic> json) {
     List<dynamic> lgosJson = json['lgos'];
+    List<dynamic> specialisationJson = json["specialisations"];
+    List<Specialisation> specialisations =
+        Specialisation.fromJson(specialisationJson);
     List<Lgo> lgos = Lgo.fromJson(lgosJson);
     ////
     List<dynamic> languesJson = json['langues'];
@@ -172,15 +179,14 @@ class NonTitulaire extends Equatable {
     List<Competence> competences = Competence.fromJson(competencesJson);
     return NonTitulaire.creation(
         nom: json['nom'] as String,
-        photoUrl: json.containsKey("photo")? json["photo"]??"":"",
-      
+        specialisations: specialisations,
+        photoUrl: json.containsKey("photo") ? json["photo"] ?? "" : "",
         prenom: json['prenom'] as String,
         email: json['email'] as String,
         telephone:
             Telephone(numeroTelephone: json['telephone'], visible: false),
         poste: json['poste'] as String,
         droitOffres: json['droit_offres'] as bool,
-        //dateNaissance: json['date-naissance'] as String,
         lgos: lgos,
         langues: langues,
         experiences: experiences,

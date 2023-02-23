@@ -25,7 +25,7 @@ class Experience {
     return {
       "nom-pharmacie": _nomPharmacie,
       "annee-debut": _anneeDebut,
-      "anne-fin": _anneeFin,
+      "annee-fin": _anneeFin,
     };
   }
 
