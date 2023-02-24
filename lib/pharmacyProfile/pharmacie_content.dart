@@ -24,6 +24,7 @@ import '../business_logic/lgo_bloc/lgo_bloc.dart';
 import '../model/localisation.dart';
 import '../model/telephone.dart';
 import '../model/tendance.dart';
+import 'horraires_ouvreture.dart';
 
 class ProfilEditPharmacy extends StatefulWidget {
   TextEditingController? pharNameController;
@@ -54,22 +55,43 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
     WorkHours(
       startDate: const TimeOfDay(hour: 0, minute: 0),
       endDate: const TimeOfDay(hour: 0, minute: 0),
+      open: false,
     ),
     WorkHours(
       startDate: const TimeOfDay(hour: 0, minute: 0),
       endDate: const TimeOfDay(hour: 0, minute: 0),
+            open: false,
+
     ),
     WorkHours(
       startDate: const TimeOfDay(hour: 0, minute: 0),
       endDate: const TimeOfDay(hour: 0, minute: 0),
+            open: false,
+
     ),
     WorkHours(
       startDate: const TimeOfDay(hour: 0, minute: 0),
       endDate: const TimeOfDay(hour: 0, minute: 0),
+            open: false,
+
     ),
     WorkHours(
       startDate: const TimeOfDay(hour: 0, minute: 0),
       endDate: const TimeOfDay(hour: 0, minute: 0),
+            open: false,
+
+    ),
+    WorkHours(
+      startDate: const TimeOfDay(hour: 0, minute: 0),
+      endDate: const TimeOfDay(hour: 0, minute: 0),
+            open: false,
+
+    ),
+    WorkHours(
+      startDate: const TimeOfDay(hour: 0, minute: 0),
+      endDate: const TimeOfDay(hour: 0, minute: 0),
+            open: false,
+
     ),
   ];
 
@@ -1120,118 +1142,52 @@ class CalenderPharmacy extends StatelessWidget {
       'Jeu',
       'Ven',
       'Sam',
+      'Dim',
     ];
     return Column(
-      children: [
-        Column(
-          children: List.generate(
-            5,
-            (index) => Row(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.14,
-                  height: MediaQuery.of(context).size.height * 0.05,
-                  decoration: const BoxDecoration(
-                    color: Color.fromRGBO(239, 246, 247, 1),
-                  ),
-                  child: Center(
-                    child: Text(
-                      month[index],
-                      style: const TextStyle(
-                        color: Color.fromRGBO(89, 90, 113, 1),
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12,
+        children: List.generate(
+            7,
+            (index) => Row(children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.14,
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    decoration: const BoxDecoration(
+                      color: Color.fromRGBO(239, 246, 247, 1),
+                    ),
+                    child: Center(
+                      child: Text(
+                        month[index],
+                        style: const TextStyle(
+                          color: Color.fromRGBO(89, 90, 113, 1),
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Container(
-                  color: const Color.fromRGBO(89, 90, 113, 1),
-                  width: MediaQuery.of(context).size.width * 0.005,
-                  height: MediaQuery.of(context).size.height * 0.05,
-                ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  width: MediaQuery.of(context).size.width * 0.65,
-                  height: MediaQuery.of(context).size.height * 0.05,
-                  decoration: const BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                      color: Color.fromRGBO(231, 237, 237, 1),
-                      width: 1.5,
-                    )),
+                  Container(
+                    color: const Color.fromRGBO(89, 90, 113, 1),
+                    width: MediaQuery.of(context).size.width * 0.005,
+                    height: MediaQuery.of(context).size.height * 0.05,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: Row(
-                      children: [
-                        TimePickerDropdown(
-                            onChanged: (val) {
-                              workHours[index].startDate = val;
-                            },
-                            initialValue: workHours[index].startDate),
-                        TimePickerDropdown(
-                            onChanged: (val) {
-                              workHours[index].endDate = val;
-                            },
-                            initialValue: workHours[index].endDate),
-                      ],
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    width: MediaQuery.of(context).size.width * 0.65,
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                        color: Color.fromRGBO(231, 237, 237, 1),
+                        width: 1.5,
+                      )),
                     ),
+                    child: Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: 
+
+                            TimeRangePicker(workHours: workHours[index])),
                   ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Row(
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width * 0.14,
-              height: MediaQuery.of(context).size.height * 0.05,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                ),
-                color: Color.fromRGBO(239, 246, 247, 1),
-              ),
-              child: const Center(
-                child: Text(
-                  'Dim',
-                  style: TextStyle(
-                    color: Color.fromRGBO(89, 90, 113, 1),
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12,
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              color: Color.fromRGBO(89, 90, 113, 1),
-              width: MediaQuery.of(context).size.width * 0.005,
-              height: MediaQuery.of(context).size.height * 0.05,
-            ),
-            Container(
-              alignment: Alignment.centerLeft,
-              width: MediaQuery.of(context).size.width * 0.65,
-              height: MediaQuery.of(context).size.height * 0.05,
-              decoration: const BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(
-                  color: Color.fromRGBO(231, 237, 237, 1),
-                  width: 1.5,
-                )),
-              ),
-              child: const Text(
-                '   Fermé',
-                style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: Color.fromRGBO(248, 153, 153, 1)),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
+                 
+                ])));
   }
 }

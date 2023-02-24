@@ -81,7 +81,7 @@ class _ProfilTabBarState extends State<ProfilTabBar>
       phoneController.text = user!.telephone.numeroTelephone.toString();
       postalCodeController.text = user!.localisation.codePostal.toString();
       emailController.text = user?.email ?? '';
-      dateOfBirthController.text = user?.email ?? '';
+      dateOfBirthController.text = user?.dateNaissance ?? '';
       addressController.text = user?.localisation.ville ?? '';
       imgPath = user!.photoUrl;
       conditions = List.generate(2, (index) => false);

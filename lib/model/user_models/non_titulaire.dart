@@ -30,7 +30,7 @@ class NonTitulaire extends Equatable {
   String get nom => _nom;
 
   set nom(value) => _nom = value;
-
+  String get dateNaissance => _dateNaissance;
   String get prenom => _prenom;
 
   set prenom(value) => _prenom = value;
@@ -80,7 +80,7 @@ class NonTitulaire extends Equatable {
     required String poste,
     required bool droitOffres,
     required this.photoUrl,
-    required dateNaissance,
+    required String dateNaissance,
     required List<Lgo> lgos,
     required Localisation localisation,
     required bool accepterConditions,
