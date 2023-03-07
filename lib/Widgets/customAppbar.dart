@@ -9,7 +9,7 @@ class appBarCustom extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return AppBar(
+    return /*AppBar(
       automaticallyImplyLeading: false,
       elevation: 0,
       backgroundColor: Colors.white,
@@ -236,6 +236,13 @@ class NotificationContainerNoImage extends StatelessWidget {
       trailing: const Image(
         image: AssetImage('assets/images/deleteRed.png'),
       ),
+    );*/
+        AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0.0,
     );
   }
+
+  @override
+  Size get preferredSize => Size.fromHeight(10);
 }

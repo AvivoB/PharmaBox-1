@@ -17,12 +17,18 @@ class MyCarouselSlider extends StatefulWidget {
 
 class _MyCarouselSliderState extends State<MyCarouselSlider> {
   late List<String> images;
-  XFile? image;
+  List<XFile?>? imagess;
 
-  void addImage(String imageUrl) {
+  void addImage(List<XFile?>? imagess) {
     setState(() {
-      images.add(imageUrl);
-      BlocProvider.of<PharmacieBloc>(context).images = images;
+      images = [
+        ...images,
+        ...imagess!.map((element) => element!.path).toList()
+      ];
+      BlocProvider.of<PharmacieBloc>(context).images = [
+        ...BlocProvider.of<PharmacieBloc>(context).images,
+        ...imagess.map((element) => element!.path).toList()
+      ];
     });
   }
 
@@ -54,77 +60,72 @@ class _MyCarouselSliderState extends State<MyCarouselSlider> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    // print(BlocProvider.of <PharmacieBloc> (context).images[0]);
-    return  Stack(
-        children: [
-          CarouselSlider(
-            options: CarouselOptions(
-                enableInfiniteScroll: false,
-                viewportFraction: 1,
-                aspectRatio: 1,
-                padEnds: false,
-                onPageChanged: ((index, reason) => currentIndex = index)
-                //height: 200.0,
-                //autoPlay: true,
-                ),
-            items: images.map((imageUrl) {
-              return isLocalImage(
-                imageUrl,
-              )
-                  ? Image.file(
-                      File(
-                        imageUrl,
-                      ),
-                      fit: BoxFit.cover,
-                    )
-                  : Image.network(
+    return Stack(
+      children: [
+        CarouselSlider(
+          options: CarouselOptions(
+              enableInfiniteScroll: false,
+              viewportFraction: 1,
+              aspectRatio: 1,
+              padEnds: false,
+              onPageChanged: ((index, reason) => currentIndex = index)),
+          items: images.map((imageUrl) {
+            return isLocalImage(
+              imageUrl,
+            )
+                ? Image.file(
+                    File(
                       imageUrl,
-                      fit: BoxFit.cover,
-                    );
-            }).toList(),
-          ),
-          Positioned(
-            bottom: 10,
-            left: 10,
-            child: Row(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    _showBottomSheet(context);
-                  },
-                  child: Card(
-                    color: Colors.transparent,
-                    elevation: 10,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: 20,
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Image.asset(
-                          'assets/images/Vector.png',
-                        ),
-                      ),
                     ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    removeImage();
-                  },
+                    fit: BoxFit.cover,
+                  )
+                : Image.network(
+                    imageUrl,
+                    fit: BoxFit.cover,
+                  );
+          }).toList(),
+        ),
+        Positioned(
+          bottom: 10,
+          left: 10,
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  _showBottomSheet(context);
+                },
+                child: Card(
+                  color: Colors.transparent,
+                  elevation: 10,
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
                     radius: 20,
-                    child: Image.asset(
-                      'assets/images/delete.png',
-                      fit: BoxFit.cover,
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Image.asset(
+                        'assets/images/Vector.png',
+                      ),
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  removeImage();
+                },
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 20,
+                  child: Image.asset(
+                    'assets/images/delete.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      
+        ),
+      ],
     );
   }
 
@@ -138,23 +139,13 @@ class _MyCarouselSliderState extends State<MyCarouselSlider> {
             children: <Widget>[
               ListTile(
                 onTap: () async {
-                  image = await imageService.pickImageFromGallery();
-                  if (image != null) {
-                    addImage(image!.path);
+                  imagess = await imageService.multiImagePicker();
+                  if (imagess!.isNotEmpty) {
+                    addImage(imagess);
                   }
                 },
                 title: const Text("Gallery"),
                 leading: const Icon(Icons.image),
-              ),
-              ListTile(
-                onTap: () async {
-                  image = await imageService.pickImageFromCamera();
-                  if (image != null) {
-                    addImage(image!.path);
-                  }
-                },
-                title: const Text("Camera"),
-                leading: const Icon(Icons.camera),
               ),
             ],
           );

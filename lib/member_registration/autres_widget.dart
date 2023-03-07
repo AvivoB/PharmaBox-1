@@ -26,7 +26,7 @@ class _AutresContainerState extends State<AutresContainer> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(left: 8, right: 8),
-      height: widget.height * 0.22,
+      height: widget.height * 0.15,
       width: widget.width * 0.9,
       decoration: const BoxDecoration(
         color: Color.fromRGBO(255, 255, 255, 1),
@@ -45,20 +45,6 @@ class _AutresContainerState extends State<AutresContainer> {
         children: [
           SizedBox(
             height: widget.height * 0.015,
-          ),
-          Row(
-            children: [
-              SizedBox(
-                width: widget.width * 0.05,
-              ),
-              Text(
-                'Autres',
-                style: heading,
-              ),
-            ],
-          ),
-          SizedBox(
-            height: widget.height * 0.02,
           ),
           Column(
             children: [
@@ -107,14 +93,11 @@ class _AutresContainerState extends State<AutresContainer> {
                     padding: const EdgeInsets.only(right: 8.0),
                     child: CustomSwitch(
                         initialSwitchValue: widget.conditions[1],
-                      onTap: (val) {
+                        onTap: (val) {
                           widget.callbacks[1](val);
                         }),
                   ),
                 ],
-              ),
-              SizedBox(
-                height: widget.height * 0.02,
               ),
             ],
           ),

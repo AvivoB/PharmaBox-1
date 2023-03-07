@@ -4,7 +4,7 @@
             "outputFile": "D:\\freelance projects\\pharmabox\\PharmaBox-1\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v24\\values-v24.xml",
             "map": [
                 {
-                    "source": "D:\\.gradle\\caches\\transforms-3\\685ccd008a8765ad7ebbb524a6bc47ea\\transformed\\appcompat-1.0.0\\res\\values-v24\\values-v24.xml",
+                    "source": "D:\\.gradle\\caches\\transforms-3\\2f8f9628da1b1cd814f5f57e52ec27d9\\transformed\\appcompat-1.3.0\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

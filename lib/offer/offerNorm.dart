@@ -9,6 +9,7 @@ import 'package:pharmabox/general/widgets/custom_switch_with_suffix_and_text.dar
 import 'package:pharmabox/general/widgets/custom_textfield_with_dropdown.dart';
 import 'package:pharmabox/pharmacyProfile/pharmacyrow.dart';
 
+import '../model/horaire.dart';
 import 'offer_screen.dart';
 
 class OfferScreenNorm extends StatefulWidget {
@@ -42,7 +43,16 @@ class _OfferScreenNormState extends State<OfferScreenNorm> {
     'Gare',
     'Parking',
   ];
+ final List<Horaire> horraires = [
+    Horaire(matinee: '', apresMidi: '', soiree: '', nuit: ''),
+        Horaire(matinee: '', apresMidi: '', soiree: '', nuit: ''),
+    Horaire(matinee: '', apresMidi: '', soiree: '', nuit: ''),
+    Horaire(matinee: '', apresMidi: '', soiree: '', nuit: ''),
+    Horaire(matinee: '', apresMidi: '', soiree: '', nuit: ''),
+    Horaire(matinee: '', apresMidi: '', soiree: '', nuit: ''),
+    Horaire(matinee: '', apresMidi: '', soiree: '', nuit: ''),
 
+  ];
   final List<String> confortList = <String>[
     'Crèche d\'entreprise',
     'Robot',
@@ -350,7 +360,7 @@ class _OfferScreenNormState extends State<OfferScreenNorm> {
                           const SizedBox(
                             height: 20,
                           ),
-                          const CustomTable(),
+                           CustomTable(horraires: horraires,),
                           const SizedBox(
                             height: 20,
                           ),

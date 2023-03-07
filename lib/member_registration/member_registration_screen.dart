@@ -4,10 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pharmabox/Home/HomePage.dart';
+import 'package:pharmabox/mainpages/HomePage.dart';
 import 'package:pharmabox/Theme/text.dart';
 import 'package:pharmabox/business_logic/competences_bloc/competences_bloc.dart';
 import 'package:pharmabox/business_logic/experiences_bloc/experiences_bloc.dart';
@@ -21,17 +22,19 @@ import 'package:pharmabox/general/widgets/custom_registration_date_picker.dart';
 import 'package:pharmabox/general/widgets/custom_registration_textfield.dart';
 
 import 'package:pharmabox/general/widgets/custom_elevated_button.dart';
+import 'package:pharmabox/member_registration/code_postal.dart';
 import 'package:pharmabox/member_registration/specialisations_widget.dart';
 import 'package:pharmabox/member_registration/universite_widgets.dart';
+import 'package:pharmabox/member_registration/ville_widget.dart';
 import 'package:pharmabox/model/user_models/non_titulaire.dart';
 import 'package:sizer/sizer.dart';
 
-import '../Widgets/bottomsheet.dart';
 import '../Widgets/gradientText.dart';
 import '../business_logic/specialisations_bloc/specialisations_bloc.dart';
 import '../firebase/image_service.dart';
 import '../model/localisation.dart';
 import '../model/telephone.dart';
+import '../pharmaJob/bottomsheet.dart';
 import 'autres_widget.dart';
 import 'competences_widget.dart';
 import 'experience_widgets.dart';
@@ -124,9 +127,12 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                           right: 7.w,
                           child: DropdownButton<String>(
                             items: <String>[
+                              'Rayonniste',
+                              'Conseiller',
                               'Préparateur',
                               'Apprenti',
-                              'Pharmacien',
+                              'Etudiant pharmacie',
+                              'Etudiant 6éme annéee validée',
                               'Responsable de Pharmacie'
                             ].map((String value) {
                               return DropdownMenuItem<String>(
@@ -164,37 +170,23 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                       textInputType: TextInputType.phone,
                       controller: phoneController,
                     ),
-                    CustomRegistrationTextField(
-                      label: 'Code postal',
-                      prefixIcon: const Icon(
-                        Icons.location_on_outlined,
-                      ),
-                      controller: postalCodeController,
-                      maxLength: 5,
-                      textInputType: TextInputType.number,
-                    ),
-                    CustomRegistrationTextField(
-                      label: 'Ville',
-                      prefixIcon: const Icon(
-                        Icons.location_city_outlined,
-                      ),
-                      controller: addressController,
-                    ),
+                    CodePostalWidget(
+                        localisationController: postalCodeController),
+                    VilleWidget(pharmacyName: addressController),
                     CustomRegistrationTextField(
                       label: 'Presentation',
                       prefixIcon: const Icon(
                         Icons.location_city_outlined,
                       ),
                       controller: descriptionController,
-                      maxLines: 13,
+                      maxLines: 2,
+                      textInputaction: TextInputAction.newline,
                     ),
                     Column(
                       children: [
-                      
-                        UniversiteContainer(height: height, width: width),
-                       
-                        SpecialisationContainer(width: width, height: height),                       
-                        LgoContainer(height: height, width: width),                      
+                        // UniversiteContainer(height: height, width: width),
+                        SpecialisationContainer(width: width, height: height),
+                        LgoContainer(height: height, width: width),
                         CompetencesContainer(height: height, width: width),
                         LanguesContainer(height: height, width: width),
                         ExperiencesContainer(width: width, height: height),
@@ -235,7 +227,7 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                               photoUrl: BlocProvider.of<UsersBlocBloc>(context).imagePath != null
                                   ? BlocProvider.of<UsersBlocBloc>(context)
                                       .imagePath!
-                                  : 'https://firebasestorage.googleapis.com/v0/b/pharmabox-effd0.appspot.com/o/user.png?alt=media&token=fa1292f7-7679-4c3b-b6e5-7831a9ac4ca4',
+                                  : '',
                               prenom: lastNameController.text,
                               presentation: descriptionController.text,
                               email: emailController.text,
@@ -247,24 +239,24 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                               experiences: BlocProvider.of<ExperiencesBloc>(context)
                                   .state
                                   .experiences,
-                                  specialisations: BlocProvider.of<SpecialisationsBloc>(context).state.specialisations,
+                              specialisations:
+                                  BlocProvider.of<SpecialisationsBloc>(context)
+                                      .state
+                                      .specialisations,
                               lgos:
                                   BlocProvider.of<LgoBloc>(context).state.lgos,
-                              universites: BlocProvider.of<UniversitesBloc>(context)
-                                  .state
-                                  .universities,
+                              universites:
+                                  BlocProvider.of<UniversitesBloc>(context)
+                                      .state
+                                      .universities,
                               naissance: dateOfBirthController.text,
                               langues: BlocProvider.of<LanguesBloc>(context)
                                   .state
                                   .langues,
                               localisation: Localisation(
-                                  codePostal:
-                                      int.parse(postalCodeController.text),
+                                  codePostal: int.parse(postalCodeController.text),
                                   ville: addressController.text),
-                              competences:
-                                  BlocProvider.of<CompetencesBloc>(context)
-                                      .state
-                                      .competences,
+                              competences: BlocProvider.of<CompetencesBloc>(context).state.competences,
                               droitOffres: conditions[0],
                               accepterConditions: conditions[1]);
                           BlocProvider.of<UsersBlocBloc>(context)

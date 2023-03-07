@@ -7,7 +7,7 @@ import 'package:pharmabox/Widgets/likeandroundbutton.dart';
 
 import '../general/widgets/custom_elevated_button.dart';
 import '../general/widgets/custom_registration_textfield.dart';
-import '../mainpages/profil.dart';
+import '../tabview/profil.dart';
 
 class MembersBox extends StatelessWidget {
   var image;
@@ -19,130 +19,145 @@ class MembersBox extends StatelessWidget {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const Profil(),
-          ),
-        );
-      },
-      child: Container(
-        height: height * 0.22,
-        width: width * 0.9,
-        decoration: const BoxDecoration(
-          color: Color.fromRGBO(255, 255, 255, 1),
-          borderRadius: BorderRadius.all(
-            Radius.circular(15),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Color.fromRGBO(31, 92, 103, 0.17),
-              offset: Offset(3, 3),
-              blurRadius: 3,
-            ),
-          ],
+    return Container(
+      height: height * 0.22,
+      width: width * 0.9,
+      decoration: const BoxDecoration(
+        color: Color.fromRGBO(255, 255, 255, 1),
+        borderRadius: BorderRadius.all(
+          Radius.circular(15),
         ),
-        child: Column(
-          children: [
-            SizedBox(
-              height: height * 0.02,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Image(
-                        height: height * 0.08,
-                        fit: BoxFit.cover,
-                        image: AssetImage(
-                          image,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              name,
-                              style: paragraph,
+        boxShadow: [
+          BoxShadow(
+            color: Color.fromRGBO(31, 92, 103, 0.17),
+            offset: Offset(3, 3),
+            blurRadius: 3,
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          SizedBox(
+            height: height * 0.02,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundImage: image.startsWith("https")
+                          ? NetworkImage(image) as ImageProvider
+                          : const AssetImage(
+                              "assets/images/user.png",
                             ),
-                            SizedBox(
-                              height: height * 0.015,
-                            ),
-                            Text(
-                              'Préparatrice',
-                              style: normGrey,
-                            ),
-                            SizedBox(
-                              height: height * 0.015,
-                            ),
-                            Image(
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            name,
+                            style: paragraph,
+                          ),
+                          SizedBox(
+                            height: height * 0.015,
+                          ),
+                          Text(
+                            'Préparatrice',
+                            style: normGrey,
+                          ),
+                          SizedBox(
+                            height: height * 0.015,
+                          ),
+                          /*Image(
                               height: height * 0.05,
                               image: AssetImage(
                                 'assets/images/GoldMember.png',
                               ),
-                            ),
-                          ],
-                        ),
+                            ),*/
+                        ],
                       ),
-                    ],
-                  ),
-                  Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(15),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromRGBO(31, 92, 103, 0.17),
-                          offset: Offset(3, 3),
-                          blurRadius: 3,
-                        ),
-                      ],
                     ),
-                    child: LikeButton(
-                      isLiked: false,
+                  ],
+                ),
+                AjouterContainer(),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.location_on_outlined,
                     ),
-                  )
-                ],
-              ),
+                    SizedBox(
+                      width: width * 0.02,
+                    ),
+                    Text(
+                      '$zip',
+                      style: paragraph,
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [],
+                )
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.location_on_outlined,
+          ),
+          const Spacer(),
+          Container(
+            color: const Color(0xFFEFF6F7),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.linked_camera),
+                  color: Colors.black,
+                  onPressed: () {},
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image(
+                        image: AssetImage('assets/images/PhoneGreen.png'),
+                        height: height * 0.025,
                       ),
-                      SizedBox(
-                        width: width * 0.02,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image(
+                        image: AssetImage('assets/images/EmailGreen.png'),
+                        height: height * 0.025,
                       ),
-                      Text(
-                        '$zip, Paris',
-                        style: paragraph,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image(
+                        image: AssetImage('assets/images/SendGreen.png'),
+                        height: height * 0.025,
                       ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      AjouterContainer(),
-                    ],
-                  )
-                ],
-              ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
@@ -167,175 +182,165 @@ class MembersBoxDelete extends StatelessWidget {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const Profil(),
-          ),
-        );
-      },
-      child: Container(
-        padding: EdgeInsets.all(8),
-        // height: height * 0.28,
-        width: width * 0.9,
-        decoration: const BoxDecoration(
-          color: Color.fromRGBO(255, 255, 255, 1),
-          borderRadius: BorderRadius.all(
-            Radius.circular(15),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Color.fromRGBO(31, 92, 103, 0.17),
-              offset: Offset(3, 3),
-              blurRadius: 3,
-            ),
-          ],
+    return Container(
+      padding: EdgeInsets.all(8),
+      // height: height * 0.28,
+      width: width * 0.9,
+      decoration: const BoxDecoration(
+        color: Color.fromRGBO(255, 255, 255, 1),
+        borderRadius: BorderRadius.all(
+          Radius.circular(15),
         ),
-        child: Column(
-          children: [
-            SizedBox(
-              height: height * 0.02,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Image(
-                        height: height * 0.08,
-                        fit: BoxFit.cover,
-                        image: AssetImage(
-                          image,
-                        ),
+        boxShadow: [
+          BoxShadow(
+            color: Color.fromRGBO(31, 92, 103, 0.17),
+            offset: Offset(3, 3),
+            blurRadius: 3,
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          SizedBox(
+            height: height * 0.02,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Image(
+                      height: height * 0.08,
+                      fit: BoxFit.cover,
+                      image: AssetImage(
+                        image,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              name,
-                              style: paragraph,
-                            ),
-                            SizedBox(
-                              height: height * 0.015,
-                            ),
-                            Text(
-                              'Préparatrice',
-                              style: normGrey,
-                            ),
-                            SizedBox(
-                              height: height * 0.015,
-                            ),
-                            name == 'Arnaud Roche' || name == 'Isabelle Rettig'
-                                ? Image(
-                                    height: height * 0.05,
-                                    image: AssetImage(
-                                      'assets/images/GoldMember.png',
-                                    ),
-                                  )
-                                : Container(),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(15),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromRGBO(31, 92, 103, 0.17),
-                          offset: Offset(3, 3),
-                          blurRadius: 3,
-                        ),
-                      ],
                     ),
-                    child: LikeButton(
-                      isLiked: false,
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            name,
+                            style: paragraph,
+                          ),
+                          SizedBox(
+                            height: height * 0.015,
+                          ),
+                          Text(
+                            'Préparatrice',
+                            style: normGrey,
+                          ),
+                          SizedBox(
+                            height: height * 0.015,
+                          ),
+                          name == 'Arnaud Roche' || name == 'Isabelle Rettig'
+                              ? Image(
+                                  height: height * 0.05,
+                                  image: AssetImage(
+                                    'assets/images/GoldMember.png',
+                                  ),
+                                )
+                              : Container(),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Icon(
-                        icon,
-                        // color: Colors.grey,
-                      ),
-                      SizedBox(
-                        width: width * 0.02,
-                      ),
-                      Text(
-                        text,
-                        style: paragraph,
+                  ],
+                ),
+                Container(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromRGBO(31, 92, 103, 0.17),
+                        offset: Offset(3, 3),
+                        blurRadius: 3,
                       ),
                     ],
                   ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image(
-                          image: AssetImage('assets/images/PhoneGreen.png'),
-                          height: height * 0.025,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image(
-                          image: AssetImage('assets/images/EmailGreen.png'),
-                          height: height * 0.025,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image(
-                          image: AssetImage('assets/images/SendGreen.png'),
-                          height: height * 0.025,
-                        ),
-                      ),
-                    ],
+                  child: LikeButton(
+                    isLiked: false,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            SizedBox(
-              height: height * 0.02,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      icon,
+                      // color: Colors.grey,
+                    ),
+                    SizedBox(
+                      width: width * 0.02,
+                    ),
+                    Text(
+                      text,
+                      style: paragraph,
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image(
+                        image: AssetImage('assets/images/PhoneGreen.png'),
+                        height: height * 0.025,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image(
+                        image: AssetImage('assets/images/EmailGreen.png'),
+                        height: height * 0.025,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image(
+                        image: AssetImage('assets/images/SendGreen.png'),
+                        height: height * 0.025,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            zip != 'removeDelete'
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(
-                        Icons.delete_outline,
+          ),
+          SizedBox(
+            height: height * 0.02,
+          ),
+          zip != 'removeDelete'
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(
+                      Icons.delete_outline,
+                      color: Color.fromRGBO(248, 153, 153, 1),
+                    ),
+                    Text(
+                      'Supprimer',
+                      style: TextStyle(
+                        fontSize: 12,
                         color: Color.fromRGBO(248, 153, 153, 1),
                       ),
-                      Text(
-                        'Supprimer',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Color.fromRGBO(248, 153, 153, 1),
-                        ),
-                      )
-                    ],
-                  )
-                : Container(),
-          ],
-        ),
+                    )
+                  ],
+                )
+              : Container(),
+        ],
       ),
     );
   }

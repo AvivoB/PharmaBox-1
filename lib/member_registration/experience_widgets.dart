@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmabox/general/widgets/custom_registration_textfield.dart';
 
 import '../Theme/text.dart';
-import '../Widgets/bottomsheet.dart';
 import '../Widgets/gradientText.dart';
 import '../business_logic/experiences_bloc/experiences_bloc.dart';
 import '../general/regTextFieldAjouter.dart';
 import '../model/models.dart';
+import '../pharmaJob/bottomsheet.dart';
 
 class ExperiencesContainer extends StatelessWidget {
   ExperiencesContainer({
@@ -226,6 +226,7 @@ class AjouterContainerRegExp extends StatelessWidget {
                         child: CustomRegistrationTextField(
                             label: "Année Debut",
                             textInputType: TextInputType.number,
+                          
                             controller: anneeDebutController),
                       ),
                       const SizedBox(

@@ -88,7 +88,6 @@ class LgoContainer extends StatelessWidget {
                             .add(RemoveLocalLgo(lgo: state.lgos[index]));
                       },
                       assetImage: 'assets/icons/computerIcon.png',
-
                       categoryCount: 3,
                     ),
                   ),

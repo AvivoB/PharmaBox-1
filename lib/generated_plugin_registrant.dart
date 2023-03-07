@@ -12,6 +12,7 @@ import 'package:firebase_core_web/firebase_core_web.dart';
 import 'package:firebase_storage_web/firebase_storage_web.dart';
 import 'package:flutter_google_places_sdk_web/flutter_google_places_sdk_web.dart';
 import 'package:google_sign_in_web/google_sign_in_web.dart';
+import 'package:image_cropper_for_web/image_cropper_for_web.dart';
 import 'package:image_picker_for_web/image_picker_for_web.dart';
 import 'package:package_info_plus/src/package_info_plus_web.dart';
 
@@ -25,6 +26,7 @@ void registerPlugins(Registrar registrar) {
   FirebaseStorageWeb.registerWith(registrar);
   FlutterGooglePlacesSdkWebPlugin.registerWith(registrar);
   GoogleSignInPlugin.registerWith(registrar);
+  ImageCropperPlugin.registerWith(registrar);
   ImagePickerPlugin.registerWith(registrar);
   PackageInfoPlusWebPlugin.registerWith(registrar);
   registrar.registerMessageHandler();

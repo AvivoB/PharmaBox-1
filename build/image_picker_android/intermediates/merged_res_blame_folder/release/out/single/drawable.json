@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "D:\\freelance projects\\pharmabox\\PharmaBox-1\\build\\image_picker_android\\intermediates\\merged_res\\release\\drawable\\notification_icon_background.xml",
+        "source": "D:\\.gradle\\caches\\transforms-3\\dec2858781fba9b5ae3e23e74d56a67d\\transformed\\core-1.8.0\\res\\drawable\\notification_icon_background.xml"
+    },
+    {
+        "merged": "D:\\freelance projects\\pharmabox\\PharmaBox-1\\build\\image_picker_android\\intermediates\\merged_res\\release\\drawable\\notification_tile_bg.xml",
+        "source": "D:\\.gradle\\caches\\transforms-3\\dec2858781fba9b5ae3e23e74d56a67d\\transformed\\core-1.8.0\\res\\drawable\\notification_tile_bg.xml"
+    },
+    {
+        "merged": "D:\\freelance projects\\pharmabox\\PharmaBox-1\\build\\image_picker_android\\intermediates\\merged_res\\release\\drawable\\notification_bg_low.xml",
+        "source": "D:\\.gradle\\caches\\transforms-3\\dec2858781fba9b5ae3e23e74d56a67d\\transformed\\core-1.8.0\\res\\drawable\\notification_bg_low.xml"
+    },
+    {
+        "merged": "D:\\freelance projects\\pharmabox\\PharmaBox-1\\build\\image_picker_android\\intermediates\\merged_res\\release\\drawable\\notification_bg.xml",
+        "source": "D:\\.gradle\\caches\\transforms-3\\dec2858781fba9b5ae3e23e74d56a67d\\transformed\\core-1.8.0\\res\\drawable\\notification_bg.xml"
+    }
+]

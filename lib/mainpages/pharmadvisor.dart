@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pharmabox/Theme/text.dart';
 import 'package:pharmabox/Widgets/ContainerAdvisor.dart';
-import 'package:pharmabox/mainpages/profil.dart';
 
 import '../Widgets/customAppbar.dart';
 

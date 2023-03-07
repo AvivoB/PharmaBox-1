@@ -99,12 +99,14 @@ class PharmacyRowWithoutSwitch extends StatelessWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.02,
           ),
-          Text(
-            text,
-            style: const TextStyle(
-              color: Color.fromRGBO(89, 90, 112, 1),
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
+          Flexible(
+            child: Text(
+              text,
+              style: const TextStyle(
+                color: Color.fromRGBO(89, 90, 112, 1),
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
             ),
           ),
         ],

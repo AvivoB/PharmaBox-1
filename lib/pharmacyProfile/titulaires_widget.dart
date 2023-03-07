@@ -4,10 +4,10 @@ import 'package:pharmabox/bloc/titulaires_bloc.dart';
 import 'package:pharmabox/pharmacyProfile/textfield.dart';
 
 import '../Theme/text.dart';
-import '../Widgets/bottomsheet.dart';
 import '../general/regTextFieldAjouter.dart';
 import '../member_registration/member_registration_screen.dart';
 import '../model/models.dart';
+import '../pharmaJob/bottomsheet.dart';
 
 class TitulaireContainer extends StatelessWidget {
   TitulaireContainer({

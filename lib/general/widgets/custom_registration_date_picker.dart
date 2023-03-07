@@ -47,10 +47,12 @@ class _CustomRegistrationDatePickerState
         onTap: () async {
           DateTime? pickedDate = await showDatePicker(
               context: context,
-              initialDate: DateTime.now(),
+              initialDate: DateTime(
+                DateTime.now().year - 1,
+              ),
               locale: const Locale("fr", "FR"),
-              firstDate: DateTime(1995),
-              lastDate: DateTime(2101));
+              firstDate: DateTime(1940),
+              lastDate: DateTime(DateTime.now().year));
           if (pickedDate != null) {
             widget.controller.text =
                 '${pickedDate.day}/${pickedDate.month}/${pickedDate.year}';

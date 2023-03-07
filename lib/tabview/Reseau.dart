@@ -73,20 +73,16 @@ class Reseau extends StatelessWidget {
               height: height * 0.02,
             ),
             PharmaciesBox(
-              name: 'Jimmy Azoulay',
               zip: '75016',
               pharm: "Grande Pharmacie D'Aulnay",
-              image: 'assets/images/profile 3.png',
               imagePharm: 'assets/images/pharmacy 1.png',
             ),
             SizedBox(
               height: height * 0.02,
             ),
             PharmaciesBox(
-              name: 'Valerie Balague',
               zip: '94160',
               pharm: "Citypharma",
-              image: 'assets/images/profile 2.png',
               imagePharm: 'assets/images/pharmacy 2.png',
             ),
             SizedBox(

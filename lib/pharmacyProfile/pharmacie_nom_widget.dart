@@ -25,9 +25,9 @@ class _PharmacieNomState extends State<PharmacieNom> {
             response = null;
             setState(() {});
           },
-          prefixIcon: Icon(Icons.local_hospital),
+          prefixIcon: const Icon(Icons.local_hospital),
           onRealChanged: (val) async {
-            response = await places.autocomplete(val);
+            response = await places.autocomplete(val, types: ['pharmacy']);
             setState(() {});
           },
           controller: widget.pharmacyName,
@@ -60,7 +60,8 @@ class _PharmacieNomState extends State<PharmacieNom> {
                       ),
                       title: Text(prediction.description!),
                       onTap: () {
-                        widget.pharmacyName.text = prediction.description!;
+                        widget.pharmacyName.text =
+                            prediction.structuredFormatting!.mainText;
                         response = null;
                         setState(() {});
                       },
@@ -69,7 +70,7 @@ class _PharmacieNomState extends State<PharmacieNom> {
                 ),
               )
             : const SizedBox(),
-             SizedBox(height: MediaQuery.of(context).viewInsets.bottom),
+        SizedBox(height: MediaQuery.of(context).viewInsets.bottom),
       ],
     );
   }

@@ -8,7 +8,7 @@ class Competence {
   set asset(String asset) => _asset = asset;
   set nom(String value) => _nom = value;
 
-  get enabled => _enabled;
+ bool get enabled => _enabled;
 
   set enabled(value) => _enabled = value;
 

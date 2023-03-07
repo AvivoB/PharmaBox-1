@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pharmabox/Theme/text.dart';
 import 'package:pharmabox/bloc/pharmacie_bloc.dart';
@@ -14,12 +13,7 @@ import 'package:pharmabox/pharmacyProfile/groupement_widget.dart';
 import 'package:pharmabox/pharmacyProfile/pharmacie_nom_widget.dart';
 import 'package:pharmabox/pharmacyProfile/profile_carousel.dart';
 import 'package:pharmabox/pharmacyProfile/titulaires_widget.dart';
-import 'package:pharmabox/tabview/Advisor.dart';
-import 'package:pharmabox/tabview/Reseau.dart';
-import 'package:google_maps_webservice/places.dart';
 
-import '../Widgets/customAppbar.dart';
-import '../Widgets/space_values.dart';
 import '../bloc/titulaires_bloc.dart';
 import '../firebase/image_service.dart';
 import 'pharmacie_content.dart';
@@ -36,13 +30,13 @@ class PharmacieHeader extends StatefulWidget {
 
 class _PharmacieHeaderState extends State<PharmacieHeader>
     with TickerProviderStateMixin {
-  final List<String> _tabs = ['Profil', 'Advisor', 'Réseau', 'Offres'];
+  final List<String> _tabs = ['Profil', 'Offres'];
   late TabController tabController;
   TextEditingController pharmacyName = TextEditingController();
   TextEditingController name = TextEditingController();
   TextEditingController presentation = TextEditingController();
   bool maitre = false;
-  XFile? image;
+  List<XFile?>? images;
   late List<CustomSwitch> switches;
   _showBottomSheet(BuildContext context) {
     ImageService imageService = ImageService();
@@ -54,29 +48,17 @@ class _PharmacieHeaderState extends State<PharmacieHeader>
             children: <Widget>[
               ListTile(
                 onTap: () async {
-                  image = await imageService.pickImageFromGallery();
-                  if (image != null) {
+                  images = await imageService.multiImagePicker();
+                  if (images != null) {
                     BlocProvider.of<PharmacieBloc>(context).images = [
-                      image!.path
+                      ...BlocProvider.of<PharmacieBloc>(context).images,
+                      ...images!.map((element) => element!.path).toList()
                     ];
                     setState(() {});
                   }
                 },
                 title: const Text("Gallery"),
                 leading: const Icon(Icons.image),
-              ),
-              ListTile(
-                onTap: () async {
-                  image = await imageService.pickImageFromCamera();
-                  if (image != null) {
-                    BlocProvider.of<PharmacieBloc>(context).images = [
-                      image!.path
-                    ];
-                    setState(() {});
-                  }
-                },
-                title: const Text("Camera"),
-                leading: const Icon(Icons.camera),
               ),
             ],
           );
@@ -92,10 +74,6 @@ class _PharmacieHeaderState extends State<PharmacieHeader>
     BlocProvider.of<PharmacieBloc>(context).add(GetPharmacie());
   }
 
-  final List<String> imgList = [
-    'assets/images/PharmacyMain.png',
-    'assets/images/pharmacy 2.png',
-  ];
   Pharmacie? myPharmacy;
   /////google places api usage;
 
@@ -144,68 +122,71 @@ class _PharmacieHeaderState extends State<PharmacieHeader>
                     child: BlocProvider.of<PharmacieBloc>(context)
                             .images
                             .isEmpty
-                        ? Stack(
-                            children: [
-                              Container(
-                                color: Colors.transparent,
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.all(7),
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.transparent,
-                                        border: Border.all(
-                                          color: Colors.white,
-                                          width: 2,
+                        ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Stack(
+                              children: [
+                                Container(
+                                  color: Colors.transparent,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.all(7),
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.transparent,
+                                          border: Border.all(
+                                            color: Colors.white,
+                                            width: 2,
+                                          ),
+                                        ),
+                                        child: CircleAvatar(
+                                          radius: 65,
+                                          backgroundColor: const Color.fromRGBO(
+                                            208,
+                                            209,
+                                            222,
+                                            1,
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(0.0),
+                                            child: Image.asset(
+                                              'assets/images/pharma_img.png',
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
                                         ),
                                       ),
+                                    ],
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 3,
+                                  left: 0,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      _showBottomSheet(context);
+                                    },
+                                    child: Card(
+                                      color: Colors.transparent,
+                                      elevation: 10,
                                       child: CircleAvatar(
-                                        radius: 65,
-                                        backgroundColor: const Color.fromRGBO(
-                                          208,
-                                          209,
-                                          222,
-                                          1,
-                                        ),
+                                        backgroundColor: Colors.white,
                                         child: Padding(
-                                          padding: const EdgeInsets.all(0.0),
+                                          padding: const EdgeInsets.all(
+                                            5,
+                                          ),
                                           child: Image.asset(
-                                            'assets/images/pharma_img.png',
-                                            fit: BoxFit.contain,
+                                            'assets/images/Vector.png',
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                              Positioned(
-                                bottom: 3,
-                                left: 0,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    _showBottomSheet(context);
-                                  },
-                                  child: Card(
-                                    color: Colors.transparent,
-                                    elevation: 10,
-                                    child: CircleAvatar(
-                                      backgroundColor: Colors.white,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(
-                                          5,
-                                        ),
-                                        child: Image.asset(
-                                          'assets/images/Vector.png',
-                                        ),
-                                      ),
-                                    ),
                                   ),
-                                ),
-                              )
-                            ],
+                                )
+                              ],
+                            ),
                           )
                         : MyCarouselSlider(),
                   ),
@@ -242,15 +223,13 @@ class _PharmacieHeaderState extends State<PharmacieHeader>
                         SizedBox(
                           height: height * 0.02,
                         ),
-                        ModifierGroupement(onTap: () {}),
-                        // ModifierContainer(),
-
+                        ModifierGroupement(),
                         SizedBox(
                           height: height * 0.02,
                         ),
                         CustomPharmacyTextField(
                           label: 'Presentation',
-                          maxLines: 10,
+                          maxLines: 2,
                           controller: presentation,
                         ),
                         SizedBox(
@@ -344,9 +323,9 @@ class _PharmacieHeaderState extends State<PharmacieHeader>
                           maitre: maitre,
                           myPharmacy: myPharmacy,
                         ),
-                        const AdvisorTab(),
-                        const Reseau(),
-                        OfferScreen(),
+                        // const AdvisorTab(),
+                        //const Reseau(),
+                        const OfferScreen(),
                       ],
                     ),
                   ),
@@ -472,7 +451,7 @@ class _PharmacieHeaderState extends State<PharmacieHeader>
                         SizedBox(
                           height: height * 0.02,
                         ),
-                        ModifierGroupement(onTap: () {}),
+                        ModifierGroupement(),
                         // ModifierContainer(),
 
                         SizedBox(
@@ -574,8 +553,6 @@ class _PharmacieHeaderState extends State<PharmacieHeader>
                           maitre: maitre,
                           myPharmacy: myPharmacy,
                         ),
-                        const AdvisorTab(),
-                        const Reseau(),
                         OfferScreen(),
                       ],
                     ),

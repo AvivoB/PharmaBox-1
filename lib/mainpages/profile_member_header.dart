@@ -7,18 +7,17 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:pharmabox/Theme/color.dart';
 import 'package:pharmabox/Theme/text.dart';
-import 'package:pharmabox/Widgets/customAppbar.dart';
 import 'package:pharmabox/business_logic/specialisations_bloc/specialisations_bloc.dart';
 import 'package:pharmabox/business_logic/universites_bloc/universites_bloc.dart';
 import 'package:pharmabox/business_logic/users_bloc/users_bloc_bloc.dart';
 import 'package:pharmabox/firebase/image_service.dart';
+import 'package:pharmabox/member_registration/code_postal.dart';
 
 import 'package:pharmabox/model/user_models/non_titulaire.dart';
 import 'package:pharmabox/offer/offer_screen.dart';
+import 'package:pharmabox/offer/recherches_screen.dart';
 
-import 'package:pharmabox/tabviewEditmode/AdvisorEdit.dart';
-import 'package:pharmabox/tabviewEditmode/profile_membre_content.dart';
-import 'package:pharmabox/tabviewEditmode/ReseauEdit.dart';
+import 'package:pharmabox/profile_tabs/profile_membre_content.dart';
 
 import '../business_logic/competences_bloc/competences_bloc.dart';
 import '../business_logic/experiences_bloc/experiences_bloc.dart';
@@ -27,6 +26,7 @@ import '../business_logic/lgo_bloc/lgo_bloc.dart';
 import '../constants.dart';
 import '../general/widgets/custom_registration_date_picker.dart';
 import '../general/widgets/custom_registration_textfield.dart';
+import '../member_registration/ville_widget.dart';
 import '../model/localisation.dart';
 import '../model/telephone.dart';
 
@@ -55,7 +55,7 @@ class _ProfilTabBarState extends State<ProfilTabBar>
 
   final TextEditingController addressController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  final List<String> _tabs = ['Profil', 'Advisor', 'Réseau', 'Offres'];
+  final List<String> _tabs = ['Profil', 'Recherches'];
   late List<bool> conditions;
 
   late TabController tabController;
@@ -63,7 +63,6 @@ class _ProfilTabBarState extends State<ProfilTabBar>
   ScrollController controller = ScrollController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool isLocalImage(String imageUrl) {
-    print(imageUrl);
     return imageUrl.startsWith('/data/');
   }
 
@@ -252,7 +251,10 @@ class _ProfilTabBarState extends State<ProfilTabBar>
                                               ),
                                               child: CircleAvatar(
                                                 radius: 65,
-                                                backgroundImage: isLocalImage(
+                                                backgroundImage: 
+                                                BlocProvider.of<UsersBlocBloc>(context).currentUser!.photoUrl==''?
+                                                AssetImage('assets/images/user.png'):
+                                                isLocalImage(
                                                         BlocProvider.of<
                                                                     UsersBlocBloc>(
                                                                 context)
@@ -438,20 +440,9 @@ class _ProfilTabBarState extends State<ProfilTabBar>
                           ),
                           controller: phoneController,
                         ),
-                        CustomRegistrationTextField(
-                          label: 'Code postal',
-                          prefixIcon: const Icon(
-                            Icons.location_on_outlined,
-                          ),
-                          controller: postalCodeController,
-                        ),
-                        CustomRegistrationTextField(
-                          label: 'Ville',
-                          prefixIcon: const Icon(
-                            Icons.location_city_outlined,
-                          ),
-                          controller: addressController,
-                        ),
+                        CodePostalWidget(localisationController: postalCodeController),
+                                           VilleWidget(pharmacyName: addressController),
+
                         CustomRegistrationTextField(
                           label: 'Presentation',
                           prefixIcon: const Icon(
@@ -529,9 +520,9 @@ class _ProfilTabBarState extends State<ProfilTabBar>
                                 }
                               ],
                             ),
-                            AdvisorTabEdit(),
-                            ReseauEdit(),
-                            OfferScreen(),
+                            //AdvisorTabEdit(),
+                            // ReseauEdit(),
+                            RechercheScreen(),
                           ],
                         ),
                       ),

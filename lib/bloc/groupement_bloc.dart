@@ -12,7 +12,7 @@ class GroupementBloc extends Bloc<GroupementEvent, GroupementState> {
   GroupementBloc() : super(GroupementInitial()) {
     on<GetAllGroupements>((event, emit) async {
       emit(GroupementsLoading());
-      List<Groupement> groupements = await pharmacieCalls.getGroupements();
+      List<Groupement> groupements = await pharmacieCalls.getGroupements(event.input);
       emit(GroupementsReady(groupements: groupements));
     });
   }

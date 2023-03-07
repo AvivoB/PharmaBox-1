@@ -115,7 +115,6 @@ class Pharmacie {
       List<dynamic> titulairesJson = json['titulaires'];
       titulaires = titulairesJson.map((e) => e.toString()).toList();
     }
-    print(images[0]);
     List<WorkHours> workHours = WorkHours.fromJson(workHoursJson);
     List<Lgo> lgos = Lgo.fromJson(lgosJson);
     List<dynamic> tendancesJson = json['tendances'];

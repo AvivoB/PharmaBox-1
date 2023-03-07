@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:pharmabox/Theme/text.dart';
 import 'package:pharmabox/Widgets/membersBox.dart';
 
-import '../Widgets/bottomsheet.dart';
 import '../general/widgets/custom_registration_textfield.dart';
 import '../general/widgets/custom_switch_widget.dart';
 import '../general/widgets/custom_switch_with_suffix_and_text.dart';
+import '../pharmaJob/non_titu_bottomsheet.dart';
 
 class Configuration extends StatelessWidget {
   const Configuration({Key? key}) : super(key: key);

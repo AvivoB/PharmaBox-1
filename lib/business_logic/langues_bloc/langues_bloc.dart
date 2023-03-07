@@ -21,8 +21,12 @@ class LanguesBloc extends Bloc<LanguesEvent, LanguesState> {
       emit(LanguesReady(_langues));
     });
     on<RemoveLocalLangue>((event, emit) {
-      _langues.remove(event._langue);
-      emit(LanguesReady(langues));
+      _langues.removeWhere((element) {
+        print(element.nom);
+        print(element.nom == event._langue);
+        return element.nom == event._langue;
+      });
+      emit(LanguesReady(_langues));
     });
     on<AddRemoteLangue>((event, emit) async {
       _langues = [..._langues, event._langue];

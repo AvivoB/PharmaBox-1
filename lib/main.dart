@@ -4,10 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:pharmabox/Home/HomePage.dart';
+import 'package:pharmabox/Onboarding/SignUp.dart';
+import 'package:pharmabox/bloc/mainmap_bloc.dart';
+import 'package:pharmabox/firebase/main_map_service.dart';
+import 'package:pharmabox/mainpages/HomePage.dart';
 import 'package:pharmabox/Onboarding/Login.dart';
 import 'package:pharmabox/bloc/groupement_bloc.dart';
+import 'package:pharmabox/bloc/membres_bloc.dart';
+import 'package:pharmabox/bloc/offres_bloc.dart';
 import 'package:pharmabox/bloc/pharmacie_bloc.dart';
+import 'package:pharmabox/bloc/pharmacierecherche_bloc.dart';
+import 'package:pharmabox/bloc/recherche_bloc.dart';
 import 'package:pharmabox/bloc/titulaires_bloc.dart';
 import 'package:pharmabox/business_logic/competences_bloc/competences_bloc.dart';
 import 'package:pharmabox/business_logic/lgo_bloc/lgo_bloc.dart';
@@ -29,7 +36,6 @@ Future main() async {
     Permission.location,
     Permission.storage,
   ].request();
-
   runApp(const MyApp());
 }
 
@@ -91,6 +97,21 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => GroupementBloc()),
         BlocProvider(
           create: (_) => TitulaireBloc(titulaires: []),
+        ),
+        BlocProvider(
+          create: (_) => OffresBloc(),
+        ),
+        BlocProvider(
+          create: (_) => RechercheBloc(),
+        ),
+        BlocProvider(
+          create: (_) => MembresBloc(),
+        ),
+        BlocProvider(
+          create: (_) => PharmacierechercheBloc(),
+        ),
+        BlocProvider(
+          create: (_) => MainmapBloc(),
         )
       ],
       child: const HomeApp(),
@@ -120,7 +141,7 @@ class _HomeAppState extends State<HomeApp> {
       builder: (context, orientation, deviceType) => GetMaterialApp(
         navigatorKey: navigatorKey,
         localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
-        supportedLocales: const [Locale('en'), Locale('fr')],
+        //supportedLocales: const [Locale('en'), Locale('fr')],
         locale: TranslationService.locale,
         fallbackLocale: TranslationService.fallbackLocale,
         translations: TranslationService(),
@@ -137,7 +158,7 @@ class _HomeAppState extends State<HomeApp> {
           if (state is UserAdded) {
             return HomePage();
           } else {
-            return const LogIn();
+            return const SignUp();
           }
         }),
       ),

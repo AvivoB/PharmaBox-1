@@ -2,7 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:pharmabox/Home/HomePage.dart';
+import 'package:pharmabox/mainpages/HomePage.dart';
 import 'package:pharmabox/Onboarding/SignUp.dart';
 import 'package:pharmabox/Onboarding/forgotPass.dart';
 import 'package:pharmabox/Theme/text.dart';

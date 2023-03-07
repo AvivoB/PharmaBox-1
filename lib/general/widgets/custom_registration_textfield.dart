@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 class CustomRegistrationTextField extends StatefulWidget {
   final String label;
   final Icon? prefixIcon;
-  int maxLines;
+  int? maxLines;
   int? maxLength;
   bool obsecureText;
   bool readOnly;
   final TextEditingController controller;
+  TextInputAction? textInputaction;
   final bool showSuffix;
   int padding;
   TextInputType? textInputType;
@@ -16,6 +17,7 @@ class CustomRegistrationTextField extends StatefulWidget {
       {super.key,
       required this.label,
       this.prefixIcon,
+      this.textInputaction,
       this.readOnly = false,
       required this.controller,
       this.maxLines = 1,
@@ -50,7 +52,9 @@ class _CustomRegistrationTextFieldState
         validator: (value) => value!.isEmpty ? "Entrez une valeur" : null,
         maxLength: widget.maxLength,
         keyboardType: widget.textInputType,
-        textInputAction: TextInputAction.next,
+        textInputAction: widget.textInputaction != null
+            ? widget.textInputaction
+            : TextInputAction.next,
         obscureText: widget.obsecureText
             ? showText
                 ? true

@@ -2,7 +2,8 @@ part of 'offer_screen.dart';
 
 class CustomCheckBox extends StatefulWidget {
   String icon;
-  CustomCheckBox({super.key, required this.icon});
+  VoidCallback onClick;
+  CustomCheckBox({super.key, required this.icon,required this.onClick});
 
   @override
   State<CustomCheckBox> createState() => _CustomCheckBoxState();
@@ -18,16 +19,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
         right: 30,
       ),
       child: GestureDetector(
-        onTap: () {
-          if (widget.icon.isEmpty) {
-            widget.icon = 'check';
-          } else if (widget.icon == 'check') {
-            widget.icon = 'cross';
-          } else {
-            widget.icon = '';
-          }
-          setState(() {});
-        },
+        onTap: widget.onClick,
         child: Container(
           // alignment: Alignment.center,
           decoration: BoxDecoration(

@@ -1,23 +1,19 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:pharmabox/bloc/groupement_bloc.dart';
 import 'package:pharmabox/bloc/pharmacie_bloc.dart';
 import 'package:pharmabox/bloc/titulaires_bloc.dart';
 import 'package:pharmabox/member_registration/lgo_widgets.dart';
 import 'package:pharmabox/model/user_models/pharmacie.dart';
 import 'package:pharmabox/model/work_hours.dart';
 import 'package:pharmabox/pharmacyProfile/gradientSlider.dart';
+import 'package:pharmabox/pharmacyProfile/locali_final.dart';
 import 'package:pharmabox/pharmacyProfile/localisation_widget.dart';
 import 'package:pharmabox/pharmacyProfile/pharmacyrow.dart';
 import 'package:pharmabox/pharmacyProfile/textfield.dart';
-import 'package:pharmabox/pharmacyProfile/time_picker.dart';
 import 'package:sizer/sizer.dart';
 
-import '../Home/map.dart';
 import '../Theme/text.dart';
 import '../Widgets/space_values.dart';
 import '../business_logic/lgo_bloc/lgo_bloc.dart';
@@ -60,45 +56,41 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
     WorkHours(
       startDate: const TimeOfDay(hour: 0, minute: 0),
       endDate: const TimeOfDay(hour: 0, minute: 0),
-            open: false,
-
+      open: false,
     ),
     WorkHours(
       startDate: const TimeOfDay(hour: 0, minute: 0),
       endDate: const TimeOfDay(hour: 0, minute: 0),
-            open: false,
-
+      open: false,
     ),
     WorkHours(
       startDate: const TimeOfDay(hour: 0, minute: 0),
       endDate: const TimeOfDay(hour: 0, minute: 0),
-            open: false,
-
+      open: false,
     ),
     WorkHours(
       startDate: const TimeOfDay(hour: 0, minute: 0),
       endDate: const TimeOfDay(hour: 0, minute: 0),
-            open: false,
-
+      open: false,
     ),
     WorkHours(
       startDate: const TimeOfDay(hour: 0, minute: 0),
       endDate: const TimeOfDay(hour: 0, minute: 0),
-            open: false,
-
+      open: false,
     ),
     WorkHours(
       startDate: const TimeOfDay(hour: 0, minute: 0),
       endDate: const TimeOfDay(hour: 0, minute: 0),
-            open: false,
-
+      open: false,
     ),
   ];
+  late AnimationController controller;
+  GoogleMapController? mapController;
+  late Marker marker;
 
   late GlobalKey<FormState> formKey11;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     formKey11 = GlobalKey<FormState>();
     if (widget.myPharmacy != null) {
@@ -150,6 +142,15 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
       ac = widget.myPharmacy?.airCond ?? false;
       heating = widget.myPharmacy?.heating ?? false;
       vigil = widget.myPharmacy?.vigile ?? false;
+      controller = AnimationController(
+        duration: const Duration(milliseconds: 500),
+        vsync: this,
+      );
+
+      marker = Marker(
+        markerId: const MarkerId("localisation"),
+        position: LatLng(46, 2),
+      );
     }
   }
 
@@ -421,7 +422,6 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                   height: height * 0.02,
                 ),
                 Container(
-                  height: height * 0.3,
                   width: width * 0.9,
                   decoration: const BoxDecoration(
                     color: Colors.white,
@@ -429,10 +429,31 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                       Radius.circular(20),
                     ),
                   ),
-                  child: LocalisationWidget(
-                    addressController: addressController,
+                  child: MainMapProfile(
+                    localisationController: addressController,
+                    mapController: mapController,
                   ),
-                )
+                ),
+                const SizedBox(height: 10,),
+                Expanded(
+                  child: GoogleMap(
+                      onMapCreated: (controller) {
+                        mapController = controller;
+                      },
+                      compassEnabled: true,
+                      zoomControlsEnabled: false,
+                      mapType: MapType.normal,
+                      markers: {
+                        Marker(
+                          markerId: const MarkerId("localisation"),
+                          position: LatLng(46, 2),
+                        ),
+                      },
+                      initialCameraPosition: CameraPosition(
+                        target: LatLng(46, 2),
+                        zoom: 12.0,
+                      )),
+                ),
               ]),
             ),
             SizedBox(
@@ -1025,8 +1046,6 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                 print("pressed");
                 if (widget.formKey.currentState!.validate()) {
                   if (formKey11.currentState!.validate()) {
-                    print(BlocProvider.of<LgoBloc>(context).state.lgos[0]);
-                    print(BlocProvider.of<TitulaireBloc>(context).titulaires);
                     Pharmacie pharmacie = Pharmacie(
                         email: emailController.text,
                         workHours: work_hours,
@@ -1183,11 +1202,8 @@ class CalenderPharmacy extends StatelessWidget {
                     ),
                     child: Padding(
                         padding: const EdgeInsets.only(left: 10.0),
-                        child: 
-
-                            TimeRangePicker(workHours: workHours[index])),
+                        child: TimeRangePicker(workHours: workHours[index])),
                   ),
-                 
                 ])));
   }
 }

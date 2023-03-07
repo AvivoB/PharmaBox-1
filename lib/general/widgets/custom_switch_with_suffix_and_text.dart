@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../mainpages/profil.dart';
+import '../../tabview/profil.dart';
 
 class CustomSwitchWithIconAndText extends StatelessWidget {
   final String text;

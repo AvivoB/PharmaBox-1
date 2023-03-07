@@ -9,8 +9,10 @@ class JobBox extends StatefulWidget {
   var pharm;
   var imagePharm;
   var zip;
+  final String jobName;
   JobBox({
     Key? key,
+    required this.jobName,
     this.pharm,
     this.zip,
     this.imagePharm,
@@ -26,7 +28,7 @@ class _JobBoxState extends State<JobBox> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Container(
-      height: height * 0.5,
+      height: height * 0.45,
       width: width * 0.9,
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -47,7 +49,7 @@ class _JobBoxState extends State<JobBox> {
             height: height * 0.01,
           ),
           Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             height: height * 0.18,
             width: width * 0.82,
             decoration: BoxDecoration(
@@ -56,12 +58,14 @@ class _JobBoxState extends State<JobBox> {
               ),
               color: Colors.black,
               image: DecorationImage(
-                image: AssetImage(widget.imagePharm),
+                image: widget.imagePharm.startsWith('assets/')
+                    ? AssetImage(widget.imagePharm)
+                    : NetworkImage(widget.imagePharm) as ImageProvider,
                 // 'assets/images/pharmacy 1.png'
                 fit: BoxFit.cover,
               ),
             ),
-            child: Row(
+            /*Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -82,6 +86,25 @@ class _JobBoxState extends State<JobBox> {
                 ),
                 LikeButton(isLiked: false),
               ],
+            ),*/
+          ),
+          SizedBox(
+            height: height * 0.01,
+          ),
+          SizedBox(
+            width: width * 0.8,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Flexible(
+                    child: Text(
+                      widget.pharm,
+                      style: heading,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           SizedBox(
@@ -91,56 +114,23 @@ class _JobBoxState extends State<JobBox> {
             width: width * 0.8,
             child: Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                const Icon(
+                  Icons.location_on_outlined,
+                ),
+                SizedBox(
+                  width: width * 0.02,
+                ),
+                Flexible(
                   child: Text(
-                    widget.pharm,
-                    style: heading,
+                    '${widget.zip}',
+                    // overflow: TextOverflow.ellipsis,
+                    style: paragraph,
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(
-            height: height * 0.01,
-          ),
-          SizedBox(
-            width: width * 0.8,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.location_on_outlined,
-                    ),
-                    SizedBox(
-                      width: width * 0.02,
-                    ),
-                    Text(
-                      '${widget.zip}, Paris',
-                      style: paragraph,
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Image(
-                        height: height * 0.04,
-                        image: AssetImage('assets/images/CroppedBall.png')),
-                    SizedBox(
-                      width: width * 0.02,
-                    ),
-                    Text(
-                      'Leader Santé',
-                      style: paragraph,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
+          /*SizedBox(
             height: height * 0.01,
           ),
           SizedBox(
@@ -155,39 +145,38 @@ class _JobBoxState extends State<JobBox> {
                 )
               ],
             ),
-          ),
+          ),*/
           SizedBox(
             height: height * 0.01,
           ),
-          SizedBox(
-            width: width * 0.8,
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0),
             child: Row(
               children: [
+                Image(
+                  height: height * 0.03,
+                  image: const AssetImage('assets/images/front 3.png'),
+                  fit: BoxFit.cover,
+                ),
+                SizedBox(width: width * 0.02),
                 Text(
-                  'Offre',
-                  style: heading,
+                  widget.jobName,
+                  textAlign: TextAlign.left,
+                  style: paragraph,
                 ),
               ],
             ),
           ),
-          SizedBox(
-            width: width * 0.8,
+          const Spacer(),
+          Container(
+            color: const Color(0xFFEFF6F7),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Image(
-                      height: height * 0.03,
-                      image: const AssetImage('assets/images/front 3.png'),
-                      fit: BoxFit.cover,
-                    ),
-                    SizedBox(width: width * 0.02),
-                    Text(
-                      'Pharmacien adjoint',
-                      style: paragraph,
-                    ),
-                  ],
+                IconButton(
+                  icon: Icon(Icons.linked_camera),
+                  color: Colors.black,
+                  onPressed: () {},
                 ),
                 Row(
                   children: [
@@ -213,10 +202,10 @@ class _JobBoxState extends State<JobBox> {
                       ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
-          ),
+          )
         ],
       ),
     );

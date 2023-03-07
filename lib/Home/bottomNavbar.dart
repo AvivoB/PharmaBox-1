@@ -7,6 +7,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pharmabox/Home/pharmajob.dart';
+import 'package:pharmabox/Home/pharmajob_non_titu.dart';
 import 'package:pharmabox/Onboarding/SignUp.dart';
 import 'package:pharmabox/Theme/color.dart';
 import 'package:pharmabox/Theme/text.dart';
@@ -20,12 +21,13 @@ import 'package:pharmabox/business_logic/lgo_bloc/lgo_bloc.dart';
 import 'package:pharmabox/business_logic/specialisations_bloc/specialisations_bloc.dart';
 import 'package:pharmabox/business_logic/universites_bloc/universites_bloc.dart';
 import 'package:pharmabox/configurations/mainConfig.dart';
+import 'package:pharmabox/pharmaJob/pharmaJobNav_non_titu.dart';
 import 'package:pharmabox/mainpages/profile_member_header.dart';
 import 'package:pharmabox/mainpages/explorer.dart';
 import 'package:pharmabox/pharmacyProfile/pharmacie_content.dart';
 import 'package:pharmabox/pharmacyProfile/pharmacie_list.dart';
 import 'package:pharmabox/mainpages/pharmadvisor.dart';
-import 'package:pharmabox/mainpages/pharmajobNav.dart';
+import 'package:pharmabox/pharmaJob/pharmajobNav.dart';
 import 'package:pharmabox/mainpages/reseau.dart';
 import 'package:pharmabox/pharmacyProfile/pharmcie_header.dart';
 
@@ -44,14 +46,19 @@ class BottomNavbar extends StatefulWidget {
 
 class _BottomNavbarState extends State<BottomNavbar> {
   bool isMember = true;
-  List tabs = [
-    Explorer(),
-    PharmaJobNav(),
-    PharmAdvisor(),
-    ReseauTab(),
-    ProfilTabBar(),
-  ];
+  List tabs = [const Explorer(),const PharmaJob(),const ProfilTabBar()];
   var color = const Color.fromRGBO(89, 90, 113, 1);
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final user = BlocProvider.of<UsersBlocBloc>(context).currentUser;
+    if (user != null) {
+      if (user.poste != UserType.tutor) {
+        tabs = const [Explorer(), PharmaJobNonTitu(), ProfilTabBar()];
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +67,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
         if (state is UserAdded) {
           return Scaffold(
             backgroundColor: Colors.white,
-            appBar: appBarCustom(),
+            //appBar: appBarCustom(),
             body: tabs[widget.startIndex],
             bottomNavigationBar: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
@@ -69,7 +76,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                 setState(() {
                   widget.startIndex = index;
                 });
-                if (index == 4) {
+                if (index == 2) {
                   showModalBottomSheet(
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.vertical(
@@ -93,7 +100,6 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                     .add(GetPharmacie());
                                 setState(() {
                                   tabs.removeLast();
-
                                   tabs.add(PharmacieHeader());
                                   Navigator.pop(context);
                                 });
@@ -229,11 +235,13 @@ class _BottomNavbarState extends State<BottomNavbar> {
                   );
                 }
                 if (index == 1) {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     PageTransition(
                       type: PageTransitionType.topToBottom,
-                      child: PharmaJob(),
+                      child: state.user!.poste == UserType.tutor
+                          ? PharmaJob()
+                          : PharmaJobNonTitu(),
                       isIos: true,
                       duration: Duration(milliseconds: 400),
                     ),
@@ -268,7 +276,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                   ),
                   label: 'PharmaJob',
                 ),
-                BottomNavigationBarItem(
+                /* BottomNavigationBarItem(
                   activeIcon: Image(
                     height: MediaQuery.of(context).size.height * 0.035,
                     image:
@@ -290,7 +298,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                     image: AssetImage('assets/images/person.png'),
                   ),
                   label: 'Réseau',
-                ),
+                ),*/
                 BottomNavigationBarItem(
                   activeIcon: Image(
                     height: MediaQuery.of(context).size.height * 0.035,

@@ -28,6 +28,7 @@ class _LocalisationWidgetState extends State<LocalisationWidget>
       duration: const Duration(milliseconds: 500),
       vsync: this,
     );
+  
     marker = maps.Marker(
       markerId: const maps.MarkerId("localisation"),
       position: maps.LatLng(local.lat, local.lng),
@@ -75,7 +76,6 @@ class _LocalisationWidgetState extends State<LocalisationWidget>
                 widget.addressController.text = p.description!;
 
                 local = await getLocationFromAddress(p.description!);
-                print("yes");
                 controller.forward().then((_) {
                   mapController!.animateCamera(
                       maps.CameraUpdate.newLatLng(

@@ -1,11 +1,14 @@
 import 'package:flutter/Material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharmabox/member_registration/languages.dart';
 
 import '../Theme/text.dart';
+import '../Widgets/gradientText.dart';
 import '../business_logic/langues_bloc/langues_bloc.dart';
+import '../general/regTextFieldAjouter.dart';
 import '../general/widgets/custom_slider_with_gradient.dart';
 import '../model/models.dart';
-import 'member_registration_screen.dart';
+import '../pharmaJob/bottomsheet.dart';
 
 class LanguesContainer extends StatelessWidget {
   LanguesContainer({
@@ -18,10 +21,6 @@ class LanguesContainer extends StatelessWidget {
   final double height;
   late LanguesBloc languesBloc;
   final TextEditingController controller = TextEditingController();
-  void addLangue(BuildContext context) {
-    BlocProvider.of<LanguesBloc>(context)
-        .add(AddLocalLangue(langue: Langue(nom: controller.text, niveau: 0)));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +59,6 @@ class LanguesContainer extends StatelessWidget {
               ),
               AjouterContainerReg(
                 label: 'Langue',
-                onTap: addLangue,
                 controller: controller,
                 image: 'assets/icons/worldIcon.png',
               ),
@@ -84,7 +82,8 @@ class LanguesContainer extends StatelessWidget {
                       parent: state.langues[index],
                       onTap: () {
                         BlocProvider.of<LanguesBloc>(context).add(
-                            RemoveLocalLangue(langue: state.langues[index]));
+                            RemoveLocalLangue(
+                                langue: state.langues[index].nom));
                       },
                       assetImage: 'assets/icons/worldIcon.png',
                       categoryCount: 3,
@@ -96,6 +95,124 @@ class LanguesContainer extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class AjouterContainerReg extends StatefulWidget {
+  var label;
+  var image;
+  AjouterContainerReg({
+    Key? key,
+    this.image,
+    this.label,
+    required this.controller,
+  }) : super(key: key);
+
+  final TextEditingController controller;
+
+  @override
+  State<AjouterContainerReg> createState() => _AjouterContainerRegState();
+}
+
+class _AjouterContainerRegState extends State<AjouterContainerReg> {
+  final GlobalKey<FormState> globalKey = GlobalKey();
+
+  List<String> _selectedLanguages = [];
+  void _showLanguageDialog(BuildContext context) async {
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return BlocBuilder<LanguesBloc, LanguesState>(
+          builder: (context, state) {
+            _selectedLanguages.clear();
+            for (Langue langue in state.langues) {
+              _selectedLanguages=[..._selectedLanguages,langue.nom];
+            }
+            return AlertDialog(
+              title: const Text('Séléctionner vos langues'),
+              content: SizedBox(
+                height: 400,
+                width: 300,
+                child: ListView(
+                  children: [
+                    for (var language in Languages.defaultLanguages)
+                      CheckboxListTile(
+                        title: Text(language.name),
+                        value: _selectedLanguages.contains(language.name),
+                        onChanged: (value) {
+                          if (value!) {
+                            //add
+                            BlocProvider.of<LanguesBloc>(context).add(
+                                AddLocalLangue(
+                                    langue:
+                                        Langue(nom: language.name, niveau: 0)));
+                          } else {
+                            _selectedLanguages.remove(language.name);
+                            BlocProvider.of<LanguesBloc>(context)
+                                .add(RemoveLocalLangue(langue: language.name));
+                            //remove
+                          }
+                        },
+                      ),
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context, _selectedLanguages);
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+    return InkWell(
+      onTap: () {
+        _showLanguageDialog(context);
+      },
+      child: Container(
+          height: height * 0.035,
+          width: width * 0.18,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Color.fromRGBO(31, 92, 103, 0.17),
+                offset: Offset(3, 3),
+                blurRadius: 3,
+              ),
+            ],
+            borderRadius: BorderRadius.all(
+              Radius.circular(8),
+            ),
+          ),
+          child: const Center(
+              child: GradientText(
+            'Ajouter',
+            gradient: LinearGradient(
+              colors: [
+                Color.fromRGBO(124, 237, 172, 1),
+                Color.fromRGBO(66, 210, 255, 1),
+              ],
+            ),
+          ))),
     );
   }
 }

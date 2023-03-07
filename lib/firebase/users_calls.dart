@@ -11,33 +11,36 @@ class UserService {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   FirebaseStorage firebaseStorage = FirebaseStorage.instance;
   Future creerNonTitulaire(NonTitulaire user) async {
-    try {
-      User? authUser = firebaseAuth.currentUser!;
-      print(user.photoUrl);
-      final storageRef = FirebaseStorage.instance.ref();
-      final profileRef = storageRef.child("users/profile/${authUser.uid}");
+    User? authUser = firebaseAuth.currentUser!;
+    print(user.photoUrl);
+    if(user.photoUrl!= ''){
+  final storageRef = FirebaseStorage.instance.ref();
+    final profileRef = storageRef
+        .child('profile_picture')
+        .child(authUser.uid)
+        .child('${authUser.uid}.jpg');
+    await profileRef.getDownloadURL().then((value) async {
+      await profileRef.delete();
+      await profileRef.putFile(File(user.photoUrl));
       await profileRef.getDownloadURL().then((value) async {
-        await profileRef.delete();
-        await profileRef.putFile(File(user.photoUrl));
-        await profileRef.getDownloadURL().then((value) async {
-          user.photoUrl = value;
-        });
-      }).catchError((error) async {
-        await profileRef.putFile(File(user.photoUrl));
-        await profileRef.getDownloadURL().then((value) async {
-          user.photoUrl = value;
-        });
+        print("first error");
+        user.photoUrl = value;
       });
+    }).catchError((error) async {
+      print("second error");
 
-      await _firebaseFirestore
-          .collection("users")
-          .doc(authUser.uid)
-          .set(user.toJson());
-      print("success");
-      print("hello");
-    } catch (e) {
-      debugPrint(e.toString());
+      await profileRef.putFile(File(user.photoUrl)).then(
+          (p0) async => await profileRef.getDownloadURL().then((value) async {
+                user.photoUrl = value;
+              }));
+    });
     }
+   
+
+    await _firebaseFirestore
+        .collection("users")
+        .doc(authUser.uid)
+        .set(user.toJson());
   }
 
   Future getCurrentUser() async {

@@ -202,5 +202,5 @@ class NonTitulaire extends Equatable {
 
   @override
   // TODO: implement props
-  List<Object?> get props => [nom];
+  List<Object?> get props => [email];
 }
