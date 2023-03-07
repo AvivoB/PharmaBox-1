@@ -25,12 +25,13 @@ class OffresBloc extends Bloc<OffresEvent, OffresState> {
           await offreService.getFilteredOffres(event.recherche);
       emit(FilteredOffresReady(offres: offres));
     });
-     on<GetExplorerOffres>((event, emit) async {
+    on<GetExplorerOffres>((event, emit) async {
       List<OffreCard> offres =
           await offreService.getExplorerOffres(event.recherche);
+      print(offres.length);
       emit(FilteredOffresReady(offres: offres));
     });
-    
+
     on<RechercheLibre>((event, emit) async {
       List<OffreCard> offres = await offreService.getLibresOffres(event.input);
       emit(FilteredOffresReady(offres: offres));

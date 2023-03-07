@@ -56,12 +56,13 @@ class OffreService {
     }
     return results;
   }
+
   Future getExplorerOffres(places.LatLng localisation) async {
-     List<Offre> membres = await _firebaseFirestore
+    List<Offre> membres = await _firebaseFirestore
         .collection('offres')
         .get()
-        .then((value) =>
-            value.docs.map((e) => Offre.fromMap(e.data())).toList());
+        .then(
+            (value) => value.docs.map((e) => Offre.fromMap(e.data())).toList());
     List<Offre> res = [];
     for (Offre membre in membres) {
       places.LatLng dest =
@@ -70,7 +71,6 @@ class OffreService {
         res.add(membre);
       }
     }
-    print(res.length);
     List<OffreCard> results = [];
     for (Offre offerDoc in res) {
       String pharmacyId = offerDoc.pharmacieId;
@@ -85,10 +85,10 @@ class OffreService {
     }
     return results;
   }
+
   Future getLibresOffres(String input) async {
     List<Offre> offres = await _firebaseFirestore
         .collection("offres")
-//      .where('nom', isLessThanOrEqualTo: input)
         .where('poste', isEqualTo: input)
         .get()
         .then(

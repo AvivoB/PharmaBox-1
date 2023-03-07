@@ -25,5 +25,5 @@ class GetExplorerOffres extends OffresEvent {
 
 class RechercheLibre extends OffresEvent {
   final String input;
-  RechercheLibre({required this.input});
+  const RechercheLibre({required this.input});
 }

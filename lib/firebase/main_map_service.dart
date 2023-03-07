@@ -14,8 +14,7 @@ class MainMapService {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-
-  Future<List<MarkerModel>> getCloseLocationMmebres(String address) async{
+  Future<List<MarkerModel>> getCloseLocationMmebres(String address) async {
     place.LatLng location = await MapUtils.getLocationFromAddress(address);
     List<place.LatLng> membres = await Future.wait(await _firebaseFirestore
         .collection('users')
@@ -30,7 +29,7 @@ class MainMapService {
         .where(
             (element) => (MapUtils.computeDistance(location, element) < 50000))
         .toList();
-        List<MarkerModel> resultList = [];
+    List<MarkerModel> resultList = [];
     [membres].expand((element) => element).forEach((model) {
       if (!resultList.any((existing) =>
           (existing.lat == model.lat) && (existing.lng == model.lng))) {
@@ -45,7 +44,8 @@ class MainMapService {
     });
     return resultList;
   }
-  Future<List<MarkerModel>> getCloseOffresResults(String address) async{
+
+  Future<List<MarkerModel>> getCloseOffresResults(String address) async {
     place.LatLng location = await MapUtils.getLocationFromAddress(address);
     List<place.LatLng> offres = await Future.wait(await _firebaseFirestore
         .collection('offres')
@@ -59,7 +59,7 @@ class MainMapService {
         .where(
             (element) => (MapUtils.computeDistance(location, element) < 50000))
         .toList();
-        List<MarkerModel> resultList = [];
+    List<MarkerModel> resultList = [];
     [offres].expand((element) => element).forEach((model) {
       if (!resultList.any((existing) =>
           (existing.lat == model.lat) && (existing.lng == model.lng))) {
@@ -74,6 +74,7 @@ class MainMapService {
     });
     return resultList;
   }
+
   Future<List<MarkerModel>> getCloseLocationResults(String address) async {
     place.LatLng location = await MapUtils.getLocationFromAddress(address);
     List<place.LatLng> membres = await Future.wait(await _firebaseFirestore
@@ -129,7 +130,6 @@ class MainMapService {
         md.count = md.count + 1;
       }
     });
-    print(resultList);
     return resultList;
   }
 }

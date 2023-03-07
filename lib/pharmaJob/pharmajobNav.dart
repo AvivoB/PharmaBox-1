@@ -120,7 +120,7 @@ class PharmaJobNav extends StatelessWidget {
                                 type: PageTransitionType.topToBottom,
                                 child: const PharmaJob(),
                                 isIos: true,
-                                duration:const Duration(milliseconds: 400),
+                                duration: const Duration(milliseconds: 400),
                               ),
                             );
                           },
@@ -168,6 +168,7 @@ class PharmaJobNav extends StatelessWidget {
                                 );
                               },
                               child: MembersBox(
+                                poste: state.membres[index].poste,
                                 image: state.membres[index].photoUrl != ''
                                     ? state.membres[index].photoUrl
                                     : 'assets/images/user.png',

@@ -36,8 +36,8 @@ class _ExplorerState extends State<Explorer> {
   bool jobs = true;
   int nbResults = 0;
   TextEditingController localisationController = TextEditingController();
-gmaps.GoogleMapController? googleMapController;  
-@override
+  gmaps.GoogleMapController? googleMapController;
+  @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
@@ -83,7 +83,7 @@ gmaps.GoogleMapController? googleMapController;
                     SizedBox(
                       height: height * 0.01,
                     ),
-                   // mapWidget,
+                    // mapWidget,
                     ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Container(
@@ -203,6 +203,7 @@ gmaps.GoogleMapController? googleMapController;
                                                   );
                                                 },
                                                 child: MembersBox(
+                                                  poste: state.membres[index].poste,
                                                   image: state.membres[index]
                                                               .photoUrl !=
                                                           ''
@@ -214,6 +215,7 @@ gmaps.GoogleMapController? googleMapController;
                                                           ' ' +
                                                           state.membres[index]
                                                               .prenom,
+
                                                   zip: state
                                                           .membres[index]
                                                           .localisation
@@ -319,7 +321,6 @@ gmaps.GoogleMapController? googleMapController;
                                   builder: (context, state) {
                                 if (state is FilteredOffresReady) {
                                   nbResults += state.offres.length;
-
                                   return InkWell(
                                     onTap: () {
                                       setState(() {

@@ -13,7 +13,8 @@ class MembersBox extends StatelessWidget {
   var image;
   var name;
   var zip;
-  MembersBox({Key? key, this.image, this.name, this.zip}) : super(key: key);
+  var poste;
+  MembersBox({Key? key, this.image, this.name, this.zip,required this.poste}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +70,7 @@ class MembersBox extends StatelessWidget {
                             height: height * 0.015,
                           ),
                           Text(
-                            'Préparatrice',
+                            poste,
                             style: normGrey,
                           ),
                           SizedBox(
