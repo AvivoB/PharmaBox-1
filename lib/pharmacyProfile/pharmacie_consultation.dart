@@ -188,7 +188,7 @@ class _PharmacyProfileState extends State<PharmacyProfile>
                                                                   .brightness ==
                                                               Brightness.dark
                                                           ? Colors.white
-                                                          : Colors.black)
+                                                          : Color(0xfF161730))
                                                       .withOpacity(
                                                           _current == entry.key
                                                               ? 0.9
@@ -385,7 +385,7 @@ class _PharmacyProfileState extends State<PharmacyProfile>
                 backgroundColor: Colors.transparent,
                 elevation: 0,
                 bottom: TabBar(
-                  labelColor: Colors.black,
+                  labelColor: Color(0xfF161730),
                   labelStyle: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: kSelectedIndicatorColor,

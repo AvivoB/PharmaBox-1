@@ -21,7 +21,7 @@ class ChatAppBar extends StatelessWidget {
             children: <Widget>[
               CustomRoundedIconButton(
                 backgroundColor: Colors.white,
-                iconColor: Colors.black,
+                iconColor: Color(0xfF161730),
                 onPressed: () {},
                 icon: const Icon(Icons.arrow_back_ios_new_sharp),
               ),

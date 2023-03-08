@@ -353,7 +353,7 @@ class _OffreWidgetState extends State<OffreWidget> {
                                         textInputType: TextInputType.number,
                                         prefixIcon: const Icon(
                                           Icons.map_outlined,
-                                          color: Colors.black,
+                                          color: Color(0xfF161730),
                                         ),
                                         controller: routeController,
                                       ),
@@ -450,7 +450,7 @@ class _OffreWidgetState extends State<OffreWidget> {
                                         label: 'Début du contrat',
                                         prefixIcon: const Icon(
                                           Icons.calendar_today_outlined,
-                                          color: Colors.black,
+                                          color: Color(0xfF161730),
                                         ),
                                         controller: dateController,
                                       ),
@@ -462,7 +462,7 @@ class _OffreWidgetState extends State<OffreWidget> {
                                         label: 'Durée',
                                         prefixIcon: const Icon(
                                           Icons.calendar_month_outlined,
-                                          color: Colors.black,
+                                          color: Color(0xfF161730),
                                         ),
                                         controller: durationController,
                                       ),
@@ -477,7 +477,7 @@ class _OffreWidgetState extends State<OffreWidget> {
                                           textInputType: TextInputType.number,
                                           prefixIcon: const Icon(
                                             Icons.money,
-                                            color: Colors.black,
+                                            color: Color(0xfF161730),
                                           ),
                                           controller: salaireController,
                                         ),
@@ -692,7 +692,7 @@ class _OffreWidgetState extends State<OffreWidget> {
                                         label: 'Description',
                                         prefixIcon: const Icon(
                                           Icons.money,
-                                          color: Colors.black,
+                                          color: Color(0xfF161730),
                                         ),
                                         controller: descriptionController,
                                       ),

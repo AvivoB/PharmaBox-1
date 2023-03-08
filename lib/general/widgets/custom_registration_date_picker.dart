@@ -42,7 +42,7 @@ class _CustomRegistrationDatePickerState
           fontWeight: FontWeight.w500,
           fontFamily: 'Poppins',
           letterSpacing: 0.6,
-          color: Colors.black,
+          color: Color(0xfF161730),
         ),
         onTap: () async {
           DateTime? pickedDate = await showDatePicker(

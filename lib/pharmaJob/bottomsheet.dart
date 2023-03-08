@@ -245,7 +245,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
               textInputType: TextInputType.number,
               prefixIcon: const Icon(
                 Icons.map_outlined,
-                color: Colors.black,
+                color: Color(0xfF161730),
               ),
               controller: routeController,
             ),
@@ -337,7 +337,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
               label: 'Début du contrat',
               prefixIcon: const Icon(
                 Icons.calendar_today_outlined,
-                color: Colors.black,
+                color: Color(0xfF161730),
               ),
               controller: dateController,
             ),
@@ -352,7 +352,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                     label: 'Durée',
                     prefixIcon: const Icon(
                       Icons.calendar_month_outlined,
-                      color: Colors.black,
+                      color: Color(0xfF161730),
                     ),
                     controller: durationController,
                   )
@@ -368,7 +368,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                 textInputType: TextInputType.number,
                 prefixIcon: const Icon(
                   Icons.money,
-                  color: Colors.black,
+                  color: Color(0xfF161730),
                 ),
                 controller: salaireController,
               ),
@@ -568,7 +568,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
               label: 'Description',
               prefixIcon: const Icon(
                 Icons.money,
-                color: Colors.black,
+                color: Color(0xfF161730),
               ),
               controller: descriptionController,
             ),

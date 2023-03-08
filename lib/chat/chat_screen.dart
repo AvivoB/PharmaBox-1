@@ -46,7 +46,7 @@ class ChatScreen extends StatelessWidget {
                                 },
                                 child: CustomRoundedIconButton(
                                   backgroundColor: Colors.white,
-                                  iconColor: Colors.black,
+                                  iconColor: Color(0xfF161730),
                                   onPressed: () {},
                                   icon: const Icon(
                                     Icons.arrow_back_ios_new_sharp,
@@ -108,7 +108,7 @@ class ChatScreen extends StatelessWidget {
                     ),
                     const CustomDateTextWidget(
                       date: '24 Août 2022',
-                      textColor: Colors.black,
+                      textColor: Color(0xfF161730),
                       fontWeight: FontWeight.w500,
                     ),
                     SizedBox(

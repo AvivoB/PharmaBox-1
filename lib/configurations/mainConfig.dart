@@ -25,27 +25,27 @@ class Configuration extends StatelessWidget {
     final List<Icon> confortIcons = <Icon>[
       const Icon(
         Icons.cruelty_free_outlined,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.smart_toy_outlined,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.qr_code_2_outlined,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.self_improvement_outlined,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.local_police_outlined,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.cottage_outlined,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.airplane_ticket_outlined,
@@ -74,35 +74,35 @@ class Configuration extends StatelessWidget {
     final List<Icon> profileMembreIcon = [
       const Icon(
         Icons.person,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.person,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.shopping_bag_outlined,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.email_outlined,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.lock_outline,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.lock_outline,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.cake,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.phone,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
     ];
 
@@ -121,66 +121,66 @@ class Configuration extends StatelessWidget {
     final List<Icon> recherchesIcon = [
       const Icon(
         Icons.location_on_outlined,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.shopping_bag_outlined,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.calendar_today_outlined,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.file_copy,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.cruelty_free_outlined,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.airplane_ticket_outlined,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.restaurant,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.cottage_outlined,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.calendar_month_outlined,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
     ];
 
     final List<Icon> transportIcon = [
       const Icon(
         Icons.directions_car_outlined,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.subway_outlined,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.directions_bus_outlined,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.tram_outlined,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.directions_railway_outlined,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
       const Icon(
         Icons.local_parking_outlined,
-        color: Colors.black,
+        color: Color(0xfF161730),
       ),
     ];
 
@@ -333,7 +333,7 @@ class Configuration extends StatelessWidget {
                           child: Row(
                             children: [
                               Image(
-                                color: Colors.black,
+                                color: Color(0xfF161730),
                                 image: AssetImage(
                                   'assets/icons/recherches (1).png',
                                 ),
@@ -384,7 +384,7 @@ class Configuration extends StatelessWidget {
                           child: Row(
                             children: [
                               Image(
-                                color: Colors.black,
+                                color: Color(0xfF161730),
                                 image: AssetImage(
                                   'assets/icons/recherches (3).png',
                                 ),
@@ -409,7 +409,7 @@ class Configuration extends StatelessWidget {
                           child: Row(
                             children: [
                               Image(
-                                color: Colors.black,
+                                color: Color(0xfF161730),
                                 image: AssetImage(
                                   'assets/icons/recherches (4).png',
                                 ),
@@ -434,7 +434,7 @@ class Configuration extends StatelessWidget {
                           child: Row(
                             children: [
                               Image(
-                                color: Colors.black,
+                                color: Color(0xfF161730),
                                 image: AssetImage(
                                   'assets/icons/recherches (5).png',
                                 ),
@@ -708,7 +708,7 @@ class Configuration extends StatelessWidget {
                                       hint: 'Type de contrat',
                                       icon: const Icon(
                                         Icons.file_copy_outlined,
-                                        color: Colors.black,
+                                        color: Color(0xfF161730),
                                       ),
                                     );
                                   });
@@ -717,7 +717,7 @@ class Configuration extends StatelessWidget {
                               dense: true,
                               leading: Icon(
                                 Icons.file_copy_outlined,
-                                color: Colors.black,
+                                color: Color(0xfF161730),
                               ),
                               contentPadding:
                                   EdgeInsets.symmetric(horizontal: -10),
@@ -742,7 +742,7 @@ class Configuration extends StatelessWidget {
                                       hint: 'Nb patient par jour',
                                       icon: const Icon(
                                         Icons.person,
-                                        color: Colors.black,
+                                        color: Color(0xfF161730),
                                       ),
                                     );
                                   });
@@ -751,7 +751,7 @@ class Configuration extends StatelessWidget {
                               dense: true,
                               leading: Icon(
                                 Icons.person,
-                                color: Colors.black,
+                                color: Color(0xfF161730),
                               ),
                               contentPadding:
                                   EdgeInsets.symmetric(horizontal: -10),

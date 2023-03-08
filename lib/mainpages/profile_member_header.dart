@@ -251,26 +251,28 @@ class _ProfilTabBarState extends State<ProfilTabBar>
                                               ),
                                               child: CircleAvatar(
                                                 radius: 65,
-                                                backgroundImage: 
-                                                BlocProvider.of<UsersBlocBloc>(context).currentUser!.photoUrl==''?
-                                                AssetImage('assets/images/user.png'):
-                                                isLocalImage(
-                                                        BlocProvider.of<
+                                                backgroundImage: BlocProvider.of<
                                                                     UsersBlocBloc>(
                                                                 context)
                                                             .currentUser!
-                                                            .photoUrl)
-                                                    ? FileImage(File(BlocProvider
-                                                            .of<UsersBlocBloc>(
-                                                                context)
-                                                        .currentUser!
-                                                        .photoUrl))
-                                                    : NetworkImage(BlocProvider
+                                                            .photoUrl ==
+                                                        ''
+                                                    ? AssetImage(
+                                                        'assets/images/user.png')
+                                                    : isLocalImage(BlocProvider
                                                                 .of<UsersBlocBloc>(
                                                                     context)
                                                             .currentUser!
                                                             .photoUrl)
-                                                        as ImageProvider,
+                                                        ? FileImage(File(
+                                                            BlocProvider.of<UsersBlocBloc>(context)
+                                                                .currentUser!
+                                                                .photoUrl))
+                                                        : NetworkImage(
+                                                                BlocProvider.of<UsersBlocBloc>(context)
+                                                                    .currentUser!
+                                                                    .photoUrl)
+                                                            as ImageProvider,
                                                 backgroundColor:
                                                     const Color.fromRGBO(
                                                   208,
@@ -440,16 +442,25 @@ class _ProfilTabBarState extends State<ProfilTabBar>
                           ),
                           controller: phoneController,
                         ),
-                        CodePostalWidget(localisationController: postalCodeController),
-                                           VilleWidget(pharmacyName: addressController),
-
+                        CodePostalWidget(
+                          localisationController: postalCodeController,
+                          villeController: addressController,
+                        ),
+                        // VilleWidget(pharmacyName: addressController),
+                        CustomRegistrationTextField(
+                          label: 'Ville',
+                          prefixIcon: const Icon(
+                            CupertinoIcons.location,
+                          ),
+                          controller: addressController,
+                        ),
                         CustomRegistrationTextField(
                           label: 'Presentation',
                           prefixIcon: const Icon(
                             Icons.location_city_outlined,
                           ),
                           controller: descriptionController,
-                          maxLines: 13,
+                          maxLines: 2,
                         ),
                         SizedBox(
                           height: height * 0.02,
@@ -469,7 +480,7 @@ class _ProfilTabBarState extends State<ProfilTabBar>
                           backgroundColor: Colors.transparent,
                           elevation: 0,
                           bottom: TabBar(
-                            labelColor: Colors.black,
+                            labelColor: Color(0xfF161730),
                             labelStyle: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: kSelectedIndicatorColor,

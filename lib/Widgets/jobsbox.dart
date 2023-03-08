@@ -56,7 +56,7 @@ class _JobBoxState extends State<JobBox> {
               borderRadius: const BorderRadius.all(
                 Radius.circular(15),
               ),
-              color: Colors.black,
+              color: Color(0xfF161730),
               image: DecorationImage(
                 image: widget.imagePharm.startsWith('assets/')
                     ? AssetImage(widget.imagePharm)
@@ -175,7 +175,7 @@ class _JobBoxState extends State<JobBox> {
               children: [
                 IconButton(
                   icon: Icon(Icons.linked_camera),
-                  color: Colors.black,
+                  color: Color(0xfF161730),
                   onPressed: () {},
                 ),
                 Row(

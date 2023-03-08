@@ -1,11 +1,14 @@
 import 'package:flutter/Material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharmabox/bloc/lgosearch_bloc.dart';
 import 'package:pharmabox/business_logic/lgo_bloc/lgo_bloc.dart';
 
 import '../Theme/text.dart';
+import '../Widgets/gradientText.dart';
 import '../business_logic/langues_bloc/langues_bloc.dart';
 import '../general/widgets/custom_slider_with_gradient.dart';
 import '../model/models.dart';
+import '../pharmacyProfile/textfield.dart';
 import 'member_registration_screen.dart';
 
 class LgoContainer extends StatelessWidget {
@@ -19,9 +22,9 @@ class LgoContainer extends StatelessWidget {
   final double height;
   late LgoBloc lgoBloc;
   final TextEditingController controller = TextEditingController();
-  void addLangue(BuildContext context) {
+  void addLangue(BuildContext context, String name) {
     BlocProvider.of<LgoBloc>(context)
-        .add(AddLocalLgo(lgo: Lgo(nom: controller.text, niveau: 0)));
+        .add(AddLocalLgo(lgo: Lgo(nom: name, niveau: 0)));
   }
 
   @override
@@ -59,11 +62,100 @@ class LgoContainer extends StatelessWidget {
                   style: heading,
                 ),
               ),
-              AjouterContainerReg(
-                label: 'LGO',
-                onTap: addLangue,
-                controller: controller,
-                image: 'assets/icons/computerIcon.png',
+              InkWell(
+                onTap: () {
+                  showModalBottomSheet(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(25.0),
+                        ),
+                      ),
+                      context: context,
+                      builder: (context) => Padding(
+                          padding: EdgeInsets.only(
+                              left: 20,
+                              right: 20,
+                              top: 20,
+                              bottom: MediaQuery.of(context).viewInsets.bottom),
+                          child: Column(
+                            children: [
+                              CustomPharmacyTextField(
+                                label: "LGO",
+                                controller: controller,
+                                onRealChanged: (val) {
+                                  BlocProvider.of<LgosearchBloc>(context)
+                                      .add(GetAllLgos(input: val));
+                                },
+                              ),
+                              BlocBuilder<LgosearchBloc, LgosearchState>(
+                                builder: (context, state) {
+                                  if (state is LgosearchReady) {
+                                    return SingleChildScrollView(
+                                      padding: EdgeInsets.only(
+                                          bottom: MediaQuery.of(context)
+                                              .viewInsets
+                                              .bottom),
+                                      child: Column(
+                                        children: List.generate(
+                                          state.groupements.length,
+                                          (index) => ListTile(
+                                            onTap: () {
+                                              addLangue(
+                                                  context,
+                                                  state.groupements[index]
+                                                      .groupement);
+                                            },
+                                            leading: Image(
+                                                height: height * 0.045,
+                                                image: NetworkImage(state
+                                                    .groupements[index].image)),
+                                            title: Text(
+                                              state.groupements[index]
+                                                  .groupement,
+                                              style: heading,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  } else if (state is LgosearchLoading) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  } else {
+                                    return const SizedBox();
+                                  }
+                                },
+                              ),
+                            ],
+                          )));
+                },
+                child: Container(
+                    height: height * 0.035,
+                    width: width * 0.18,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromRGBO(31, 92, 103, 0.17),
+                          offset: Offset(3, 3),
+                          blurRadius: 3,
+                        ),
+                      ],
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(8),
+                      ),
+                    ),
+                    child: const Center(
+                        child: GradientText(
+                      'Ajouter',
+                      gradient: LinearGradient(
+                        colors: [
+                          Color.fromRGBO(124, 237, 172, 1),
+                          Color.fromRGBO(66, 210, 255, 1),
+                        ],
+                      ),
+                    ))),
               ),
             ],
           ),

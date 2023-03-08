@@ -133,7 +133,8 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                               'Apprenti',
                               'Etudiant pharmacie',
                               'Etudiant 6éme annéee validée',
-                              'Responsable de Pharmacie'
+                              'Pharmacien',
+                              'Titulaire'
                             ].map((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
@@ -171,8 +172,18 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                       controller: phoneController,
                     ),
                     CodePostalWidget(
-                        localisationController: postalCodeController),
-                    VilleWidget(pharmacyName: addressController),
+                      localisationController: postalCodeController,
+                      villeController: addressController,
+                    ),
+                    //VilleWidget(pharmacyName: addressController),
+                    CustomRegistrationTextField(
+                      readOnly: true,
+                      label: 'Ville',
+                      prefixIcon: const Icon(
+                        CupertinoIcons.location,
+                      ),
+                      controller: addressController,
+                    ),
                     CustomRegistrationTextField(
                       label: 'Presentation',
                       prefixIcon: const Icon(

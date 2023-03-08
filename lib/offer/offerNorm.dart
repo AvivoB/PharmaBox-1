@@ -43,15 +43,14 @@ class _OfferScreenNormState extends State<OfferScreenNorm> {
     'Gare',
     'Parking',
   ];
- final List<Horaire> horraires = [
-    Horaire(matinee: '', apresMidi: '', soiree: '', nuit: ''),
-        Horaire(matinee: '', apresMidi: '', soiree: '', nuit: ''),
+  final List<Horaire> horraires = [
     Horaire(matinee: '', apresMidi: '', soiree: '', nuit: ''),
     Horaire(matinee: '', apresMidi: '', soiree: '', nuit: ''),
     Horaire(matinee: '', apresMidi: '', soiree: '', nuit: ''),
     Horaire(matinee: '', apresMidi: '', soiree: '', nuit: ''),
     Horaire(matinee: '', apresMidi: '', soiree: '', nuit: ''),
-
+    Horaire(matinee: '', apresMidi: '', soiree: '', nuit: ''),
+    Horaire(matinee: '', apresMidi: '', soiree: '', nuit: ''),
   ];
   final List<String> confortList = <String>[
     'Crèche d\'entreprise',
@@ -66,27 +65,27 @@ class _OfferScreenNormState extends State<OfferScreenNorm> {
   final List<Icon> confortIcons = <Icon>[
     const Icon(
       Icons.cruelty_free_outlined,
-      color: Colors.black,
+      color: Color(0xfF161730),
     ),
     const Icon(
       Icons.smart_toy_outlined,
-      color: Colors.black,
+      color: Color(0xfF161730),
     ),
     const Icon(
       Icons.qr_code_2_outlined,
-      color: Colors.black,
+      color: Color(0xfF161730),
     ),
     const Icon(
       Icons.self_improvement_outlined,
-      color: Colors.black,
+      color: Color(0xfF161730),
     ),
     const Icon(
       Icons.local_police_outlined,
-      color: Colors.black,
+      color: Color(0xfF161730),
     ),
     const Icon(
       Icons.cottage_outlined,
-      color: Colors.black,
+      color: Color(0xfF161730),
     ),
     const Icon(
       Icons.airplane_ticket_outlined,
@@ -96,27 +95,27 @@ class _OfferScreenNormState extends State<OfferScreenNorm> {
   final List<Icon> transportIcon = [
     const Icon(
       Icons.directions_car_outlined,
-      color: Colors.black,
+      color: Color(0xfF161730),
     ),
     const Icon(
       Icons.subway_outlined,
-      color: Colors.black,
+      color: Color(0xfF161730),
     ),
     const Icon(
       Icons.directions_bus_outlined,
-      color: Colors.black,
+      color: Color(0xfF161730),
     ),
     const Icon(
       Icons.tram_outlined,
-      color: Colors.black,
+      color: Color(0xfF161730),
     ),
     const Icon(
       Icons.directions_railway_outlined,
-      color: Colors.black,
+      color: Color(0xfF161730),
     ),
     const Icon(
       Icons.local_parking_outlined,
-      color: Colors.black,
+      color: Color(0xfF161730),
     ),
   ];
   bool arrow = true;
@@ -225,7 +224,8 @@ class _OfferScreenNormState extends State<OfferScreenNorm> {
                                     Text('Actif'),
                                   ],
                                 ),
-                       CustomSwitch(initialSwitchValue: false,onTap: (val){}),
+                                CustomSwitch(
+                                    initialSwitchValue: false, onTap: (val) {}),
                               ],
                             ),
                             // trailing: CustomSwitch(),
@@ -360,7 +360,9 @@ class _OfferScreenNormState extends State<OfferScreenNorm> {
                           const SizedBox(
                             height: 20,
                           ),
-                           CustomTable(horraires: horraires,),
+                          CustomTable(
+                            horraires: horraires,
+                          ),
                           const SizedBox(
                             height: 20,
                           ),

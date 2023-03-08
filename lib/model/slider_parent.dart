@@ -1,4 +1,6 @@
- class SliderParent {
+ import 'package:equatable/equatable.dart';
+
+class SliderParent  extends Equatable{
   String _nom;
   double _niveau;
 
@@ -29,4 +31,8 @@
     }
     ;
   }
+  
+  @override
+  // TODO: implement props
+  List<Object?> get props => [nom];
 }

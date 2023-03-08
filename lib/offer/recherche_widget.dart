@@ -294,7 +294,9 @@ class _RechercheWidgetState extends State<RechercheWidget> {
                                       const SizedBox(
                                         height: 20,
                                       ),
-                                     LocalisationSearch(localisationController: locationController),
+                                      LocalisationSearch(
+                                          localisationController:
+                                              locationController),
                                       const SizedBox(
                                         height: 20,
                                       ),
@@ -304,7 +306,7 @@ class _RechercheWidgetState extends State<RechercheWidget> {
                                         textInputType: TextInputType.number,
                                         prefixIcon: const Icon(
                                           Icons.map_outlined,
-                                          color: Colors.black,
+                                          color: Color(0xfF161730),
                                         ),
                                         controller: routeController,
                                       ),
@@ -403,7 +405,7 @@ class _RechercheWidgetState extends State<RechercheWidget> {
                                         label: 'Début du contrat',
                                         prefixIcon: const Icon(
                                           Icons.calendar_today_outlined,
-                                          color: Colors.black,
+                                          color: Color(0xfF161730),
                                         ),
                                         controller: dateController,
                                       ),
@@ -415,7 +417,7 @@ class _RechercheWidgetState extends State<RechercheWidget> {
                                         label: 'Durée',
                                         prefixIcon: const Icon(
                                           Icons.calendar_month_outlined,
-                                          color: Colors.black,
+                                          color: Color(0xfF161730),
                                         ),
                                         controller: durationController,
                                       ),
@@ -431,7 +433,7 @@ class _RechercheWidgetState extends State<RechercheWidget> {
                                           textInputType: TextInputType.number,
                                           prefixIcon: const Icon(
                                             Icons.money,
-                                            color: Colors.black,
+                                            color: Color(0xfF161730),
                                           ),
                                           controller: salaireController,
                                         ),

@@ -13,9 +13,11 @@ import '../utils/map_utils.dart';
 
 class CodePostalWidget extends StatefulWidget {
   final TextEditingController localisationController;
+  final TextEditingController villeController;
   CodePostalWidget({
     Key? key,
     required this.localisationController,
+    required this.villeController,
   }) : super(key: key);
 
   @override
@@ -46,16 +48,6 @@ class _CodePostalWidgetState extends State<CodePostalWidget> {
               Icons.location_on_outlined,
             ),
             textInputType: TextInputType.number,
-            onChanged: () {
-              final pattern = RegExp(r'\b\d{5}\b');
-              final match =
-                  pattern.firstMatch(widget.localisationController.text);
-              if (match != null) {
-                widget.localisationController.text = match.group(0)!;
-              } else {
-                print('Postal code not found');
-              }
-            },
             controller: widget.localisationController,
           ),
           response != null
@@ -86,17 +78,19 @@ class _CodePostalWidgetState extends State<CodePostalWidget> {
                           color: Theme.of(context).primaryColor,
                         ),
                         title: Text(prediction.description!),
-                        onTap: () {
-                          final pattern = RegExp(r'\b\d{5}\b');
-                          final match =
-                              pattern.firstMatch(prediction.description!);
-                          if (match != null) {
-                            widget.localisationController.text =
-                                match.group(0)!;
-                          } else {
-                            print('Postal code not found');
-                          }
+                        onTap: () async {
+                          widget.localisationController.text =
+                              prediction.structuredFormatting!.mainText;
+                          PlacesDetailsResponse? villeResponse = await places
+                              .getDetailsByPlaceId(prediction.placeId!);
 
+                          for (final component
+                              in villeResponse.result.addressComponents) {
+                            if (component.types.contains('locality')) {
+                              widget.villeController.text = component.longName;
+                            }
+                          }
+                          villeResponse = null;
                           response = null;
                           setState(() {});
                         },

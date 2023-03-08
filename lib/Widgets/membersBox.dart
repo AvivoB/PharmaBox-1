@@ -14,7 +14,8 @@ class MembersBox extends StatelessWidget {
   var name;
   var zip;
   var poste;
-  MembersBox({Key? key, this.image, this.name, this.zip,required this.poste}) : super(key: key);
+  MembersBox({Key? key, this.image, this.name, this.zip, required this.poste})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +128,7 @@ class MembersBox extends StatelessWidget {
               children: [
                 IconButton(
                   icon: Icon(Icons.linked_camera),
-                  color: Colors.black,
+                  color: Color(0xfF161730),
                   onPressed: () {},
                 ),
                 Row(

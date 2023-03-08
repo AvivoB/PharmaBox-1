@@ -28,7 +28,7 @@ class _CustomTableState extends State<CustomTable> {
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: Colors.black,
+                color: Color(0xfF161730),
               ),
             ),
             color: Color.fromRGBO(239, 246, 247, 1),
@@ -42,20 +42,20 @@ class _CustomTableState extends State<CustomTable> {
               text: "Matinée",
               textStyle: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Color(0xfF161730),
               ),
             ),
             CustomTabletext(
               text: "Après-midi",
               textStyle: TextStyle(
-                color: Colors.black,
+                color: Color(0xfF161730),
                 fontWeight: FontWeight.bold,
               ),
             ),
             CustomTabletext(
               text: "Soirée",
               textStyle: TextStyle(
-                color: Colors.black,
+                color: Color(0xfF161730),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -63,7 +63,7 @@ class _CustomTableState extends State<CustomTable> {
               text: "Nuit",
               textStyle: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Color(0xfF161730),
               ),
             ),
           ],
@@ -79,11 +79,11 @@ class _CustomTableState extends State<CustomTable> {
               ),
             ),
             children: [
-               CustomTabletext(
+              CustomTabletext(
                 text: week[index],
-                textStyle:const TextStyle(
+                textStyle: const TextStyle(
                   fontWeight: FontWeight.w500,
-                  color: Colors.black,
+                  color: Color(0xfF161730),
                 ),
               ),
               CustomCheckBox(

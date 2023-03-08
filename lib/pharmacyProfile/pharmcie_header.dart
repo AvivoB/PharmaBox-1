@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pharmabox/Theme/text.dart';
 import 'package:pharmabox/bloc/pharmacie_bloc.dart';
 import 'package:pharmabox/business_logic/lgo_bloc/lgo_bloc.dart';
+import 'package:pharmabox/general/widgets/custom_registration_textfield.dart';
 import 'package:pharmabox/general/widgets/custom_switch_widget.dart';
 import 'package:pharmabox/constant.dart';
 import 'package:pharmabox/model/user_models/pharmacie.dart';
@@ -280,7 +281,7 @@ class _PharmacieHeaderState extends State<PharmacieHeader>
                       backgroundColor: Colors.transparent,
                       elevation: 0,
                       bottom: TabBar(
-                        labelColor: Colors.black,
+                        labelColor: Color(0xfF161730),
                         labelStyle: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: kSelectedIndicatorColor,
@@ -459,7 +460,7 @@ class _PharmacieHeaderState extends State<PharmacieHeader>
                         ),
                         CustomPharmacyTextField(
                           label: 'Presentation',
-                          maxLines: 10,
+                          maxLines: 2,
                           controller: presentation,
                         ),
                         SizedBox(
@@ -510,7 +511,7 @@ class _PharmacieHeaderState extends State<PharmacieHeader>
                       backgroundColor: Colors.transparent,
                       elevation: 0,
                       bottom: TabBar(
-                        labelColor: Colors.black,
+                        labelColor: Color(0xfF161730),
                         labelStyle: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: kSelectedIndicatorColor,

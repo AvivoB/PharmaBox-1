@@ -42,7 +42,8 @@ class CustomSwitchWithIconAndPicture extends StatelessWidget {
       child: Row(
         children: [
           Image(
-            // color: Colors.black,
+            // color: Color(0xfF161730)
+
             width: 20,
             image: AssetImage(
               picture,

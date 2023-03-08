@@ -13,7 +13,9 @@ class LgoBloc extends Bloc<LgoEvent, LgoState> {
       : _lgos = lgos,
         super(LgosInitial(lgos)) {
     on<AddLocalLgo>((event, emit) {
+      if(!_lgos.contains(event._lgo)){
       _lgos = [..._lgos, event._lgo];
+      }
       emit(LgosReady(_lgos));
     });
     on<InitialiseLgo>((event, emit) {

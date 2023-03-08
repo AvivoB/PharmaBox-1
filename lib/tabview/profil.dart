@@ -367,7 +367,7 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                     backgroundColor: Colors.transparent,
                     elevation: 0,
                     bottom: TabBar(
-                      labelColor: Colors.black,
+                      labelColor: Color(0xfF161730),
                       labelStyle: const TextStyle(
                         fontWeight: FontWeight.bold,
                         color: kSelectedIndicatorColor,

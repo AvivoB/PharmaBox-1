@@ -59,12 +59,36 @@ class PharmacieCalls {
     final FirebaseStorage storage = FirebaseStorage.instance;
 
     List<QueryDocumentSnapshot> documents = querySnapshot.docs;
+
     for (var doc in documents) {
       dynamic data = doc.data()!;
       if (data["name"].toLowerCase().contains(input)) {
         final String imageName = data["image"];
         final Reference ref =
             storage.ref().child('groupements').child(imageName);
+        String imageUrl = await ref.getDownloadURL();
+        groupements = [
+          ...groupements,
+          Groupement(groupement: data["name"], image: imageUrl)
+        ];
+      }
+    }
+    return groupements;
+  }
+
+  Future getLgos(String input) async {
+    List<Groupement> groupements = [];
+    CollectionReference colRef = _firebaseFirestore.collection('lgo');
+    QuerySnapshot querySnapshot = await colRef.get();
+    final FirebaseStorage storage = FirebaseStorage.instance;
+
+    List<QueryDocumentSnapshot> documents = querySnapshot.docs;
+
+    for (var doc in documents) {
+      dynamic data = doc.data()!;
+      if (data["name"].toLowerCase().contains(input)) {
+        final String imageName = data["image"];
+        final Reference ref = storage.ref().child('lgo').child(imageName);
         String imageUrl = await ref.getDownloadURL();
         groupements = [
           ...groupements,

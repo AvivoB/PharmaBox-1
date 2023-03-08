@@ -55,7 +55,7 @@ class _CustomTextfieldDropdownState extends State<CustomTextfieldDropdown> {
           fontWeight: FontWeight.w500,
           fontFamily: 'Poppins',
           letterSpacing: 0.3,
-          color: Colors.black,
+          color: Color(0xfF161730),
         ),
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(

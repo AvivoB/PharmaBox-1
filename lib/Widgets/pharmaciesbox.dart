@@ -54,7 +54,7 @@ class _PharmaciesBoxState extends State<PharmaciesBox> {
               borderRadius: const BorderRadius.all(
                 Radius.circular(15),
               ),
-              color: Colors.black,
+              color: Color(0xfF161730),
               image: DecorationImage(
                 image: widget.imagePharm.startsWith('assets/')
                     ? AssetImage(widget.imagePharm)
@@ -101,7 +101,6 @@ class _PharmaciesBoxState extends State<PharmaciesBox> {
                       style: heading,
                     ),
                   ),
-                  
                 ],
               ),
             ),
@@ -145,8 +144,7 @@ class _PharmaciesBoxState extends State<PharmaciesBox> {
               ],
             ),
           ),*/
-         
-         
+
           const Spacer(),
           Container(
             color: const Color(0xFFEFF6F7),
@@ -155,7 +153,7 @@ class _PharmaciesBoxState extends State<PharmaciesBox> {
               children: [
                 IconButton(
                   icon: Icon(Icons.linked_camera),
-                  color: Colors.black,
+                  color: Color(0xfF161730),
                   onPressed: () {},
                 ),
                 Row(

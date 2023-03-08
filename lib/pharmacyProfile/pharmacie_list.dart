@@ -53,7 +53,8 @@ class _PharmaciesListState extends State<PharmaciesList> {
                       borderRadius: BorderRadius.circular(10),
                       boxShadow: [
                         BoxShadow(
-                            color: Colors.black.withOpacity(0.15),
+                            color: Color(0xfF161730)
+.withOpacity(0.15),
                             offset: Offset(0, 1),
                             blurRadius: 2)
                       ]),
@@ -83,7 +84,8 @@ class _PharmaciesListState extends State<PharmaciesList> {
               child: Text(
                   "Pas de pharmacies, clickez sur + pour ajouter une nouvelle pharmacie",
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.black)),
+                  style: TextStyle(color: Color(0xfF161730)
+)),
             );
           }
         }),

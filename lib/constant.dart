@@ -25,6 +25,6 @@ const LinearGradient kTabBarIndicatorGradient = LinearGradient(
 
 const Color kUnSelectedIndicatorColor = Color.fromRGBO(95, 96, 119, 1);
 
-const Color kSelectedIndicatorColor = Colors.black;
+const Color kSelectedIndicatorColor = Color(0xfF161730);
 const String kRegistrationScreenHeaderText =
     'Les profils avec photo ont 80% de vues en plus';

@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmabox/Onboarding/SignUp.dart';
+import 'package:pharmabox/bloc/lgosearch_bloc.dart';
 import 'package:pharmabox/bloc/mainmap_bloc.dart';
 import 'package:pharmabox/firebase/main_map_service.dart';
 import 'package:pharmabox/mainpages/HomePage.dart';
@@ -112,7 +113,8 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => MainmapBloc(),
-        )
+        ),
+        BlocProvider(create:(_)=>LgosearchBloc())
       ],
       child: const HomeApp(),
     );

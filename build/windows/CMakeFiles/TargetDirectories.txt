@@ -1,0 +1,13 @@
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/CMakeFiles/INSTALL.dir
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/CMakeFiles/ALL_BUILD.dir
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/CMakeFiles/ZERO_CHECK.dir
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/flutter/CMakeFiles/flutter_wrapper_plugin.dir
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/flutter/CMakeFiles/flutter_wrapper_app.dir
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/flutter/CMakeFiles/flutter_assemble.dir
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/flutter/CMakeFiles/INSTALL.dir
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/runner/CMakeFiles/pharmabox.dir
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/runner/CMakeFiles/INSTALL.dir
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/runner/CMakeFiles/ALL_BUILD.dir
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/plugins/permission_handler_windows/CMakeFiles/permission_handler_windows_plugin.dir
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/plugins/permission_handler_windows/CMakeFiles/INSTALL.dir
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/plugins/permission_handler_windows/CMakeFiles/ALL_BUILD.dir
