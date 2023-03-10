@@ -12,7 +12,7 @@ import '../general/widgets/custom_registration_date_picker.dart';
 import '../general/widgets/custom_registration_textfield.dart';
 import '../general/widgets/custom_switch_widget.dart';
 import '../mainpages/mult_selection.dart';
-import '../pharmaJob/non_titu_bottomsheet.dart';
+import '../pharmaJob/bottomsheet.dart';
 import '../pharmacyProfile/pharmacyrow.dart';
 import 'offer_screen.dart';
 

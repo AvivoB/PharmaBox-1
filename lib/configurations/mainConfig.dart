@@ -5,7 +5,7 @@ import 'package:pharmabox/Widgets/membersBox.dart';
 import '../general/widgets/custom_registration_textfield.dart';
 import '../general/widgets/custom_switch_widget.dart';
 import '../general/widgets/custom_switch_with_suffix_and_text.dart';
-import '../pharmaJob/non_titu_bottomsheet.dart';
+import '../pharmaJob/bottomsheet.dart';
 
 class Configuration extends StatelessWidget {
   const Configuration({Key? key}) : super(key: key);

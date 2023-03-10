@@ -7,6 +7,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmabox/Onboarding/SignUp.dart';
 import 'package:pharmabox/bloc/lgosearch_bloc.dart';
 import 'package:pharmabox/bloc/mainmap_bloc.dart';
+import 'package:pharmabox/bloc/navigation_bloc.dart';
 import 'package:pharmabox/firebase/main_map_service.dart';
 import 'package:pharmabox/mainpages/HomePage.dart';
 import 'package:pharmabox/Onboarding/Login.dart';
@@ -55,6 +56,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authenticationBloc = UsersBlocBloc(userService: UserService());
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -93,7 +95,7 @@ class MyApp extends StatelessWidget {
                       enabled: false,
                       asset: "assets/icons/TesttubeIcon.png"),
                 ])),
-        BlocProvider(create: (_) => UsersBlocBloc(userService: UserService())),
+        BlocProvider(create: (_) => authenticationBloc),
         BlocProvider(create: (_) => PharmacieBloc()),
         BlocProvider(create: (_) => GroupementBloc()),
         BlocProvider(
@@ -114,7 +116,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => MainmapBloc(),
         ),
-        BlocProvider(create:(_)=>LgosearchBloc())
+        BlocProvider(create:(_)=>LgosearchBloc()),
+        BlocProvider(create: (_)=>NavigationBloc(authenticationBloc:authenticationBloc ))
       ],
       child: const HomeApp(),
     );

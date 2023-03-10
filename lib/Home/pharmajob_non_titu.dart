@@ -9,13 +9,13 @@ import 'package:pharmabox/Home/main_map_pharma_non_titu.dart';
 import 'package:pharmabox/Home/map.dart';
 import 'package:pharmabox/Theme/text.dart';
 import 'package:pharmabox/bloc/offres_bloc.dart';
-import 'package:pharmabox/pharmaJob/pharmaJobNav_non_titu.dart';
 
 import '../bloc/mainmap_bloc.dart';
 import '../bloc/membres_bloc.dart';
 import '../mainpages/custom_painter_marker.dart';
 import '../mainpages/main_map_widget.dart';
 import '../model/user_models/marker_model.dart';
+import '../pharmaJob/non_titu/pharmaJobNav_non_titu.dart';
 import 'bottomNavbar.dart';
 import 'main_map_pharma_titu.dart';
 

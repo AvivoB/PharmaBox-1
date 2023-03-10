@@ -47,9 +47,7 @@ class _MainMapPharmaNonTituState extends State<MainMapPharmaNonTitu> {
                   borderRadius: BorderRadius.circular(20),
                 )),
             onSubmitted: (val) async {
-              BlocProvider.of<MainmapBloc>(context).add(GetOffresMarkersOnAddress(
-                address: val,
-              ));
+             
               var local = await MapUtils.getLocationFromAddress(
                   widget.localisationController.text);
               widget.mapController!.animateCamera(
