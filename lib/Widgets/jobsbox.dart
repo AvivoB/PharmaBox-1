@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmabox/Theme/text.dart';
 import 'package:pharmabox/Widgets/circularwidget.dart';
 import 'package:pharmabox/Widgets/likeandroundbutton.dart';
+import 'package:pharmabox/model/user_models/pharmacie.dart';
 
 import '../Theme/color.dart';
 
@@ -9,9 +10,11 @@ class JobBox extends StatefulWidget {
   var pharm;
   var imagePharm;
   var zip;
+  Pharmacie pharmacie;
   final String jobName;
   JobBox({
     Key? key,
+    required this.pharmacie,
     required this.jobName,
     this.pharm,
     this.zip,
@@ -28,7 +31,7 @@ class _JobBoxState extends State<JobBox> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Container(
-      height: height * 0.45,
+      height: height * 0.3,
       width: width * 0.9,
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -50,7 +53,7 @@ class _JobBoxState extends State<JobBox> {
           ),
           Container(
             padding: const EdgeInsets.all(8),
-            height: height * 0.18,
+            height: height * 0.13,
             width: width * 0.82,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(
@@ -113,18 +116,49 @@ class _JobBoxState extends State<JobBox> {
           SizedBox(
             width: width * 0.8,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(
-                  Icons.location_on_outlined,
-                ),
-                SizedBox(
-                  width: width * 0.02,
+                Flexible(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Icon(
+                        Icons.location_on_outlined,
+                      ),
+                      SizedBox(
+                        width: width * 0.02,
+                      ),
+                      Flexible(
+                        child: Text(
+                          '${widget.zip}',
+                          maxLines: 2,
+                          // overflow: TextOverflow.ellipsis,
+                          style: paragraph,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Flexible(
-                  child: Text(
-                    '${widget.zip}',
-                    // overflow: TextOverflow.ellipsis,
-                    style: paragraph,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Icon(
+                        Icons.location_on_outlined,
+                      ),
+                      SizedBox(
+                        width: width * 0.02,
+                      ),
+                      Flexible(
+                        child: Text(
+                          widget.pharmacie.groupementName,
+                          maxLines: 2,
+                          // overflow: TextOverflow.ellipsis,
+                          style: paragraph,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -171,34 +205,40 @@ class _JobBoxState extends State<JobBox> {
           Container(
             color: const Color(0xFFEFF6F7),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                IconButton(
+                /*IconButton(
                   icon: Icon(Icons.linked_camera),
                   color: Color(0xfF161730),
                   onPressed: () {},
-                ),
+                ),*/
                 Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image(
-                        image: AssetImage('assets/images/PhoneGreen.png'),
-                        height: height * 0.025,
+                    Container(
+                      decoration: BoxDecoration(),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image(
+                          image: AssetImage('assets/images/PhoneGreen.png'),
+                          height: height * 0.03,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Image(
                         image: AssetImage('assets/images/EmailGreen.png'),
-                        height: height * 0.025,
+                        height: height * 0.03,
+                        fit: BoxFit.cover,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Image(
                         image: AssetImage('assets/images/SendGreen.png'),
-                        height: height * 0.025,
+                        height: height * 0.03,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ],

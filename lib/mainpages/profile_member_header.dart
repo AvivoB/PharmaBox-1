@@ -195,355 +195,363 @@ class _ProfilTabBarState extends State<ProfilTabBar>
     ImageService imageService = ImageService();
     return DefaultTabController(
       length: _tabs.length,
-      child: Scaffold(
-        // appBar: appBarCustom(),
-        backgroundColor: Colors.white,
-        body: SafeArea(
-          child: SingleChildScrollView(
-            controller: controller,
-            child: Column(
-              children: [
-                Container(
-                  color: Colors.white,
-                  child: Form(
-                    key: formKey,
-                    child: Column(
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          height: height * 0.3,
-                          decoration: const BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                              colors: [
-                                Color.fromRGBO(145, 234, 228, 1),
-                                Color.fromRGBO(134, 168, 231, 1),
-                                Color.fromRGBO(127, 127, 213, 1),
+      child: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              controller: controller,
+              child: Column(
+                children: [
+                  Container(
+                    color: Colors.white,
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            height: height * 0.3,
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                                colors: [
+                                  Color.fromRGBO(145, 234, 228, 1),
+                                  Color.fromRGBO(134, 168, 231, 1),
+                                  Color.fromRGBO(127, 127, 213, 1),
+                                ],
+                              ),
+                            ),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: height * 0.02,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        Container(
+                                          color: Colors.transparent,
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.all(7),
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Colors.transparent,
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 2,
+                                                  ),
+                                                ),
+                                                child: CircleAvatar(
+                                                  radius: 65,
+                                                  backgroundImage: BlocProvider.of<UsersBlocBloc>(
+                                                                  context)
+                                                              .currentUser!
+                                                              .photoUrl ==
+                                                          ''
+                                                      ? AssetImage(
+                                                          'assets/images/user.png')
+                                                      : isLocalImage(
+                                                              BlocProvider.of<UsersBlocBloc>(
+                                                                      context)
+                                                                  .currentUser!
+                                                                  .photoUrl)
+                                                          ? FileImage(File(
+                                                              BlocProvider.of<UsersBlocBloc>(
+                                                                      context)
+                                                                  .currentUser!
+                                                                  .photoUrl))
+                                                          : NetworkImage(
+                                                                  BlocProvider.of<UsersBlocBloc>(
+                                                                          context)
+                                                                      .currentUser!
+                                                                      .photoUrl)
+                                                              as ImageProvider,
+                                                  backgroundColor:
+                                                      const Color.fromRGBO(
+                                                    208,
+                                                    209,
+                                                    222,
+                                                    1,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Positioned(
+                                          bottom: 3,
+                                          right: 0,
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              _showBottomSheet(context);
+                                            },
+                                            child: Card(
+                                              color: Colors.transparent,
+                                              elevation: 10,
+                                              child: CircleAvatar(
+                                                backgroundColor: Colors.white,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(
+                                                    5,
+                                                  ),
+                                                  child: Image.asset(
+                                                    'assets/images/Vector.png',
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Text(
+                                          user?.nom ?? '',
+                                          style: bigWhite,
+                                        ),
+                                        SizedBox(
+                                          height: height * 0.01,
+                                        ),
+                                        Text(
+                                          user?.poste ?? '',
+                                          style: smallWhite,
+                                        ),
+                                        SizedBox(
+                                          height: height * 0.02,
+                                        ),
+                                        Container(
+                                          decoration: const BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(15),
+                                            ),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Color.fromRGBO(
+                                                    31, 92, 103, 0.17),
+                                                offset: Offset(3, 3),
+                                                blurRadius: 3,
+                                              ),
+                                            ],
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  color: lightGreen,
+                                                  borderRadius:
+                                                      const BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(15),
+                                                    bottomLeft:
+                                                        Radius.circular(15),
+                                                  ),
+                                                ),
+                                                width: width * 0.18,
+                                                height: height * 0.05,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  children: [
+                                                    const Icon(
+                                                      Icons
+                                                          .thumb_up_alt_outlined,
+                                                      color: Colors.white,
+                                                      size: 25,
+                                                    ),
+                                                    Text(
+                                                      '535',
+                                                      style: headingWhite,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Container(
+                                                decoration: const BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topRight:
+                                                        Radius.circular(15),
+                                                    bottomRight:
+                                                        Radius.circular(15),
+                                                  ),
+                                                ),
+                                                width: width * 0.08,
+                                                height: height * 0.05,
+                                                child: const Icon(
+                                                  Icons
+                                                      .arrow_forward_ios_rounded,
+                                                  color: Color.fromRGBO(
+                                                      89, 90, 113, 1),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
                           ),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: height * 0.02,
+                          const SizedBox(height: 20),
+                          CustomRegistrationTextField(
+                            label: 'Nom',
+                            prefixIcon: const Icon(
+                              CupertinoIcons.person,
+                            ),
+                            controller: firstNameController,
+                          ),
+                          CustomRegistrationTextField(
+                            label: 'Prénom',
+                            prefixIcon: const Icon(
+                              CupertinoIcons.person,
+                            ),
+                            controller: lastNameController,
+                          ),
+                          CustomRegistrationTextField(
+                            label: 'Poste',
+                            prefixIcon: const Icon(
+                              CupertinoIcons.bag,
+                            ),
+                            controller: jobTitleController,
+                          ),
+                          CustomRegistrationTextField(
+                            label: 'Email',
+                            prefixIcon: const Icon(
+                              CupertinoIcons.mail,
+                            ),
+                            controller: emailController,
+                          ),
+                          CustomRegistrationDatePicker(
+                            label: 'Date de naissance',
+                            prefixIcon: const Icon(
+                              Icons.cake_outlined,
+                            ),
+                            controller: dateOfBirthController,
+                          ),
+                          CustomRegistrationTextField(
+                            label: 'Téléphone',
+                            prefixIcon: const Icon(
+                              CupertinoIcons.phone,
+                            ),
+                            controller: phoneController,
+                          ),
+                          CodePostalWidget(
+                            localisationController: postalCodeController,
+                            villeController: addressController,
+                          ),
+                          // VilleWidget(pharmacyName: addressController),
+                          CustomRegistrationTextField(
+                            label: 'Ville',
+                            prefixIcon: const Icon(
+                              CupertinoIcons.location,
+                            ),
+                            controller: addressController,
+                          ),
+                          CustomRegistrationTextField(
+                            label: 'Presentation',
+                            prefixIcon: const Icon(
+                              Icons.location_city_outlined,
+                            ),
+                            controller: descriptionController,
+                            maxLines: 2,
+                          ),
+                          SizedBox(
+                            height: height * 0.02,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    color: const Color.fromRGBO(245, 245, 245, 1),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: height * 0.07,
+                          child: AppBar(
+                            automaticallyImplyLeading: false,
+                            backgroundColor: Colors.transparent,
+                            elevation: 0,
+                            bottom: TabBar(
+                              labelColor: Color(0xfF161730),
+                              labelStyle: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: kSelectedIndicatorColor,
+                                fontSize: 16,
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Stack(
-                                    children: [
-                                      Container(
-                                        color: Colors.transparent,
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Container(
-                                              padding: const EdgeInsets.all(7),
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: Colors.transparent,
-                                                border: Border.all(
-                                                  color: Colors.white,
-                                                  width: 2,
-                                                ),
-                                              ),
-                                              child: CircleAvatar(
-                                                radius: 65,
-                                                backgroundImage: BlocProvider.of<
-                                                                    UsersBlocBloc>(
-                                                                context)
-                                                            .currentUser!
-                                                            .photoUrl ==
-                                                        ''
-                                                    ? AssetImage(
-                                                        'assets/images/user.png')
-                                                    : isLocalImage(BlocProvider
-                                                                .of<UsersBlocBloc>(
-                                                                    context)
-                                                            .currentUser!
-                                                            .photoUrl)
-                                                        ? FileImage(File(
-                                                            BlocProvider.of<UsersBlocBloc>(context)
-                                                                .currentUser!
-                                                                .photoUrl))
-                                                        : NetworkImage(
-                                                                BlocProvider.of<UsersBlocBloc>(context)
-                                                                    .currentUser!
-                                                                    .photoUrl)
-                                                            as ImageProvider,
-                                                backgroundColor:
-                                                    const Color.fromRGBO(
-                                                  208,
-                                                  209,
-                                                  222,
-                                                  1,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Positioned(
-                                        bottom: 3,
-                                        right: 0,
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            _showBottomSheet(context);
-                                          },
-                                          child: Card(
-                                            color: Colors.transparent,
-                                            elevation: 10,
-                                            child: CircleAvatar(
-                                              backgroundColor: Colors.white,
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(
-                                                  5,
-                                                ),
-                                                child: Image.asset(
-                                                  'assets/images/Vector.png',
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      Text(
-                                        user?.nom ?? '',
-                                        style: bigWhite,
-                                      ),
-                                      SizedBox(
-                                        height: height * 0.01,
-                                      ),
-                                      Text(
-                                        user?.poste ?? '',
-                                        style: smallWhite,
-                                      ),
-                                      SizedBox(
-                                        height: height * 0.02,
-                                      ),
-                                      Container(
-                                        decoration: const BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(15),
-                                          ),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Color.fromRGBO(
-                                                  31, 92, 103, 0.17),
-                                              offset: Offset(3, 3),
-                                              blurRadius: 3,
-                                            ),
-                                          ],
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                color: lightGreen,
-                                                borderRadius:
-                                                    const BorderRadius.only(
-                                                  topLeft: Radius.circular(15),
-                                                  bottomLeft:
-                                                      Radius.circular(15),
-                                                ),
-                                              ),
-                                              width: width * 0.18,
-                                              height: height * 0.05,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: [
-                                                  const Icon(
-                                                    Icons.thumb_up_alt_outlined,
-                                                    color: Colors.white,
-                                                    size: 25,
-                                                  ),
-                                                  Text(
-                                                    '535',
-                                                    style: headingWhite,
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Container(
-                                              decoration: const BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius.only(
-                                                  topRight: Radius.circular(15),
-                                                  bottomRight:
-                                                      Radius.circular(15),
-                                                ),
-                                              ),
-                                              width: width * 0.08,
-                                              height: height * 0.05,
-                                              child: const Icon(
-                                                Icons.arrow_forward_ios_rounded,
-                                                color: Color.fromRGBO(
-                                                    89, 90, 113, 1),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                              unselectedLabelStyle: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: kUnSelectedIndicatorColor,
                               ),
-                            ],
+                              labelPadding: const EdgeInsets.only(
+                                  bottom: 4.0, right: 0.0),
+                              indicator: const BoxDecoration(
+                                gradient: kTabBarIndicatorGradient,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                              ),
+                              indicatorWeight: 1.5,
+                              indicatorPadding: const EdgeInsets.only(
+                                top: 20,
+                                left: 25,
+                                right: 25,
+                              ),
+                              controller: tabController,
+                              tabs: _tabs
+                                  .map((element) => Text(element))
+                                  .toList(),
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 20),
-                        CustomRegistrationTextField(
-                          label: 'Nom',
-                          prefixIcon: const Icon(
-                            CupertinoIcons.person,
-                          ),
-                          controller: firstNameController,
-                        ),
-                        CustomRegistrationTextField(
-                          label: 'Prénom',
-                          prefixIcon: const Icon(
-                            CupertinoIcons.person,
-                          ),
-                          controller: lastNameController,
-                        ),
-                        CustomRegistrationTextField(
-                          label: 'Poste',
-                          prefixIcon: const Icon(
-                            CupertinoIcons.bag,
-                          ),
-                          controller: jobTitleController,
-                        ),
-                        CustomRegistrationTextField(
-                          label: 'Email',
-                          prefixIcon: const Icon(
-                            CupertinoIcons.mail,
-                          ),
-                          controller: emailController,
-                        ),
-                        CustomRegistrationDatePicker(
-                          label: 'Date de naissance',
-                          prefixIcon: const Icon(
-                            Icons.cake_outlined,
-                          ),
-                          controller: dateOfBirthController,
-                        ),
-                        CustomRegistrationTextField(
-                          label: 'Téléphone',
-                          prefixIcon: const Icon(
-                            CupertinoIcons.phone,
-                          ),
-                          controller: phoneController,
-                        ),
-                        CodePostalWidget(
-                          localisationController: postalCodeController,
-                          villeController: addressController,
-                        ),
-                        // VilleWidget(pharmacyName: addressController),
-                        CustomRegistrationTextField(
-                          label: 'Ville',
-                          prefixIcon: const Icon(
-                            CupertinoIcons.location,
-                          ),
-                          controller: addressController,
-                        ),
-                        CustomRegistrationTextField(
-                          label: 'Presentation',
-                          prefixIcon: const Icon(
-                            Icons.location_city_outlined,
-                          ),
-                          controller: descriptionController,
-                          maxLines: 2,
                         ),
                         SizedBox(
-                          height: height * 0.02,
+                          height: height * 25,
+                          child: TabBarView(
+                            controller: tabController,
+                            children: [
+                              ProfilTabEdit(
+                                conditions: conditions,
+                                callbacks: [
+                                  (val) {
+                                    setState(() {
+                                      conditions[0] = !conditions[0];
+                                    });
+                                  },
+                                  (val) {
+                                    setState(() {
+                                      conditions[1] = !conditions[1];
+                                    });
+                                  }
+                                ],
+                              ),
+                              //AdvisorTabEdit(),
+                              // ReseauEdit(),
+                              RechercheScreen(),
+                            ],
+                          ),
                         ),
                       ],
                     ),
                   ),
-                ),
-                Container(
-                  color: const Color.fromRGBO(245, 245, 245, 1),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: height * 0.07,
-                        child: AppBar(
-                          automaticallyImplyLeading: false,
-                          backgroundColor: Colors.transparent,
-                          elevation: 0,
-                          bottom: TabBar(
-                            labelColor: Color(0xfF161730),
-                            labelStyle: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: kSelectedIndicatorColor,
-                              fontSize: 16,
-                            ),
-                            unselectedLabelStyle: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: kUnSelectedIndicatorColor,
-                            ),
-                            labelPadding:
-                                const EdgeInsets.only(bottom: 4.0, right: 0.0),
-                            indicator: const BoxDecoration(
-                              gradient: kTabBarIndicatorGradient,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            ),
-                            indicatorWeight: 1.5,
-                            indicatorPadding: const EdgeInsets.only(
-                              top: 20,
-                              left: 25,
-                              right: 25,
-                            ),
-                            controller: tabController,
-                            tabs:
-                                _tabs.map((element) => Text(element)).toList(),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: height * 25,
-                        child: TabBarView(
-                          controller: tabController,
-                          children: [
-                            ProfilTabEdit(
-                              conditions: conditions,
-                              callbacks: [
-                                (val) {
-                                  setState(() {
-                                    conditions[0] = !conditions[0];
-                                  });
-                                },
-                                (val) {
-                                  setState(() {
-                                    conditions[1] = !conditions[1];
-                                  });
-                                }
-                              ],
-                            ),
-                            //AdvisorTabEdit(),
-                            // ReseauEdit(),
-                            RechercheScreen(),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

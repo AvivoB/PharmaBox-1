@@ -9,7 +9,7 @@ The output was:
 Microsoft (R) Build Engine version 17.2.1+52cd2da31 pour .NET Framework
 Copyright (C) Microsoft Corporation. Tous droits réservés.
 
-La génération a démarré 08/03/2023 12:37:06.
+La génération a démarré 15/03/2023 14:04:27.
 Projet "D:\freelance projects\pharmabox\PharmaBox-1\build\windows\CMakeFiles\3.22.22040401-MSVC_2\CompilerIdCXX\CompilerIdCXX.vcxproj" sur le noud 1 (cibles par défaut).
 PrepareForBuild:
   Création du répertoire "Debug\".
@@ -35,7 +35,7 @@ La génération a réussi.
     0 Avertissement(s)
     0 Erreur(s)
 
-Temps écoulé 00:00:02.72
+Temps écoulé 00:00:02.95
 
 
 Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -47,14 +47,14 @@ The CXX compiler identification is MSVC, found in "D:/freelance projects/pharmab
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: D:/freelance projects/pharmabox/PharmaBox-1/build/windows/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_8b87c.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:m && Microsoft (R) Build Engine version 17.2.1+52cd2da31 pour .NET Framework
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe cmTC_a454d.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:m && Microsoft (R) Build Engine version 17.2.1+52cd2da31 pour .NET Framework
 Copyright (C) Microsoft Corporation. Tous droits réservés.
 
   Compilateur d'optimisation Microsoft (R) C/C++ version 19.32.31332 pour x64
   CMakeCXXCompilerABI.cpp
   Copyright (C) Microsoft Corporation. Tous droits réservés.
-  cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_8b87c.dir\Debug\\" /Fd"cmTC_8b87c.dir\Debug\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.22\Modules\CMakeCXXCompilerABI.cpp"
-  cmTC_8b87c.vcxproj -> D:\freelance projects\pharmabox\PharmaBox-1\build\windows\CMakeFiles\CMakeTmp\Debug\cmTC_8b87c.exe
+  cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_a454d.dir\Debug\\" /Fd"cmTC_a454d.dir\Debug\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.22\Modules\CMakeCXXCompilerABI.cpp"
+  cmTC_a454d.vcxproj -> D:\freelance projects\pharmabox\PharmaBox-1\build\windows\CMakeFiles\CMakeTmp\Debug\cmTC_a454d.exe
 
 
 

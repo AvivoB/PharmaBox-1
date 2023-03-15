@@ -1043,7 +1043,6 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
             ///register button
             GestureDetector(
               onTap: () {
-                print("pressed");
                 if (widget.formKey.currentState!.validate()) {
                   if (formKey11.currentState!.validate()) {
                     Pharmacie pharmacie = Pharmacie(
@@ -1117,7 +1116,6 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                   /*  controller.animateTo(0,
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.easeInOut);*/
-                  print("okey");
                 }
               },
               child: Container(

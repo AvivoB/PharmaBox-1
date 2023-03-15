@@ -121,7 +121,6 @@ class _PharmaJobNonTituState extends State<PharmaJobNonTitu> {
             alignment: Alignment.bottomCenter,
             child: GestureDetector(
               onTap: () {
-                print("ani hna");
                 Navigator.push(
                   context,
                   PageTransition(

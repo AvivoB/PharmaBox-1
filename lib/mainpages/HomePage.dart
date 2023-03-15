@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:pharmabox/Home/bottomNavbar.dart';
-import 'package:pharmabox/Theme/text.dart';
 import 'package:pharmabox/bloc/offres_bloc.dart';
 import 'package:pharmabox/bloc/pharmacierecherche_bloc.dart';
 import 'package:pharmabox/business_logic/competences_bloc/competences_bloc.dart';
@@ -21,10 +19,16 @@ import 'package:pharmabox/model/user_models/non_titulaire.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as Gmap;
 import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart'
     as places;
+import '../Widgets/jobsbox.dart';
+import '../Widgets/membersBox.dart';
+import '../Widgets/pharmaciesbox.dart';
 import '../bloc/mainmap_bloc.dart';
 import '../bloc/membres_bloc.dart';
 import '../bloc/navigation_bloc.dart';
 import '../model/user_models/marker_model.dart';
+import '../pharmaJob/bottomsheet.dart';
+import '../pharmacyProfile/pharmacie_consultation.dart';
+import '../tabview/profil.dart';
 import 'custom_painter_marker.dart';
 
 class HomePage extends StatefulWidget {
@@ -48,6 +52,29 @@ class _HomePageState extends State<HomePage> {
   GoogleMapController? googleMapController;
   late TextEditingController localisationController;
   late Function(MarkerModel) tapFunction;
+  explorerTap(MarkerModel marker) {
+    BlocProvider.of<MembresBloc>(context).add(GetExplorerMembres(
+        input: places.LatLng(lat: marker.lat, lng: marker.lng)));
+    BlocProvider.of<PharmacierechercheBloc>(context).add(GetExplorerPharmacies(
+        recherche: places.LatLng(lat: marker.lat, lng: marker.lng)));
+    BlocProvider.of<OffresBloc>(context).add(GetExplorerOffres(
+        recherche: places.LatLng(lat: marker.lat, lng: marker.lng)));
+    setState(() {
+      markeOn = true;
+    });
+  }
+
+  pharmaJobTitu(MarkerModel marker) {
+    BlocProvider.of<OffresBloc>(context).add(GetExplorerOffres(
+        recherche: places.LatLng(lat: marker.lat, lng: marker.lng)));
+  }
+
+  pharmaJobNonTitu(MarkerModel marker) {
+    BlocProvider.of<MembresBloc>(context).add(GetExplorerMembres(
+        input: places.LatLng(lat: marker.lat, lng: marker.lng)));
+  }
+
+  bool markeOn = false;
   @override
   void initState() {
     super.initState();
@@ -94,25 +121,6 @@ class _HomePageState extends State<HomePage> {
       ));
     }
     return setList;
-  }
-
-  explorerTap(MarkerModel marker) {
-    BlocProvider.of<MembresBloc>(context).add(GetExplorerMembres(
-        input: places.LatLng(lat: marker.lat, lng: marker.lng)));
-    BlocProvider.of<PharmacierechercheBloc>(context).add(GetExplorerPharmacies(
-        recherche: places.LatLng(lat: marker.lat, lng: marker.lng)));
-    BlocProvider.of<OffresBloc>(context).add(GetExplorerOffres(
-        recherche: places.LatLng(lat: marker.lat, lng: marker.lng)));
-  }
-
-  pharmaJobTitu(MarkerModel marker) {
-    BlocProvider.of<OffresBloc>(context).add(GetExplorerOffres(
-        recherche: places.LatLng(lat: marker.lat, lng: marker.lng)));
-  }
-
-  pharmaJobNonTitu(MarkerModel marker) {
-    BlocProvider.of<MembresBloc>(context).add(GetExplorerMembres(
-        input: places.LatLng(lat: marker.lat, lng: marker.lng)));
   }
 
   @override
@@ -172,81 +180,167 @@ class _HomePageState extends State<HomePage> {
                 ))
               ],
             ),
-            DraggableScrollableSheet(
-              initialChildSize: 0.1,
-              minChildSize: 0.1,
-              expand: true,
-              maxChildSize: 1,
-              builder: (context, scrollController) =>
-                  BottomNavbar(scrollController: scrollController),
-            ),
-            /*Align(
-              alignment: Alignment.bottomCenter,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    PageTransition(
-                      type: PageTransitionType.bottomToTop,
-                      child: BottomNavbar(startIndex: 0),
-                      isIos: true,
-                      duration: const Duration(milliseconds: 400),
-                    ),
-                  );
-                },
-                child: Container(
-                  width: double.infinity,
-                  height: height * 0.07,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15),
-                    ),
-                  ),
-                  child: Column(
+            Positioned.fill(
+              top: height * 0.4,
+              bottom: 80,
+              left: 20,
+              right: 20,
+              child: Visibility(
+                visible: markeOn,
+                child: ListView(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Hero(
-                              tag: 'anim',
-                              child: Image(
-                                image:
-                                    AssetImage('assets/images/homeindicator.png'),
-                              ),
-                            ),
-                          ),
-                        ],
+                      BlocBuilder<MembresBloc, MembresState>(
+                        builder: (context, state) {
+                          if (state is MembresReady) {
+                            return Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: List.generate(
+                                  state.membres.length,
+                                  (index) => Padding(
+                                    padding: const EdgeInsets.only(
+                                        bottom: 20.0, top: 20),
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => Profil(
+                                                membre: state.membres[index]),
+                                          ),
+                                        );
+                                      },
+                                      child: MembersBox(
+                                        poste: state.membres[index].poste,
+                                        image:
+                                            state.membres[index].photoUrl != ''
+                                                ? state.membres[index].photoUrl
+                                                : 'assets/images/user.png',
+                                        name: state.membres[index].nom +
+                                            ' ' +
+                                            state.membres[index].prenom,
+                                        zip: state.membres[index].localisation
+                                                .codePostal
+                                                .toString() +
+                                            ' ' +
+                                            state.membres[index].localisation
+                                                .ville,
+                                      ),
+                                    ),
+                                  ),
+                                ));
+                          } else {
+                            return const SizedBox();
+                          }
+                        },
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          BlocBuilder<MainmapBloc, MainmapState>(
-                            builder: (context, state) {
-                              final MarkerModel countResults =
-                                  state.models.isNotEmpty
-                                      ? state.models.reduce(
-                                          (model, old) => MarkerModel(
-                                              lat: 0,
-                                              lng: 0,
-                                              count: model.count + old.count))
-                                      : MarkerModel(lat: 0, lng: 0, count: 0);
-                              return Text(
-                                '${countResults.count} résultats',
-                                style: paragraph,
-                              );
-                            },
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
+                      SizedBox(
+                        height: height * 0.02,
+                      ),
+                      BlocBuilder<PharmacierechercheBloc,
+                          PharmacierechercheState>(
+                        builder: (context, state) {
+                          if (state is ExplorerPharmacieReady) {
+                            return Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: List.generate(
+                                  state.pharmacies.length,
+                                  (index) => Padding(
+                                    padding: const EdgeInsets.all(20),
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                PharmacyProfile(
+                                                    pharmacie: state
+                                                        .pharmacies[index]),
+                                          ),
+                                        );
+                                      },
+                                      child: PharmaciesBox(
+                                        zip: state.pharmacies[index]
+                                            .localisation.ville,
+                                        pharmacie: state.pharmacies[index],
+                                        pharm: state.pharmacies[index].nom,
+                                        imagePharm: state.pharmacies[index]
+                                                .images.isNotEmpty
+                                            ? state.pharmacies[index].images[0]
+                                            : "assets/images/pharma_img.png",
+                                      ),
+                                    ),
+                                  ),
+                                ));
+                          } else {
+                            return const SizedBox();
+                          }
+                        },
+                      ),
+                      SizedBox(
+                        height: height * 0.02,
+                      ),
+                      BlocBuilder<OffresBloc, OffresState>(
+                        builder: (context, state) {
+                          if (state is FilteredOffresReady) {
+                            return Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: List.generate(
+                                  state.offres.length,
+                                  (index) => Padding(
+                                    padding: const EdgeInsets.only(
+                                        bottom: 20.0, top: 20),
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                PharmacyProfile(
+                                                    pharmacie: state
+                                                        .offres[index]
+                                                        .pharmacie),
+                                          ),
+                                        );
+                                      },
+                                      child: JobBox(
+                                        zip: state.offres[index].pharmacie
+                                            .localisation.ville,
+                                        pharmacie:
+                                            state.offres[index].pharmacie,
+                                        jobName: state.offres[index].nomOffre,
+                                        pharm:
+                                            state.offres[index].pharmacie.nom,
+                                        imagePharm: state.offres[index]
+                                                .pharmacie.images.isEmpty
+                                            ? 'assets/images/pharma_img.png'
+                                            : state.offres[index].pharmacie
+                                                .images[0],
+                                      ),
+                                    ),
+                                  ),
+                                ));
+                          } else {
+                            return const SizedBox();
+                          }
+                        },
+                      ),
+                    ]),
               ),
-            ),*/
+            ),
+            BlocBuilder<NavigationBloc, NavigationState>(
+              builder: (context, state) {
+                return DraggableScrollableSheet(
+                  initialChildSize: 0.1,
+                  minChildSize: 0.1,
+                  expand: true,
+                  maxChildSize: state is ProfileState ? 1 : 0.7,
+                  builder: (context, scrollController) =>
+                      BottomNavbar(scrollController: scrollController),
+                );
+              },
+            ),
           ],
         ),
       ),

@@ -281,7 +281,7 @@ class _PharmacieHeaderState extends State<PharmacieHeader>
                       backgroundColor: Colors.transparent,
                       elevation: 0,
                       bottom: TabBar(
-                        labelColor: Color(0xfF161730),
+                        labelColor:const Color(0xfF161730),
                         labelStyle: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: kSelectedIndicatorColor,

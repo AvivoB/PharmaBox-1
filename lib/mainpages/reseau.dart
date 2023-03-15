@@ -163,7 +163,7 @@ class _ReseauTabState extends State<ReseauTab> {
               pharmacies
                   ? Column(
                       children: [
-                        PharmaciesBox(
+                       /* PharmaciesBox(
                           zip: '75016',
                           pharm: "Grande Pharmacie D'Aulnay",
                           imagePharm: 'assets/images/pharmacy 1.png',
@@ -175,7 +175,7 @@ class _ReseauTabState extends State<ReseauTab> {
                           zip: '94160',
                           pharm: "Citypharma",
                           imagePharm: 'assets/images/pharmacy 2.png',
-                        ),
+                        ),*/
                       ],
                     )
                   : Container(),

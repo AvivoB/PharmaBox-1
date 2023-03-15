@@ -17,11 +17,11 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
         print(authenticationBloc.currentUser!.poste);
         if (authenticationBloc.currentUser!.poste == UserType.tutor) {
           emit(PharmaJobTituState());
+        } else {
+          emit(PharmaJobNonTituState());
         }
-        else{
-        emit(PharmaJobNonTituState());
-
-        }
+      } else {
+        emit(ProfileState());
       }
     });
   }

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pharmabox/Theme/color.dart';
 import 'package:pharmabox/Theme/text.dart';
 import 'package:pharmabox/Widgets/button.dart';
-import 'package:pharmabox/Widgets/gradientText.dart';
 import 'package:pharmabox/general/widgets/custom_slider_consul.dart';
-import 'package:pharmabox/general/widgets/custom_slider_with_gradient.dart';
+import 'package:pharmabox/model/competence.dart';
 import 'package:pharmabox/model/langue.dart';
 import 'package:pharmabox/model/lgo.dart';
 import 'package:pharmabox/model/user_models/non_titulaire.dart';
@@ -21,6 +19,13 @@ class ProfilTab extends StatefulWidget {
 
 class _ProfilTabState extends State<ProfilTab> {
   bool showExperience = false;
+  bool existeCompetence() {
+    for (Competence competence in widget.membre.competences) {
+      if (competence.enabled) return true;
+    }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -32,8 +37,7 @@ class _ProfilTabState extends State<ProfilTab> {
         ),
         widget.membre.specialisations.isNotEmpty
             ? Container(
-                padding: const EdgeInsets.only(left: 8, right: 8),
-                height: height * 0.12,
+                padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
                 width: width * 0.9,
                 decoration: const BoxDecoration(
                   color: Color.fromRGBO(255, 255, 255, 1),
@@ -78,15 +82,14 @@ class _ProfilTabState extends State<ProfilTab> {
                 ),
               )
             : const SizedBox(),
-        SizedBox(
-          height: height * 0.025,
+        const SizedBox(
+          height: 10,
         ),
 
         ///lgos
         widget.membre.lgos.isNotEmpty
             ? Container(
-                padding: const EdgeInsets.only(left: 8, right: 8),
-                height: height * 0.17,
+                padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
                 width: width * 0.9,
                 decoration: const BoxDecoration(
                   color: Color.fromRGBO(255, 255, 255, 1),
@@ -131,11 +134,155 @@ class _ProfilTabState extends State<ProfilTab> {
                                   assetImage: 'assets/icons/computerIcon.png',
                                   categoryCount: 3,
                                   parent: Lgo(
-                                      niveau: widget.membre.lgos[index].niveau,
-                                      nom: widget.membre.lgos[index].nom,
-                                     ),
+                                    niveau: widget.membre.lgos[index].niveau,
+                                    nom: widget.membre.lgos[index].nom,
+                                  ),
                                 )
                               ])),
+                    ),
+                  ],
+                ),
+              )
+            : const SizedBox(),
+        const SizedBox(
+          height: 10,
+        ),
+        //Competences
+        existeCompetence()
+            ? Container(
+                padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
+                width: width * 0.9,
+                decoration: const BoxDecoration(
+                  color: Color.fromRGBO(255, 255, 255, 1),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(15),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromRGBO(31, 92, 103, 0.17),
+                      offset: Offset(3, 3),
+                      blurRadius: 3,
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: height * 0.015,
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: width * 0.05,
+                        ),
+                        Text(
+                          'Compétences',
+                          style: heading,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: height * 0.02,
+                    ),
+                    Column(
+                      children: [
+                        widget.membre.competences[0].enabled
+                            ? Row(
+                                children: [
+                                  SizedBox(
+                                    width: width * 0.05,
+                                  ),
+                                  Image(
+                                    image: const AssetImage(
+                                        'assets/icons/covid.png'),
+                                    height: height * 0.025,
+                                  ),
+                                  SizedBox(
+                                    width: width * 0.02,
+                                  ),
+                                  Text(
+                                    'Test  COVID',
+                                    style: paragraph,
+                                  ),
+                                ],
+                              )
+                            : const SizedBox(),
+                        SizedBox(
+                          height: height * 0.02,
+                        ),
+                        widget.membre.competences[1].enabled
+                            ? Row(
+                                children: [
+                                  SizedBox(
+                                    width: width * 0.05,
+                                  ),
+                                  Image(
+                                    image: AssetImage(
+                                        'assets/icons/Vaccination.png'),
+                                    height: height * 0.025,
+                                  ),
+                                  SizedBox(
+                                    width: width * 0.02,
+                                  ),
+                                  Text(
+                                    'Vaccination',
+                                    style: paragraph,
+                                  ),
+                                ],
+                              )
+                            : const SizedBox(),
+                        SizedBox(
+                          height: height * 0.02,
+                        ),
+                        widget.membre.competences[2].enabled
+                            ? Row(
+                                children: [
+                                  SizedBox(
+                                    width: width * 0.05,
+                                  ),
+                                  Image(
+                                    image: AssetImage(
+                                        'assets/icons/payantIcon.png'),
+                                    height: height * 0.025,
+                                  ),
+                                  SizedBox(
+                                    width: width * 0.02,
+                                  ),
+                                  Text(
+                                    'Gestion du tiers payant',
+                                    style: paragraph,
+                                  ),
+                                ],
+                              )
+                            : const SizedBox(),
+                        SizedBox(
+                          height: height * 0.02,
+                        ),
+                        widget.membre.competences[3].enabled
+                            ? Row(
+                                children: [
+                                  SizedBox(
+                                    width: width * 0.05,
+                                  ),
+                                  Image(
+                                    image: AssetImage(
+                                        'assets/icons/TesttubeIcon.png'),
+                                    height: height * 0.025,
+                                  ),
+                                  SizedBox(
+                                    width: width * 0.025,
+                                  ),
+                                  Text(
+                                    'Gestion des labos',
+                                    style: paragraph,
+                                  ),
+                                ],
+                              )
+                            : const SizedBox(),
+                        SizedBox(
+                          height: height * 0.02,
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -144,150 +291,9 @@ class _ProfilTabState extends State<ProfilTab> {
         SizedBox(
           height: height * 0.025,
         ),
-        //Competences
-        Container(
-          padding: const EdgeInsets.only(left: 8, right: 8),
-          height: height * 0.28,
-          width: width * 0.9,
-          decoration: const BoxDecoration(
-            color: Color.fromRGBO(255, 255, 255, 1),
-            borderRadius: BorderRadius.all(
-              Radius.circular(15),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Color.fromRGBO(31, 92, 103, 0.17),
-                offset: Offset(3, 3),
-                blurRadius: 3,
-              ),
-            ],
-          ),
-          child: Column(
-            children: [
-              SizedBox(
-                height: height * 0.015,
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: width * 0.05,
-                  ),
-                  Text(
-                    'Compétences',
-                    style: heading,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: height * 0.02,
-              ),
-              Column(
-                children: [
-                  widget.membre.competences[0].enabled
-                      ? Row(
-                          children: [
-                            SizedBox(
-                              width: width * 0.05,
-                            ),
-                            Image(
-                              image: const AssetImage('assets/icons/covid.png'),
-                              height: height * 0.025,
-                            ),
-                            SizedBox(
-                              width: width * 0.02,
-                            ),
-                            Text(
-                              'Test  COVID',
-                              style: paragraph,
-                            ),
-                          ],
-                        )
-                      : const SizedBox(),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  widget.membre.competences[1].enabled
-                      ? Row(
-                          children: [
-                            SizedBox(
-                              width: width * 0.05,
-                            ),
-                            Image(
-                              image: AssetImage('assets/icons/Vaccination.png'),
-                              height: height * 0.025,
-                            ),
-                            SizedBox(
-                              width: width * 0.02,
-                            ),
-                            Text(
-                              'Vaccination',
-                              style: paragraph,
-                            ),
-                          ],
-                        )
-                      : const SizedBox(),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  widget.membre.competences[2].enabled
-                      ? Row(
-                          children: [
-                            SizedBox(
-                              width: width * 0.05,
-                            ),
-                            Image(
-                              image: AssetImage('assets/icons/payantIcon.png'),
-                              height: height * 0.025,
-                            ),
-                            SizedBox(
-                              width: width * 0.02,
-                            ),
-                            Text(
-                              'Gestion du tiers payant',
-                              style: paragraph,
-                            ),
-                          ],
-                        )
-                      : const SizedBox(),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  widget.membre.competences[3].enabled
-                      ? Row(
-                          children: [
-                            SizedBox(
-                              width: width * 0.05,
-                            ),
-                            Image(
-                              image:
-                                  AssetImage('assets/icons/TesttubeIcon.png'),
-                              height: height * 0.025,
-                            ),
-                            SizedBox(
-                              width: width * 0.025,
-                            ),
-                            Text(
-                              'Gestion des labos',
-                              style: paragraph,
-                            ),
-                          ],
-                        )
-                      : const SizedBox(),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        SizedBox(
-          height: height * 0.025,
-        ),
         widget.membre.langues.isNotEmpty
             ? Container(
-                padding: const EdgeInsets.only(left: 8, right: 8),
-                height: height * 0.17,
+                padding: const EdgeInsets.only(left: 8, right: 8, bottom: 10),
                 width: width * 0.9,
                 decoration: const BoxDecoration(
                   color: Color.fromRGBO(255, 255, 255, 1),
@@ -366,8 +372,7 @@ class _ProfilTabState extends State<ProfilTab> {
           ...List.generate(
             widget.membre.experiences.length,
             (index) => Container(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              height: height * 0.1,
+              padding: const EdgeInsets.only(left: 8, right: 8, bottom: 10),
               width: width * 0.9,
               decoration: const BoxDecoration(
                 color: Color.fromRGBO(255, 255, 255, 1),

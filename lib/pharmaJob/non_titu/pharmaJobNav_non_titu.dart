@@ -11,7 +11,6 @@ import '../../Widgets/jobsbox.dart';
 import '../../bloc/offres_bloc.dart';
 import 'non_titu_bottomsheet.dart';
 
-
 class PharmaJobNavNonTitu extends StatelessWidget {
   const PharmaJobNavNonTitu({Key? key}) : super(key: key);
 
@@ -104,34 +103,10 @@ class PharmaJobNavNonTitu extends StatelessWidget {
               child: SingleChildScrollView(
                 child: BlocBuilder<OffresBloc, OffresState>(
                   builder: (context, state) {
-                    print(state);
                     if (state is FilteredOffresReady) {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Container(
-                            height: height * 0.04,
-                            color: Colors.white,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                PageTransition(
-                                  type: PageTransitionType.topToBottom,
-                                  child: const PharmaJobNonTitu(),
-                                  isIos: true,
-                                  duration: const Duration(milliseconds: 400),
-                                ),
-                              );
-                            },
-                            child: SizedBox(
-                              height: height * 0.2,
-                              child: Maps(
-                                latLng: LatLng(lat: 44, lng: 44),
-                              ),
-                            ),
-                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: const [
@@ -171,6 +146,7 @@ class PharmaJobNavNonTitu extends StatelessWidget {
                                   );
                                 },
                                 child: JobBox(
+                                  pharmacie: state.offres[index].pharmacie,
                                   jobName: state.offres[index].nomOffre,
                                   zip: state
                                       .offres[index].pharmacie.localisation,

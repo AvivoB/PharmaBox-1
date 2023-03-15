@@ -26,80 +26,6 @@ class PharmaJobNav extends StatelessWidget {
               height: height * 0.02,
               color: Colors.white,
             ),
-            Container(
-              height: height * 0.1,
-              color: Colors.white,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: height * 0.01,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: const Color.fromRGBO(208, 209, 222, 1),
-                          ),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        width: width * 0.9,
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: width * 0.8,
-                              child: TextField(
-                                onSubmitted: (val) {
-                                  BlocProvider.of<MembresBloc>(context)
-                                      .add(RechercheLibre(input: val));
-                                },
-                                decoration: const InputDecoration(
-                                  hintText: 'Rechercher',
-                                  border: InputBorder.none,
-                                  icon: Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Icon(
-                                      Icons.search,
-                                      size: 25,
-                                      color: Color.fromRGBO(208, 209, 222, 1),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(25.0),
-                                    ),
-                                  ),
-                                  isScrollControlled: true,
-                                  context: context,
-                                  builder: (context) =>
-                                      const FiltersBottomSheet(),
-                                );
-                              },
-                              child: Image(
-                                height: height * 0.04,
-                                image: const AssetImage(
-                                  'assets/icons/filter.png',
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: height * 0.05,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
             Flexible(
               child: SingleChildScrollView(
                 child: BlocBuilder<MembresBloc, MembresState>(
@@ -111,25 +37,6 @@ class PharmaJobNav extends StatelessWidget {
                         Container(
                           height: height * 0.04,
                           color: Colors.white,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.topToBottom,
-                                child: const PharmaJob(),
-                                isIos: true,
-                                duration: const Duration(milliseconds: 400),
-                              ),
-                            );
-                          },
-                          child: SizedBox(
-                            height: height * 0.2,
-                            child: Maps(
-                              latLng: LatLng(lat: 44, lng: 44),
-                            ),
-                          ),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

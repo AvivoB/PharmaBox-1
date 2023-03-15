@@ -18,3 +18,11 @@ class UserAdded extends UsersBlocState {
 class NoUserState extends UsersBlocState {
   const NoUserState(super.user);
 }
+class UserLoading extends UsersBlocState{
+ const UserLoading(super.user);
+
+}
+class UserUpdating extends UsersBlocState{
+ const UserUpdating(super.user);
+
+}

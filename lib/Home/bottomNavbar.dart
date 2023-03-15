@@ -47,7 +47,6 @@ class _BottomNavbarState extends State<BottomNavbar> {
   int startIndex = 0;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     tabs = [
       const Explorer(),
@@ -59,7 +58,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
       print(controller.offset);
       controller.addListener(() {
         bool oldResult = result;
-        result = controller.offset > 0.7 ? true : false;
+        result = controller.offset > 0.4 ? true : false;
         if (oldResult != result) {
           setState(() {});
         }
@@ -69,13 +68,12 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   @override
   Widget build(BuildContext context) {
-    print("built");
     return BlocBuilder<UsersBlocBloc, UsersBlocState>(
       builder: (context, state) {
         if (state is UserAdded) {
-          if (state.user!.poste != UserType.tutor) {
+          if (state.user!.poste == UserType.tutor) {
             tabs.removeAt(1);
-            tabs.insert(1, const PharmaJob());
+            tabs.insert(1, const PharmaJobNav());
           }
           return Scaffold(
             backgroundColor: Colors.white,

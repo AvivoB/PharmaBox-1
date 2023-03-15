@@ -4,14 +4,9 @@ import 'package:pharmabox/Theme/text.dart';
 import 'package:pharmabox/Widgets/customAppbar.dart';
 import 'package:pharmabox/Widgets/likeandroundbutton.dart';
 import 'package:pharmabox/model/user_models/non_titulaire.dart';
-import 'package:pharmabox/offer/offerNorm.dart';
-import 'package:pharmabox/tabview/Advisor.dart';
 import 'package:pharmabox/tabview/profile_membre_consultation.dart';
-import 'package:pharmabox/tabview/Reseau.dart';
 
 import '../constants.dart';
-import '../general/widgets/custom_registration_textfield.dart';
-import '../pharmaJob/bottomsheet.dart';
 
 class Profil extends StatefulWidget {
   NonTitulaire membre;
@@ -47,7 +42,7 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
               children: [
                 Container(
                   width: double.infinity,
-                  height: height * 0.3,
+                  height: height * 0.25,
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.centerLeft,
@@ -70,9 +65,12 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                                   onTap: () {
                                     Navigator.pop(context);
                                   },
-                                  child: const Image(
-                                    image: AssetImage(
-                                        'assets/images/backButton.png'),
+                                  child: const Padding(
+                                    padding: EdgeInsets.only(top: 8.0),
+                                    child: Image(
+                                      image: AssetImage(
+                                          'assets/images/backButton.png'),
+                                    ),
                                   ),
                                 ),
                                 /* Row(
@@ -166,7 +164,7 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                               ])),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Stack(
                             children: [
@@ -196,6 +194,7 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                             ],
                           ),
                           Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 widget.membre.nom,
@@ -211,7 +210,7 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                               SizedBox(
                                 height: height * 0.01,
                               ),
-                              Row(
+                              /*Row(
                                 children: [
                                   Container(
                                     height: height * 0.06,
@@ -234,17 +233,20 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                                     style: smallWhiteUnderline,
                                   ),
                                 ],
-                              ),
+                              ),*/
                               SizedBox(
                                 height: height * 0.01,
                               ),
-                              LikeButton(isLiked: false),
+                              // LikeButton(isLiked: false),
                             ],
                           ),
                         ],
                       ),
                     ],
                   ),
+                ),
+                const SizedBox(
+                  height: 10,
                 ),
                 Container(
                   padding: const EdgeInsets.only(left: 15, right: 15),
@@ -360,55 +362,11 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: height * 0.07,
-                  child: AppBar(
-                    automaticallyImplyLeading: false,
-                    backgroundColor: Colors.transparent,
-                    elevation: 0,
-                    bottom: TabBar(
-                      labelColor: Color(0xfF161730),
-                      labelStyle: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: kSelectedIndicatorColor,
-                        fontSize: 16,
-                      ),
-                      unselectedLabelStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: kUnSelectedIndicatorColor,
-                      ),
-                      labelPadding:
-                          const EdgeInsets.only(bottom: 4.0, right: 0.0),
-                      indicator: const BoxDecoration(
-                        gradient: kTabBarIndicatorGradient,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
-                      indicatorWeight: 1.5,
-                      indicatorPadding: const EdgeInsets.only(
-                        top: 20,
-                        left: 25,
-                        right: 25,
-                      ),
-                      controller: tabController,
-                      tabs: _tabs.map((element) => Text(element)).toList(),
-                    ),
-                  ),
+
+                ProfilTab(
+                  membre: widget.membre,
                 ),
-                SizedBox(
-                  height: height * 4,
-                  child: TabBarView(
-                    controller: tabController,
-                    children: [
-                      ProfilTab(
-                        membre: widget.membre,
-                      ),
-                      //    OfferScreenNorm(),
-                    ],
-                  ),
-                ),
+                //    OfferScreenNorm(),
               ],
             ),
           ),

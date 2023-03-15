@@ -116,8 +116,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => MainmapBloc(),
         ),
-        BlocProvider(create:(_)=>LgosearchBloc()),
-        BlocProvider(create: (_)=>NavigationBloc(authenticationBloc:authenticationBloc ))
+        BlocProvider(create: (_) => LgosearchBloc()),
+        BlocProvider(
+            create: (_) =>
+                NavigationBloc(authenticationBloc: authenticationBloc))
       ],
       child: const HomeApp(),
     );
@@ -143,30 +145,39 @@ class _HomeAppState extends State<HomeApp> {
   @override
   Widget build(BuildContext context) {
     return Sizer(
-      builder: (context, orientation, deviceType) => GetMaterialApp(
-        navigatorKey: navigatorKey,
-        localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
-        //supportedLocales: const [Locale('en'), Locale('fr')],
-        locale: TranslationService.locale,
-        fallbackLocale: TranslationService.fallbackLocale,
-        translations: TranslationService(),
-        scrollBehavior: MyBehavior(),
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-            primaryColor: Color.fromARGB(255, 63, 222, 185),
-            appBarTheme: AppBarTheme(
-              backgroundColor: Colors.white,
-            )),
-        home: BlocBuilder<UsersBlocBloc, UsersBlocState>(
-            builder: (context, state) {
-          print(state);
-          if (state is UserAdded) {
-            return HomePage();
-          } else {
-            return const SignUp();
-          }
-        }),
-      ),
-    );
+        builder: (context, orientation, deviceType) => GetMaterialApp(
+              navigatorKey: navigatorKey,
+              localizationsDelegates: const [
+                GlobalMaterialLocalizations.delegate
+              ],
+              //supportedLocales: const [Locale('en'), Locale('fr')],
+              locale: TranslationService.locale,
+              fallbackLocale: TranslationService.fallbackLocale,
+              translations: TranslationService(),
+              scrollBehavior: MyBehavior(),
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                  primaryColor: const Color.fromARGB(255, 63, 222, 185),
+                  appBarTheme: const AppBarTheme(
+                    backgroundColor: Colors.white,
+                  )),
+              home: SafeArea(
+                child: Scaffold(
+                  body: BlocBuilder<UsersBlocBloc, UsersBlocState>(
+                      buildWhen: (previous, current) =>
+                          !(previous is UserAdded && current is UserLoading),
+                      builder: (context, state) {
+                        if (state is UserAdded) {
+                          return HomePage();
+                        } else if (state is UserLoading) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        } else {
+                          return const SignUp();
+                        }
+                      }),
+                ),
+              ),
+            ));
   }
 }

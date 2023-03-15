@@ -22,8 +22,9 @@ class MembersBox extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Container(
-      height: height * 0.22,
+      height: height * 0.17,
       width: width * 0.9,
+      alignment: Alignment.bottomCenter,
       decoration: const BoxDecoration(
         color: Color.fromRGBO(255, 255, 255, 1),
         borderRadius: BorderRadius.all(
@@ -49,17 +50,19 @@ class MembersBox extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CircleAvatar(
-                      radius: 30,
+                      radius: 20,
                       backgroundImage: image.startsWith("https")
                           ? NetworkImage(image) as ImageProvider
-                          : const AssetImage(
-                              "assets/images/user.png",
-                            ),
+                          :
+                          const AssetImage(
+                        "assets/images/user.png",
+                      ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.only(left: 10.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -67,8 +70,8 @@ class MembersBox extends StatelessWidget {
                             name,
                             style: paragraph,
                           ),
-                          SizedBox(
-                            height: height * 0.015,
+                          const SizedBox(
+                            height: 5,
                           ),
                           Text(
                             poste,
@@ -88,12 +91,9 @@ class MembersBox extends StatelessWidget {
                     ),
                   ],
                 ),
-                AjouterContainer(),
+                //AjouterContainer(),
               ],
             ),
-          ),
-          const SizedBox(
-            height: 20,
           ),
           Padding(
             padding: const EdgeInsets.only(left: 8.0, right: 8.0),
@@ -124,34 +124,40 @@ class MembersBox extends StatelessWidget {
           Container(
             color: const Color(0xFFEFF6F7),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                IconButton(
+                /*IconButton(
                   icon: Icon(Icons.linked_camera),
                   color: Color(0xfF161730),
                   onPressed: () {},
-                ),
+                ),*/
                 Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image(
-                        image: AssetImage('assets/images/PhoneGreen.png'),
-                        height: height * 0.025,
+                    Container(
+                      decoration: BoxDecoration(),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image(
+                          image: AssetImage('assets/images/PhoneGreen.png'),
+                          height: height * 0.03,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Image(
                         image: AssetImage('assets/images/EmailGreen.png'),
-                        height: height * 0.025,
+                        height: height * 0.03,
+                        fit: BoxFit.cover,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Image(
                         image: AssetImage('assets/images/SendGreen.png'),
-                        height: height * 0.025,
+                        height: height * 0.03,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ],
