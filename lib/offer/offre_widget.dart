@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmabox/bloc/offres_bloc.dart';
+import 'package:pharmabox/bloc/pharmacie_bloc.dart';
 import 'package:pharmabox/model/user_models/offre.dart';
 import 'package:sizer/sizer.dart';
 
@@ -566,7 +567,7 @@ class _OffreWidgetState extends State<OffreWidget> {
                                         ),
                                       ),
                                       const SizedBox(
-                                        height: 20,
+                                        height: 10,
                                       ),
                                       Visibility(
                                         visible: !widget.offre.salaireEnsemble,
@@ -595,7 +596,7 @@ class _OffreWidgetState extends State<OffreWidget> {
                                         ),
                                       )),
                                       const SizedBox(
-                                        height: 20,
+                                        height: 10,
                                       ),
                                       Text(
                                         'Confort',
@@ -704,7 +705,7 @@ class _OffreWidgetState extends State<OffreWidget> {
                                           if (formKey.currentState!
                                               .validate()) {
                                             widget.offre.localisation =
-                                                locationController.text;
+                                              BlocProvider.of<PharmacieBloc>(context).pharmacie!.localisation.ville;
                                             widget.offre.rayon =
                                                 int.parse(routeController.text);
                                             widget.offre.poste =

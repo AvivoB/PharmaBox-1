@@ -14,3 +14,4 @@ class NavItemClicked extends NavigationEvent {
     required this.currentIndex,
   });
 }
+class Reset extends NavigationEvent{}

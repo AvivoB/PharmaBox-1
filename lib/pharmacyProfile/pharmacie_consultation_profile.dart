@@ -209,54 +209,60 @@ class _PharmacyTabBarState extends State<PharmacyTabBar> {
         SizedBox(
           height: height * 0.02,
         ),
-        Container(
-          padding: const EdgeInsets.only(left: 8, right: 8, bottom: 10),
-          width: width * 0.9,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(
-              Radius.circular(15),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Color.fromRGBO(31, 92, 103, 0.17),
-                offset: Offset(3, 3),
-                blurRadius: 3,
-              ),
-            ],
-          ),
-          child: Column(children: [
-            SizedBox(
-              height: height * 0.015,
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  width: width * 0.05,
+        (transport[0] != "" ||
+                transport[1] != "" ||
+                transport[2] != "" ||
+                transport[3] != "" ||
+                transport[4] != "")
+            ? Container(
+                padding: const EdgeInsets.only(left: 8, right: 8, bottom: 10),
+                width: width * 0.9,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(15),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromRGBO(31, 92, 103, 0.17),
+                      offset: Offset(3, 3),
+                      blurRadius: 3,
+                    ),
+                  ],
                 ),
-                Text(
-                  'Accessibilité',
-                  style: heading,
-                ),
-              ],
-            ),
-            SizedBox(
-              height: height * 0.02,
-            ),
-            Column(
-              children: List.generate(
-                transport.length,
-                (index) => PharmacyRowWithoutSwitch(
-                  text: transport[index],
-                  icon: transportIcon[index],
-                ),
-              ),
-            ),
-            SizedBox(
-              height: height * 0.02,
-            ),
-          ]),
-        ),
+                child: Column(children: [
+                  SizedBox(
+                    height: height * 0.015,
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: width * 0.05,
+                      ),
+                      Text(
+                        'Accessibilité',
+                        style: heading,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+                  Column(
+                    children: List.generate(
+                      transport.length,
+                      (index) => PharmacyRowWithoutSwitch(
+                        text: transport[index],
+                        icon: transportIcon[index],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+                ]),
+              )
+            : const SizedBox(),
         SizedBox(
           height: height * 0.02,
         ),
@@ -624,7 +630,7 @@ class _PharmacyTabBarState extends State<PharmacyTabBar> {
         SizedBox(
           height: height * 0.02,
         ),
-        TabBarButton(),
+        const TabBarButton(),
       ],
     );
   }

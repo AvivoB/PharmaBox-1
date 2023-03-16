@@ -23,6 +23,7 @@ import 'package:pharmabox/business_logic/lgo_bloc/lgo_bloc.dart';
 import 'package:pharmabox/business_logic/specialisations_bloc/specialisations_bloc.dart';
 import 'package:pharmabox/business_logic/users_bloc/users_bloc_bloc.dart';
 import 'package:pharmabox/firebase/users_calls.dart';
+import 'package:pharmabox/mainpages/splash_screen.dart';
 import 'package:sizer/sizer.dart';
 
 import 'business_logic/experiences_bloc/experiences_bloc.dart';
@@ -99,7 +100,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => PharmacieBloc()),
         BlocProvider(create: (_) => GroupementBloc()),
         BlocProvider(
-          create: (_) => TitulaireBloc(titulaires: []),
+          create: (_) =>
+              TitulaireBloc(titulaires: [], usersBlocBloc: authenticationBloc),
         ),
         BlocProvider(
           create: (_) => OffresBloc(),
@@ -170,8 +172,7 @@ class _HomeAppState extends State<HomeApp> {
                         if (state is UserAdded) {
                           return HomePage();
                         } else if (state is UserLoading) {
-                          return const Center(
-                              child: CircularProgressIndicator());
+                          return const Center(child: SplashScreen());
                         } else {
                           return const SignUp();
                         }

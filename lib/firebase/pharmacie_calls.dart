@@ -136,7 +136,7 @@ class PharmacieCalls {
             value.docs.map((e) => Pharmacie.fromJson(e.data())).toList());
     List<Pharmacie> recherches1 = await _firebaseFirestore
         .collection("pharmacie")
-        .where('nom', isEqualTo: input)
+        .where('code-postal', isEqualTo: input)
         .get()
         .then((value) =>
             value.docs.map((e) => Pharmacie.fromJson(e.data())).toList());

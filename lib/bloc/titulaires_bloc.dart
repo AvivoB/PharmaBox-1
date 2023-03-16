@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pharmabox/business_logic/users_bloc/users_bloc_bloc.dart';
 
 import '../firebase/firebase_calls.dart';
 
@@ -8,15 +9,14 @@ part 'titulaires_state.dart';
 
 class TitulaireBloc extends Bloc<TitulairesEvent, TitulairesState> {
   List<String> titulaires;
-  TitulaireBloc({required this.titulaires})
-      :
-        super(const TitulairesInitial([])) {
+  UsersBlocBloc usersBlocBloc;
+  TitulaireBloc({required this.titulaires, required this.usersBlocBloc})
+      : super(TitulairesInitial(titulaires)) {
     on<AddLocalTitulaire>((event, emit) {
       titulaires = [...titulaires, event._titulaires];
       emit(TitulairesReady(titulaires));
     });
     on<InitialiseTitulaire>((event, emit) {
-      print("called");
       titulaires = event.titulaires;
       emit(TitulairesReady(titulaires));
     });
@@ -42,9 +42,13 @@ class TitulaireBloc extends Bloc<TitulairesEvent, TitulairesState> {
       emit(TitulairesReady(titulaires));
     });
     on<InitTitu>((event, emit) async {
-      print("called");
       titulaires.clear();
-      emit(const TitulairesInitial([]));
+      titulaires = [
+        ...titulaires,
+        usersBlocBloc.currentUser!.prenom + ' ' + usersBlocBloc.currentUser!.nom
+      ];
+      print("is:" + titulaires[0]);
+      emit(TitulairesInitial(titulaires));
     });
   }
 }

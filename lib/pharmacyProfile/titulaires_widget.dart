@@ -3,12 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmabox/bloc/titulaires_bloc.dart';
 import 'package:pharmabox/pharmacyProfile/textfield.dart';
 
-import '../Theme/text.dart';
-import '../general/regTextFieldAjouter.dart';
-import '../member_registration/member_registration_screen.dart';
-import '../model/models.dart';
-import '../pharmaJob/bottomsheet.dart';
-
 class TitulaireContainer extends StatelessWidget {
   TitulaireContainer({
     Key? key,
@@ -32,11 +26,8 @@ class TitulaireContainer extends StatelessWidget {
     return Column(
       children: [
         BlocBuilder<TitulaireBloc, TitulairesState>(
-          bloc: titulaireBloc,
-          builder: (context, state) {
-            if (state is TitulairesInitial) {
-              return const SizedBox();
-            } else {
+            bloc: titulaireBloc,
+            builder: (context, state) {
               return Column(
                   children: List.generate(
                 state.titulaires.length,
@@ -44,13 +35,12 @@ class TitulaireContainer extends StatelessWidget {
                   margin: const EdgeInsets.only(bottom: 5),
                   child: TitulaireWidget(
                       width: width,
+                      index: index,
                       height: height,
                       titulaire: state.titulaires[index]),
                 ),
               ));
-            }
-          },
-        ),
+            }),
         InkWell(
           onTap: () {
             titulaireBloc.titulaires.length == 3
@@ -62,7 +52,7 @@ class TitulaireContainer extends StatelessWidget {
                         title: const Text('Alerte'),
                         content: SingleChildScrollView(
                           child: Text(
-                              "Vous pouvez pas ajouter plus de 3 titulaires"),
+                              "Vous ne pouvez pas ajouter plus de 3 titulaires"),
                         ),
                         actions: <Widget>[
                           TextButton(
@@ -75,7 +65,8 @@ class TitulaireContainer extends StatelessWidget {
                       );
                     },
                   )
-                : showModalBottomSheet(
+                : addTitulaire(
+                    context); /*showModalBottomSheet(
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.vertical(
                         top: Radius.circular(25.0),
@@ -151,7 +142,7 @@ class TitulaireContainer extends StatelessWidget {
                         ),
                       ),
                     ),
-                  );
+                  );*/
           },
           child: Row(
             children: const [
@@ -178,11 +169,13 @@ class TitulaireWidget extends StatefulWidget {
   const TitulaireWidget({
     Key? key,
     required this.width,
+    required this.index,
     required this.height,
     required this.titulaire,
   }) : super(key: key);
 
   final double width;
+  final int index;
   final double height;
   final String titulaire;
 
@@ -210,7 +203,7 @@ class _TitulaireWidgetState extends State<TitulaireWidget> {
               label: "Titulaire",
               maxLines: 1,
               prefixIcon: const Icon(Icons.person),
-              readOnly: true,
+              readOnly: widget.index == 0 ? true : false,
               controller: tituController,
             ),
           ),
@@ -218,16 +211,18 @@ class _TitulaireWidgetState extends State<TitulaireWidget> {
         SizedBox(
           width: widget.width * 0.03,
         ),
-        GestureDetector(
-          onTap: () {
-            BlocProvider.of<TitulaireBloc>(context)
-                .add(RemoveLocalTitulaire(titulaire: widget.titulaire));
-          },
-          child: Image(
-            image: const AssetImage('assets/icons/deleteicon.png'),
-            height: widget.height * 0.025,
-          ),
-        ),
+        widget.index != 0
+            ? GestureDetector(
+                onTap: () {
+                  BlocProvider.of<TitulaireBloc>(context)
+                      .add(RemoveLocalTitulaire(titulaire: widget.titulaire));
+                },
+                child: Image(
+                  image: const AssetImage('assets/icons/deleteicon.png'),
+                  height: widget.height * 0.025,
+                ),
+              )
+            : const SizedBox(),
       ],
     );
   }

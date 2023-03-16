@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pharmabox/general/widgets/present_field.dart';
 import 'package:pharmabox/mainpages/HomePage.dart';
 import 'package:pharmabox/Theme/text.dart';
 import 'package:pharmabox/business_logic/competences_bloc/competences_bloc.dart';
@@ -85,222 +86,236 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      body: Column(
-        children: [
-          MemberRegistrationAppBar(),
-          Flexible(
-            child: SingleChildScrollView(
-              controller: controller,
-              child: Form(
-                key: formKey,
-                child: Column(
-                  children: [
-                    const SizedBox(height: 20),
-                    CustomRegistrationTextField(
-                      label: 'Nom',
-                      prefixIcon: const Icon(
-                        CupertinoIcons.person,
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        body: Column(
+          children: [
+            Flexible(
+              child: SingleChildScrollView(
+                controller: controller,
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      MemberRegistrationAppBar(),
+
+                      const SizedBox(height: 20),
+                      CustomRegistrationTextField(
+                        label: 'Nom',
+                        prefixIcon: const Icon(
+                          CupertinoIcons.person,
+                        ),
+                        controller: lastNameController,
                       ),
-                      controller: lastNameController,
-                    ),
-                    CustomRegistrationTextField(
-                      label: 'Prénom',
-                      prefixIcon: const Icon(
-                        CupertinoIcons.person,
+                      CustomRegistrationTextField(
+                        label: 'Prénom',
+                        prefixIcon: const Icon(
+                          CupertinoIcons.person,
+                        ),
+                        controller: firstNameController,
                       ),
-                      controller: firstNameController,
-                    ),
-                    Stack(
-                      children: [
-                        CustomRegistrationTextField(
-                          label: 'Poste',
-                          readOnly: true,
-                          prefixIcon: const Icon(
-                            CupertinoIcons.bag,
+                      Stack(
+                        children: [
+                          CustomRegistrationTextField(
+                            label: 'Poste',
+                            readOnly: true,
+                            prefixIcon: const Icon(
+                              CupertinoIcons.bag,
+                            ),
+                            controller: jobTitleController,
+                            textInputType: TextInputType.none,
                           ),
-                          controller: jobTitleController,
-                          textInputType: TextInputType.none,
-                        ),
-                        Positioned(
-                          right: 7.w,
-                          child: DropdownButton<String>(
-                            items: <String>[
-                              'Rayonniste',
-                              'Conseiller',
-                              'Préparateur',
-                              'Apprenti',
-                              'Etudiant pharmacie',
-                              'Etudiant 6éme annéee validée',
-                              'Pharmacien',
-                              'Titulaire'
-                            ].map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                            onChanged: (val) {
-                              jobTitleController.text = val ?? '';
-                            },
+                          Positioned(
+                            right: 7.w,
+                            child: DropdownButton<String>(
+                              items: <String>[
+                                'Rayonniste',
+                                'Conseiller',
+                                'Préparateur',
+                                'Apprenti',
+                                'Etudiant pharmacie',
+                                'Etudiant 6éme annéee validée',
+                                'Pharmacien',
+                                'Titulaire'
+                              ].map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                              onChanged: (val) {
+                                jobTitleController.text = val ?? '';
+                              },
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    CustomRegistrationTextField(
-                      label: 'Email',
-                      prefixIcon: const Icon(
-                        CupertinoIcons.mail,
-                      ),
-                      controller: emailController,
-                    ),
-                    CustomRegistrationDatePicker(
-                      label: 'Date de naissance',
-                      prefixIcon: const Icon(
-                        Icons.cake_outlined,
-                      ),
-                      controller: dateOfBirthController,
-                    ),
-                    CustomRegistrationTextField(
-                      label: 'Téléphone',
-                      prefixIcon: const Icon(
-                        CupertinoIcons.phone,
-                      ),
-                      maxLength: 10,
-                      textInputType: TextInputType.phone,
-                      controller: phoneController,
-                    ),
-                    CodePostalWidget(
-                      localisationController: postalCodeController,
-                      villeController: addressController,
-                    ),
-                    //VilleWidget(pharmacyName: addressController),
-                    CustomRegistrationTextField(
-                      readOnly: true,
-                      label: 'Ville',
-                      prefixIcon: const Icon(
-                        CupertinoIcons.location,
-                      ),
-                      controller: addressController,
-                    ),
-                    CustomRegistrationTextField(
-                      label: 'Presentation',
-                      prefixIcon: const Icon(
-                        Icons.location_city_outlined,
-                      ),
-                      controller: descriptionController,
-                      maxLines: 2,
-                      textInputaction: TextInputAction.newline,
-                    ),
-                    Column(
-                      children: [
-                        // UniversiteContainer(height: height, width: width),
-                        SpecialisationContainer(width: width, height: height),
-                        LgoContainer(height: height, width: width),
-                        CompetencesContainer(height: height, width: width),
-                        LanguesContainer(height: height, width: width),
-                        ExperiencesContainer(width: width, height: height),
-                        AutresContainer(
-                          height: height,
-                          width: width,
-                          conditions: conditions,
-                          callbacks: [
-                            (val) {
-                              setState(() {
-                                conditions[0] = !conditions[0];
-                              });
-                            },
-                            (val) {
-                              setState(() {
-                                conditions[1] = !conditions[1];
-                              });
-                            }
-                          ],
-                        ),
-                        SizedBox(
-                          height: height * 0.025,
-                        ),
-                      ],
-                    ),
-                    CustomElevatedButton(
-                      gradient: const LinearGradient(
-                        colors: [
-                          Color(0xFF7CEDAC),
-                          Color(0xFF42D2FF),
                         ],
                       ),
-                      width: MediaQuery.of(context).size.width,
-                      onPressed: () async {
-                        if (formKey.currentState!.validate()) {
-                          NonTitulaire nonTitulaire = NonTitulaire.creation(
-                              nom: firstNameController.text,
-                              photoUrl: BlocProvider.of<UsersBlocBloc>(context).imagePath != null
-                                  ? BlocProvider.of<UsersBlocBloc>(context)
-                                      .imagePath!
-                                  : '',
-                              prenom: lastNameController.text,
-                              presentation: descriptionController.text,
-                              email: emailController.text,
-                              telephone: Telephone(
-                                  numeroTelephone:
-                                      int.parse(phoneController.text),
-                                  visible: false),
-                              poste: jobTitleController.text,
-                              experiences: BlocProvider.of<ExperiencesBloc>(context)
-                                  .state
-                                  .experiences,
-                              specialisations:
-                                  BlocProvider.of<SpecialisationsBloc>(context)
+                      CustomRegistrationTextField(
+                        label: 'Email',
+                        prefixIcon: const Icon(
+                          CupertinoIcons.mail,
+                        ),
+                        controller: emailController,
+                      ),
+                      CustomRegistrationDatePicker(
+                        label: 'Date de naissance',
+                        prefixIcon: const Icon(
+                          Icons.cake_outlined,
+                        ),
+                        controller: dateOfBirthController,
+                      ),
+                      CustomRegistrationTextField(
+                        label: 'Téléphone',
+                        prefixIcon: const Icon(
+                          CupertinoIcons.phone,
+                        ),
+                        maxLength: 10,
+                        textInputType: TextInputType.phone,
+                        controller: phoneController,
+                      ),
+                      CodePostalWidget(
+                        localisationController: postalCodeController,
+                        villeController: addressController,
+                      ),
+                      //VilleWidget(pharmacyName: addressController),
+                      CustomRegistrationTextField(
+                        readOnly: true,
+                        label: 'Ville',
+                        prefixIcon: const Icon(
+                          CupertinoIcons.location,
+                        ),
+                        controller: addressController,
+                      ),
+                      PresentField(
+                        label: 'Presentation',
+                        prefixIcon: const Icon(
+                          Icons.location_city_outlined,
+                        ),
+                        controller: descriptionController,
+                        maxLines: 2,
+                        textInputaction: TextInputAction.newline,
+                      ),
+                      Column(
+                        children: [
+                          // UniversiteContainer(height: height, width: width),
+                          SpecialisationContainer(width: width, height: height),
+                          LgoContainer(height: height, width: width),
+                          CompetencesContainer(height: height, width: width),
+                          LanguesContainer(height: height, width: width),
+                          ExperiencesContainer(width: width, height: height),
+                          AutresContainer(
+                            height: height,
+                            width: width,
+                            conditions: conditions,
+                            callbacks: [
+                              (val) {
+                                setState(() {
+                                  conditions[0] = !conditions[0];
+                                });
+                              },
+                              (val) {
+                                setState(() {
+                                  conditions[1] = !conditions[1];
+                                });
+                              }
+                            ],
+                          ),
+                          SizedBox(
+                            height: height * 0.025,
+                          ),
+                        ],
+                      ),
+                      CustomElevatedButton(
+                        gradient: const LinearGradient(
+                          colors: [
+                            Color(0xFF7CEDAC),
+                            Color(0xFF42D2FF),
+                          ],
+                        ),
+                        width: MediaQuery.of(context).size.width,
+                        onPressed: () async {
+                          if (formKey.currentState!.validate()) {
+                            if (!conditions[1]) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  backgroundColor:const Color(0xFF7CEDAC),
+                                  content:const Text(
+                                      "Vous devez accepter les conditions générales d'utilisation!"),
+                                ),
+                              );
+                            } else {
+                              NonTitulaire nonTitulaire = NonTitulaire.creation(
+                                  nom: firstNameController.text,
+                                  photoUrl: BlocProvider.of<UsersBlocBloc>(context).imagePath != null
+                                      ? BlocProvider.of<UsersBlocBloc>(context)
+                                          .imagePath!
+                                      : '',
+                                  prenom: lastNameController.text,
+                                  presentation: descriptionController.text,
+                                  email: emailController.text,
+                                  telephone: Telephone(
+                                      numeroTelephone:
+                                          int.parse(phoneController.text),
+                                      visible: false),
+                                  poste: jobTitleController.text,
+                                  experiences: BlocProvider.of<ExperiencesBloc>(context)
+                                      .state
+                                      .experiences,
+                                  specialisations: BlocProvider.of<SpecialisationsBloc>(context)
                                       .state
                                       .specialisations,
-                              lgos:
-                                  BlocProvider.of<LgoBloc>(context).state.lgos,
-                              universites:
-                                  BlocProvider.of<UniversitesBloc>(context)
+                                  lgos: BlocProvider.of<LgoBloc>(context)
+                                      .state
+                                      .lgos,
+                                  universites: BlocProvider.of<UniversitesBloc>(context)
                                       .state
                                       .universities,
-                              naissance: dateOfBirthController.text,
-                              langues: BlocProvider.of<LanguesBloc>(context)
-                                  .state
-                                  .langues,
-                              localisation: Localisation(
-                                  codePostal: int.parse(postalCodeController.text),
-                                  ville: addressController.text),
-                              competences: BlocProvider.of<CompetencesBloc>(context).state.competences,
-                              droitOffres: conditions[0],
-                              accepterConditions: conditions[1]);
-                          BlocProvider.of<UsersBlocBloc>(context)
-                              .add(AddUser(user: nonTitulaire));
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HomePage(),
-                              ));
-                        } else {
-                          controller.animateTo(0,
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeInOut);
-                        }
-                      },
-                      borderRadius: BorderRadius.circular(15),
-                      child: const Text(
-                        'Créer un nouveau compte',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                                  naissance: dateOfBirthController.text,
+                                  langues: BlocProvider.of<LanguesBloc>(context)
+                                      .state
+                                      .langues,
+                                  localisation: Localisation(
+                                      codePostal: int.parse(postalCodeController.text),
+                                      ville: addressController.text),
+                                  competences: BlocProvider.of<CompetencesBloc>(context).state.competences,
+                                  droitOffres: conditions[0],
+                                  accepterConditions: conditions[1]);
+                              BlocProvider.of<UsersBlocBloc>(context)
+                                  .add(AddUser(user: nonTitulaire));
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => HomePage(),
+                                  ));
+                            }
+                          } else {
+                            controller.animateTo(0,
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeInOut);
+                          }
+                        },
+                        borderRadius: BorderRadius.circular(15),
+                        child: const Text(
+                          'Créer un nouveau compte',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 40,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

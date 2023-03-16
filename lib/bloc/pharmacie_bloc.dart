@@ -17,17 +17,20 @@ class PharmacieBloc extends Bloc<PharmacieEvent, PharmacieState> {
   PharmacieBloc() : super(PharmacieInitial()) {
     on<AddPharmacie>((event, emit) async {
       pharmacie = event.pharmacie;
-      await pharmacieCalls.createPharmacie(event.pharmacie);
+      print(pharmacie!.groupementImage);
+      print(pharmacie!.groupementName);
+    await pharmacieCalls.createPharmacie(event.pharmacie);
       emit(PharmacieReady(pharmacie: pharmacie!));
     });
     on<GetPharmacie>((event, emit) async {
       try {
-        pharmacie = await pharmacieCalls.getPharmacie();
-        images = pharmacie!.images;
-        print("${images.length} alo");
-        print("origianl est:${pharmacie!.images.length}");
-        emit(PharmacieReady(pharmacie: pharmacie!));
-      } catch (e) {
+      pharmacie = await pharmacieCalls.getPharmacie();
+      images = pharmacie!.images;
+
+      print("${images.length} alo");
+      print("origianl est:${pharmacie!.images.length}");
+      emit(PharmacieReady(pharmacie: pharmacie!));
+       } catch (e) {
         emit(PharmacieFailed());
       }
     });

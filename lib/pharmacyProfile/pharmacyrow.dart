@@ -42,9 +42,11 @@ class PharmacyRow extends StatelessWidget {
               ),
               Text(
                 text,
+                softWrap: true,
                 style: const TextStyle(
                   color: Color.fromRGBO(89, 90, 112, 1),
-                  fontSize: 14,
+                  fontSize: 13,
+                  overflow: TextOverflow.ellipsis,
                   fontWeight: FontWeight.w400,
                 ),
               ),

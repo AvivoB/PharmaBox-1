@@ -56,7 +56,7 @@
 36        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 36-->[androidx.core:core:1.8.0] D:\.gradle\caches\transforms-3\dec2858781fba9b5ae3e23e74d56a67d\transformed\core-1.8.0\AndroidManifest.xml:24:18-86
 37        android:debuggable="true"
-38        android:icon="@mipmap/ic_launcher"
+38        android:icon="@mipmap/launcher_icon"
 39        android:label="pharmabox" >
 40        <meta-data
 41            android:name="com.google.android.geo.API_KEY"

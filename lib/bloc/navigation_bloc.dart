@@ -24,5 +24,8 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
         emit(ProfileState());
       }
     });
+    on<Reset>((event, emit) {
+      emit(NavigationInitial());
+    });
   }
 }

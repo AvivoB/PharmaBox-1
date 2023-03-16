@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pharmabox/bloc/pharmacie_bloc.dart';
 import 'package:pharmabox/bloc/titulaires_bloc.dart';
+import 'package:pharmabox/general/widgets/present_field.dart';
 import 'package:pharmabox/member_registration/lgo_widgets.dart';
 import 'package:pharmabox/model/user_models/pharmacie.dart';
 import 'package:pharmabox/model/work_hours.dart';
@@ -108,6 +109,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
       busController.text = widget.myPharmacy?.bus ?? '';
       tramController.text = widget.myPharmacy?.tramway ?? '';
       stationController.text = widget.myPharmacy?.parking ?? '';
+      typologieController.text = widget.myPharmacy?.typologie ?? '';
       prepaersNumController.text =
           widget.myPharmacy?.nbPreparateurs.toString() ?? '';
       pharmaistsNumController.text =
@@ -119,13 +121,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
       troisieme_tendance = widget.myPharmacy!.tendances[2];
       quatrieme_tendance = widget.myPharmacy!.tendances[3];
       cinqieme_tendance = widget.myPharmacy!.tendances[4];
-      typocc = widget.myPharmacy?.centreCommercial ?? false;
-      typocv = widget.myPharmacy?.centreVille ?? false;
-      typoAero = widget.myPharmacy?.aeroport ?? false;
-      typoGare = widget.myPharmacy?.gareTyp ?? false;
-      typoQuartier = widget.myPharmacy?.quartier ?? false;
-      typoTour = widget.myPharmacy?.touristique ?? false;
-      typoRula = widget.myPharmacy?.rurale ?? false;
+
       noPatientPerDay.text = widget.myPharmacy?.nbPatients.toString() ?? '';
       gareController.text = widget.myPharmacy!.gareAccess;
       prefEmailController.text = widget.myPharmacy!.prefEmail;
@@ -269,6 +265,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
   ///team
   final TextEditingController pharmaistsNumController = TextEditingController();
   final TextEditingController prepaersNumController = TextEditingController();
+  final TextEditingController typologieController = TextEditingController();
 
   ///contact
   final TextEditingController emailController = TextEditingController();
@@ -296,8 +293,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
               height: height * 0.03,
             ),
             Container(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              height: height * 0.32,
+              padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
               width: width * 0.9,
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -434,7 +430,9 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                     mapController: mapController,
                   ),
                 ),
-                const SizedBox(height: 10,),
+                const SizedBox(
+                  height: 10,
+                ),
                 Expanded(
                   child: GoogleMap(
                       onMapCreated: (controller) {
@@ -494,31 +492,31 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                 SizedBox(
                   height: height * 0.02,
                 ),
-                CustomPharmacyTextField(
+                PresentField(
                   label: 'RER',
                   prefixIcon: transportIcon[0],
                   controller: rerController,
                 ),
                 Spaces.y2,
-                CustomPharmacyTextField(
+                PresentField(
                   label: 'Metro',
                   prefixIcon: transportIcon[1],
                   controller: metroController,
                 ),
                 Spaces.y2,
-                CustomPharmacyTextField(
+                PresentField(
                   label: 'Bus',
                   prefixIcon: transportIcon[2],
                   controller: busController,
                 ),
                 Spaces.y2,
-                CustomPharmacyTextField(
+                PresentField(
                   label: 'Tramway',
                   prefixIcon: transportIcon[3],
                   controller: tramController,
                 ),
                 Spaces.y2,
-                CustomPharmacyTextField(
+                PresentField(
                   label: 'Gare',
                   prefixIcon: transportIcon[4],
                   controller: gareController,
@@ -526,7 +524,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                 Spaces.y2,
                 Stack(
                   children: [
-                    CustomPharmacyTextField(
+                    PresentField(
                       label: 'Parking',
                       prefixIcon: transportIcon[5],
                       readOnly: true,
@@ -559,8 +557,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
               height: height * 0.02,
             ),
             Container(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              height: height * 0.5,
+              padding: const EdgeInsets.only(left: 8, right: 8, bottom: 10),
               width: width * 0.9,
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -599,21 +596,25 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                     image: 'assets/icons/24-7.png',
                     onChanged: (value) {
                       nonStop = value;
+                      setState(() {});
                     },
                     initialSwitchValue: nonStop,
                   ),
                   SizedBox(
                     height: height * 0.02,
                   ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: width * 0.02,
-                      ),
-                      CalenderPharmacy(
-                        workHours: work_hours,
-                      ),
-                    ],
+                  Visibility(
+                    visible: !nonStop,
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: width * 0.02,
+                        ),
+                        CalenderPharmacy(
+                          workHours: work_hours,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -622,8 +623,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
               height: height * 0.02,
             ),
             Container(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              height: height * 0.45,
+              padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
               width: width * 0.9,
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -657,7 +657,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                   SizedBox(
                     height: height * 0.02,
                   ),
-                  Column(
+                  /*Column(
                     children: [
                       PharmacyRow(
                         text: typologie[0],
@@ -716,11 +716,46 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                         },
                       )
                     ],
+                  ),*/
+                  Stack(
+                    children: [
+                      CustomPharmacyTextField(
+                        controller: typologieController,
+                        label: 'Choisir votre typologie',
+                        prefixIcon: const Icon(Icons.settings),
+                        readOnly: true,
+                      ),
+                      Positioned(
+                        right: 7.w,
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+                            items: <String>[
+                              'Centre  Commercial',
+                              'Centre ville',
+                              'Aeroport',
+                              'Gare',
+                              'Quartier',
+                              'Touristique',
+                              'Rurale',
+                            ].map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            alignment: Alignment.bottomCenter,
+                            onChanged: (val) {
+                              typologieController.text = val ?? '';
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: height * 0.02,
                   ),
-                  CustomPharmacyTextField(
+                  PresentField(
                     label: 'Nb patients par jour',
                     textInputType: TextInputType.number,
                     prefixIcon: Icon(
@@ -736,7 +771,6 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
             ),
             Container(
               padding: const EdgeInsets.all(8),
-              //height: height * 0.32,
               width: width * 0.9,
               decoration: const BoxDecoration(
                 boxShadow: [
@@ -817,13 +851,11 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
               height: height * 0.02,
             ),
             LgoContainer(width: width, height: height),
-
             SizedBox(
               height: height * 0.02,
             ),
             Container(
               padding: EdgeInsets.all(8),
-              height: height * 0.4,
               width: width * 0.9,
               decoration: const BoxDecoration(
                 boxShadow: [
@@ -1016,7 +1048,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                   ),
                   Column(
                     children: [
-                      CustomPharmacyTextField(
+                      PresentField(
                         label: 'Nombre de pharmaciens',
                         prefixIcon: const Icon(Icons.person),
                         controller: pharmaistsNumController,
@@ -1025,7 +1057,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                       SizedBox(
                         height: height * 0.02,
                       ),
-                      CustomPharmacyTextField(
+                      PresentField(
                         label: 'Nombre de préparateurs',
                         controller: prepaersNumController,
                         textInputType: TextInputType.number,
@@ -1045,72 +1077,109 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
               onTap: () {
                 if (widget.formKey.currentState!.validate()) {
                   if (formKey11.currentState!.validate()) {
-                    Pharmacie pharmacie = Pharmacie(
-                        email: emailController.text,
-                        workHours: work_hours,
-                        groupementImage: BlocProvider.of<PharmacieBloc>(context)
-                            .groupementImage,
-                        groupementName:
-                            BlocProvider.of<PharmacieBloc>(context).groupement,
-                        tendances: [
-                          premirere_tendance,
-                          deuxieme_tendance,
-                          troisieme_tendance,
-                          quatrieme_tendance,
-                          cinqieme_tendance
-                        ],
-                        images: BlocProvider.of<PharmacieBloc>(context)
-                                .images
-                                .isNotEmpty
-                            ? BlocProvider.of<PharmacieBloc>(context).images
-                            : [],
-                        prefEmail: prefEmailController.text,
-                        parking: parkingController.text,
-                        gareAccess: gareController.text,
-                        lgos: BlocProvider.of<LgoBloc>(context).state.lgos,
-                        maitre: widget.maitre!,
-                        telephone: Telephone(
-                            numeroTelephone: int.parse(phoneController.text),
-                            visible: false),
-                        localisation: Localisation(
-                            ville: addressController.text, codePostal: 1),
-                        rer: rerController.text,
-                        metro: metroController.text,
-                        bus: busController.text,
-                        tramway: tramController.text,
-                        nom: widget.pharNameController?.text ?? '',
-                        titulaires:
-                            BlocProvider.of<TitulaireBloc>(context).titulaires,
-                        presentation: widget.pharDesController?.text ?? '',
-                        nbPreparateurs: int.parse(prepaersNumController.text),
-                        nbPharmaciens: int.parse(pharmaistsNumController.text),
-                        nonStop: nonStop,
+                    if (BlocProvider.of<LgoBloc>(context).state.lgos.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          backgroundColor: const Color(0xFF7CEDAC),
+                          content:
+                              const Text("Vous devez choisir au moins un LGO!"),
+                        ),
+                      );
+                    } else {
+                      int nbClosed = 0;
+                      for (WorkHours hour in work_hours) {
+                        if (!hour.open) {
+                          nbClosed = nbClosed + 1;
+                        }
+                      }
+                      if (nbClosed == 7 && !nonStop) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            backgroundColor: const Color(0xFF7CEDAC),
+                            content: const Text(
+                                "Vous devez choisir au moins un horaire de travail!"),
+                          ),
+                        );
+                      } else {
+                        print(nbClosed);
+                        Pharmacie pharmacie = Pharmacie(
+                            email: emailController.text,
+                            typologie: typologieController.text,
+                            workHours: work_hours,
+                            groupementImage:
+                                BlocProvider.of<PharmacieBloc>(context)
+                                    .groupementImage,
+                            groupementName:
+                                BlocProvider.of<PharmacieBloc>(context)
+                                    .groupement,
+                            tendances: [
+                              premirere_tendance,
+                              deuxieme_tendance,
+                              troisieme_tendance,
+                              quatrieme_tendance,
+                              cinqieme_tendance
+                            ],
+                            images: BlocProvider.of<PharmacieBloc>(context)
+                                    .images
+                                    .isNotEmpty
+                                ? BlocProvider.of<PharmacieBloc>(context).images
+                                : [],
+                            prefEmail: prefEmailController.text,
+                            parking: parkingController.text,
+                            gareAccess: gareController.text,
+                            lgos: BlocProvider.of<LgoBloc>(context).state.lgos,
+                            maitre: widget.maitre!,
+                            telephone: Telephone(
+                                numeroTelephone:
+                                    int.parse(phoneController.text),
+                                visible: false),
+                            localisation: Localisation(
+                                ville: addressController.text, codePostal: 1),
+                            rer: rerController.text,
+                            metro: metroController.text,
+                            bus: busController.text,
+                            tramway: tramController.text,
+                            nom: widget.pharNameController?.text ?? '',
+                            titulaires: BlocProvider.of<TitulaireBloc>(context)
+                                .titulaires,
+                            presentation: widget.pharDesController?.text ?? '',
+                            nbPreparateurs:
+                                prepaersNumController.text.isNotEmpty
+                                    ? int.parse(prepaersNumController.text)
+                                    : 0,
+                            nbPharmaciens:
+                                pharmaistsNumController.text.isNotEmpty
+                                    ? int.parse(pharmaistsNumController.text)
+                                    : 0,
+                            nonStop: nonStop,
 
-                        ///typo
-                        centreCommercial: typocc,
-                        centreVille: typocv,
-                        aeroport: typoAero,
-                        gareTyp: typoGare,
-                        quartier: typoQuartier,
-                        touristique: typoTour,
-                        rurale: typoRula,
-                        nbPatients: int.parse(noPatientPerDay.text),
+                            ///typo
 
-                        ///mission
-                        testCovid: testCovid,
-                        vaccination: vaccination,
-                        entretien: pMaintaince,
-                        preparation: pbTeam,
-                        borneTelemedcine: tTerminal,
-                        breakRoom: breakRoom,
-                        robot: robot,
-                        electronicLabels: eLabels,
-                        automatic: autoCm,
-                        airCond: ac,
-                        heating: heating,
-                        vigile: vigil);
-                    BlocProvider.of<PharmacieBloc>(context)
-                        .add(AddPharmacie(pharmacie: pharmacie));
+                            nbPatients: noPatientPerDay.text.isNotEmpty
+                                ? int.parse(noPatientPerDay.text)
+                                : 0,
+
+                            ///mission
+                            testCovid: testCovid,
+                            vaccination: vaccination,
+                            entretien: pMaintaince,
+                            preparation: pbTeam,
+                            borneTelemedcine: tTerminal,
+                            breakRoom: breakRoom,
+                            robot: robot,
+                            electronicLabels: eLabels,
+                            automatic: autoCm,
+                            airCond: ac,
+                            heating: heating,
+                            vigile: vigil);
+                        BlocProvider.of<PharmacieBloc>(context)
+                            .add(AddPharmacie(pharmacie: pharmacie));
+                      }
+                    }
                   }
                 } else {
                   /*  controller.animateTo(0,

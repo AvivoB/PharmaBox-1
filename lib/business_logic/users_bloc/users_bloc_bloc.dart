@@ -17,13 +17,13 @@ class UsersBlocBloc extends Bloc<UsersBlocEvent, UsersBlocState> {
   UsersBlocBloc({required this.userService})
       : super(const UsersBlocInitial(null)) {
     on<AddUser>((event, emit) async {
-      emit(UserLoading(null));
+      emit(UserLoading(currentUser));
       await userService.creerNonTitulaire(event._user);
       currentUser = event._user;
       emit(UserAdded(event._user));
     });
     on<GetCurrentUser>((event, emit) async {
-      emit(UserLoading(null));
+      emit(UserLoading(currentUser));
 
       try {
         final DocumentSnapshot<Map<String, dynamic>>? userDoc =

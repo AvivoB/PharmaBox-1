@@ -26,13 +26,7 @@ class Pharmacie {
   final String tramway;
   final String gareAccess;
   final String parking;
-  final bool centreCommercial;
-  final bool centreVille;
-  final bool aeroport;
-  final bool gareTyp;
-  final bool quartier;
-  final bool touristique;
-  final bool rurale;
+  final String typologie;
   final int nbPatients;
 
   final bool testCovid;
@@ -71,16 +65,7 @@ class Pharmacie {
       "tramway": tramway,
       "gare": gareAccess,
       "parking": parking,
-      "centre-commercial": centreCommercial,
-      "centre-ville": centreVille,
-      "aeroport": aeroport,
-      "groupement-name": groupementName,
-      "groupement-image": groupementImage,
-      "gareTyp": gareTyp,
-      "quartier": quartier,
-      "titulaires": titulaires,
-      "touristique": touristique,
-      "rurale": rurale,
+      "typologie": typologie,
       "nombre-patients": nbPatients,
       "test-covid": testCovid,
       "vaccination": vaccination,
@@ -92,6 +77,8 @@ class Pharmacie {
       "robot": robot,
       "electronic": electronicLabels,
       "automatic": automatic,
+      "groupement-image": groupementImage,
+      "groupement-name": groupementName,
       "air": airCond,
       "heating": heating,
       "vigile": vigile,
@@ -126,22 +113,19 @@ class Pharmacie {
       groupementName: json["groupement-name"],
       nom: json.containsKey("nom") ? json['nom'] ?? "" : "",
       email: json.containsKey("email") ? json["email"] ?? "" : "",
-      aeroport: json.containsKey("aeroport") ? json["aeroport"] ?? "" : "",
       airCond: json.containsKey("air") ? json["air"] ?? "" : "",
       automatic: json.containsKey("automatic") ? json["automatic"] ?? "" : "",
       borneTelemedcine: json["borne"] ?? "",
       breakRoom: json["break"] ?? "",
       bus: json.containsKey("bus") ? json["bus"] ?? "" : "",
       nonStop: json["non-stop"] ?? "",
-      centreCommercial: json["centre-commercial"],
-      centreVille: json["centre-ville"],
       electronicLabels: json["electronic"],
       entretien: json["entretien"],
       gareAccess: json["gare"],
-      gareTyp: json["gareTyp"],
       heating: json["heating"],
       images: images,
       maitre: json["maitre"],
+      typologie: json["typologie"],
       metro: json["metro"],
       nbPatients: json["nombre-patients"],
       nbPharmaciens: json["nombre-pharmaciens"],
@@ -149,14 +133,11 @@ class Pharmacie {
       parking: json["parking"],
       prefEmail: json["prefEmail"],
       preparation: json["preparation"],
-      quartier: json["quartier"],
       rer: json["rer"],
       robot: json["robot"],
-      rurale: json["rurale"],
       telephone: Telephone(numeroTelephone: json["telephone"], visible: false),
       testCovid: json["test-covid"],
       titulaires: titulaires,
-      touristique: json["touristique"],
       tramway: json["tramway"],
       vaccination: json["vaccination"],
       vigile: json["vigile"],
@@ -189,13 +170,7 @@ class Pharmacie {
     required this.workHours,
     required this.gareAccess,
     required this.parking,
-    required this.centreCommercial,
-    required this.centreVille,
-    required this.aeroport,
-    required this.gareTyp,
-    required this.quartier,
-    required this.touristique,
-    required this.rurale,
+    required this.typologie,
     required this.nbPatients,
     required this.testCovid,
     required this.vaccination,

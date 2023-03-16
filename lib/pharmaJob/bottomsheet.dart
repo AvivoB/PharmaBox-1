@@ -152,6 +152,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    BlocProvider.of<PharmacieBloc>(context).add(GetPharmacie());
   }
 
   @override
@@ -578,64 +579,77 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
             InkWell(
               onTap: () {
                 if (formKey.currentState!.validate()) {
-                  Offre offre = Offre(
-                    state: true,
-                    description: descriptionController.text,
-                    bus: stations[2],
-                    salaireNet: double.parse(salaireController.text),
-                    rer: stations[0],
-                    metro: stations[1],
-                    tramway: stations[2],
-                    gareAccess: stations[3],
-                    parking: stations[4],
-                    robot: confort[0],
-                    electronicLabels: confort[1],
-                    salleDePause: confort[2],
-                    vigile: confort[3],
-                    testCovid: missions[0],
-                    vaccination: missions[1],
-                    entretien: missions[2],
-                    salaireEnsemble: salaireCreche[0],
-                    creche: salaireCreche[1],
-                    frais: salaireCreche[2],
-                    logement: salaireCreche[3],
-                    ticketsCadeau: salaireCreche[4],
-                    ticketsRestaurent: salaireCreche[5],
-                    offre: salaireCreche[6],
-                    prime: salaireCreche[7],
-                    emploisDuTemps: salaireCreche[8],
-                    semainePaire: semainesImpaires,
-                    horairesImpaires: horrairesImpaires,
-                    debut: debut,
-                    localisation:
-                        BlocProvider.of<PharmacieBloc>(context).pharmacie !=
-                                null
-                            ? BlocProvider.of<PharmacieBloc>(context)
-                                .pharmacie!
-                                .localisation
-                                .ville
-                            : "",
-                    rayon: int.parse(routeController.text),
-                    temps: timeController.text,
-                    poste: posteController.text,
-                    duree: durationController.text,
-                    date: dateController.text,
-                    horaires: horraires,
-                    contrat: _selectedValues,
-                  );
-                  showModalBottomSheet(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(25.0),
-                        ),
+                  if (BlocProvider.of<PharmacieBloc>(context).pharmacie ==
+                      null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        backgroundColor: const Color(0xFF7CEDAC),
+                        content: const Text(
+                            "Vous devez accepter les conditions générales d'utilisation!"),
                       ),
-                      isScrollControlled: true,
-                      context: context,
-                      builder: (BuildContext context) {
-                        return FiltersButtonBottomSheet(
-                          offre: offre,
-                        );
-                      });
+                    );
+                  } else {
+                    Offre offre = Offre(
+                      state: true,
+                      description: descriptionController.text,
+                      bus: stations[2],
+                      salaireNet: double.parse(salaireController.text),
+                      rer: stations[0],
+                      metro: stations[1],
+                      tramway: stations[2],
+                      gareAccess: stations[3],
+                      parking: stations[4],
+                      robot: confort[0],
+                      electronicLabels: confort[1],
+                      salleDePause: confort[2],
+                      vigile: confort[3],
+                      testCovid: missions[0],
+                      vaccination: missions[1],
+                      entretien: missions[2],
+                      salaireEnsemble: salaireCreche[0],
+                      creche: salaireCreche[1],
+                      frais: salaireCreche[2],
+                      logement: salaireCreche[3],
+                      ticketsCadeau: salaireCreche[4],
+                      ticketsRestaurent: salaireCreche[5],
+                      offre: salaireCreche[6],
+                      prime: salaireCreche[7],
+                      emploisDuTemps: salaireCreche[8],
+                      semainePaire: semainesImpaires,
+                      horairesImpaires: horrairesImpaires,
+                      debut: debut,
+                      localisation:
+                          BlocProvider.of<PharmacieBloc>(context).pharmacie !=
+                                  null
+                              ? BlocProvider.of<PharmacieBloc>(context)
+                                  .pharmacie!
+                                  .localisation
+                                  .ville
+                              : "",
+                      rayon: int.parse(routeController.text),
+                      temps: timeController.text,
+                      poste: posteController.text,
+                      duree: durationController.text,
+                      date: dateController.text,
+                      horaires: horraires,
+                      contrat: _selectedValues,
+                    );
+                    showModalBottomSheet(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(25.0),
+                          ),
+                        ),
+                        isScrollControlled: true,
+                        context: context,
+                        builder: (BuildContext context) {
+                          return FiltersButtonBottomSheet(
+                            offre: offre,
+                          );
+                        });
+                  }
                 }
               },
               child: FiltersButton(

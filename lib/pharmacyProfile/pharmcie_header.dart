@@ -8,6 +8,7 @@ import 'package:pharmabox/business_logic/lgo_bloc/lgo_bloc.dart';
 import 'package:pharmabox/general/widgets/custom_registration_textfield.dart';
 import 'package:pharmabox/general/widgets/custom_switch_widget.dart';
 import 'package:pharmabox/constant.dart';
+import 'package:pharmabox/general/widgets/present_field.dart';
 import 'package:pharmabox/model/user_models/pharmacie.dart';
 import 'package:pharmabox/offer/offer_screen.dart';
 import 'package:pharmabox/pharmacyProfile/groupement_widget.dart';
@@ -91,7 +92,9 @@ class _PharmacieHeaderState extends State<PharmacieHeader>
         //appBar: appBarCustom(),
         body: BlocBuilder<PharmacieBloc, PharmacieState>(
             builder: (context, state) {
+          print(state);
           if (state is PharmacieReady) {
+            print(state.pharmacie.nom);
             BlocProvider.of<TitulaireBloc>(context).add(
                 InitialiseTitulaire(titulaires: state.pharmacie.titulaires));
             BlocProvider.of<PharmacieBloc>(context).groupement =
@@ -105,6 +108,7 @@ class _PharmacieHeaderState extends State<PharmacieHeader>
             pharmacyName.text = myPharmacy!.nom;
             name.text = myPharmacy!.nom;
             presentation.text = myPharmacy!.presentation;
+          
             return SingleChildScrollView(
               child: Column(
                 children: [
@@ -228,7 +232,7 @@ class _PharmacieHeaderState extends State<PharmacieHeader>
                         SizedBox(
                           height: height * 0.02,
                         ),
-                        CustomPharmacyTextField(
+                        PresentField(
                           label: 'Presentation',
                           maxLines: 2,
                           controller: presentation,
@@ -281,7 +285,7 @@ class _PharmacieHeaderState extends State<PharmacieHeader>
                       backgroundColor: Colors.transparent,
                       elevation: 0,
                       bottom: TabBar(
-                        labelColor:const Color(0xfF161730),
+                        labelColor: const Color(0xfF161730),
                         labelStyle: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: kSelectedIndicatorColor,
@@ -458,7 +462,7 @@ class _PharmacieHeaderState extends State<PharmacieHeader>
                         SizedBox(
                           height: height * 0.02,
                         ),
-                        CustomPharmacyTextField(
+                        PresentField(
                           label: 'Presentation',
                           maxLines: 2,
                           controller: presentation,

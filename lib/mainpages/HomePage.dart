@@ -75,10 +75,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   bool markeOn = false;
+  DraggableScrollableController dragController =
+      DraggableScrollableController();
   @override
   void initState() {
     super.initState();
     localisationController = TextEditingController();
+    tapFunction = explorerTap;
+
     NonTitulaire? user = BlocProvider.of<UsersBlocBloc>(context).state.user;
     if (user != null) {
       BlocProvider.of<UniversitesBloc>(context)
@@ -92,7 +96,6 @@ class _HomePageState extends State<HomePage> {
           .add(InitialiseCompetence(competences: user.competences));
       BlocProvider.of<SpecialisationsBloc>(context)
           .add(InitialiseSpecialisation(specialisations: user.specialisations));
-      tapFunction = explorerTap;
     }
   }
 
@@ -102,6 +105,7 @@ class _HomePageState extends State<HomePage> {
         .toUint8List();
   }
 
+  GlobalKey sheetKey = GlobalKey();
   Future createMarkers(
       List<MarkerModel> markers, Function(MarkerModel) onTap) async {
     Set<Marker> setList = {};
@@ -144,11 +148,13 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: height * 0.04,
                 ),
-                Flexible(child: BlocBuilder<MainmapBloc, MainmapState>(
+                Flexible(
+                    child: BlocBuilder<MainmapBloc, MainmapState>(
+                  buildWhen: (previous, current) => (previous != current),
                   builder: (context, state) {
+                    print(state);
                     return BlocListener<NavigationBloc, NavigationState>(
                         listener: (context, state) {
-                          print(state);
                           if (state is ExplorerState) {
                             tapFunction = explorerTap;
                           } else if (state is PharmaJobTituState) {
@@ -160,21 +166,30 @@ class _HomePageState extends State<HomePage> {
                         child: FutureBuilder(
                             future: createMarkers(state.models, tapFunction),
                             builder: (context, snapshot) {
-                              return GoogleMap(
-                                  onMapCreated: (controller) {
-                                    googleMapController = controller;
-                                  },
-                                  compassEnabled: true,
-                                  zoomGesturesEnabled: true,
-                                  zoomControlsEnabled: true,
-                                  mapType: MapType.normal,
-                                  markers: snapshot.hasData
-                                      ? snapshot.data as Set<Marker>
-                                      : {},
-                                  initialCameraPosition: CameraPosition(
-                                    target: latLng ?? const Gmap.LatLng(46, 2),
-                                    zoom: 6.0,
-                                  ));
+                              return GestureDetector(
+                                onTap: () {
+                                  dragController.animateTo(0.1,
+                                      duration:
+                                          const Duration(milliseconds: 300),
+                                      curve: Curves.easeInOut);
+                                },
+                                child: GoogleMap(
+                                    onMapCreated: (controller) {
+                                      googleMapController = controller;
+                                    },
+                                    compassEnabled: true,
+                                    zoomGesturesEnabled: true,
+                                    zoomControlsEnabled: true,
+                                    mapType: MapType.normal,
+                                    markers: snapshot.hasData
+                                        ? snapshot.data as Set<Marker>
+                                        : {},
+                                    initialCameraPosition: CameraPosition(
+                                      target:
+                                          latLng ?? const Gmap.LatLng(46, 2),
+                                      zoom: 6.0,
+                                    )),
+                              );
                             }));
                   },
                 ))
@@ -242,6 +257,8 @@ class _HomePageState extends State<HomePage> {
                           PharmacierechercheState>(
                         builder: (context, state) {
                           if (state is ExplorerPharmacieReady) {
+                            print(
+                                "" + state.pharmacies.length.toString());
                             return Row(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: List.generate(
@@ -330,14 +347,42 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             BlocBuilder<NavigationBloc, NavigationState>(
+              buildWhen: (previous, current) => (previous != current),
               builder: (context, state) {
-                return DraggableScrollableSheet(
-                  initialChildSize: 0.1,
-                  minChildSize: 0.1,
-                  expand: true,
-                  maxChildSize: state is ProfileState ? 1 : 0.7,
-                  builder: (context, scrollController) =>
-                      BottomNavbar(scrollController: scrollController),
+                print(state);
+                if (state is ProfileState) {
+                  WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                    dragController.animateTo(1,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut);
+                  });
+                } else if (state is ExplorerState ||
+                    state is PharmaJobTituState ||
+                    state is PharmaJobNonTituState) {
+                  WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                    dragController.animateTo(0.7,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut);
+                  });
+                }
+
+                return GestureDetector(
+                  onTap: () {
+                    dragController.animateTo(0.7,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut);
+                  },
+                  child: DraggableScrollableSheet(
+                    initialChildSize: 0.1,
+                    minChildSize: 0.1,
+                    expand: true,
+                    maxChildSize: state is ProfileState ? 1 : 0.7,
+                    controller: dragController,
+                    builder: (context, scrollController) => BottomNavbar(
+                      scrollController: scrollController,
+                      draggableScrollableController: dragController,
+                    ),
+                  ),
                 );
               },
             ),

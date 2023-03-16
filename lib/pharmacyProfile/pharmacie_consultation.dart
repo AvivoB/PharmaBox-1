@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmabox/Theme/text.dart';
@@ -40,6 +41,14 @@ class _PharmacyProfileState extends State<PharmacyProfile>
 
   int _current = 0;
   final CarouselController _controller = CarouselController();
+  Future getProfilePicture(String input) async {
+    print("hi");
+    final QuerySnapshot user = await FirebaseFirestore.instance
+        .collection("users")
+        .where("nom", isEqualTo: input.split(" ")[0])
+        .get();
+    return user.docs.first["photo"];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -223,36 +232,7 @@ class _PharmacyProfileState extends State<PharmacyProfile>
                               );
                             }).toList(),
                           )
-                        : SafeArea(
-                            child: Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: const BoxDecoration(
-                                  gradient: LinearGradient(
-                                colors: [
-                                  Color.fromRGBO(124, 237, 172, 1),
-                                  Color.fromRGBO(66, 210, 255, 1),
-                                ],
-                              )),
-                              width: double.infinity,
-                              child: const CircleAvatar(
-                                radius: 70,
-                                backgroundImage: AssetImage(
-                                  'assets/images/pharma_img.png',
-                                ),
-                              ),
-                            ),
-                          ),
-                    Container(
-                      height: height * 0.007,
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                        colors: [
-                          Color.fromRGBO(124, 237, 172, 1),
-                          Color.fromRGBO(66, 210, 255, 1),
-                        ],
-                      )),
-                    ),
+                        : const SizedBox(),
                     Container(
                       color: Colors.white,
                       height: height * 0.02,
@@ -274,24 +254,31 @@ class _PharmacyProfileState extends State<PharmacyProfile>
                             SizedBox(
                               height: height * 0.02,
                             ),
-                            ListTile(
-                              contentPadding: const EdgeInsets.all(0),
-                              leading: Image(
-                                  height: height * 0.055,
-                                  image: imgPath != null
-                                      ? FileImage(File(imgPath!))
-                                          as ImageProvider
-                                      : const AssetImage(
-                                          'assets/images/profile.png')),
-                              title: Text(
-                                'Titulaire du poste',
-                                style: heading,
-                              ),
-                              subtitle: Text(
-                                "Abdelhak",
-                                style: paragraph,
-                              ),
-                            ),
+                            FutureBuilder(
+                                future: getProfilePicture(
+                                    widget.pharmacie.titulaires[0]),
+                                builder: (context, snapshot) {
+                                  return ListTile(
+                                    contentPadding: const EdgeInsets.all(0),
+                                    leading: CircleAvatar(
+                                      maxRadius: 30,
+                                      backgroundImage: snapshot.hasData
+                                          ? NetworkImage(
+                                                  snapshot.data as String)
+                                              as ImageProvider
+                                          : const AssetImage(
+                                              'assets/images/profile.png'),
+                                    ),
+                                    title: Text(
+                                      'Titulaire du poste',
+                                      style: heading,
+                                    ),
+                                    subtitle: Text(
+                                      widget.pharmacie.titulaires[0],
+                                      style: paragraph,
+                                    ),
+                                  );
+                                }),
                             ListTile(
                               contentPadding: const EdgeInsets.all(0),
                               leading: Image(

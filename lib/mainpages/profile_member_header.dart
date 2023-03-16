@@ -11,6 +11,7 @@ import 'package:pharmabox/business_logic/specialisations_bloc/specialisations_bl
 import 'package:pharmabox/business_logic/universites_bloc/universites_bloc.dart';
 import 'package:pharmabox/business_logic/users_bloc/users_bloc_bloc.dart';
 import 'package:pharmabox/firebase/image_service.dart';
+import 'package:pharmabox/general/widgets/present_field.dart';
 import 'package:pharmabox/member_registration/code_postal.dart';
 
 import 'package:pharmabox/model/user_models/non_titulaire.dart';
@@ -118,6 +119,7 @@ class _ProfilTabBarState extends State<ProfilTabBar>
   @override
   void dispose() {
     print(_lgoBloc.state.lgos.length);
+
     // TODO: implement didChangeDependencies
     NonTitulaire nonTitulaire = NonTitulaire.creation(
         nom: firstNameController.text,
@@ -210,7 +212,7 @@ class _ProfilTabBarState extends State<ProfilTabBar>
                         children: [
                           Container(
                             width: double.infinity,
-                            height: height * 0.3,
+                            height: height * 0.2,
                             decoration: const BoxDecoration(
                               gradient: LinearGradient(
                                 begin: Alignment.centerLeft,
@@ -460,7 +462,7 @@ class _ProfilTabBarState extends State<ProfilTabBar>
                             ),
                             controller: addressController,
                           ),
-                          CustomRegistrationTextField(
+                          PresentField(
                             label: 'Presentation',
                             prefixIcon: const Icon(
                               Icons.location_city_outlined,

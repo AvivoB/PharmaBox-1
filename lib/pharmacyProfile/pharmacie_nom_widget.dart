@@ -70,7 +70,6 @@ class _PharmacieNomState extends State<PharmacieNom> {
                 ),
               )
             : const SizedBox(),
-        SizedBox(height: MediaQuery.of(context).viewInsets.bottom),
       ],
     );
   }

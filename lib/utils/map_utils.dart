@@ -14,7 +14,7 @@ import 'dart:ui' as ui;
 
 class MapUtils {
   static Future<places.LatLng> getLocationFromAddress(String address) async {
-    print(address);
+    print("our address is:"+address);
     List<geo.Location> locations = await geo.locationFromAddress(address);
     geo.Location location = locations.first;
     return places.LatLng(lat: location.latitude, lng: location.longitude);
@@ -34,5 +34,4 @@ class MapUtils {
     print(markers[0]);
     return markers[0].name!;
   }
-  
 }

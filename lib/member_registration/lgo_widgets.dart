@@ -71,64 +71,69 @@ class LgoContainer extends StatelessWidget {
                         ),
                       ),
                       context: context,
-                      builder: (context) => Padding(
-                          padding: EdgeInsets.only(
-                              left: 20,
-                              right: 20,
-                              top: 20,
-                              bottom: MediaQuery.of(context).viewInsets.bottom),
-                          child: Column(
-                            children: [
-                              CustomPharmacyTextField(
-                                label: "LGO",
-                                controller: controller,
-                                onRealChanged: (val) {
-                                  BlocProvider.of<LgosearchBloc>(context)
-                                      .add(GetAllLgos(input: val));
-                                },
-                              ),
-                              BlocBuilder<LgosearchBloc, LgosearchState>(
-                                builder: (context, state) {
-                                  if (state is LgosearchReady) {
-                                    return SingleChildScrollView(
-                                      padding: EdgeInsets.only(
-                                          bottom: MediaQuery.of(context)
-                                              .viewInsets
-                                              .bottom),
-                                      child: Column(
-                                        children: List.generate(
-                                          state.groupements.length,
-                                          (index) => ListTile(
-                                            onTap: () {
-                                              addLangue(
-                                                  context,
-                                                  state.groupements[index]
-                                                      .groupement);
-                                            },
-                                            leading: Image(
-                                                height: height * 0.045,
-                                                image: NetworkImage(state
-                                                    .groupements[index].image)),
-                                            title: Text(
-                                              state.groupements[index]
-                                                  .groupement,
-                                              style: heading,
+                      builder: (context) => SingleChildScrollView(
+                            child: Padding(
+                                padding: EdgeInsets.only(
+                                    left: 20,
+                                    right: 20,
+                                    top: 20,
+                                    bottom: MediaQuery.of(context)
+                                        .viewInsets
+                                        .bottom),
+                                child: Column(
+                                  children: [
+                                    CustomPharmacyTextField(
+                                      label: "LGO",
+                                      controller: controller,
+                                      onRealChanged: (val) {
+                                        BlocProvider.of<LgosearchBloc>(context)
+                                            .add(GetAllLgos(input: val));
+                                      },
+                                    ),
+                                    BlocBuilder<LgosearchBloc, LgosearchState>(
+                                      builder: (context, state) {
+                                        if (state is LgosearchReady) {
+                                          return SingleChildScrollView(
+                                            padding: EdgeInsets.only(
+                                                bottom: MediaQuery.of(context)
+                                                    .viewInsets
+                                                    .bottom),
+                                            child: Column(
+                                              children: List.generate(
+                                                state.groupements.length,
+                                                (index) => ListTile(
+                                                  onTap: () {
+                                                    addLangue(
+                                                        context,
+                                                        state.groupements[index]
+                                                            .groupement);
+                                                  },
+                                                  leading: Image(
+                                                      height: height * 0.045,
+                                                      image: NetworkImage(state
+                                                          .groupements[index]
+                                                          .image)),
+                                                  title: Text(
+                                                    state.groupements[index]
+                                                        .groupement,
+                                                    style: heading,
+                                                  ),
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  } else if (state is LgosearchLoading) {
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  } else {
-                                    return const SizedBox();
-                                  }
-                                },
-                              ),
-                            ],
-                          )));
+                                          );
+                                        } else if (state is LgosearchLoading) {
+                                          return const Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        } else {
+                                          return const SizedBox();
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                )),
+                          ));
                 },
                 child: Container(
                     height: height * 0.035,

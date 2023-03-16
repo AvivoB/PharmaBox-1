@@ -33,10 +33,8 @@ class MainMap extends StatefulWidget {
 
 class _MainMapState extends State<MainMap> {
   late Function(String) onSubmitted;
+
   void explorerSubmit(String address) {
-    /* BlocProvider.of<MainmapBloc>(context).add(GetMarkersOnAddress(
-      address: address,
-    ));*/
     BlocProvider.of<off.OffresBloc>(context)
         .add(off.RechercheLibre(input: address));
     BlocProvider.of<mem.MembresBloc>(context)
@@ -46,17 +44,17 @@ class _MainMapState extends State<MainMap> {
   }
 
   void nonTituSubmit(String address) {
-    BlocProvider.of<MainmapBloc>(context).add(GetMemberMarkersOnAddress(
+    /*BlocProvider.of<MainmapBloc>(context).add(GetMemberMarkersOnAddress(
       address: address,
-    ));
+    ));*/
     BlocProvider.of<off.OffresBloc>(context)
         .add(off.RechercheLibre(input: address));
   }
 
   void tituSubmit(String address) {
-    BlocProvider.of<MainmapBloc>(context).add(GetOffresMarkersOnAddress(
+    /*BlocProvider.of<MainmapBloc>(context).add(GetOffresMarkersOnAddress(
       address: address,
-    ));
+    ));*/
     BlocProvider.of<mem.MembresBloc>(context)
         .add(mem.RechercheLibre(input: address));
   }
@@ -80,7 +78,7 @@ class _MainMapState extends State<MainMap> {
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
-    return BlocListener<NavigationBloc, NavigationState>(
+    return BlocConsumer<NavigationBloc, NavigationState>(
       listener: (context, state) {
         print(state);
         if (state is ExplorerState) {
@@ -89,9 +87,11 @@ class _MainMapState extends State<MainMap> {
           onSubmitted = tituSubmit;
         } else if (state is PharmaJobNonTituState) {
           onSubmitted = nonTituSubmit;
+        } else {
+          onSubmitted = navigationInit;
         }
       },
-      child: Padding(
+      builder: (context, state) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
           children: [
@@ -124,10 +124,12 @@ class _MainMapState extends State<MainMap> {
                                   response = await places.autocomplete(val);
                                   setState(() {});
                                 },
-                                decoration: const InputDecoration(
-                                  hintText: 'Rechercher',
+                                decoration: InputDecoration(
+                                  hintText: state is NavigationInitial
+                                      ? 'Rechercher Par Région'
+                                      : "Rechercher",
                                   border: InputBorder.none,
-                                  icon: Padding(
+                                  icon: const Padding(
                                     padding: EdgeInsets.all(8.0),
                                     child: Icon(
                                       Icons.search,
@@ -138,13 +140,15 @@ class _MainMapState extends State<MainMap> {
                                 ),
                                 onSubmitted: (val) async {
                                   onSubmitted(val);
-                                  var local =
-                                      await MapUtils.getLocationFromAddress(
-                                          widget.localisationController.text);
-                                  widget.mapController!.animateCamera(
-                                      maps.CameraUpdate.newLatLngZoom(
-                                          maps.LatLng(local.lat, local.lng),
-                                          12));
+                                  if (state is NavigationInitial) {
+                                    var local =
+                                        await MapUtils.getLocationFromAddress(
+                                            val);
+                                    widget.mapController!.animateCamera(
+                                        maps.CameraUpdate.newLatLngZoom(
+                                            maps.LatLng(local.lat, local.lng),
+                                            12));
+                                  }
                                 },
                                 controller: widget.localisationController,
                               ),
@@ -244,10 +248,11 @@ class _MainMapState extends State<MainMap> {
                                   Icons.location_on,
                                   color: Theme.of(context).primaryColor,
                                 ),
-                                title: Text(prediction.description!),
+                                title: Text(
+                                    prediction.structuredFormatting!.mainText),
                                 onTap: () {
                                   widget.localisationController.text =
-                                      prediction.description!;
+                                      prediction.structuredFormatting!.mainText;
                                   response = null;
                                   setState(() {});
                                 },

@@ -33,6 +33,8 @@ class _CustomRegistrationDatePickerState
           : EdgeInsets.zero,
       child: TextFormField(
         readOnly: true,
+        validator: (value) =>
+            value == "DD/MM/YYYY" ? "Please choose a date" : null,
         controller: widget.controller,
         autofocus: false,
         textInputAction: TextInputAction.next,

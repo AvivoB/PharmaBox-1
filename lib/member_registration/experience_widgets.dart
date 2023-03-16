@@ -1,6 +1,7 @@
 import 'package:flutter/Material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmabox/general/widgets/custom_registration_textfield.dart';
+import 'package:pharmabox/pharmacyProfile/pharmacie_nom_widget.dart';
 
 import '../Theme/text.dart';
 import '../Widgets/gradientText.dart';
@@ -145,7 +146,7 @@ class ExperienceWidget extends StatelessWidget {
   }
 }
 
-class AjouterContainerRegExp extends StatelessWidget {
+class AjouterContainerRegExp extends StatefulWidget {
   var label;
   var image;
   final Function(BuildContext, String, int, int) add;
@@ -155,7 +156,15 @@ class AjouterContainerRegExp extends StatelessWidget {
     this.label,
     required this.add,
   }) : super(key: key);
+
+  @override
+  State<AjouterContainerRegExp> createState() => _AjouterContainerRegExpState();
+}
+
+class _AjouterContainerRegExpState extends State<AjouterContainerRegExp> {
   final GlobalKey<FormState> globalKey = GlobalKey<FormState>();
+  bool showError = false;
+
   @override
   Widget build(BuildContext context) {
     TextEditingController controller = TextEditingController();
@@ -166,106 +175,139 @@ class AjouterContainerRegExp extends StatelessWidget {
     return InkWell(
       onTap: () {
         showModalBottomSheet(
-          isScrollControlled: true,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(25.0),
-            ),
-          ),
-          context: context,
-          builder: (context) =>SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom),
-              child: SizedBox(
-            child: Form(
-              key: globalKey,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Ajouter',
-                          style: heading,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Icon(
-                            Icons.close,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: height * 0.03,
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: CustomRegistrationTextFieldReg(
-                      image: image,
-                      maxLines: 1,
-                      padding: 1,
-                      label: label,
-                      controller: controller,
-                    ),
-                  ),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  Row(
-                    children: [
-                      Flexible(
-                        child: CustomRegistrationTextField(
-                            label: "Année Debut",
-                            textInputType: TextInputType.number,
-                          
-                            controller: anneeDebutController),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Flexible(
-                        child: CustomRegistrationTextField(
-                            textInputType: TextInputType.number,
-                            label: "Année Fin",
-                            controller: anneFinController),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: height * 0.03,
-                  ),
-                  GestureDetector(
-                      onTap: () {
-                        if (globalKey.currentState!.validate()) {
-                          add(
-                              context,
-                              controller.text,
-                              int.parse(anneeDebutController.text),
-                              int.parse(anneFinController.text));
-                          Navigator.pop(context);
-                        }
-                      },
-                      child: FiltersButton(
-                        text: 'Enregistrer',
-                        icon: false,
-                      )),
-                  const SizedBox(
-                    height: 10,
-                  )
-                ],
+            isScrollControlled: true,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(25.0),
               ),
             ),
-             )) ),
-        );
+            context: context,
+            builder: (context) => StatefulBuilder(builder: (context, setState) {
+                  return SingleChildScrollView(
+                      child: Padding(
+                          padding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).viewInsets.bottom),
+                          child: SizedBox(
+                            child: Form(
+                              key: globalKey,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Ajouter',
+                                          style: heading,
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Icon(
+                                            Icons.close,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.03,
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.9,
+                                    child: PharmacieNom(
+                                      pharmacyName: controller,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.02,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Flexible(
+                                        child: CustomRegistrationTextField(
+                                            label: "Année Debut",
+                                            maxLength: 4,
+                                            textInputType: TextInputType.number,
+                                            controller: anneeDebutController),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Flexible(
+                                        child: CustomRegistrationTextField(
+                                            textInputType: TextInputType.number,
+                                            label: "Année Fin",
+                                            maxLength: 4,
+                                            controller: anneFinController),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.03,
+                                  ),
+                                  Visibility(
+                                    visible: showError,
+                                    child: Text(
+                                      "Année fin est supérieure à année Début",
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.03,
+                                  ),
+                                  GestureDetector(
+                                      onTap: () {
+                                        if (globalKey.currentState!
+                                            .validate()) {
+                                          DateTime firstYear = DateTime(
+                                              int.parse(
+                                                  anneFinController.text));
+                                          DateTime secondYear = DateTime(
+                                              int.parse(
+                                                  anneeDebutController.text));
+
+                                          if (firstYear.isBefore(secondYear)) {
+                                            setState(() {
+                                              showError = true;
+                                            });
+                                          } else {
+                                            print("helo");
+                                            setState(() {
+                                              showError = false;
+                                            });
+                                            widget.add(
+                                                context,
+                                                controller.text,
+                                                int.parse(
+                                                    anneeDebutController.text),
+                                                int.parse(
+                                                    anneFinController.text));
+                                            Navigator.pop(context);
+                                          }
+                                        }
+                                      },
+                                      child: FiltersButton(
+                                        text: 'Enregistrer',
+                                        icon: false,
+                                      )),
+                                  const SizedBox(
+                                    height: 10,
+                                  )
+                                ],
+                              ),
+                            ),
+                          )));
+                }));
       },
       child: Container(
           height: height * 0.035,
