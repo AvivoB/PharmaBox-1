@@ -18,8 +18,6 @@ import '../../offer/offer_screen.dart';
 import '../../pharmacyProfile/localisation_search.dart';
 import '../../pharmacyProfile/pharmacyrow.dart';
 
-
-
 class NonTituSheet extends StatefulWidget {
   const NonTituSheet({Key? key}) : super(key: key);
 
@@ -650,10 +648,10 @@ class NonTituBottomFilter extends StatefulWidget {
 
 class _NonTituBottomFilterState extends State<NonTituBottomFilter> {
   final GlobalKey<FormState> formKey = GlobalKey();
+  TextEditingController nomController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController nomController = TextEditingController();
     var height = MediaQuery.of(context).size.height;
     return Container(
       height: MediaQuery.of(context).size.height * 0.32,

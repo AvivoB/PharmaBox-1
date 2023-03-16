@@ -727,10 +727,10 @@ class FiltersButtonBottomSheet extends StatefulWidget {
 
 class _FiltersButtonBottomSheetState extends State<FiltersButtonBottomSheet> {
   final GlobalKey<FormState> formKey = GlobalKey();
+    TextEditingController nomController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController nomController = TextEditingController();
     var height = MediaQuery.of(context).size.height;
     return Container(
       height: MediaQuery.of(context).size.height * 0.32,
