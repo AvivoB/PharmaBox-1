@@ -783,10 +783,12 @@ class _FiltersButtonBottomSheetState extends State<FiltersButtonBottomSheet> {
                     .add(CreateOffre(offre: widget.offre));
                 BlocProvider.of<MembresBloc>(context)
                     .add(GetMembres(offre: widget.offre));
+                                    Navigator.pop(context);
+
               }
             },
             child: FiltersButton(
-              text: 'Enregistrer ma recherche',
+              text: 'Enregistrer mon offre',
               icon: true,
             ),
           ),

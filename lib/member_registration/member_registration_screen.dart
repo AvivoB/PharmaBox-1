@@ -187,14 +187,18 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                         ),
                         controller: addressController,
                       ),
-                      PresentField(
-                        label: 'Presentation',
-                        prefixIcon: const Icon(
-                          Icons.location_city_outlined,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal:20.0),
+                        child: PresentField(
+                          label: 'Presentation',
+                          padding: 20,
+                          prefixIcon: const Icon(
+                            Icons.location_city_outlined,
+                          ),
+                          controller: descriptionController,
+                          maxLines: 2,
+                          textInputaction: TextInputAction.newline,
                         ),
-                        controller: descriptionController,
-                        maxLines: 2,
-                        textInputaction: TextInputAction.newline,
                       ),
                       Column(
                         children: [
@@ -241,8 +245,8 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                                 SnackBar(
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10)),
-                                  backgroundColor:const Color(0xFF7CEDAC),
-                                  content:const Text(
+                                  backgroundColor: const Color(0xFF7CEDAC),
+                                  content: const Text(
                                       "Vous devez accepter les conditions générales d'utilisation!"),
                                 ),
                               );

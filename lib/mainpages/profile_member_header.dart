@@ -462,13 +462,17 @@ class _ProfilTabBarState extends State<ProfilTabBar>
                             ),
                             controller: addressController,
                           ),
-                          PresentField(
-                            label: 'Presentation',
-                            prefixIcon: const Icon(
-                              Icons.location_city_outlined,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal:20.0),
+                            child: PresentField(
+                              label: 'Presentation',
+                              padding: 20,
+                              prefixIcon: const Icon(
+                                Icons.location_city_outlined,
+                              ),
+                              controller: descriptionController,
+                              maxLines: 2,
                             ),
-                            controller: descriptionController,
-                            maxLines: 2,
                           ),
                           SizedBox(
                             height: height * 0.02,

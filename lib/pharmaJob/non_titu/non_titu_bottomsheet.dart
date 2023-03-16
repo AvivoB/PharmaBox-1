@@ -704,6 +704,7 @@ class _NonTituBottomFilterState extends State<NonTituBottomFilter> {
                     .add(CreateRecherche(recherche: widget.recherche));
                 BlocProvider.of<OffresBloc>(context)
                     .add(GetFilteredOffres(recherche: widget.recherche));
+                Navigator.pop(context);
               }
             },
             child: FiltersButton(
