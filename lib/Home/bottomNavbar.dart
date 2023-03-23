@@ -19,7 +19,7 @@ import 'package:pharmabox/business_logic/lgo_bloc/lgo_bloc.dart';
 import 'package:pharmabox/business_logic/specialisations_bloc/specialisations_bloc.dart';
 import 'package:pharmabox/business_logic/universites_bloc/universites_bloc.dart';
 import 'package:pharmabox/configurations/mainConfig.dart';
-import 'package:pharmabox/mainpages/profile_member_header.dart';
+import 'package:pharmabox/profile_tabs/profile_member_header.dart';
 import 'package:pharmabox/mainpages/explorer.dart';
 import 'package:pharmabox/pharmaJob/non_titu/pharmaJobNav_non_titu.dart';
 import 'package:pharmabox/pharmaJob/pharmajobNav.dart';
@@ -166,7 +166,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                               ),
                             ]),
                           ),
-                          InkWell(
+                          /* InkWell(
                             onTap: () {
                               Navigator.push(
                                 context,
@@ -188,7 +188,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                 ),
                               ),
                             ]),
-                          ),
+                          ),*/
                           InkWell(
                             onTap: () {
                               FirebaseAuth.instance.signOut().then(
@@ -217,6 +217,10 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                     nom: "Gestion des labos",
                                     enabled: false,
                                     asset: "assets/icons/covid.png"),
+                                Competence(
+                                    nom: "TROD",
+                                    enabled: false,
+                                    asset: "assets/icons/trod.png"),
                               ]));
                               BlocProvider.of<ExperiencesBloc>(context).add(
                                   InitialiseExperience(experiences: const []));

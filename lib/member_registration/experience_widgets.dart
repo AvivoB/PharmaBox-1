@@ -137,9 +137,11 @@ class ExperienceWidget extends StatelessWidget {
         SizedBox(
           width: width * 0.02,
         ),
-        Text(
-          '${experience.nomPharmacie}, ${experience.anneeDebut} - ${experience.anneeFin}',
-          style: paragraph,
+        Flexible(
+          child: Text(
+            '${experience.nomPharmacie}, ${experience.anneeDebut} - ${experience.anneeFin}',
+            style: paragraph,
+          ),
         ),
       ],
     );

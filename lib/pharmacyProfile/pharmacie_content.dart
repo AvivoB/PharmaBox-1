@@ -22,6 +22,7 @@ import '../model/localisation.dart';
 import '../model/telephone.dart';
 import '../model/tendance.dart';
 import 'horraires_ouvreture.dart';
+import 'lgo_pharmacie.dart';
 
 class ProfilEditPharmacy extends StatefulWidget {
   TextEditingController? pharNameController;
@@ -48,6 +49,8 @@ class ProfilEditPharmacy extends StatefulWidget {
 class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
     with SingleTickerProviderStateMixin {
   bool nonStop = false;
+  List<TextEditingController> equipeController =
+      List.generate(6, (index) => TextEditingController());
   List<WorkHours> work_hours = [
     WorkHours(
       startDate: const TimeOfDay(hour: 0, minute: 0),
@@ -151,10 +154,10 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
   }
 
   final List<String> confortList = <String>[
+    'Salle de pause',
     'Break Room',
     'Robot',
-    'Electronic labels',
-    'Automatic coin mechanism',
+    'Etiquettes éléctroniques',
     'air conditioning',
     'Heating',
     'Vigile',
@@ -175,6 +178,9 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
 
   final List<Icon> confortIcons = <Icon>[
     const Icon(
+      Icons.self_improvement_outlined,
+    ),
+    const Icon(
       Icons.cruelty_free_outlined,
     ),
     const Icon(
@@ -184,13 +190,10 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
       Icons.qr_code_2_outlined,
     ),
     const Icon(
-      Icons.self_improvement_outlined,
+      Icons.cottage_outlined,
     ),
     const Icon(
       Icons.local_police_outlined,
-    ),
-    const Icon(
-      Icons.cottage_outlined,
     ),
     const Icon(
       Icons.airplane_ticket_outlined,
@@ -364,7 +367,9 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                             ].map((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
-                                child: Text(value),
+                                child: Text(
+                                  value,
+                                ),
                               );
                             }).toList(),
                             alignment: Alignment.bottomCenter,
@@ -583,7 +588,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                         width: width * 0.05,
                       ),
                       Text(
-                        'Horaire',
+                        'Horaires',
                         style: heading,
                       ),
                     ],
@@ -657,7 +662,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                   SizedBox(
                     height: height * 0.02,
                   ),
-                  /*Column(
+                  Column(
                     children: [
                       PharmacyRow(
                         text: typologie[0],
@@ -665,6 +670,14 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                         initialSwitchValue: typocc,
                         onChanged: (value) {
                           typocc = value;
+                          setState(() {
+                            typocv = false;
+                            typoAero = false;
+                            typoGare = false;
+                            typoQuartier = false;
+                            typoTour = false;
+                            typoRula = false;
+                          });
                         },
                       ),
                       PharmacyRow(
@@ -673,6 +686,14 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                         initialSwitchValue: typocv,
                         onChanged: (value) {
                           typocv = value;
+                          setState(() {
+                            typocc = false;
+                            typoAero = false;
+                            typoGare = false;
+                            typoQuartier = false;
+                            typoTour = false;
+                            typoRula = false;
+                          });
                         },
                       ),
                       PharmacyRow(
@@ -681,6 +702,14 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                         initialSwitchValue: typoAero,
                         onChanged: (value) {
                           typoAero = value;
+                          setState(() {
+                            typocc = false;
+                            typocv = false;
+                            typoGare = false;
+                            typoQuartier = false;
+                            typoTour = false;
+                            typoRula = false;
+                          });
                         },
                       ),
                       PharmacyRow(
@@ -689,6 +718,14 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                         initialSwitchValue: typoGare,
                         onChanged: (value) {
                           typoGare = value;
+                          setState(() {
+                            typocc = false;
+                            typocv = false;
+                            typoAero = false;
+                            typoQuartier = false;
+                            typoTour = false;
+                            typoRula = false;
+                          });
                         },
                       ),
                       PharmacyRow(
@@ -697,6 +734,14 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                         initialSwitchValue: typoQuartier,
                         onChanged: (value) {
                           typoQuartier = value;
+                          setState(() {
+                            typocc = false;
+                            typocv = false;
+                            typoAero = false;
+                            typoGare = false;
+                            typoTour = false;
+                            typoRula = false;
+                          });
                         },
                       ),
                       PharmacyRow(
@@ -705,6 +750,14 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                         initialSwitchValue: typoTour,
                         onChanged: (value) {
                           typoTour = value;
+                          setState(() {
+                            typocc = false;
+                            typocv = false;
+                            typoAero = false;
+                            typoGare = false;
+                            typoQuartier = false;
+                            typoRula = false;
+                          });
                         },
                       ),
                       PharmacyRow(
@@ -713,15 +766,26 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                         initialSwitchValue: typoRula,
                         onChanged: (value) {
                           typoRula = value;
+                          setState(() {
+                            typocc = false;
+                            typocv = false;
+                            typoAero = false;
+                            typoGare = false;
+                            typoQuartier = false;
+                            typoTour = false;
+                          });
                         },
                       )
                     ],
-                  ),*/
+                  ),
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
                   Stack(
                     children: [
-                      CustomPharmacyTextField(
-                        controller: typologieController,
-                        label: 'Choisir votre typologie',
+                      PresentField(
+                        controller: noPatientPerDay,
+                        label: 'Nombre de patients par jour',
                         prefixIcon: const Icon(Icons.settings),
                         readOnly: true,
                       ),
@@ -730,13 +794,10 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
                             items: <String>[
-                              'Centre  Commercial',
-                              'Centre ville',
-                              'Aeroport',
-                              'Gare',
-                              'Quartier',
-                              'Touristique',
-                              'Rurale',
+                              '<100',
+                              '100-250',
+                              '250-400',
+                              '>400'
                             ].map((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
@@ -745,27 +806,17 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                             }).toList(),
                             alignment: Alignment.bottomCenter,
                             onChanged: (val) {
-                              typologieController.text = val ?? '';
+                              noPatientPerDay.text = val ?? '';
                             },
                           ),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  PresentField(
-                    label: 'Nb patients par jour',
-                    textInputType: TextInputType.number,
-                    prefixIcon: Icon(
-                      Icons.person,
-                    ),
-                    controller: noPatientPerDay,
-                  ),
                 ],
               ),
             ),
+
             SizedBox(
               height: height * 0.02,
             ),
@@ -850,7 +901,8 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
             SizedBox(
               height: height * 0.02,
             ),
-            LgoContainer(width: width, height: height),
+            //LgoContainer(width: width, height: height),
+            LgoPharmacie(),
             SizedBox(
               height: height * 0.02,
             ),
@@ -977,7 +1029,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                       width: width * 0.05,
                     ),
                     Text(
-                      'Tendance',
+                      'Tendances',
                       style: heading,
                     ),
                   ],
@@ -1017,8 +1069,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
               height: height * 0.02,
             ),
             Container(
-              padding: const EdgeInsets.all(8),
-              height: height * 0.3,
+              padding: const EdgeInsets.all(16),
               width: width * 0.9,
               decoration: const BoxDecoration(
                 boxShadow: [
@@ -1063,6 +1114,51 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                         textInputType: TextInputType.number,
                         prefixIcon: const Icon(Icons.person),
                       ),
+                      SizedBox(
+                        height: height * 0.02,
+                      ),
+                      PresentField(
+                        label: 'Nombre de rayonnistes',
+                        controller: equipeController[0],
+                        textInputType: TextInputType.number,
+                        prefixIcon: const Icon(Icons.person),
+                      ),
+                      SizedBox(
+                        height: height * 0.02,
+                      ),
+                      PresentField(
+                        label: 'Nombre de conseillers',
+                        controller: equipeController[1],
+                        textInputType: TextInputType.number,
+                        prefixIcon: const Icon(Icons.person),
+                      ),
+                      SizedBox(
+                        height: height * 0.02,
+                      ),
+                      PresentField(
+                        label: "Nombre de d'apprentis",
+                        controller: equipeController[3],
+                        textInputType: TextInputType.number,
+                        prefixIcon: const Icon(Icons.person),
+                      ),
+                      SizedBox(
+                        height: height * 0.02,
+                      ),
+                      PresentField(
+                        label: "Nombre de d'étudiants pharmacie",
+                        controller: equipeController[4],
+                        textInputType: TextInputType.number,
+                        prefixIcon: const Icon(Icons.person),
+                      ),
+                      SizedBox(
+                        height: height * 0.02,
+                      ),
+                      PresentField(
+                        label: "Nombre de d'étudiants 6éme année",
+                        controller: equipeController[5],
+                        textInputType: TextInputType.number,
+                        prefixIcon: const Icon(Icons.person),
+                      ),
                     ],
                   ),
                 ],
@@ -1077,14 +1173,13 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
               onTap: () {
                 if (widget.formKey.currentState!.validate()) {
                   if (formKey11.currentState!.validate()) {
-                    if (BlocProvider.of<LgoBloc>(context).state.lgos.isEmpty) {
+                    if (BlocProvider.of<PharmacieBloc>(context).lgo == "") {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
                           backgroundColor: const Color(0xFF7CEDAC),
-                          content:
-                              const Text("Vous devez choisir au moins un LGO!"),
+                          content: const Text("Vous devez choisir un LGO!"),
                         ),
                       );
                     } else {
@@ -1110,6 +1205,10 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                             email: emailController.text,
                             typologie: typologieController.text,
                             workHours: work_hours,
+                            lgoImage: BlocProvider.of<PharmacieBloc>(context)
+                                .lgoImage,
+                            lgoName:
+                                BlocProvider.of<PharmacieBloc>(context).lgo,
                             groupementImage:
                                 BlocProvider.of<PharmacieBloc>(context)
                                     .groupementImage,
@@ -1131,7 +1230,6 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                             prefEmail: prefEmailController.text,
                             parking: parkingController.text,
                             gareAccess: gareController.text,
-                            lgos: BlocProvider.of<LgoBloc>(context).state.lgos,
                             maitre: widget.maitre!,
                             telephone: Telephone(
                                 numeroTelephone:
@@ -1205,7 +1303,9 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                   ),
                   child: Center(
                     child: Text(
-                      widget.myPharmacy == null ? 'Enregistrer' : 'save'.tr,
+                      widget.myPharmacy == null
+                          ? 'Créer la pharmacie'
+                          : 'Enregistrer'.tr,
                       style: bigWhite,
                     ),
                   )),

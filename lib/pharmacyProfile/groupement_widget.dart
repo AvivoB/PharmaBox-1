@@ -17,13 +17,13 @@ class ModifierGroupement extends StatefulWidget {
   State<ModifierGroupement> createState() => _ModifierGroupementState();
 }
 
-
 class _ModifierGroupementState extends State<ModifierGroupement> {
   @override
   void initState() {
     super.initState();
   }
-TextEditingController groupementController = TextEditingController();
+
+  TextEditingController groupementController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ TextEditingController groupementController = TextEditingController();
           )),
       title: Text(
         "Groupement",
-        style: heading,
+        style: heading.copyWith(fontSize: 16),
       ),
       subtitle: Text(
         BlocProvider.of<PharmacieBloc>(context).groupement,
@@ -53,68 +53,70 @@ TextEditingController groupementController = TextEditingController();
                 ),
               ),
               context: context,
-              builder: (context) => SingleChildScrollView(
-                    child: Padding(
-                        padding: EdgeInsets.only(
-                            left: 20,
-                            right: 20,
-                            top: 20,
-                            bottom: MediaQuery.of(context).viewInsets.bottom),
+              builder: (context) => Padding(
+                  padding: EdgeInsets.only(
+                      left: 20,
+                      right: 20,
+                      top: 20,
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: SizedBox(
+                    height: height * 0.4,
+                    child: SingleChildScrollView(
                         child: Column(
-                          children: [
-                            CustomPharmacyTextField(
-                              label: "Groupement",
-                              controller: groupementController,
-                              onRealChanged: (val) {
-                                BlocProvider.of<GroupementBloc>(context)
-                                    .add(GetAllGroupements(input: val));
-                              },
-                            ),
-                            BlocBuilder<GroupementBloc, GroupementState>(
-                              builder: (context, state) {
-                                if (state is GroupementsReady) {
-                                  return SingleChildScrollView(
-                                    child: Column(
-                                      children: List.generate(
-                                        state.groupements.length,
-                                        (index) => ListTile(
-                                          onTap: () {
-                                            BlocProvider.of<PharmacieBloc>(
-                                                        context)
-                                                    .groupement =
-                                                state.groupements[index]
-                                                    .groupement;
-                                            BlocProvider.of<PharmacieBloc>(
-                                                        context)
-                                                    .groupementImage =
-                                                state.groupements[index].image;
-                                            setState(() {});
-                                            Navigator.pop(context);
-                                          },
-                                          leading: Image(
-                                              height: height * 0.045,
-                                              image: NetworkImage(state
-                                                  .groupements[index].image)),
-                                          title: Text(
-                                            state.groupements[index].groupement,
-                                            style: heading,
-                                          ),
-                                        ),
+                      children: [
+                        CustomPharmacyTextField(
+                          label: "Groupement",
+                          controller: groupementController,
+                          onRealChanged: (val) {
+                            BlocProvider.of<GroupementBloc>(context)
+                                .add(GetAllGroupements(input: val));
+                          },
+                        ),
+                        BlocBuilder<GroupementBloc, GroupementState>(
+                          builder: (context, state) {
+                            if (state is GroupementsReady) {
+                              return SingleChildScrollView(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: Column(
+                                  children: List.generate(
+                                    state.groupements.length,
+                                    (index) => ListTile(
+                                      onTap: () {
+                                        BlocProvider.of<PharmacieBloc>(context)
+                                                .groupement =
+                                            state.groupements[index].groupement;
+                                        BlocProvider.of<PharmacieBloc>(context)
+                                                .groupementImage =
+                                            state.groupements[index].image;
+                                        setState(() {});
+                                        Navigator.pop(context);
+                                      },
+                                      leading: Image(
+                                          height: height * 0.045,
+                                          image: NetworkImage(
+                                              state.groupements[index].image)),
+                                      title: Text(
+                                        state.groupements[index].groupement,
+                                        style: heading,
                                       ),
                                     ),
-                                  );
-                                } else if (state is GroupementsLoading) {
-                                  return const Center(
+                                  ),
+                                ),
+                              );
+                            } else if (state is GroupementsLoading) {
+                              return const Padding(
+                                  padding: EdgeInsets.all(10.0),
+                                  child: Center(
                                     child: CircularProgressIndicator(),
-                                  );
-                                } else {
-                                  return const SizedBox();
-                                }
-                              },
-                            ),
-                          ],
-                        )),
-                  ));
+                                  ));
+                            } else {
+                              return const SizedBox();
+                            }
+                          },
+                        ),
+                      ],
+                    )),
+                  )));
         },
         child: Container(
             height: height * 0.035,

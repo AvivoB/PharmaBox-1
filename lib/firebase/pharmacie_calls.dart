@@ -107,6 +107,25 @@ class PharmacieCalls {
     }
     return groupements;
   }
+   Future getSpecialisations(String input) async {
+    List<Groupement> groupements = [];
+    CollectionReference colRef = _firebaseFirestore.collection('specialisation');
+    QuerySnapshot querySnapshot = await colRef.get();
+    final FirebaseStorage storage = FirebaseStorage.instance;
+
+    List<QueryDocumentSnapshot> documents = querySnapshot.docs;
+
+    for (var doc in documents) {
+      dynamic data = doc.data()!;
+      if (data["name"].toLowerCase().contains(input)) {
+        groupements = [
+          ...groupements,
+          Groupement(groupement: data["name"], image: "")
+        ];
+      }
+    }
+    return groupements;
+  }
 
   Future getExplorerPharmacies(places.LatLng input) async {
     List<Pharmacie> membres = await _firebaseFirestore

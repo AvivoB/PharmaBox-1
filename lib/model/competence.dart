@@ -34,10 +34,15 @@ class Competence {
             nom: "Gestion du tiers payant",
             enabled: json["test 4"]!,
             asset: "assets/icons/recherches (1).png"),
+           
         Competence(
             nom: "Gestion des labos",
             enabled: json["test Covid"]!,
             asset: "assets/icons/TesttubeIcon.png"),
+             Competence(
+            nom: "TROD",
+            enabled: json["test 5"]!,
+            asset: "assets/icons/trod.png"),
       ];
     }
   }

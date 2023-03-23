@@ -15,6 +15,8 @@ class Pharmacie {
   final bool maitre;
   final String groupementName;
   final String groupementImage;
+  final String lgoName;
+  final String lgoImage;
   final bool nonStop;
   final String email;
   final Telephone telephone;
@@ -35,7 +37,6 @@ class Pharmacie {
   final bool preparation;
   final bool borneTelemedcine;
 
-  final List<Lgo> lgos;
   final bool breakRoom;
   final bool robot;
   final bool electronicLabels;
@@ -72,13 +73,14 @@ class Pharmacie {
       "entretien": entretien,
       "preparation": preparation,
       "borne": borneTelemedcine,
-      "lgos": lgos.map((e) => e.toJson()).toList(),
       "break": breakRoom,
       "robot": robot,
       "electronic": electronicLabels,
       "automatic": automatic,
       "groupement-image": groupementImage,
       "groupement-name": groupementName,
+      "lgo-name":lgoName,
+      "lgo-image":lgoImage,
       "air": airCond,
       "heating": heating,
       "vigile": vigile,
@@ -89,12 +91,10 @@ class Pharmacie {
   }
 
   static Pharmacie fromJson(dynamic json) {
-    List<dynamic> lgosJson = json['lgos'];
     List<dynamic> workHoursJson = json['work_hours'];
     List<String> images = [];
     List<String> titulaires = [];
     if (json.containsKey("images")) {
-      print("kaynin");
       List<dynamic> imagesJson = json['images'];
       images = imagesJson.map((e) => e.toString()).toList();
     }
@@ -103,7 +103,6 @@ class Pharmacie {
       titulaires = titulairesJson.map((e) => e.toString()).toList();
     }
     List<WorkHours> workHours = WorkHours.fromJson(workHoursJson);
-    List<Lgo> lgos = Lgo.fromJson(lgosJson);
     List<dynamic> tendancesJson = json['tendances'];
     List<Tendance> tendances = Tendance.fromJson(tendancesJson);
     ////
@@ -111,6 +110,8 @@ class Pharmacie {
       workHours: workHours,
       groupementImage: json["groupement-image"],
       groupementName: json["groupement-name"],
+      lgoName: json['lgo-name'],
+      lgoImage: json['lgo-image'],
       nom: json.containsKey("nom") ? json['nom'] ?? "" : "",
       email: json.containsKey("email") ? json["email"] ?? "" : "",
       airCond: json.containsKey("air") ? json["air"] ?? "" : "",
@@ -141,7 +142,6 @@ class Pharmacie {
       tramway: json["tramway"],
       vaccination: json["vaccination"],
       vigile: json["vigile"],
-      lgos: lgos,
       tendances: tendances,
       presentation: json["presentation"] as String,
       localisation: Localisation(
@@ -154,6 +154,8 @@ class Pharmacie {
     required this.nom,
     required this.groupementImage,
     required this.groupementName,
+    required this.lgoImage,
+    required this.lgoName,
     required this.titulaires,
     required this.images,
     required this.presentation,
@@ -177,7 +179,6 @@ class Pharmacie {
     required this.entretien,
     required this.preparation,
     required this.borneTelemedcine,
-    required this.lgos,
     required this.breakRoom,
     required this.robot,
     required this.electronicLabels,

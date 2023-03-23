@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class PresentField extends StatefulWidget {
   final String label;
@@ -37,15 +38,11 @@ class _PresentFieldState extends State<PresentField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: widget.padding == 0
-          ? const EdgeInsets.symmetric(
-              vertical: 10.0,
-              horizontal: 0,
-            )
-          : EdgeInsets.zero,
+      padding: EdgeInsets.only(top: 8),
       child: TextFormField(
         readOnly: widget.readOnly,
         controller: widget.controller,
+        minLines: 1,
         autofocus: false,
         maxLength: widget.maxLength,
         keyboardType: widget.textInputType,
@@ -65,9 +62,15 @@ class _PresentFieldState extends State<PresentField> {
           letterSpacing: 0.3,
           color: Color(0xfF161730),
         ),
+        /*inputFormatters: [
+          MultiLineFormatter(2),
+        ],*/
+        onChanged: (text) {
+          print(text);
+        },
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(
-            left: 10,
+            left: 20,
             right: 10,
             top: widget.maxLines == 1 ? 2 : 25,
           ),
@@ -86,10 +89,10 @@ class _PresentFieldState extends State<PresentField> {
                   child: widget.prefixIcon,
                 )
               : null,
-          prefixText: widget.maxLines == 1 ? '      ' : '',
           prefixIconConstraints: const BoxConstraints(
             maxWidth: 20,
           ),
+          prefixText: widget.maxLines == 1 ? '      ' : '',
           suffixIcon: widget.showSuffix
               ? IconButton(
                   onPressed: () {
@@ -112,5 +115,22 @@ class _PresentFieldState extends State<PresentField> {
         ),
       ),
     );
+  }
+}
+
+class MultiLineFormatter extends TextInputFormatter {
+  final int _maxLines;
+
+  MultiLineFormatter(this._maxLines);
+
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    int lines = newValue.text.split(RegExp(r'\r?\n')).length;
+
+    if (lines > _maxLines) {
+      return oldValue;
+    }
+    return newValue;
   }
 }

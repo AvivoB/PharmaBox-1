@@ -8,8 +8,9 @@ class LogInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(12)),
+      
         gradient: LinearGradient(
           colors: [
             Color.fromRGBO(124, 237, 172, 1),

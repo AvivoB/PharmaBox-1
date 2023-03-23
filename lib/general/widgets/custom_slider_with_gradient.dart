@@ -59,108 +59,109 @@ class _CustomTextWithGradientSliderState
       setState(() {});
     } else {
       if (widget.parent.niveau < 50) {
-        labelText = 'Moyen';
+        labelText = 'Maîtrise basique';
+        _gradient = kbasicGradient;
+      } else if (widget.parent.niveau > 50 && widget.parent.niveau < 80) {
+        labelText = 'Maîtrise intérmidiaire';
         _gradient = kintermediateLevelGradient;
       } else {
-        labelText = 'Maitrise complète';
+        labelText = 'Maîtrise complète';
         _gradient = kexpertLevelGradient;
       }
       setState(() {});
     }
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Container(
-            child: Row(
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.035,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Expanded(
+          child: Row(
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.035,
+              ),
+              GestureDetector(
+                onTap: widget.onTap,
+                child: Image(
+                  image: const AssetImage('assets/icons/deleteicon.png'),
+                  height: height * 0.025,
                 ),
-                GestureDetector(
-                  onTap: widget.onTap,
-                  child: Image(
-                    image: const AssetImage('assets/icons/deleteicon.png'),
-                    height: height * 0.025,
-                  ),
-                ),
-                SizedBox(
-                  width: width * 0.02,
-                ),
-                Image(
-                  image: AssetImage(widget.assetImage),
-                  height: MediaQuery.of(context).size.height * 0.02,
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.02,
-                ),
-                Text(
+              ),
+              SizedBox(
+                width: width * 0.02,
+              ),
+              Image(
+                image: AssetImage(widget.assetImage),
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.02,
+              ),
+              Flexible(
+                child: Text(
                   widget.parent.nom,
                   style: paragraph,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
+        ),
 
-          Container(
-            // color: lightGreen,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                GradientText(
-                  labelText,
-                  style: const TextStyle(fontSize: 10),
-                  gradient: _gradient,
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
-                  width: MediaQuery.of(context).size.width * 0.45,
-                  child: SliderTheme(
-                    data: SliderThemeData(
-                      showValueIndicator: ShowValueIndicator.never,
-                      minThumbSeparation: 0.00,
-                      thumbColor: widget.categoryCount == 3
-                          ? widget.parent.niveau < 50
-                              ? const Color.fromRGBO(248, 153, 153, 1)
-                              : widget.parent.niveau > 50 &&
-                                      widget.parent.niveau < 80
-                                  ? const Color.fromRGBO(253, 197, 113, 1)
-                                  : const Color.fromRGBO(124, 237, 172, 1)
-                          : widget.parent.niveau < 50
-                              ? const Color.fromRGBO(255, 222, 172, 1)
-                              : const Color.fromRGBO(124, 237, 172, 1),
-                      trackHeight: 2,
-                      trackShape: GradientRectSliderTrackShape(
-                        gradient: _gradient,
-                      ),
-                    ),
-                    child: Slider(
-                      min: 0,
-                      max: 100,
-                      value: widget.parent.niveau,
-                      // divisions: 4,
-
-                      onChanged: (double val) {
-                        setState(() {
-                          widget.parent.niveau = val;
-                          //BlocProvider.of<E>(context).add(UpdateValue());
-                        });
-                      },
+        Container(
+          // color: lightGreen,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              GradientText(
+                labelText,
+                style: const TextStyle(fontSize: 10),
+                gradient: _gradient,
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.03,
+                width: MediaQuery.of(context).size.width * 0.45,
+                child: SliderTheme(
+                  data: SliderThemeData(
+                    showValueIndicator: ShowValueIndicator.never,
+                    minThumbSeparation: 0.00,
+                    thumbColor: widget.parent.niveau < 50
+                        ? const Color.fromRGBO(248, 153, 153, 1)
+                        : widget.parent.niveau > 50 && widget.parent.niveau < 80
+                            ? const Color.fromRGBO(253, 197, 113, 1)
+                            : const Color.fromRGBO(124, 237, 172, 1),
+                    /* : widget.parent.niveau < 50
+                            ? const Color.fromRGBO(255, 222, 172, 1)
+                            : const Color.fromRGBO(124, 237, 172, 1),*/
+                    trackHeight: 2,
+                    trackShape: GradientRectSliderTrackShape(
+                      gradient: _gradient,
                     ),
                   ),
+                  child: Slider(
+                    min: 0,
+                    max: 100,
+                    value: widget.parent.niveau,
+                    // divisions: 4,
+
+                    onChanged: (double val) {
+                      setState(() {
+                        widget.parent.niveau = val;
+                        //BlocProvider.of<E>(context).add(UpdateValue());
+                      });
+                    },
+                  ),
                 ),
-                // const SizedBox(height: 10),
-              ],
-            ),
+              ),
+              // const SizedBox(height: 10),
+            ],
           ),
-          // SizedBox(
-          //   width: widget.categoryCount == 3
-          //       ? MediaQuery.of(context).size.width * 0.05
-          //       : 0,
-          // ),
-        ],
-      ),
+        ),
+        // SizedBox(
+        //   width: widget.categoryCount == 3
+        //       ? MediaQuery.of(context).size.width * 0.05
+        //       : 0,
+        // ),
+      ],
     );
   }
 }

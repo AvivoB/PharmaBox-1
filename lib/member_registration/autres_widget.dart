@@ -57,7 +57,7 @@ class _AutresContainerState extends State<AutresContainer> {
                         width: widget.width * 0.05,
                       ),
                       Text(
-                        "Je donne le droit à PharmaBox de \nm'envoyer des offres d'emploi",
+                        "Je donne à PharmaBox le droite de\nm'envoyer des notifications",
                         style: paragraph,
                       ),
                     ],

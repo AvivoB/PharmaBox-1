@@ -103,12 +103,22 @@ class _CustomPharmacyTextFieldState extends State<CustomPharmacyTextField> {
                   ),
                 )
               : null,
-          label: Text(
-            widget.label,
-            style: const TextStyle(
-              fontSize: 17,
+          label: Row(mainAxisSize: MainAxisSize.min, children: [
+            Text(
+              widget.label,
+              style: const TextStyle(
+                fontSize: 17,
+              ),
             ),
-          ),
+            Text(
+              '*',
+              style: TextStyle(
+                color: Colors.red,
+                fontSize: 17.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ]),
           floatingLabelBehavior: FloatingLabelBehavior.always,
         ),
       ),

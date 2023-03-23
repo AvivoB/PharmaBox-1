@@ -147,7 +147,7 @@ class TitulaireContainer extends StatelessWidget {
           child: Row(
             children: const [
               Text(
-                "Ajouter titulaire",
+                "Ajouter un autre titulaire",
                 style: TextStyle(color: Colors.blue),
               ),
               SizedBox(

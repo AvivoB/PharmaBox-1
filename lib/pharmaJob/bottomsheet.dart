@@ -59,14 +59,15 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
   ];
   final List<String> salaireCrecheList = <String>[
     'Salaire négocier ensemble',
-    "Crêche d'entreprise",
+    'Emploi du temps à discuter ensemble'
+    /* "Crêche d'entreprise",
     'Frais de déplacement',
     'Logement',
     'Tickets cadeau',
     'Tickets restaurent',
     'Offre à responsabilité',
     'Prime',
-    'Emploi du temps à discuter ensemble'
+   */
   ];
   final List<Horaire> horraires = [
     Horaire(matinee: '', apresMidi: '', soiree: '', nuit: ''),
@@ -88,17 +89,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
   ];
   final List<bool> confort = [false, false, false, false];
   final List<bool> missions = [false, false, false];
-  final List<bool> salaireCreche = [
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false
-  ];
+  final List<bool> salaireCreche = [false, false];
   final List<bool> stations = [false, false, false, false, false, false];
 
   bool debut = false;
@@ -121,15 +112,15 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
   ];
   List<IconData> salaireIcons = [
     Icons.payment_outlined,
-    Icons.cruelty_free_outlined,
+    Icons.calendar_month
+    /* Icons.cruelty_free_outlined,
     Icons.airplane_ticket_outlined,
     Icons.cottage_outlined,
     Icons.payment_outlined,
     Icons.card_giftcard,
     Icons.restaurant,
     Icons.person,
-    Icons.card_giftcard,
-    Icons.calendar_month
+    */
   ];
 
   List<String> _options = ['CDD', 'CDI', 'Alternance', 'STAGE'];
@@ -157,7 +148,6 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Container(
         margin:
@@ -199,7 +189,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
               ],
             ),
             const SizedBox(
-              height: 20,
+              height: 30,
             ),
             Stack(
               children: [
@@ -236,19 +226,6 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                   ),
                 ),
               ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            CustomRegistrationTextField(
-              padding: 1,
-              label: 'Rayon km',
-              textInputType: TextInputType.number,
-              prefixIcon: const Icon(
-                Icons.map_outlined,
-                color: Color(0xfF161730),
-              ),
-              controller: routeController,
             ),
             const SizedBox(
               height: 20,
@@ -342,36 +319,36 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
               ),
               controller: dateController,
             ),
-            const SizedBox(
-              height: 20,
-            ),
             (_selectedValues.contains("CDD") ||
                     _selectedValues.contains("Alternance") ||
                     _selectedValues.contains("Stage"))
-                ? CustomRegistrationTextField(
-                    padding: 1,
-                    label: 'Durée',
-                    prefixIcon: const Icon(
-                      Icons.calendar_month_outlined,
-                      color: Color(0xfF161730),
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: CustomRegistrationTextField(
+                      padding: 1,
+                      label: 'Durée',
+                      prefixIcon: const Icon(
+                        Icons.calendar_month_outlined,
+                        color: Color(0xfF161730),
+                      ),
+                      controller: durationController,
                     ),
-                    controller: durationController,
                   )
                 : const SizedBox(),
-            const SizedBox(
-              height: 20,
-            ),
-            Visibility(
-              visible: !salaireCreche[0],
-              child: CustomRegistrationTextField(
-                padding: 1,
-                label: 'Salaire Net',
-                textInputType: TextInputType.number,
-                prefixIcon: const Icon(
-                  Icons.money,
-                  color: Color(0xfF161730),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: Visibility(
+                visible: !salaireCreche[0],
+                child: CustomRegistrationTextField(
+                  padding: 1,
+                  label: 'Salaire Net',
+                  textInputType: TextInputType.number,
+                  prefixIcon: const Icon(
+                    Icons.money,
+                    color: Color(0xfF161730),
+                  ),
+                  controller: salaireController,
                 ),
-                controller: salaireController,
               ),
             ),
             const SizedBox(
@@ -386,7 +363,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                 initialSwitchValue: salaireCreche[index],
                 onChanged: (value) {
                   salaireCreche[index] = value;
-                  if (index == 8) {
+                  if (index == 1) {
                     setState(() {});
                   }
                 },
@@ -396,7 +373,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
               height: 20,
             ),
             Visibility(
-              visible: !salaireCreche[8],
+              visible: !salaireCreche[1],
               child: Row(
                 children: const [
                   Text(
@@ -413,7 +390,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
               height: 20,
             ),
             Visibility(
-              visible: !salaireCreche[8],
+              visible: !salaireCreche[1],
               child: CustomTable(
                 horraires: horraires,
               ),
@@ -422,7 +399,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
               height: 20,
             ),
             Visibility(
-              visible: !salaireCreche[8],
+              visible: !salaireCreche[1],
               child: PharmacyRow(
                 text: "Semaires paires et impaires identiques",
                 icon: Icons.calendar_month,
@@ -440,7 +417,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
               height: 20,
             ),
             Visibility(
-              visible: !salaireCreche[8],
+              visible: !salaireCreche[1],
               child: Row(
                 children: const [
                   Text(
@@ -457,7 +434,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
               height: 20,
             ),
             Visibility(
-              visible: !salaireCreche[8],
+              visible: !salaireCreche[1],
               child: CustomTable(
                 horraires: horrairesImpaires,
               ),
@@ -465,7 +442,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
             const SizedBox(
               height: 20,
             ),
-            Text(
+            /* Text(
               'Accessibilité',
               style: heading,
             ),
@@ -575,11 +552,11 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
             ),
             const SizedBox(
               height: 20,
-            ),
+            ),*/
             InkWell(
               onTap: () {
                 if (formKey.currentState!.validate()) {
-                  if (BlocProvider.of<PharmacieBloc>(context).pharmacie ==
+                  /*if (BlocProvider.of<PharmacieBloc>(context).pharmacie ==
                       null) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -587,73 +564,73 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                             borderRadius: BorderRadius.circular(10)),
                         backgroundColor: const Color(0xFF7CEDAC),
                         content: const Text(
-                            "Vous devez accepter les conditions générales d'utilisation!"),
+                            "Veuillez créer votre pharmacie avant de créer une offre d'emploi"),
                       ),
                     );
-                  } else {
-                    Offre offre = Offre(
-                      state: true,
-                      description: descriptionController.text,
-                      bus: stations[2],
-                      salaireNet: double.parse(salaireController.text),
-                      rer: stations[0],
-                      metro: stations[1],
-                      tramway: stations[2],
-                      gareAccess: stations[3],
-                      parking: stations[4],
-                      robot: confort[0],
-                      electronicLabels: confort[1],
-                      salleDePause: confort[2],
-                      vigile: confort[3],
-                      testCovid: missions[0],
-                      vaccination: missions[1],
-                      entretien: missions[2],
-                      salaireEnsemble: salaireCreche[0],
-                      creche: salaireCreche[1],
-                      frais: salaireCreche[2],
-                      logement: salaireCreche[3],
-                      ticketsCadeau: salaireCreche[4],
-                      ticketsRestaurent: salaireCreche[5],
-                      offre: salaireCreche[6],
-                      prime: salaireCreche[7],
-                      emploisDuTemps: salaireCreche[8],
-                      semainePaire: semainesImpaires,
-                      horairesImpaires: horrairesImpaires,
-                      debut: debut,
-                      localisation:
-                          BlocProvider.of<PharmacieBloc>(context).pharmacie !=
-                                  null
-                              ? BlocProvider.of<PharmacieBloc>(context)
-                                  .pharmacie!
-                                  .localisation
-                                  .ville
-                              : "",
-                      rayon: int.parse(routeController.text),
-                      temps: timeController.text,
-                      poste: posteController.text,
-                      duree: durationController.text,
-                      date: dateController.text,
-                      horaires: horraires,
-                      contrat: _selectedValues,
-                    );
-                    showModalBottomSheet(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(25.0),
-                          ),
+                  } else {*/
+                  Offre offre = Offre(
+                    state: true,
+                    description: descriptionController.text,
+                    bus: stations[2],
+                    salaireNet: double.parse(salaireController.text),
+                    rer: stations[0],
+                    metro: stations[1],
+                    tramway: stations[2],
+                    gareAccess: stations[3],
+                    parking: stations[4],
+                    robot: confort[0],
+                    electronicLabels: confort[1],
+                    salleDePause: confort[2],
+                    vigile: confort[3],
+                    testCovid: missions[0],
+                    vaccination: missions[1],
+                    entretien: missions[2],
+                    salaireEnsemble: salaireCreche[0],
+                    creche: salaireCreche[0],
+                    frais: salaireCreche[0],
+                    logement: salaireCreche[0],
+                    ticketsCadeau: salaireCreche[0],
+                    ticketsRestaurent: salaireCreche[0],
+                    offre: salaireCreche[0],
+                    prime: salaireCreche[0],
+                    emploisDuTemps: salaireCreche[1],
+                    semainePaire: semainesImpaires,
+                    horairesImpaires: horrairesImpaires,
+                    debut: debut,
+                    localisation:
+                        BlocProvider.of<PharmacieBloc>(context).pharmacie !=
+                                null
+                            ? BlocProvider.of<PharmacieBloc>(context)
+                                .pharmacie!
+                                .localisation
+                                .ville
+                            : "",
+                    rayon: int.parse("10"),
+                    temps: timeController.text,
+                    poste: posteController.text,
+                    duree: durationController.text,
+                    date: dateController.text,
+                    horaires: horraires,
+                    contrat: _selectedValues,
+                  );
+                  showModalBottomSheet(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(25.0),
                         ),
-                        isScrollControlled: true,
-                        context: context,
-                        builder: (BuildContext context) {
-                          return FiltersButtonBottomSheet(
-                            offre: offre,
-                          );
-                        });
-                  }
+                      ),
+                      isScrollControlled: true,
+                      context: context,
+                      builder: (BuildContext context) {
+                        return FiltersButtonBottomSheet(
+                          offre: offre,
+                        );
+                      }).then((value) => value ? Navigator.pop(context) : null);
                 }
               },
+              // },
               child: FiltersButton(
-                text: 'Enregistrer ma recherche',
+                text: 'Enregistrer mon offre',
                 icon: true,
               ),
             ),
@@ -727,7 +704,7 @@ class FiltersButtonBottomSheet extends StatefulWidget {
 
 class _FiltersButtonBottomSheetState extends State<FiltersButtonBottomSheet> {
   final GlobalKey<FormState> formKey = GlobalKey();
-    TextEditingController nomController = TextEditingController();
+  TextEditingController nomController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -743,12 +720,12 @@ class _FiltersButtonBottomSheetState extends State<FiltersButtonBottomSheet> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Enregistrer ma recherche',
+                  'Enregistrer mon offre',
                   style: heading,
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.pop(context, false);
                   },
                   child: const Icon(
                     Icons.close,
@@ -767,7 +744,7 @@ class _FiltersButtonBottomSheetState extends State<FiltersButtonBottomSheet> {
               width: MediaQuery.of(context).size.width * 0.9,
               child: CustomRegistrationTextField(
                 padding: 1,
-                label: 'Nom de la recherche',
+                label: "Nom de l'offre",
                 controller: nomController,
               ),
             ),
@@ -783,8 +760,7 @@ class _FiltersButtonBottomSheetState extends State<FiltersButtonBottomSheet> {
                     .add(CreateOffre(offre: widget.offre));
                 BlocProvider.of<MembresBloc>(context)
                     .add(GetMembres(offre: widget.offre));
-                                    Navigator.pop(context);
-
+                Navigator.pop(context, true);
               }
             },
             child: FiltersButton(

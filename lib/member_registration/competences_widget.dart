@@ -41,6 +41,7 @@ class CompetencesContainer extends StatelessWidget {
         ],
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             height: height * 0.015,
@@ -123,6 +124,6 @@ class CompetencesWidget extends StatelessWidget {
           ),
         ),
       ],
-    ); 
+    );
   }
 }

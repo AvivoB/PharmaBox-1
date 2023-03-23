@@ -39,12 +39,14 @@ class Recherche {
 
   bool testCovid;
   bool vaccination;
+  bool maitre;
   bool entretien;
   Recherche({
     this.nom = '',
     required this.state,
     required this.poste,
     this.userId = '',
+    required this.maitre,
     required this.localisation,
     required this.rayon,
     required this.duree,
@@ -91,6 +93,7 @@ class Recherche {
       'horaires': horaires.map((x) => x.toMap()).toList(),
       'horairesImpaires': horairesImpaires.map((x) => x.toMap()).toList(),
       'debut': debut,
+      'maitre':maitre,
       'salaireEnsemble': salaireEnsemble,
       'emploisDuTemps': emploisDuTemps,
       'creche': creche,
@@ -130,7 +133,7 @@ class Recherche {
       nom: map['nom'] as String,
       state: map['state'] as bool,
       poste: map['poste'] as String,
-      userId : map['userId'] as String,
+      userId: map['userId'] as String,
       localisation: map['localisation'] as String,
       rayon: map['rayon'] as int,
       duree: map['duree'] as String,
@@ -140,6 +143,7 @@ class Recherche {
       horaires: horaires,
       horairesImpaires: horairesImp,
       debut: map['debut'] as bool,
+      maitre:map['maitre'] as bool,
       salaireEnsemble: map['salaireEnsemble'] as bool,
       emploisDuTemps: map['emploisDuTemps'] as bool,
       creche: map['creche'] as bool,

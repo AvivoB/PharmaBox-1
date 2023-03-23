@@ -37,6 +37,7 @@ class CustomElevatedButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
+            primary: Colors.transparent,
             onPrimary: Colors.transparent,
             shadowColor: Colors.transparent,
             shape: RoundedRectangleBorder(borderRadius: borderRadius),

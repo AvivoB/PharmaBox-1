@@ -60,6 +60,7 @@ class _NonTituSheetState extends State<NonTituSheet> {
   ];
   final List<String> salaireCrecheList = <String>[
     'Salaire négocier ensemble',
+    'Maître de stage',
     "Crêche d'entreprise",
     'Frais de déplacement',
     'Logement',
@@ -85,7 +86,7 @@ class _NonTituSheetState extends State<NonTituSheet> {
   ];
   final List<bool> confort = [false, false, false, false];
   final List<bool> missions = [false, false, false];
-  final List<bool> salaireCreche = [false, false, false, false, false];
+  final List<bool> salaireCreche = [false, false, false, false, false,false];
   final List<bool> stations = [false, false, false, false, false, false];
 
   bool debut = false;
@@ -108,6 +109,7 @@ class _NonTituSheetState extends State<NonTituSheet> {
   ];
   List<IconData> salaireIcons = [
     Icons.payment_outlined,
+    Icons.school,
     Icons.cruelty_free_outlined,
     Icons.airplane_ticket_outlined,
     Icons.cottage_outlined,
@@ -346,7 +348,7 @@ class _NonTituSheetState extends State<NonTituSheet> {
                 initialSwitchValue: salaireCreche[index],
                 onChanged: (value) {
                   salaireCreche[index] = value;
-                  if (index == 8) {
+                  if (index == 5) {
                     setState(() {});
                   }
                 },
@@ -356,7 +358,7 @@ class _NonTituSheetState extends State<NonTituSheet> {
               height: 20,
             ),
             Visibility(
-              visible: !salaireCreche[4],
+              visible: !salaireCreche[5],
               child: Row(
                 children: const [
                   Text(
@@ -373,7 +375,7 @@ class _NonTituSheetState extends State<NonTituSheet> {
               height: 20,
             ),
             Visibility(
-              visible: !salaireCreche[4],
+              visible: !salaireCreche[5],
               child: CustomTable(
                 horraires: horraires,
               ),
@@ -382,7 +384,7 @@ class _NonTituSheetState extends State<NonTituSheet> {
               height: 20,
             ),
             Visibility(
-              visible: !salaireCreche[4],
+              visible: !salaireCreche[5],
               child: PharmacyRow(
                 text: "Semaires paires et impaires identiques",
                 icon: Icons.calendar_month,
@@ -400,7 +402,7 @@ class _NonTituSheetState extends State<NonTituSheet> {
               height: 20,
             ),
             Visibility(
-              visible: !salaireCreche[4],
+              visible: !salaireCreche[5],
               child: Row(
                 children: const [
                   Text(
@@ -417,7 +419,7 @@ class _NonTituSheetState extends State<NonTituSheet> {
               height: 20,
             ),
             Visibility(
-              visible: !salaireCreche[4],
+              visible: !salaireCreche[5],
               child: CustomTable(
                 horraires: horrairesImpaires,
               ),
@@ -425,7 +427,7 @@ class _NonTituSheetState extends State<NonTituSheet> {
             const SizedBox(
               height: 20,
             ),
-            Text(
+            /* Text(
               'Accessibilité',
               style: heading,
             ),
@@ -522,7 +524,7 @@ class _NonTituSheetState extends State<NonTituSheet> {
             ]),
             const SizedBox(
               height: 20,
-            ),
+            ),*/
             InkWell(
               onTap: () {
                 if (formKey.currentState!.validate()) {
@@ -543,10 +545,12 @@ class _NonTituSheetState extends State<NonTituSheet> {
                     vaccination: missions[1],
                     entretien: missions[2],
                     salaireEnsemble: salaireCreche[0],
-                    creche: salaireCreche[1],
-                    frais: salaireCreche[2],
-                    logement: salaireCreche[3],
-                    emploisDuTemps: salaireCreche[4],
+                    maitre : salaireCreche[1],
+                    creche: salaireCreche[2],
+                    frais: salaireCreche[3],
+                    logement: salaireCreche[4],
+                    emploisDuTemps: salaireCreche[5],
+                    
                     semainePaire: semainesImpaires,
                     horairesImpaires: horrairesImpaires,
                     debut: debut,
@@ -571,7 +575,7 @@ class _NonTituSheetState extends State<NonTituSheet> {
                         return NonTituBottomFilter(
                           recherche: recherche,
                         );
-                      });
+                      }).then((value) => value ? Navigator.pop(context) : null);
                 }
               },
               child: FiltersButton(
@@ -669,7 +673,7 @@ class _NonTituBottomFilterState extends State<NonTituBottomFilter> {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.pop(context, false);
                   },
                   child: const Icon(
                     Icons.close,
@@ -704,7 +708,7 @@ class _NonTituBottomFilterState extends State<NonTituBottomFilter> {
                     .add(CreateRecherche(recherche: widget.recherche));
                 BlocProvider.of<OffresBloc>(context)
                     .add(GetFilteredOffres(recherche: widget.recherche));
-                Navigator.pop(context);
+                Navigator.pop(context, true);
               }
             },
             child: FiltersButton(

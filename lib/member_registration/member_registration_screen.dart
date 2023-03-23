@@ -188,7 +188,7 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                         controller: addressController,
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:20.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: PresentField(
                           label: 'Presentation',
                           padding: 20,
@@ -200,43 +200,49 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                           textInputaction: TextInputAction.newline,
                         ),
                       ),
-                      Column(
-                        children: [
-                          // UniversiteContainer(height: height, width: width),
-                          SpecialisationContainer(width: width, height: height),
-                          LgoContainer(height: height, width: width),
-                          CompetencesContainer(height: height, width: width),
-                          LanguesContainer(height: height, width: width),
-                          ExperiencesContainer(width: width, height: height),
-                          AutresContainer(
-                            height: height,
-                            width: width,
-                            conditions: conditions,
-                            callbacks: [
-                              (val) {
-                                setState(() {
-                                  conditions[0] = !conditions[0];
-                                });
-                              },
-                              (val) {
-                                setState(() {
-                                  conditions[1] = !conditions[1];
-                                });
-                              }
-                            ],
-                          ),
-                          SizedBox(
-                            height: height * 0.025,
-                          ),
-                        ],
+                      Flexible(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            // UniversiteContainer(height: height, width: width),
+                            SpecialisationContainer(
+                                width: width, height: height),
+
+                            LgoContainer(height: height, width: width),
+                            CompetencesContainer(height: height, width: width),
+                            LanguesContainer(height: height, width: width),
+                            ExperiencesContainer(width: width, height: height),
+                            AutresContainer(
+                              height: height,
+                              width: width,
+                              conditions: conditions,
+                              callbacks: [
+                                (val) {
+                                  setState(() {
+                                    conditions[0] = !conditions[0];
+                                  });
+                                },
+                                (val) {
+                                  setState(() {
+                                    conditions[1] = !conditions[1];
+                                  });
+                                }
+                              ],
+                            ),
+                            SizedBox(
+                              height: height * 0.025,
+                            ),
+                          ],
+                        ),
                       ),
                       CustomElevatedButton(
                         gradient: const LinearGradient(
-                          colors: [
-                            Color(0xFF7CEDAC),
-                            Color(0xFF42D2FF),
-                          ],
-                        ),
+                            colors: [
+                              Color(0xFF7CEDAC),
+                              Color(0xFF42D2FF),
+                            ],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight),
                         width: MediaQuery.of(context).size.width,
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {

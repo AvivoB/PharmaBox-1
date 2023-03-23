@@ -26,6 +26,7 @@ import 'package:pharmabox/firebase/users_calls.dart';
 import 'package:pharmabox/mainpages/splash_screen.dart';
 import 'package:sizer/sizer.dart';
 
+import 'bloc/specialisationsearch_bloc.dart';
 import 'business_logic/experiences_bloc/experiences_bloc.dart';
 import 'business_logic/langues_bloc/langues_bloc.dart';
 import 'business_logic/universites_bloc/universites_bloc.dart';
@@ -95,6 +96,10 @@ class MyApp extends StatelessWidget {
                       nom: "Gestion des labos",
                       enabled: false,
                       asset: "assets/icons/TesttubeIcon.png"),
+                  Competence(
+                      nom: "TROD",
+                      enabled: false,
+                      asset: "assets/icons/trod.png"),
                 ])),
         BlocProvider(create: (_) => authenticationBloc),
         BlocProvider(create: (_) => PharmacieBloc()),
@@ -119,6 +124,7 @@ class MyApp extends StatelessWidget {
           create: (_) => MainmapBloc(),
         ),
         BlocProvider(create: (_) => LgosearchBloc()),
+        BlocProvider(create: (_) => SpecialisationsearchBloc()),
         BlocProvider(
             create: (_) =>
                 NavigationBloc(authenticationBloc: authenticationBloc))
@@ -159,10 +165,11 @@ class _HomeAppState extends State<HomeApp> {
               scrollBehavior: MyBehavior(),
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
-                  primaryColor: const Color.fromARGB(255, 63, 222, 185),
-                  appBarTheme: const AppBarTheme(
-                    backgroundColor: Colors.white,
-                  )),
+                fontFamily: 'Poppins',
+                appBarTheme: const AppBarTheme(
+                  backgroundColor: Colors.white,
+                ),
+              ),
               home: SafeArea(
                 child: Scaffold(
                   body: BlocBuilder<UsersBlocBloc, UsersBlocState>(

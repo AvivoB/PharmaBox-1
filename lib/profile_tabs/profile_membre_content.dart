@@ -7,7 +7,6 @@ import '../member_registration/competences_widget.dart';
 import '../member_registration/experience_widgets.dart';
 import '../member_registration/langues_widgets.dart';
 import '../member_registration/lgo_widgets.dart';
-import '../member_registration/universite_widgets.dart';
 
 class ProfilTabEdit extends StatelessWidget {
   final List<bool> conditions;

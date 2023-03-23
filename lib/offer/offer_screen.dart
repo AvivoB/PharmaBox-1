@@ -31,7 +31,13 @@ class _OfferScreenState extends State<OfferScreen> {
         print(state);
         if (state is OffresReady) {
           print(state.offres.length);
-          return Column(
+          return SingleChildScrollView(
+                child: SizedBox(
+              height: MediaQuery.of(context).size.height -
+                  kToolbarHeight -
+                  MediaQuery.of(context).viewPadding.top,
+              width: MediaQuery.of(context).size.width,
+              child:Column(
               children: List.generate(
                   state.offres.length,
                   (index) => InkWell(
@@ -39,7 +45,7 @@ class _OfferScreenState extends State<OfferScreen> {
                         BlocProvider.of<MembresBloc>(context)
                             .add(GetMembres(offre: state.offres[index]));
                       },
-                      child: OffreWidget(offre: state.offres[index]))));
+                      child: OffreWidget(offre: state.offres[index]))))));
         } else {
           return const Center(
             child: Text("No offres"),

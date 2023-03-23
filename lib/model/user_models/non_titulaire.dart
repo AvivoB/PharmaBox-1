@@ -153,6 +153,7 @@ class NonTitulaire extends Equatable {
         "test 2": _competences[1].enabled,
         "test 3": _competences[2].enabled,
         "test 4": _competences[3].enabled,
+        "test 5": competences[4].enabled,
       },
       "droit_offres": _droitOffres,
       "accepte_conditions": _accepterConditions,

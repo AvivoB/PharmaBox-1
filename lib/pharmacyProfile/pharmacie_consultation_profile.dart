@@ -444,7 +444,7 @@ class _PharmacyTabBarState extends State<PharmacyTabBar> {
         SizedBox(
           height: height * 0.02,
         ),
-        widget.pharmacie.lgos.isNotEmpty
+        widget.pharmacie.lgoName.isNotEmpty
             ? Container(
                 padding: const EdgeInsets.all(8),
                 width: width * 0.9,
@@ -480,13 +480,13 @@ class _PharmacyTabBarState extends State<PharmacyTabBar> {
                     SizedBox(
                       height: height * 0.02,
                     ),
-                    Row(
+                   /* Row(
                       children: List.generate(
                         widget.pharmacie.lgos.length,
                         (index) =>
                             LgoItem(text: widget.pharmacie.lgos[index].nom),
                       ),
-                    ),
+                    ),*/
                   ],
                 ),
               )

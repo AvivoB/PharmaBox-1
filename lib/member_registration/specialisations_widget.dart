@@ -1,9 +1,12 @@
 import 'package:flutter/Material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharmabox/bloc/specialisationsearch_bloc.dart';
 
 import '../Theme/text.dart';
+import '../Widgets/gradientText.dart';
 import '../business_logic/specialisations_bloc/specialisations_bloc.dart';
 import '../model/models.dart';
+import '../pharmacyProfile/textfield.dart';
 import 'member_registration_screen.dart';
 
 class SpecialisationContainer extends StatelessWidget {
@@ -17,9 +20,9 @@ class SpecialisationContainer extends StatelessWidget {
   final double height;
   late SpecialisationsBloc specialisationsBloc;
   final TextEditingController controller = TextEditingController();
-  void addSpecialisation(BuildContext context) {
+  void addSpecialisation(BuildContext context, String name) {
     BlocProvider.of<SpecialisationsBloc>(context).add(AddLocalSpecialisation(
-        specialisation: Specialisation(nom: controller.text)));
+        specialisation: Specialisation(nom: name)));
   }
 
   @override
@@ -57,11 +60,111 @@ class SpecialisationContainer extends StatelessWidget {
                   style: heading,
                 ),
               ),
-              AjouterContainerReg(
-                label: 'Spécialisation',
-                onTap: addSpecialisation,
-                controller: controller,
-                image: 'assets/icons/checkIcon.png',
+             InkWell(
+                onTap: () {
+                  showModalBottomSheet(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(25.0),
+                        ),
+                      ),
+                      context: context,
+                      builder: (context) => Padding(
+                            padding: EdgeInsets.only(
+                                left: 20,
+                                right: 20,
+                                top: 20,
+                                bottom:
+                                    MediaQuery.of(context).viewInsets.bottom),
+                            child: SizedBox(
+                                height: height * 0.4,
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      CustomPharmacyTextField(
+                                        label: "Spécialisation",
+                                        controller: controller,
+                                        onRealChanged: (val) {
+                                          BlocProvider.of<SpecialisationsearchBloc>(
+                                                  context)
+                                              .add(GetAllSpecialisations(input: val));
+                                        },
+                                      ),
+                                      BlocBuilder<SpecialisationsearchBloc,
+                                          SpecialisationsearchState>(
+                                        builder: (context, state) {
+                                          if (state is SpecialisationsearchReady) {
+                                            return SingleChildScrollView(
+                                              padding:const EdgeInsets.only(top: 20),
+                                              child: Column(
+                                                children: List.generate(
+                                                  state.groupements.length,
+                                                  (index) => ListTile(
+                                                    onTap: () {
+                                                      addSpecialisation(
+                                                          context,
+                                                          state
+                                                              .groupements[
+                                                                  index]
+                                                              .groupement);
+                                                      Navigator.pop(context);
+                                                    },
+                                                    leading: 
+                                                     Text(
+                                                      state.groupements[index]
+                                                          .groupement,
+                                                      style: heading,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          } else if (state
+                                              is SpecialisationsearchLoading) {
+                                            return const Padding(
+                                              padding:
+                                                   EdgeInsets.all(10.0),
+                                              child:  Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              ),
+                                            );
+                                          } else {
+                                            return const SizedBox();
+                                          }
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                )),
+                          ));
+                },
+                child: Container(
+                    height: height * 0.035,
+                    width: width * 0.18,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromRGBO(31, 92, 103, 0.17),
+                          offset: Offset(3, 3),
+                          blurRadius: 3,
+                        ),
+                      ],
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(8),
+                      ),
+                    ),
+                    child: const Center(
+                        child: GradientText(
+                      'Ajouter',
+                      gradient: LinearGradient(
+                        colors: [
+                          Color.fromRGBO(124, 237, 172, 1),
+                          Color.fromRGBO(66, 210, 255, 1),
+                        ],
+                      ),
+                    ))),
               ),
             ],
           ),

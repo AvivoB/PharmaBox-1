@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-var heading = const TextStyle(fontSize: 20, fontWeight: FontWeight.w600);
+var heading = const TextStyle(fontSize: 19, fontWeight: FontWeight.w600);
 
-var paragraph = const TextStyle(fontSize: 14, fontWeight: FontWeight.w400);
+var paragraph = const TextStyle(fontSize: 12, fontWeight: FontWeight.w400);
 
 var headingWhite = const TextStyle(
     fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white);

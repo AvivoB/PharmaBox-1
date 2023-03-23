@@ -56,7 +56,7 @@ class _ProfilTabBarState extends State<ProfilTabBar>
 
   final TextEditingController addressController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  final List<String> _tabs = ['Profil', 'Recherches'];
+  final List<String> _tabs = ['Profile', 'Recherches'];
   late List<bool> conditions;
 
   late TabController tabController;
@@ -463,7 +463,8 @@ class _ProfilTabBarState extends State<ProfilTabBar>
                             controller: addressController,
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal:20.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 20.0),
                             child: PresentField(
                               label: 'Presentation',
                               padding: 20,
@@ -487,41 +488,34 @@ class _ProfilTabBarState extends State<ProfilTabBar>
                       children: [
                         SizedBox(
                           height: height * 0.07,
-                          child: AppBar(
-                            automaticallyImplyLeading: false,
-                            backgroundColor: Colors.transparent,
-                            elevation: 0,
-                            bottom: TabBar(
-                              labelColor: Color(0xfF161730),
-                              labelStyle: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: kSelectedIndicatorColor,
-                                fontSize: 16,
-                              ),
-                              unselectedLabelStyle: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: kUnSelectedIndicatorColor,
-                              ),
-                              labelPadding: const EdgeInsets.only(
-                                  bottom: 4.0, right: 0.0),
-                              indicator: const BoxDecoration(
-                                gradient: kTabBarIndicatorGradient,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              ),
-                              indicatorWeight: 1.5,
-                              indicatorPadding: const EdgeInsets.only(
-                                top: 20,
-                                left: 25,
-                                right: 25,
-                              ),
-                              controller: tabController,
-                              tabs: _tabs
-                                  .map((element) => Text(element))
-                                  .toList(),
+                          child: TabBar(
+                            labelColor: Color(0xfF161730),
+                            labelStyle: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: kSelectedIndicatorColor,
+                              fontSize: 16,
                             ),
+                            unselectedLabelStyle: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: kUnSelectedIndicatorColor,
+                            ),
+                            indicator: const BoxDecoration(
+                              gradient: kTabBarIndicatorGradient,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(8),
+                              ),
+                            ),
+                            indicatorWeight: 0.1,
+                            indicatorSize: TabBarIndicatorSize.label,
+                            indicatorPadding: const EdgeInsets.only(
+                              top: 50,
+                              //left: 15,
+                              //right: 15,
+                            ),
+                            controller: tabController,
+                            tabs:
+                                _tabs.map((element) => Text(element)).toList(),
                           ),
                         ),
                         SizedBox(

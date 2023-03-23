@@ -49,12 +49,10 @@ class _CustomRegistrationDatePickerState
         onTap: () async {
           DateTime? pickedDate = await showDatePicker(
               context: context,
-              initialDate: DateTime(
-                DateTime.now().year - 1,
-              ),
+              initialDate: DateTime.now(),
               locale: const Locale("fr", "FR"),
               firstDate: DateTime(1940),
-              lastDate: DateTime(DateTime.now().year));
+              lastDate: DateTime.now());
           if (pickedDate != null) {
             widget.controller.text =
                 '${pickedDate.day}/${pickedDate.month}/${pickedDate.year}';
@@ -81,12 +79,22 @@ class _CustomRegistrationDatePickerState
           prefixIconConstraints: const BoxConstraints(
             maxWidth: 20,
           ),
-          label: Text(
-            widget.label,
-            style: const TextStyle(
-              fontSize: 17,
+          label: Row(mainAxisSize: MainAxisSize.min, children: [
+            Text(
+              widget.label,
+              style: const TextStyle(
+                fontSize: 17,
+              ),
             ),
-          ),
+            Text(
+              '*',
+              style: TextStyle(
+                color: Colors.red,
+                fontSize: 17.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ]),
           floatingLabelBehavior: FloatingLabelBehavior.always,
         ),
       ),
