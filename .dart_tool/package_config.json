@@ -434,6 +434,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "google_identity_services_web",
+      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/google_identity_services_web-0.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "google_maps",
       "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/google_maps-6.2.0",
       "packageUri": "lib/",
@@ -477,33 +483,33 @@
     },
     {
       "name": "google_sign_in",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in-5.4.2",
+      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in-6.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "google_sign_in_android",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_android-6.1.4",
+      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_android-6.1.8",
       "packageUri": "lib/",
-      "languageVersion": "2.14"
+      "languageVersion": "2.17"
     },
     {
       "name": "google_sign_in_ios",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_ios-5.5.1",
+      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_ios-5.6.1",
       "packageUri": "lib/",
-      "languageVersion": "2.14"
+      "languageVersion": "2.18"
     },
     {
       "name": "google_sign_in_platform_interface",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_platform_interface-2.3.0",
+      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_platform_interface-2.3.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "google_sign_in_web",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_web-0.10.2",
+      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_web-0.11.0+2",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.17"
     },
     {
       "name": "graphs",
@@ -855,9 +861,9 @@
     },
     {
       "name": "quiver",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/quiver-3.1.0",
+      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/quiver-3.2.1",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.17"
     },
     {
       "name": "readmore",
@@ -1040,7 +1046,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2023-03-23T12:04:35.685208Z",
+  "generated": "2023-03-23T16:43:17.666983Z",
   "generator": "pub",
   "generatorVersion": "2.19.5"
 }

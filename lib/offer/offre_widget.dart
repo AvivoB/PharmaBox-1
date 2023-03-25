@@ -46,25 +46,11 @@ class _OffreWidgetState extends State<OffreWidget> {
     stations[4] = widget.offre.gareAccess;
     stations[5] = widget.offre.parking;
     salaireCreche[0] = widget.offre.salaireEnsemble;
-    salaireCreche[1] = widget.offre.creche;
-    salaireCreche[2] = widget.offre.frais;
-    salaireCreche[3] = widget.offre.logement;
-    salaireCreche[4] = widget.offre.ticketsCadeau;
-    salaireCreche[5] = widget.offre.ticketsRestaurent;
-    salaireCreche[6] = widget.offre.offre;
-    salaireCreche[7] = widget.offre.prime;
-    salaireCreche[8] = widget.offre.emploisDuTemps;
+    salaireCreche[1] = salaireCreche[1];
   }
 
   final List<String> salaireCrecheList = <String>[
     'Salaire négocier ensemble',
-    "Crêche d'entreprise",
-    'Frais de déplacement',
-    'Logement',
-    'Tickets cadeau',
-    'Tickets restaurent',
-    'Offre à responsabilité',
-    'Prime',
     'Emploi du temps à discuter ensemble'
   ];
   TextEditingController locationController = TextEditingController();
@@ -271,16 +257,6 @@ class _OffreWidgetState extends State<OffreWidget> {
                                         }),
                                   ],
                                 ),
-                                subtitle: Row(
-                                  children: [
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.08,
-                                    ),
-                                    Text(
-                                        'Offre valable 1 mois  à compter du 24/02/2022'),
-                                  ],
-                                ),
                               ),
                               const SizedBox(
                                 height: 20,
@@ -322,9 +298,14 @@ class _OffreWidgetState extends State<OffreWidget> {
                                             right: 7.w,
                                             child: DropdownButton<String>(
                                               items: <String>[
+                                                'Rayonniste',
+                                                'Conseiller',
                                                 'Préparateur',
                                                 'Apprenti',
+                                                'Etudiant pharmacie',
+                                                'Etudiant 6éme annéee validée',
                                                 'Pharmacien',
+                                                'Titulaire'
                                               ].map((String value) {
                                                 return DropdownMenuItem<String>(
                                                   value: value,
@@ -342,7 +323,7 @@ class _OffreWidgetState extends State<OffreWidget> {
                                       const SizedBox(
                                         height: 20,
                                       ),
-                                      LocalisationSearch(
+                                      /*LocalisationSearch(
                                           localisationController:
                                               locationController),
                                       const SizedBox(
@@ -360,7 +341,7 @@ class _OffreWidgetState extends State<OffreWidget> {
                                       ),
                                       const SizedBox(
                                         height: 20,
-                                      ),
+                                      ),*/
                                       Stack(
                                         alignment: Alignment.centerLeft,
                                         children: [
@@ -483,25 +464,25 @@ class _OffreWidgetState extends State<OffreWidget> {
                                           controller: salaireController,
                                         ),
                                       ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      Column(
-                                          children: List.generate(
+                                      ...List.generate(
                                         salaireCrecheList.length,
-                                        (index) => PharmacyRow(
-                                          text: salaireCrecheList[index],
-                                          icon: salaireIcons[index],
-                                          initialSwitchValue:
-                                              salaireCreche[index],
-                                          onChanged: (value) {
-                                            salaireCreche[index] = value;
-                                            if (index == 8) {
-                                              setState(() {});
-                                            }
-                                          },
+                                        (index) => SizedBox(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          child: PharmacyRow(
+                                            text: salaireCrecheList[index],
+                                            icon: salaireIcons[index],
+                                            initialSwitchValue:
+                                                salaireCreche[index],
+                                            onChanged: (value) {
+                                              salaireCreche[index] = value;
+                                              if (index == 1) {
+                                                setState(() {});
+                                              }
+                                            },
+                                          ),
                                         ),
-                                      )),
+                                      ),
                                       const SizedBox(
                                         height: 20,
                                       ),
@@ -523,16 +504,16 @@ class _OffreWidgetState extends State<OffreWidget> {
                                         height: 20,
                                       ),
                                       Visibility(
-                                        visible: !widget.offre.salaireEnsemble,
+                                        visible: !salaireCreche[1],
                                         child: CustomTable(
                                           horraires: widget.offre.horaires,
-                                        ),
+                                        ),    
                                       ),
                                       const SizedBox(
                                         height: 20,
                                       ),
                                       Visibility(
-                                        visible: !widget.offre.salaireEnsemble,
+                                        visible: !salaireCreche[1],
                                         child: PharmacyRow(
                                           text:
                                               "Semaires paires et impaires identiques",
@@ -553,7 +534,7 @@ class _OffreWidgetState extends State<OffreWidget> {
                                         height: 20,
                                       ),
                                       Visibility(
-                                        visible: !widget.offre.salaireEnsemble,
+                                        visible: !salaireCreche[1],
                                         child: Row(
                                           children: const [
                                             Text(
@@ -570,7 +551,7 @@ class _OffreWidgetState extends State<OffreWidget> {
                                         height: 10,
                                       ),
                                       Visibility(
-                                        visible: !widget.offre.salaireEnsemble,
+                                        visible: !salaireCreche[1],
                                         child: CustomTable(
                                           horraires:
                                               widget.offre.horairesImpaires,
@@ -579,7 +560,7 @@ class _OffreWidgetState extends State<OffreWidget> {
                                       const SizedBox(
                                         height: 20,
                                       ),
-                                      Text(
+                                      /* Text(
                                         'Accessibilité',
                                         style: heading,
                                       ),
@@ -696,7 +677,7 @@ class _OffreWidgetState extends State<OffreWidget> {
                                           color: Color(0xfF161730),
                                         ),
                                         controller: descriptionController,
-                                      ),
+                                      ),*/
                                       const SizedBox(
                                         height: 20,
                                       ),
@@ -705,7 +686,11 @@ class _OffreWidgetState extends State<OffreWidget> {
                                           if (formKey.currentState!
                                               .validate()) {
                                             widget.offre.localisation =
-                                              BlocProvider.of<PharmacieBloc>(context).pharmacie!.localisation.ville;
+                                                BlocProvider.of<PharmacieBloc>(
+                                                        context)
+                                                    .pharmacie!
+                                                    .localisation
+                                                    .ville;
                                             widget.offre.rayon =
                                                 int.parse(routeController.text);
                                             widget.offre.poste =
@@ -747,8 +732,7 @@ class _OffreWidgetState extends State<OffreWidget> {
                                                 salaireCreche[6];
                                             widget.offre.prime =
                                                 salaireCreche[7];
-                                            widget.offre.emploisDuTemps =
-                                                salaireCreche[8];
+                                            salaireCreche[1] = salaireCreche[8];
                                             BlocProvider.of<OffresBloc>(context)
                                                 .add(CreateOffre(
                                                     offre: widget.offre));

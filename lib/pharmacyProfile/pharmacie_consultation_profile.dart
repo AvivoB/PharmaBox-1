@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pharmabox/Home/map.dart';
-import 'package:pharmabox/Widgets/membersBox.dart';
-import 'package:pharmabox/general/widgets/custom_slider_with_gradient.dart';
 import 'package:pharmabox/model/user_models/pharmacie.dart';
-import 'package:pharmabox/pharmacyProfile/gradientSlider.dart';
-import 'package:pharmabox/pharmacyProfile/pharmacie_content.dart';
 import 'package:pharmabox/pharmacyProfile/pharmacyrow.dart';
-import 'package:pharmabox/pharmacyProfile/textfield.dart';
 import 'package:pharmabox/pharmacyProfile/widgets/calendar_consultation.dart';
 import 'package:pharmabox/pharmacyProfile/widgets/gradient_no_switch.dart';
 import 'package:pharmabox/utils/map_utils.dart';
@@ -15,8 +9,6 @@ import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart'
     as geo;
 import '../Theme/text.dart';
 import '../Widgets/button.dart';
-import '../general/widgets/custom_switch_widget.dart';
-import '../general/widgets/custom_switch_with_suffix_and_text.dart';
 import '../model/tendance.dart';
 
 class PharmacyTabBar extends StatefulWidget {
@@ -31,19 +23,27 @@ class _PharmacyTabBarState extends State<PharmacyTabBar> {
   final List<String> confortList = [];
   late geo.LatLng lc;
 
-  final List confortIcons = [
-    Icons.cruelty_free_outlined,
+  final List<IconData> confortTemp = <IconData>[
+    Icons.self_improvement_outlined,
     Icons.smart_toy_outlined,
     Icons.qr_code_2_outlined,
-    Icons.self_improvement_outlined,
-    Icons.local_police_outlined,
-    Icons.cottage_outlined,
-    Icons.airplane_ticket_outlined,
+    Icons.fax_outlined,
+    Icons.ac_unit,
+    Icons.wb_sunny_outlined,
+    Icons.local_police,
+    Icons.groups,
   ];
+
+  final List<IconData> confortIcons = <IconData>[];
 
   final List<dynamic> typologieImage = [
     'assets/icons/Typologie.png',
     'assets/icons/Typologie (1).png',
+    'assets/icons/Typologie (2).png',
+    'assets/icons/Typologie (3).png',
+    'assets/icons/Typologie (4).png',
+    'assets/icons/Typologie (5).png',
+    'assets/icons/Typologie (6).png',
   ];
 
   final List transportIcon = [
@@ -58,23 +58,60 @@ class _PharmacyTabBarState extends State<PharmacyTabBar> {
   Tendance troisieme_tendance = Tendance(niveau: 0, nom: "Phyto/aroma");
   Tendance quatrieme_tendance = Tendance(niveau: 0, nom: "Nutrition");
   Tendance cinqieme_tendance = Tendance(niveau: 0, nom: "Conseil");
+  String icon = "";
+  final List<String> typologie = <String>[
+    'Centre Commercial',
+    'Centre ville',
+    'Aeroport',
+    'Gare',
+    'Quartier',
+    'Touristique',
+    'Rurale',
+  ];
 
   @override
   void initState() {
     super.initState();
+    for (int i = 0; i < typologie.length; i++) {
+      print(widget.pharmacie.typologie);
+      if (typologie[i] == widget.pharmacie.typologie) {
+        icon = typologieImage[i];
+      }
+    }
+    if (widget.pharmacie.breakRoom) {
+      confortList.add('Salle de pause');
+      confortIcons.add(confortTemp[0]);
+    }
+
+    if (widget.pharmacie.electronicLabels) {
+      confortList.add('Etiquettes electroniques');
+      confortIcons.add(confortTemp[2]);
+    }
+
+    if (widget.pharmacie.monnaie) {
+      confortList.add('Monnayeur/caisse éléctronique');
+      confortIcons.add(confortTemp[3]);
+    }
+    if (widget.pharmacie.climat) {
+      confortList.add('Climatisation');
+      confortIcons.add(confortTemp[4]);
+    }
+    if (widget.pharmacie.chauffage) {
+      confortList.add('Chauffage');
+      confortIcons.add(confortTemp[5]);
+    }
+    if (widget.pharmacie.vigil) {
+      confortList.add('Vigile');
+      confortIcons.add(confortTemp[6]);
+    }
+    if (widget.pharmacie.workConcil) {
+      confortList.add("Comité d'entreprise");
+      confortIcons.add(confortTemp[7]);
+    }
     Future.delayed(const Duration(seconds: 0), () async {
       lc = await MapUtils.getLocationFromAddress(
           widget.pharmacie.localisation.ville);
     });
-    if (widget.pharmacie.robot) {
-      confortList.add('Robot');
-    }
-    if (widget.pharmacie.electronicLabels) {
-      confortList.add('Etiquettes electronique');
-    }
-    if (widget.pharmacie.vigile) {
-      confortList.add('Vigile');
-    }
   }
 
   @override
@@ -86,10 +123,7 @@ class _PharmacyTabBarState extends State<PharmacyTabBar> {
       widget.pharmacie.tramway,
       widget.pharmacie.parking,
     ];
-    final List<String> typologie = <String>[
-      'Centre Commercial',
-      '${widget.pharmacie.nbPatients} par jour',
-    ];
+
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Column(
@@ -293,7 +327,7 @@ class _PharmacyTabBarState extends State<PharmacyTabBar> {
                     width: width * 0.05,
                   ),
                   Text(
-                    'Horaire',
+                    'Horaires',
                     style: heading,
                   ),
                 ],
@@ -353,13 +387,16 @@ class _PharmacyTabBarState extends State<PharmacyTabBar> {
                 height: height * 0.02,
               ),
               Column(
-                children: List.generate(
-                  typologie.length,
-                  (index) => PharmacyRowWithoutSwitch(
-                    text: typologie[index],
-                    image: typologieImage[index],
+                children: [
+                  PharmacyRowWithoutSwitch(
+                    text: widget.pharmacie.typologie,
+                    image: icon,
                   ),
-                ),
+                  PharmacyRowWithoutSwitch(
+                    text: widget.pharmacie.nbPatients + " par jour",
+                    icon: Icons.group,
+                  ),
+                ],
               ),
             ],
           ),
@@ -444,53 +481,64 @@ class _PharmacyTabBarState extends State<PharmacyTabBar> {
         SizedBox(
           height: height * 0.02,
         ),
-        widget.pharmacie.lgoName.isNotEmpty
-            ? Container(
-                padding: const EdgeInsets.all(8),
-                width: width * 0.9,
-                decoration: const BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromRGBO(31, 92, 103, 0.17),
-                      offset: Offset(3, 3),
-                      blurRadius: 3,
-                    ),
-                  ],
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(15),
+        Container(
+          padding: const EdgeInsets.all(8),
+          width: width * 0.9,
+          decoration: const BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Color.fromRGBO(31, 92, 103, 0.17),
+                offset: Offset(3, 3),
+                blurRadius: 3,
+              ),
+            ],
+            color: Colors.white,
+            borderRadius: BorderRadius.all(
+              Radius.circular(15),
+            ),
+          ),
+          child: Column(
+            children: [
+              SizedBox(
+                height: height * 0.015,
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: width * 0.05,
                   ),
-                ),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: height * 0.015,
+                  Text(
+                    'LGO',
+                    style: heading,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: height * 0.02,
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.035,
+                  ),
+                  Image(
+                    image: const AssetImage('assets/icons/computerIcon.png'),
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.02,
+                  ),
+                  Flexible(
+                    child: Text(
+                      widget.pharmacie.lgoName,
+                      style: paragraph,
                     ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: width * 0.05,
-                        ),
-                        Text(
-                          'LGO',
-                          style: heading,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: height * 0.02,
-                    ),
-                   /* Row(
-                      children: List.generate(
-                        widget.pharmacie.lgos.length,
-                        (index) =>
-                            LgoItem(text: widget.pharmacie.lgos[index].nom),
-                      ),
-                    ),*/
-                  ],
-                ),
+                  ),
+                ],
               )
-            : const SizedBox(),
+            ],
+          ),
+        ),
         SizedBox(
           height: height * 0.02,
         ),
@@ -609,21 +657,26 @@ class _PharmacyTabBarState extends State<PharmacyTabBar> {
             SizedBox(
               width: width * 0.05,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Equipe',
-                  style: heading,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  "${widget.pharmacie.nbPharmaciens} pharmaciens, ${widget.pharmacie.nbPreparateurs} préparateurs ",
-                  style: normGrey,
-                ),
-              ],
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Equipe',
+                    style: heading,
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Flexible(
+                    child: Text(
+                      "${widget.pharmacie.nbPharmaciens} pharmaciens, ${widget.pharmacie.nbPreparateurs} préparateurs , ${widget.pharmacie.nbRayonnistes} rayonnistes, ${widget.pharmacie.nbConseillers} conseillers,\n${widget.pharmacie.nbEtudiants} étudiants, ${widget.pharmacie.nbApprentis} apprentis, ${widget.pharmacie.nbEtudiants6} étudiants en 6éme annéee  ",
+                      style: normGrey,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

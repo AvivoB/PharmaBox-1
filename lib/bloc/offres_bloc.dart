@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pharmabox/bloc/mainmap_bloc.dart';
 import 'package:pharmabox/firebase/offres_service.dart';
 import 'package:pharmabox/model/user_models/offre_card.dart';
 import 'package:pharmabox/model/user_models/recherche.dart';
@@ -12,6 +13,7 @@ part 'offres_state.dart';
 
 class OffresBloc extends Bloc<OffresEvent, OffresState> {
   OffreService offreService = OffreService();
+  MainmapBloc mainmapBloc = MainmapBloc();
   OffresBloc() : super(OffresInitial()) {
     on<CreateOffre>((event, emit) async {
       await offreService.createOffre(event.offre);
@@ -34,6 +36,9 @@ class OffresBloc extends Bloc<OffresEvent, OffresState> {
 
     on<RechercheLibre>((event, emit) async {
       List<OffreCard> offres = await offreService.getLibresOffres(event.input);
+      /*mainmapBloc.add(GetOffresMarkersOnAddress(
+      address: address,
+    ));*/
       emit(FilteredOffresReady(offres: offres));
     });
   }

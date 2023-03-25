@@ -16,7 +16,7 @@ import '../mainpages/custom_painter_marker.dart';
 import '../mainpages/main_map_widget.dart';
 import '../model/user_models/marker_model.dart';
 import '../pharmaJob/non_titu/pharmaJobNav_non_titu.dart';
-import 'bottomNavbar.dart';
+import '../mainpages/bottomNavbar.dart';
 import 'main_map_pharma_titu.dart';
 
 class PharmaJobNonTitu extends StatefulWidget {

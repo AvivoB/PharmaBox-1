@@ -21,51 +21,52 @@ class PharmacyRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 10.0),
-          child: Row(
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.02,
-              ),
-              icon != null
-                  ? Icon(icon)
-                  : Image(
-                      height: 24,
-                      width: 24,
-                      image: AssetImage(
-                        image,
-                      ),
-                    ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.02,
-              ),
-              Text(
-                text,
-                softWrap: true,
-                style: const TextStyle(
-                  color: Color.fromRGBO(89, 90, 112, 1),
-                  fontSize: 13,
-                  overflow: TextOverflow.ellipsis,
-                  fontWeight: FontWeight.w400,
+        Flexible(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.02,
                 ),
-              ),
-            ],
+                icon != null
+                    ? Icon(icon)
+                    : Image(
+                        height: 24,
+                        width: 24,
+                        image: AssetImage(
+                          image,
+                        ),
+                      ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.02,
+                ),
+                Flexible(
+                  child: Text(
+                    text,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      color: Color.fromRGBO(89, 90, 112, 1),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-        Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: CustomSwitch(
-                  initialSwitchValue: initialSwitchValue ?? false,
-                  onTap: onChanged!),
-            ),
-            // CustomSwitch(),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.02,
-            ),
-          ],
+        SizedBox(
+          width: 60,
+          height: 32,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: CustomSwitch(
+                initialSwitchValue: initialSwitchValue ?? false,
+                onTap: onChanged!),
+          ),
         ),
       ],
     );
@@ -85,6 +86,7 @@ class PharmacyRowWithoutSwitch extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 10.0),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.02,
@@ -106,7 +108,7 @@ class PharmacyRowWithoutSwitch extends StatelessWidget {
               text,
               style: const TextStyle(
                 color: Color.fromRGBO(89, 90, 112, 1),
-                fontSize: 14,
+                fontSize: 12,
                 fontWeight: FontWeight.w400,
               ),
             ),

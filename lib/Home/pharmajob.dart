@@ -15,7 +15,7 @@ import '../bloc/membres_bloc.dart';
 import '../mainpages/custom_painter_marker.dart';
 import '../mainpages/main_map_widget.dart';
 import '../model/user_models/marker_model.dart';
-import 'bottomNavbar.dart';
+import '../mainpages/bottomNavbar.dart';
 import 'main_map_pharma_titu.dart';
 
 class PharmaJob extends StatefulWidget {

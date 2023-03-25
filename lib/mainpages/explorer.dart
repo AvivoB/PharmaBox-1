@@ -40,7 +40,6 @@ class _ExplorerState extends State<Explorer> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-               
                 SizedBox(
                   height: height * 0.01,
                 ),
@@ -56,34 +55,21 @@ class _ExplorerState extends State<Explorer> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          InkWell(
-                            borderRadius: BorderRadius.circular(
-                              20,
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => HomePage(),
-                                ),
-                              );
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.all(12.0),
-                                  child: Hero(
-                                    tag: 'anim',
-                                    child: Image(
-                                      image: AssetImage(
-                                        'assets/images/homeindicator.png',
-                                      ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const <Widget>[
+                              Padding(
+                                padding: EdgeInsets.all(12.0),
+                                child: Hero(
+                                  tag: 'anim',
+                                  child: Image(
+                                    image: AssetImage(
+                                      'assets/images/homeindicator.png',
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                           BlocBuilder<MembresBloc, MembresState>(
                             builder: (context, membreState) {
@@ -93,7 +79,8 @@ class _ExplorerState extends State<Explorer> {
                                       PharmacierechercheState>(
                                     builder: (context, pharmaState) {
                                       return Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Text(
                                             '$nbResults résultats',
@@ -155,7 +142,8 @@ class _ExplorerState extends State<Explorer> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) => Profil(
-                                                      membre: state.membres[index]),
+                                                      membre:
+                                                          state.membres[index]),
                                                 ),
                                               );
                                             },
@@ -164,17 +152,18 @@ class _ExplorerState extends State<Explorer> {
                                               image: state.membres[index]
                                                           .photoUrl !=
                                                       ''
-                                                  ? state.membres[index].photoUrl
+                                                  ? state
+                                                      .membres[index].photoUrl
                                                   : 'assets/images/user.png',
                                               name: state.membres[index].nom +
                                                   ' ' +
                                                   state.membres[index].prenom,
-                                              zip: state.membres[index].localisation
-                                                      .codePostal
+                                              zip: state.membres[index]
+                                                      .localisation.codePostal
                                                       .toString() +
                                                   ' ' +
-                                                  state.membres[index].localisation
-                                                      .ville,
+                                                  state.membres[index]
+                                                      .localisation.ville,
                                             ),
                                           ),
                                         ),
@@ -189,7 +178,8 @@ class _ExplorerState extends State<Explorer> {
                             height: height * 0.02,
                           ),
                           BlocBuilder<PharmacierechercheBloc,
-                              PharmacierechercheState>(builder: (context, state) {
+                                  PharmacierechercheState>(
+                              builder: (context, state) {
                             if (state is ExplorerPharmacieReady) {
                               nbResults = nbResults + state.pharmacies.length;
                               return InkWell(
@@ -235,20 +225,25 @@ class _ExplorerState extends State<Explorer> {
                                                 MaterialPageRoute(
                                                   builder: (context) =>
                                                       PharmacyProfile(
-                                                          pharmacie: state
-                                                              .pharmacies[index]),
+                                                          pharmacie:
+                                                              state.pharmacies[
+                                                                  index]),
                                                 ),
                                               );
                                             },
                                             child: PharmaciesBox(
                                               zip: state.pharmacies[index]
                                                   .localisation.ville,
-                                                  pharmacie: state.pharmacies[index],
-                                              pharm: state.pharmacies[index].nom,
-                                              imagePharm: state.pharmacies[index]
-                                                      .images.isNotEmpty
-                                                  ? state
-                                                      .pharmacies[index].images[0]
+                                              pharmacie:
+                                                  state.pharmacies[index],
+                                              pharm:
+                                                  state.pharmacies[index].nom,
+                                              imagePharm: state
+                                                      .pharmacies[index]
+                                                      .images
+                                                      .isNotEmpty
+                                                  ? state.pharmacies[index]
+                                                      .images[0]
                                                   : "assets/images/pharma_img.png",
                                             ),
                                           ),
@@ -320,14 +315,15 @@ class _ExplorerState extends State<Explorer> {
                                                   .localisation.ville,
                                               pharmacie:
                                                   state.offres[index].pharmacie,
-                                              jobName: state.offres[index].nomOffre,
-                                              pharm:
-                                                  state.offres[index].pharmacie.nom,
+                                              jobName:
+                                                  state.offres[index].nomOffre,
+                                              pharm: state
+                                                  .offres[index].pharmacie.nom,
                                               imagePharm: state.offres[index]
                                                       .pharmacie.images.isEmpty
                                                   ? 'assets/images/pharma_img.png'
-                                                  : state.offres[index].pharmacie
-                                                      .images[0],
+                                                  : state.offres[index]
+                                                      .pharmacie.images[0],
                                             ),
                                           ),
                                         ),

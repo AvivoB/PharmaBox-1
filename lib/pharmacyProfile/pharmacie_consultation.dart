@@ -11,6 +11,8 @@ import 'package:pharmabox/general/widgets/custom_switch_widget.dart';
 import 'package:pharmabox/constant.dart';
 import 'package:pharmabox/model/user_models/pharmacie.dart';
 import 'package:pharmabox/offer/offer_screen.dart';
+import 'package:pharmabox/pharmacyProfile/offre_consultation.dart';
+import 'package:pharmabox/pharmacyProfile/offre_consultation_widget.dart';
 import 'package:pharmabox/pharmacyProfile/pharmacie_consultation_profile.dart';
 import 'package:readmore/readmore.dart';
 
@@ -24,7 +26,7 @@ class PharmacyProfile extends StatefulWidget {
 
 class _PharmacyProfileState extends State<PharmacyProfile>
     with TickerProviderStateMixin {
-  final List<String> _tabs = ['Profil', 'Offres'];
+  final List<String> _tabs = ['Profile', 'Offres'];
   late TabController tabController;
   final List<String> imgList = [
     'assets/images/PharmacyMain.png',
@@ -42,10 +44,11 @@ class _PharmacyProfileState extends State<PharmacyProfile>
   int _current = 0;
   final CarouselController _controller = CarouselController();
   Future getProfilePicture(String input) async {
-    print("hi");
+    print(input.split(" ")[0]);
     final QuerySnapshot user = await FirebaseFirestore.instance
         .collection("users")
-        .where("nom", isEqualTo: input.split(" ")[0])
+        .where("prenom", isEqualTo: input.split(" ")[0])
+        .where('nom', isEqualTo: input.split(' ')[1])
         .get();
     return user.docs.first["photo"];
   }
@@ -262,12 +265,14 @@ class _PharmacyProfileState extends State<PharmacyProfile>
                                     contentPadding: const EdgeInsets.all(0),
                                     leading: CircleAvatar(
                                       maxRadius: 30,
-                                      backgroundImage: snapshot.hasData
+                                      backgroundImage: snapshot.hasData &&
+                                              snapshot.data != ""
                                           ? NetworkImage(
                                                   snapshot.data as String)
                                               as ImageProvider
                                           : const AssetImage(
-                                              'assets/images/profile.png'),
+                                              "assets/images/user.png",
+                                            ),
                                     ),
                                     title: Text(
                                       'Titulaire du poste',
@@ -362,39 +367,33 @@ class _PharmacyProfileState extends State<PharmacyProfile>
                     ),
                     SizedBox(
                       height: height * 0.07,
-                      child: AppBar(
-                        automaticallyImplyLeading: false,
-                        backgroundColor: Colors.transparent,
-                        elevation: 0,
-                        bottom: TabBar(
-                          labelColor: const Color(0xfF161730),
-                          labelStyle: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: kSelectedIndicatorColor,
-                            fontSize: 16,
-                          ),
-                          unselectedLabelStyle: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: kUnSelectedIndicatorColor,
-                          ),
-                          labelPadding:
-                              const EdgeInsets.only(bottom: 4.0, right: 0.0),
-                          indicator: const BoxDecoration(
-                            gradient: kTabBarIndicatorGradient,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                          ),
-                          indicatorWeight: 3,
-                          indicatorPadding: const EdgeInsets.only(
-                            top: 20,
-                            left: 15,
-                            right: 15,
-                          ),
-                          controller: tabController,
-                          tabs: _tabs.map((element) => Text(element)).toList(),
+                      child: TabBar(
+                        labelColor: Color(0xfF161730),
+                        labelStyle: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: kSelectedIndicatorColor,
+                          fontSize: 16,
                         ),
+                        unselectedLabelStyle: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: kUnSelectedIndicatorColor,
+                        ),
+                        indicator: const BoxDecoration(
+                          gradient: kTabBarIndicatorGradient,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(8),
+                          ),
+                        ),
+                        indicatorWeight: 0.1,
+                        indicatorSize: TabBarIndicatorSize.label,
+                        indicatorPadding: const EdgeInsets.only(
+                          top: 50,
+                          //left: 15,
+                          //right: 15,
+                        ),
+                        controller: tabController,
+                        tabs: _tabs.map((element) => Text(element)).toList(),
                       ),
                     ),
                     SizedBox(
@@ -405,7 +404,7 @@ class _PharmacyProfileState extends State<PharmacyProfile>
                           PharmacyTabBar(pharmacie: widget.pharmacie),
                           //const AdvisorTab(),
                           // const Reseau(),
-                          const OfferScreen(),
+                          const OffreConsultation(),
                         ],
                       ),
                     ),

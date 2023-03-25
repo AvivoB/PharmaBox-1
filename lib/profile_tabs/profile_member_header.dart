@@ -15,7 +15,6 @@ import 'package:pharmabox/general/widgets/present_field.dart';
 import 'package:pharmabox/member_registration/code_postal.dart';
 
 import 'package:pharmabox/model/user_models/non_titulaire.dart';
-import 'package:pharmabox/offer/offer_screen.dart';
 import 'package:pharmabox/offer/recherches_screen.dart';
 
 import 'package:pharmabox/profile_tabs/profile_membre_content.dart';
@@ -27,7 +26,6 @@ import '../business_logic/lgo_bloc/lgo_bloc.dart';
 import '../constants.dart';
 import '../general/widgets/custom_registration_date_picker.dart';
 import '../general/widgets/custom_registration_textfield.dart';
-import '../member_registration/ville_widget.dart';
 import '../model/localisation.dart';
 import '../model/telephone.dart';
 

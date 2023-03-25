@@ -22,9 +22,8 @@ class PharmaJobNav extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            Container(
-              height: height * 0.02,
-              color: Colors.white,
+            SizedBox(
+              height: height * 0.01,
             ),
             Flexible(
               child: SingleChildScrollView(
@@ -34,10 +33,6 @@ class PharmaJobNav extends StatelessWidget {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
-                          height: height * 0.04,
-                          color: Colors.white,
-                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
@@ -94,9 +89,25 @@ class PharmaJobNav extends StatelessWidget {
                       ],
                     );
                   } else {
-                    return Center(
-                      child:
-                          Text("Pas de membres recherchant ce type d'offres"),
+                    return Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Image(
+                                image: AssetImage(
+                                    'assets/images/homeindicator.png'),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Text(
+                          '0 résultats',
+                          style: paragraph,
+                        ),
+                      ],
                     );
                   }
                 }),

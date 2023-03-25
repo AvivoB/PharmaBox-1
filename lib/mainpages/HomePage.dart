@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:pharmabox/Home/bottomNavbar.dart';
+import 'package:pharmabox/mainpages/bottomNavbar.dart';
 import 'package:pharmabox/bloc/offres_bloc.dart';
 import 'package:pharmabox/bloc/pharmacierecherche_bloc.dart';
 import 'package:pharmabox/business_logic/competences_bloc/competences_bloc.dart';
@@ -14,6 +14,7 @@ import 'package:pharmabox/business_logic/lgo_bloc/lgo_bloc.dart';
 import 'package:pharmabox/business_logic/specialisations_bloc/specialisations_bloc.dart';
 import 'package:pharmabox/business_logic/universites_bloc/universites_bloc.dart';
 import 'package:pharmabox/business_logic/users_bloc/users_bloc_bloc.dart';
+import 'package:pharmabox/mainpages/explorer.dart';
 import 'package:pharmabox/mainpages/main_map_widget.dart';
 import 'package:pharmabox/model/user_models/non_titulaire.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as Gmap;
@@ -25,6 +26,7 @@ import '../Widgets/pharmaciesbox.dart';
 import '../bloc/mainmap_bloc.dart';
 import '../bloc/membres_bloc.dart';
 import '../bloc/navigation_bloc.dart';
+import '../enums/user_type.dart';
 import '../model/user_models/marker_model.dart';
 import '../pharmaJob/bottomsheet.dart';
 import '../pharmacyProfile/pharmacie_consultation.dart';
@@ -32,7 +34,8 @@ import '../tabview/profil.dart';
 import 'custom_painter_marker.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  bool fromRegister;
+  HomePage({Key? key, this.fromRegister = false}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -98,6 +101,8 @@ class _HomePageState extends State<HomePage> {
           .add(InitialiseSpecialisation(specialisations: user.specialisations));
     }
   }
+
+  double animationMax = 0.7;
 
   _getMarkerIcon(int count) async {
     return await CircleAvatarPainter(
@@ -196,7 +201,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             Positioned.fill(
-              top: height * 0.4,
+              top: height * 0.35,
               bottom: 80,
               left: 20,
               right: 20,
@@ -210,6 +215,7 @@ class _HomePageState extends State<HomePage> {
                         builder: (context, state) {
                           if (state is MembresReady) {
                             return Row(
+                                mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: List.generate(
                                   state.membres.length,
@@ -250,21 +256,18 @@ class _HomePageState extends State<HomePage> {
                           }
                         },
                       ),
-                      SizedBox(
-                        height: height * 0.02,
-                      ),
                       BlocBuilder<PharmacierechercheBloc,
                           PharmacierechercheState>(
                         builder: (context, state) {
                           if (state is ExplorerPharmacieReady) {
-                            print(
-                                "" + state.pharmacies.length.toString());
+                            print("" + state.pharmacies.length.toString());
                             return Row(
+                                mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: List.generate(
                                   state.pharmacies.length,
                                   (index) => Padding(
-                                    padding: const EdgeInsets.all(20),
+                                    padding: const EdgeInsets.only(bottom: 20),
                                     child: InkWell(
                                       onTap: () {
                                         Navigator.push(
@@ -295,13 +298,11 @@ class _HomePageState extends State<HomePage> {
                           }
                         },
                       ),
-                      SizedBox(
-                        height: height * 0.02,
-                      ),
                       BlocBuilder<OffresBloc, OffresState>(
                         builder: (context, state) {
                           if (state is FilteredOffresReady) {
                             return Row(
+                                mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: List.generate(
                                   state.offres.length,
@@ -346,29 +347,41 @@ class _HomePageState extends State<HomePage> {
                     ]),
               ),
             ),
-            BlocBuilder<NavigationBloc, NavigationState>(
-              buildWhen: (previous, current) => (previous != current),
-              builder: (context, state) {
-                print(state);
-                if (state is ProfileState) {
-                  WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-                    dragController.animateTo(1,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeInOut);
-                  });
-                } else if (state is ExplorerState ||
-                    state is PharmaJobTituState ||
-                    state is PharmaJobNonTituState) {
-                  WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-                    dragController.animateTo(0.7,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeInOut);
-                  });
-                }
 
-                return GestureDetector(
+            BlocListener<UsersBlocBloc, UsersBlocState>(
+              listener: (context, state) {
+                if (state is UserAdded) {
+                  if (state.user!.poste == UserType.tutor) {
+                    if (widget.fromRegister) {
+                      animationMax = 1;
+                      WidgetsBinding.instance.addPostFrameCallback((_) async =>
+                          dragController.animateTo(animationMax,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeInOut));
+                      widget.fromRegister = false;
+                    }
+                  }
+                }
+              },
+              child: BlocListener<NavigationBloc, NavigationState>(
+                listener: (context, state) {
+                  if (state is ExplorerState ||
+                      state is PharmaJobTituState ||
+                      state is PharmaJobNonTituState) {
+                    animationMax = 0.7;
+                    dragController.animateTo(animationMax,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut);
+                  } else {
+                    animationMax = 1;
+                    dragController.animateTo(animationMax,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut);
+                  }
+                },
+                child: GestureDetector(
                   onTap: () {
-                    dragController.animateTo(0.7,
+                    dragController.animateTo(animationMax,
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeInOut);
                   },
@@ -376,16 +389,18 @@ class _HomePageState extends State<HomePage> {
                     initialChildSize: 0.1,
                     minChildSize: 0.1,
                     expand: true,
-                    maxChildSize: state is ProfileState ? 1 : 0.7,
+                    maxChildSize: 1,
                     controller: dragController,
                     builder: (context, scrollController) => BottomNavbar(
                       scrollController: scrollController,
+                      fromRegister: widget.fromRegister,
                       draggableScrollableController: dragController,
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+              ),
+            )
+            // },
           ],
         ),
       ),

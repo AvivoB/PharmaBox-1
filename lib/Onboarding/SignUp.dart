@@ -296,5 +296,4 @@ class _SignUpState extends State<SignUp> {
   }
 }
 
-Future signUp(TextEditingController email, TextEditingController password,
-    BuildContext context, GlobalKey<FormState> formKey) async {}
+

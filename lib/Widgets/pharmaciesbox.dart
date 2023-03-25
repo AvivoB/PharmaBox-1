@@ -29,7 +29,9 @@ class _PharmaciesBoxState extends State<PharmaciesBox> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Container(
-      height: height * 0.4,
+      height: widget.imagePharm.startsWith('assets/')
+          ? height * 0.2
+          : height * 0.35,
       width: width * 0.9,
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -49,24 +51,27 @@ class _PharmaciesBoxState extends State<PharmaciesBox> {
           SizedBox(
             height: height * 0.01,
           ),
-          Container(
-            padding: const EdgeInsets.all(8),
-            height: height * 0.18,
-            width: width * 0.82,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(15),
-              ),
-              color: Color(0xfF161730),
-              image: DecorationImage(
-                image: widget.imagePharm.startsWith('assets/')
-                    ? AssetImage(widget.imagePharm)
-                    : NetworkImage(widget.imagePharm) as ImageProvider,
-                // 'assets/images/pharmacy 1.png'
-                fit: BoxFit.cover,
-              ),
-            ),
-            /*Row(
+          widget.imagePharm.startsWith('assets/')
+              ? const SizedBox()
+              : Container(
+                  padding: const EdgeInsets.all(8),
+                  height: height * 0.18,
+                  width: width * 0.82,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(15),
+                    ),
+                    color: Color(0xfF161730),
+                    image: DecorationImage(
+                      image:
+                          // ? SizedBox()
+                          //   as ImageProvider //AssetImage(widget.imagePharm)
+                          NetworkImage(widget.imagePharm) as ImageProvider,
+                      // 'assets/images/pharmacy 1.png'
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  /*Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -88,7 +93,7 @@ class _PharmaciesBoxState extends State<PharmaciesBox> {
                 LikeButton(isLiked: false),
               ],
             ),*/
-          ),
+                ),
           SizedBox(
             height: height * 0.01,
           ),
@@ -192,11 +197,18 @@ class _PharmaciesBoxState extends State<PharmaciesBox> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                /*IconButton(
-                  icon: Icon(Icons.linked_camera),
-                  color: Color(0xfF161730),
-                  onPressed: () {},
-                ),*/
+                Container(
+                  margin: const EdgeInsets.all(5),
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15),
+                    ),
+                  ),
+                  child: LikeButton(
+                    isLiked: true,
+                  ),
+                ),
+                const Spacer(),
                 Row(
                   children: [
                     Container(

@@ -5,52 +5,52 @@ import 'package:pharmabox/member_registration/member_registration_screen.dart';
 
 import '../main.dart';
 
+GoogleSignIn googleSignIn = GoogleSignIn(scopes: [
+  'email',
+]);
 Future signInWithGoogle(BuildContext context) async {
-  // showDialog(
-  //     barrierDismissible: false,
-  //     context: context,
-  //     builder: (context) => const Center(
-  //           child: CircularProgressIndicator(),
-  //         ));
-  final GoogleSignInAccount? googleUser =
-      await GoogleSignIn(scopes: <String>['email']).signIn();
+  // Trigger the authentication flow
+  try {
+    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser!.authentication;
 
-  final GoogleSignInAuthentication googleAuth =
-      await googleUser!.authentication;
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
 
-  final credential = GoogleAuthProvider.credential(
-    accessToken: googleAuth.accessToken,
-    idToken: googleAuth.idToken,
-  );
-  return await FirebaseAuth.instance.signInWithCredential(credential).then(
-      (value) => navigatorKey.currentState!.popUntil((route) => route.isFirst));
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  } catch (e) {
+    print(e.toString());
+  }
 }
 
 Future signUpWithGoogle(BuildContext context) async {
-  // showDialog(
-  //     barrierDismissible: false,
-  //     context: context,
-  //     builder: (context) => const Center(
-  //           child: CircularProgressIndicator(),
-  //         ));
-  final GoogleSignInAccount? googleUser =
-      await GoogleSignIn(scopes: <String>['email']).signIn();
+  try {
+    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
-  final GoogleSignInAuthentication googleAuth =
-      await googleUser!.authentication;
+    /* final GoogleSignInAuthentication googleAuth =
+        await googleUser!.authentication;
 
-  final credential = GoogleAuthProvider.credential(
-    accessToken: googleAuth.accessToken,
-    idToken: googleAuth.idToken,
-  );
-  return await FirebaseAuth.instance
-      .signInWithCredential(credential)
-      .then((value) => Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const MemberRegistrationScreen(),
-            ),
-          ));
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    return await FirebaseAuth.instance
+        .signInWithCredential(credential)
+        .then((value) => Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const MemberRegistrationScreen(),
+              ),
+            ));*/
+  } catch (e) {
+    print(e.toString());
+  }
 }
 
 // Future<void> handleSignIn(BuildContext context) async {

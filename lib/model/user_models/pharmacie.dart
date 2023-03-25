@@ -29,7 +29,7 @@ class Pharmacie {
   final String gareAccess;
   final String parking;
   final String typologie;
-  final int nbPatients;
+  final String nbPatients;
 
   final bool testCovid;
   final bool vaccination;
@@ -40,13 +40,20 @@ class Pharmacie {
   final bool breakRoom;
   final bool robot;
   final bool electronicLabels;
-  final bool automatic;
-  final bool airCond;
-  final bool heating;
-  final bool vigile;
+  final bool monnaie;
+  final bool climat;
+  final bool chauffage;
+  final bool vigil;
+  final bool workConcil;
   final List<Tendance> tendances;
+
   final int nbPharmaciens;
   final int nbPreparateurs;
+  final int nbRayonnistes;
+  final int nbConseillers;
+  final int nbApprentis;
+  final int nbEtudiants;
+  final int nbEtudiants6;
   dynamic toJson() {
     return {
       "nom": nom,
@@ -76,17 +83,24 @@ class Pharmacie {
       "break": breakRoom,
       "robot": robot,
       "electronic": electronicLabels,
-      "automatic": automatic,
+      "monnaie": monnaie,
+      "climat": climat,
+      "chauffage":chauffage,
+      "vigil":vigil,
+      "workConcil":workConcil,
       "groupement-image": groupementImage,
       "groupement-name": groupementName,
-      "lgo-name":lgoName,
-      "lgo-image":lgoImage,
-      "air": airCond,
-      "heating": heating,
-      "vigile": vigile,
+      "lgo-name": lgoName,
+      "lgo-image": lgoImage,
+      "titulaires": titulaires,
       "tendances": tendances.map((e) => e.toJson()).toList(),
       "nombre-pharmaciens": nbPharmaciens,
       "nombre-preparateurs": nbPreparateurs,
+      "nombre-rayonnistes": nbRayonnistes,
+      "nombre-conseillers": nbConseillers,
+      "nombre-apprentis": nbApprentis,
+      "nombre-etudiants": nbEtudiants,
+      "nombre-etudiants6": nbEtudiants6
     };
   }
 
@@ -114,16 +128,18 @@ class Pharmacie {
       lgoImage: json['lgo-image'],
       nom: json.containsKey("nom") ? json['nom'] ?? "" : "",
       email: json.containsKey("email") ? json["email"] ?? "" : "",
-      airCond: json.containsKey("air") ? json["air"] ?? "" : "",
-      automatic: json.containsKey("automatic") ? json["automatic"] ?? "" : "",
       borneTelemedcine: json["borne"] ?? "",
       breakRoom: json["break"] ?? "",
       bus: json.containsKey("bus") ? json["bus"] ?? "" : "",
       nonStop: json["non-stop"] ?? "",
       electronicLabels: json["electronic"],
+      monnaie:json['monnaie'],
+      climat:json['climat'],
+      chauffage:json['chauffage'],
+      vigil:json['vigil'],
+      workConcil:json['workConcil'],
       entretien: json["entretien"],
       gareAccess: json["gare"],
-      heating: json["heating"],
       images: images,
       maitre: json["maitre"],
       typologie: json["typologie"],
@@ -131,6 +147,11 @@ class Pharmacie {
       nbPatients: json["nombre-patients"],
       nbPharmaciens: json["nombre-pharmaciens"],
       nbPreparateurs: json["nombre-preparateurs"],
+      nbRayonnistes: json['nombre-rayonnistes'],
+      nbApprentis: json['nombre-apprentis'],
+      nbConseillers: json['nombre-conseillers'],
+      nbEtudiants6: json['nombre-etudiants6'],
+      nbEtudiants: json['nombre-etudiants'],
       parking: json["parking"],
       prefEmail: json["prefEmail"],
       preparation: json["preparation"],
@@ -141,7 +162,6 @@ class Pharmacie {
       titulaires: titulaires,
       tramway: json["tramway"],
       vaccination: json["vaccination"],
-      vigile: json["vigile"],
       tendances: tendances,
       presentation: json["presentation"] as String,
       localisation: Localisation(
@@ -150,7 +170,7 @@ class Pharmacie {
     );
   }
 
-  Pharmacie({
+  Pharmacie( {
     required this.nom,
     required this.groupementImage,
     required this.groupementName,
@@ -182,12 +202,18 @@ class Pharmacie {
     required this.breakRoom,
     required this.robot,
     required this.electronicLabels,
-    required this.automatic,
-    required this.airCond,
-    required this.heating,
-    required this.vigile,
+ 
+ required this.monnaie,
+ required  this.climat,
+ required this.chauffage,
+  required this.vigil,required this.workConcil,
     required this.tendances,
     required this.nbPharmaciens,
     required this.nbPreparateurs,
+    required this.nbRayonnistes,
+    required this.nbConseillers,
+    required this.nbApprentis,
+    required this.nbEtudiants,
+    required this.nbEtudiants6,
   });
 }

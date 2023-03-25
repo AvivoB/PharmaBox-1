@@ -56,10 +56,9 @@ class MembersBox extends StatelessWidget {
                       radius: 20,
                       backgroundImage: image.startsWith("https")
                           ? NetworkImage(image) as ImageProvider
-                          :
-                          const AssetImage(
-                        "assets/images/user.png",
-                      ),
+                          : const AssetImage(
+                              "assets/images/user.png",
+                            ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 10.0),
@@ -126,11 +125,19 @@ class MembersBox extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                /*IconButton(
-                  icon: Icon(Icons.linked_camera),
-                  color: Color(0xfF161730),
-                  onPressed: () {},
-                ),*/
+               
+                Container(
+                  margin: const EdgeInsets.all(5),
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15),
+                    ),
+                  ),
+                  child: LikeButton(
+                    isLiked: true,
+                  ),
+                ),
+                const Spacer(),
                 Row(
                   children: [
                     Container(
@@ -273,7 +280,7 @@ class MembersBoxDelete extends StatelessWidget {
                     ],
                   ),
                   child: LikeButton(
-                    isLiked: false,
+                    isLiked: true,
                   ),
                 ),
               ],

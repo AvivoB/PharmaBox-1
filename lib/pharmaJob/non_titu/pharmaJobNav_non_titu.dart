@@ -22,9 +22,8 @@ class PharmaJobNavNonTitu extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            Container(
-              height: height * 0.02,
-              color: Colors.white,
+            SizedBox(
+              height: height * 0.01,
             ),
             /*Container(
               height: height * 0.1,
@@ -162,8 +161,25 @@ class PharmaJobNavNonTitu extends StatelessWidget {
                         ],
                       );
                     } else {
-                      return const Center(
-                        child: Text("No Offres"),
+                      return Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Image(
+                                  image: AssetImage(
+                                      'assets/images/homeindicator.png'),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text(
+                            '0 résultats',
+                            style: paragraph,
+                          ),
+                        ],
                       );
                     }
                   },

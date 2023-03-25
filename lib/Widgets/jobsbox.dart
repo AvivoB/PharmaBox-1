@@ -207,11 +207,18 @@ class _JobBoxState extends State<JobBox> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                /*IconButton(
-                  icon: Icon(Icons.linked_camera),
-                  color: Color(0xfF161730),
-                  onPressed: () {},
-                ),*/
+               Container(
+                  margin: const EdgeInsets.all(5),
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15),
+                    ),
+                  ),
+                  child: LikeButton(
+                    isLiked: true,
+                  ),
+                ),
+                const Spacer(),
                 Row(
                   children: [
                     Container(

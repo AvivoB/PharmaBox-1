@@ -166,6 +166,7 @@ class _HomeAppState extends State<HomeApp> {
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
                 fontFamily: 'Poppins',
+                primaryColor: Color.fromRGBO(124, 237, 172, 1),
                 appBarTheme: const AppBarTheme(
                   backgroundColor: Colors.white,
                 ),

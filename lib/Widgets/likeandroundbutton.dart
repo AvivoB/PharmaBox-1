@@ -17,69 +17,34 @@ class _LikeButtonState extends State<LikeButton> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return Container(
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(
-          Radius.circular(15),
+    return InkWell(
+      onTap: () {
+        setState(() {
+          widget.isLiked = !widget.isLiked;
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.only(left: 5),
+        decoration: BoxDecoration(
+          color: !widget.isLiked ? lightGreen : Colors.white,
+          borderRadius: BorderRadius.circular(10),
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Color.fromRGBO(31, 92, 103, 0.17),
-            offset: Offset(3, 3),
-            blurRadius: 3,
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          InkWell(
-            onTap: () {
-              setState(() {
-                widget.isLiked = !widget.isLiked;
-              });
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: !widget.isLiked ? lightGreen : Colors.blue[300],
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  bottomLeft: Radius.circular(15),
-                ),
-              ),
-              width: width * 0.18,
-              height: height * 0.05,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  const Icon(
-                    Icons.thumb_up_alt_outlined,
-                    color: Colors.white,
-                    size: 25,
-                  ),
-                  Text(
-                    !widget.isLiked ? '535' : '536',
-                    style: headingWhite,
-                  ),
-                ],
-              ),
+        width: width * 0.18,
+        height: height * 0.03,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            const Icon(
+              Icons.thumb_up_alt_outlined,
+              color: Colors.black,
+              size: 25,
             ),
-          ),
-          Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(15),
-                bottomRight: Radius.circular(15),
-              ),
+            Text(
+              !widget.isLiked ? '0' : '0',
+              style: headingWhite.copyWith(color: Colors.black),
             ),
-            width: width * 0.08,
-            height: height * 0.05,
-            child: const Icon(
-              Icons.arrow_forward_ios_rounded,
-              color: Color.fromRGBO(89, 90, 113, 1),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

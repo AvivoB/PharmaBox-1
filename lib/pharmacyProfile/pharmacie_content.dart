@@ -21,6 +21,7 @@ import '../business_logic/lgo_bloc/lgo_bloc.dart';
 import '../model/localisation.dart';
 import '../model/telephone.dart';
 import '../model/tendance.dart';
+import '../pharmaJob/bottomsheet.dart';
 import 'horraires_ouvreture.dart';
 import 'lgo_pharmacie.dart';
 
@@ -117,6 +118,16 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
           widget.myPharmacy?.nbPreparateurs.toString() ?? '';
       pharmaistsNumController.text =
           widget.myPharmacy?.nbPharmaciens.toString() ?? '';
+      equipeController[0].text =
+          widget.myPharmacy?.nbRayonnistes.toString() ?? '';
+      equipeController[1].text =
+          widget.myPharmacy?.nbConseillers.toString() ?? '';
+      equipeController[2].text =
+          widget.myPharmacy?.nbApprentis.toString() ?? '';
+      equipeController[3].text =
+          widget.myPharmacy?.nbEtudiants.toString() ?? '';
+      equipeController[4].text =
+          widget.myPharmacy?.nbEtudiants6.toString() ?? '';
       nonStop = widget.myPharmacy?.nonStop ?? false;
       work_hours = widget.myPharmacy!.workHours;
       premirere_tendance = widget.myPharmacy!.tendances[0];
@@ -137,10 +148,39 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
       breakRoom = widget.myPharmacy?.breakRoom ?? false;
       robot = widget.myPharmacy?.robot ?? false;
       eLabels = widget.myPharmacy?.electronicLabels ?? false;
-      autoCm = widget.myPharmacy?.automatic ?? false;
-      ac = widget.myPharmacy?.airCond ?? false;
-      heating = widget.myPharmacy?.heating ?? false;
-      vigil = widget.myPharmacy?.vigile ?? false;
+      monnaie = widget.myPharmacy?.monnaie ?? false;
+      climat = widget.myPharmacy?.climat ?? false;
+      chauffage = widget.myPharmacy?.chauffage ?? false;
+      vigil = widget.myPharmacy?.vigil ?? false;
+      workConcil = widget.myPharmacy?.workConcil ?? false;
+      typologieController.text = widget.myPharmacy?.typologie ?? "";
+      for (int i = 0; i < typologie.length; i++) {
+        if (widget.myPharmacy?.typologie == typologie[i]) {
+          print(typologieController.text);
+          switch (i) {
+            case 0:
+              typocc = true;
+              break;
+            case 1:
+              typocv = true;
+              break;
+            case 2:
+              typoAero = true;
+              break;
+            case 3:
+              typoGare = true;
+              break;
+            case 4:
+              typoQuartier = true;
+              break;
+            case 5:
+              typoTour = true;
+              break;
+            case 6:
+              typoRula = true;
+          }
+        }
+      }
       controller = AnimationController(
         duration: const Duration(milliseconds: 500),
         vsync: this,
@@ -155,12 +195,13 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
 
   final List<String> confortList = <String>[
     'Salle de pause',
-    'Break Room',
     'Robot',
     'Etiquettes éléctroniques',
-    'air conditioning',
-    'Heating',
+    'Monnayeur/caisse classique',
+    'Climatisation',
+    'Chauffage',
     'Vigile',
+    "Comité d'entreprise"
   ];
   Tendance premirere_tendance = Tendance(niveau: 0, nom: "Ordonnances");
   Tendance deuxieme_tendance = Tendance(niveau: 0, nom: "Cosmétiques");
@@ -170,34 +211,21 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
   bool breakRoom = false;
   bool robot = false;
   bool eLabels = false;
-  bool autoCm = false;
-  bool ac = false;
-  bool heating = false;
+  bool monnaie = false;
+  bool climat = false;
+  bool chauffage = false;
   bool vigil = false;
   bool workConcil = false;
 
-  final List<Icon> confortIcons = <Icon>[
-    const Icon(
-      Icons.self_improvement_outlined,
-    ),
-    const Icon(
-      Icons.cruelty_free_outlined,
-    ),
-    const Icon(
-      Icons.smart_toy_outlined,
-    ),
-    const Icon(
-      Icons.qr_code_2_outlined,
-    ),
-    const Icon(
-      Icons.cottage_outlined,
-    ),
-    const Icon(
-      Icons.local_police_outlined,
-    ),
-    const Icon(
-      Icons.airplane_ticket_outlined,
-    )
+  final List<IconData> confortIcons = <IconData>[
+    Icons.self_improvement_outlined,
+    Icons.smart_toy_outlined,
+    Icons.qr_code_2_outlined,
+    Icons.fax_outlined,
+    Icons.ac_unit,
+    Icons.wb_sunny_outlined,
+    Icons.local_police,
+    Icons.groups,
   ];
 
   final List<String> transport = <String>[
@@ -291,6 +319,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
     return Form(
         key: formKey11,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
               height: height * 0.03,
@@ -670,6 +699,8 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                         initialSwitchValue: typocc,
                         onChanged: (value) {
                           typocc = value;
+                          typologieController.text = typologie[0];
+
                           setState(() {
                             typocv = false;
                             typoAero = false;
@@ -686,6 +717,9 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                         initialSwitchValue: typocv,
                         onChanged: (value) {
                           typocv = value;
+
+                          typologieController.text = typologie[1];
+
                           setState(() {
                             typocc = false;
                             typoAero = false;
@@ -702,6 +736,8 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                         initialSwitchValue: typoAero,
                         onChanged: (value) {
                           typoAero = value;
+                          typologieController.text = typologie[2];
+
                           setState(() {
                             typocc = false;
                             typocv = false;
@@ -718,6 +754,8 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                         initialSwitchValue: typoGare,
                         onChanged: (value) {
                           typoGare = value;
+                          typologieController.text = typologie[3];
+
                           setState(() {
                             typocc = false;
                             typocv = false;
@@ -734,6 +772,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                         initialSwitchValue: typoQuartier,
                         onChanged: (value) {
                           typoQuartier = value;
+                          typologieController.text = typologie[4];
                           setState(() {
                             typocc = false;
                             typocv = false;
@@ -750,6 +789,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                         initialSwitchValue: typoTour,
                         onChanged: (value) {
                           typoTour = value;
+                          typologieController.text = typologie[5];
                           setState(() {
                             typocc = false;
                             typocv = false;
@@ -766,6 +806,8 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                         initialSwitchValue: typoRula,
                         onChanged: (value) {
                           typoRula = value;
+                          typologieController.text = typologie[6];
+
                           setState(() {
                             typocc = false;
                             typocv = false;
@@ -941,7 +983,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                   children: [
                     PharmacyRow(
                       text: confortList[0],
-                      icon: Icons.cruelty_free_outlined,
+                      icon: confortIcons[0],
                       initialSwitchValue: breakRoom,
                       onChanged: (value) {
                         breakRoom = value;
@@ -949,7 +991,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                     ),
                     PharmacyRow(
                       text: confortList[1],
-                      icon: Icons.smart_toy_outlined,
+                      icon: confortIcons[1],
                       initialSwitchValue: robot,
                       onChanged: (value) {
                         robot = value;
@@ -957,7 +999,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                     ),
                     PharmacyRow(
                       text: confortList[2],
-                      icon: Icons.qr_code_2_outlined,
+                      icon: confortIcons[2],
                       initialSwitchValue: eLabels,
                       onChanged: (value) {
                         eLabels = value;
@@ -965,34 +1007,42 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                     ),
                     PharmacyRow(
                       text: confortList[3],
-                      icon: Icons.self_improvement_outlined,
-                      initialSwitchValue: autoCm,
+                      icon: confortIcons[3],
+                      initialSwitchValue: monnaie,
                       onChanged: (value) {
-                        autoCm = value;
+                        monnaie = value;
                       },
                     ),
                     PharmacyRow(
                       text: confortList[4],
-                      icon: Icons.local_police_outlined,
-                      initialSwitchValue: ac,
+                      icon: confortIcons[4],
+                      initialSwitchValue: climat,
                       onChanged: (value) {
-                        ac = value;
+                        climat = value;
                       },
                     ),
                     PharmacyRow(
                       text: confortList[5],
-                      icon: Icons.cottage_outlined,
-                      initialSwitchValue: heating,
+                      icon: confortIcons[5],
+                      initialSwitchValue: chauffage,
                       onChanged: (value) {
-                        heating = value;
+                        chauffage = value;
                       },
                     ),
                     PharmacyRow(
                       text: confortList[6],
-                      icon: Icons.airplane_ticket_outlined,
+                      icon: confortIcons[6],
                       initialSwitchValue: vigil,
                       onChanged: (value) {
                         vigil = value;
+                      },
+                    ),
+                    PharmacyRow(
+                      text: confortList[7],
+                      icon: confortIcons[7],
+                      initialSwitchValue: workConcil,
+                      onChanged: (value) {
+                        workConcil = value;
                       },
                     ),
                   ],
@@ -1137,7 +1187,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                       ),
                       PresentField(
                         label: "Nombre de d'apprentis",
-                        controller: equipeController[3],
+                        controller: equipeController[2],
                         textInputType: TextInputType.number,
                         prefixIcon: const Icon(Icons.person),
                       ),
@@ -1146,7 +1196,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                       ),
                       PresentField(
                         label: "Nombre de d'étudiants pharmacie",
-                        controller: equipeController[4],
+                        controller: equipeController[3],
                         textInputType: TextInputType.number,
                         prefixIcon: const Icon(Icons.person),
                       ),
@@ -1155,7 +1205,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                       ),
                       PresentField(
                         label: "Nombre de d'étudiants 6éme année",
-                        controller: equipeController[5],
+                        controller: equipeController[4],
                         textInputType: TextInputType.number,
                         prefixIcon: const Icon(Icons.person),
                       ),
@@ -1200,82 +1250,134 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                           ),
                         );
                       } else {
-                        print(nbClosed);
+                        print(
+                            BlocProvider.of<TitulaireBloc>(context).titulaires);
                         Pharmacie pharmacie = Pharmacie(
-                            email: emailController.text,
-                            typologie: typologieController.text,
-                            workHours: work_hours,
-                            lgoImage: BlocProvider.of<PharmacieBloc>(context)
-                                .lgoImage,
-                            lgoName:
-                                BlocProvider.of<PharmacieBloc>(context).lgo,
-                            groupementImage:
-                                BlocProvider.of<PharmacieBloc>(context)
-                                    .groupementImage,
-                            groupementName:
-                                BlocProvider.of<PharmacieBloc>(context)
-                                    .groupement,
-                            tendances: [
-                              premirere_tendance,
-                              deuxieme_tendance,
-                              troisieme_tendance,
-                              quatrieme_tendance,
-                              cinqieme_tendance
-                            ],
-                            images: BlocProvider.of<PharmacieBloc>(context)
-                                    .images
-                                    .isNotEmpty
-                                ? BlocProvider.of<PharmacieBloc>(context).images
-                                : [],
-                            prefEmail: prefEmailController.text,
-                            parking: parkingController.text,
-                            gareAccess: gareController.text,
-                            maitre: widget.maitre!,
-                            telephone: Telephone(
-                                numeroTelephone:
-                                    int.parse(phoneController.text),
-                                visible: false),
-                            localisation: Localisation(
-                                ville: addressController.text, codePostal: 1),
-                            rer: rerController.text,
-                            metro: metroController.text,
-                            bus: busController.text,
-                            tramway: tramController.text,
-                            nom: widget.pharNameController?.text ?? '',
-                            titulaires: BlocProvider.of<TitulaireBloc>(context)
-                                .titulaires,
-                            presentation: widget.pharDesController?.text ?? '',
-                            nbPreparateurs:
-                                prepaersNumController.text.isNotEmpty
-                                    ? int.parse(prepaersNumController.text)
-                                    : 0,
-                            nbPharmaciens:
-                                pharmaistsNumController.text.isNotEmpty
-                                    ? int.parse(pharmaistsNumController.text)
-                                    : 0,
-                            nonStop: nonStop,
+                          email: emailController.text,
+                          typologie: typologieController.text,
+                          workHours: work_hours,
+                          lgoImage:
+                              BlocProvider.of<PharmacieBloc>(context).lgoImage,
+                          lgoName: BlocProvider.of<PharmacieBloc>(context).lgo,
+                          groupementImage:
+                              BlocProvider.of<PharmacieBloc>(context)
+                                  .groupementImage,
+                          groupementName:
+                              BlocProvider.of<PharmacieBloc>(context)
+                                  .groupement,
+                          tendances: [
+                            premirere_tendance,
+                            deuxieme_tendance,
+                            troisieme_tendance,
+                            quatrieme_tendance,
+                            cinqieme_tendance
+                          ],
+                          images: BlocProvider.of<PharmacieBloc>(context)
+                                  .images
+                                  .isNotEmpty
+                              ? BlocProvider.of<PharmacieBloc>(context).images
+                              : [],
+                          prefEmail: prefEmailController.text,
+                          parking: parkingController.text,
+                          gareAccess: gareController.text,
+                          monnaie: monnaie,
+                          climat: climat,
+                          chauffage: chauffage,
+                          vigil: vigil,
+                          workConcil: workConcil,
+                          maitre: widget.maitre!,
+                          telephone: Telephone(
+                              numeroTelephone: int.parse(phoneController.text),
+                              visible: false),
+                          localisation: Localisation(
+                              ville: addressController.text, codePostal: 1),
+                          rer: rerController.text,
+                          metro: metroController.text,
 
-                            ///typo
+                          bus: busController.text,
+                          tramway: tramController.text,
+                          nom: widget.pharNameController?.text ?? '',
+                          titulaires: BlocProvider.of<TitulaireBloc>(context)
+                              .titulaires,
+                          presentation: widget.pharDesController?.text ?? '',
+                          nbPreparateurs: prepaersNumController.text.isNotEmpty
+                              ? int.parse(prepaersNumController.text)
+                              : 0,
+                          nbPharmaciens: pharmaistsNumController.text.isNotEmpty
+                              ? int.parse(pharmaistsNumController.text)
+                              : 0,
+                          nbRayonnistes: equipeController[0].text.isNotEmpty
+                              ? int.parse(equipeController[0].text)
+                              : 0,
+                          nbConseillers: equipeController[1].text.isNotEmpty
+                              ? int.parse(equipeController[1].text)
+                              : 0,
+                          nbApprentis: equipeController[2].text.isNotEmpty
+                              ? int.parse(equipeController[2].text)
+                              : 0,
+                          nbEtudiants: equipeController[3].text.isNotEmpty
+                              ? int.parse(equipeController[3].text)
+                              : 0,
+                          nbEtudiants6: equipeController[4].text.isNotEmpty
+                              ? int.parse(equipeController[4].text)
+                              : 0,
+                          nonStop: nonStop,
 
-                            nbPatients: noPatientPerDay.text.isNotEmpty
-                                ? int.parse(noPatientPerDay.text)
-                                : 0,
+                          ///typo
 
-                            ///mission
-                            testCovid: testCovid,
-                            vaccination: vaccination,
-                            entretien: pMaintaince,
-                            preparation: pbTeam,
-                            borneTelemedcine: tTerminal,
-                            breakRoom: breakRoom,
-                            robot: robot,
-                            electronicLabels: eLabels,
-                            automatic: autoCm,
-                            airCond: ac,
-                            heating: heating,
-                            vigile: vigil);
+                          nbPatients: noPatientPerDay.text.isNotEmpty
+                              ? noPatientPerDay.text
+                              : "",
+
+                          ///mission
+                          testCovid: testCovid,
+                          vaccination: vaccination,
+                          entretien: pMaintaince,
+                          preparation: pbTeam,
+                          borneTelemedcine: tTerminal,
+                          breakRoom: breakRoom,
+                          robot: robot,
+                          electronicLabels: eLabels,
+                        );
                         BlocProvider.of<PharmacieBloc>(context)
                             .add(AddPharmacie(pharmacie: pharmacie));
+                        if (widget.myPharmacy == null) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text("Offre d'emploi?"),
+                                content: const Text(
+                                    "Voulez vous créer une offre d'emploi?"),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: const Text('Oui'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      showModalBottomSheet(
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(25.0),
+                                          ),
+                                        ),
+                                        isScrollControlled: true,
+                                        context: context,
+                                        builder: (context) =>
+                                            const FiltersBottomSheet(),
+                                      );
+                                    },
+                                  ),
+                                  TextButton(
+                                    child: const Text('Non'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
                       }
                     }
                   }

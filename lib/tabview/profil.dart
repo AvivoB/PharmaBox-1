@@ -7,6 +7,8 @@ import 'package:pharmabox/model/user_models/non_titulaire.dart';
 import 'package:pharmabox/tabview/profile_membre_consultation.dart';
 
 import '../constants.dart';
+import '../firebase/firebase_calls.dart';
+import '../model/user_models/pharmacie.dart';
 
 class Profil extends StatefulWidget {
   NonTitulaire membre;
@@ -194,7 +196,8 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                             ],
                           ),
                           Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 widget.membre.nom,
@@ -210,34 +213,52 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                               SizedBox(
                                 height: height * 0.01,
                               ),
-                              /*Row(
-                                children: [
-                                  Container(
-                                    height: height * 0.06,
-                                    width: width * 0.11,
-                                    decoration: const BoxDecoration(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(30),
-                                      ),
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              'assets/images/pharmacy 1.png'),
-                                          fit: BoxFit.cover),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: width * 0.04,
-                                  ),
-                                  Text(
-                                    "Grande Pharmacie \nD'Aulnay, 94160, Paris",
-                                    style: smallWhiteUnderline,
-                                  ),
-                                ],
-                              ),*/
+                              FutureBuilder<Pharmacie?>(
+                                  future: FirebaseCalls()
+                                      .getPharmacie(widget.membre),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      return Row(
+                                        children: [
+                                          Container(
+                                            height: width * 0.15,
+                                            width: width * 0.15,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                Radius.circular(30),
+                                              ),
+                                              image: DecorationImage(
+                                                image: snapshot
+                                                        .data!.images.isNotEmpty
+                                                    ? NetworkImage(
+                                                        snapshot
+                                                            .data!.images[0],
+                                                      ) as ImageProvider
+                                                    : AssetImage(
+                                                        'assets/images/pharmacy 1.png',
+                                                      ),
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: width * 0.04,
+                                          ),
+                                          Text(
+                                            snapshot.data!.nom,
+                                            style: smallWhiteUnderline,
+                                          ),
+                                        ],
+                                      );
+                                    } else {
+                                      return const SizedBox();
+                                    }
+                                  }),
                               SizedBox(
                                 height: height * 0.01,
                               ),
-                              // LikeButton(isLiked: false),
+                              LikeButton(isLiked: false),
                             ],
                           ),
                         ],
@@ -327,34 +348,6 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                             ),
                           ],
                         ),
-                      ),
-                      SizedBox(
-                        height: height * 0.02,
-                      ),
-                      const Divider(
-                        thickness: 0.5,
-                        color: Color.fromRGBO(89, 90, 113, 0.4),
-                      ),
-                      SizedBox(
-                        height: height * 0.02,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.power_settings_new,
-                                color: Color.fromRGBO(89, 90, 113, 1),
-                              ),
-                              Text(
-                                '  Activer',
-                                style: biggerGrey,
-                              ),
-                            ],
-                          ),
-                          CustomSwitch(),
-                        ],
                       ),
                       SizedBox(
                         height: height * 0.02,

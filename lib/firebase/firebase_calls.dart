@@ -1,13 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pharmabox/model/user_models/non_titulaire.dart';
 
 import '../model/models.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
+import '../model/user_models/pharmacie.dart';
+
 class FirebaseCalls {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-Future getLgos(String input) async {
+  Future<Pharmacie?> getPharmacie(NonTitulaire membre) async {
+    if (membre.poste == "Titulaire") {
+      List<Pharmacie> result = await _firebaseFirestore
+          .collection('pharmacie')
+          .where('titulaires', arrayContains: '${membre.prenom} ${membre.nom}')
+          .get()
+          .then((value) {
+        print("alo");
+        print(value);
+        return value.docs.map((e) => Pharmacie.fromJson(e.data())).toList();
+      });
+      print(result[0].nom);
+      return result[0];
+    }
+    return null;
+  }
+
+  Future getLgos(String input) async {
     List<Lgo> groupements = [];
     CollectionReference colRef = _firebaseFirestore.collection('lgo');
     QuerySnapshot querySnapshot = await colRef.get();
@@ -18,17 +38,14 @@ Future getLgos(String input) async {
       dynamic data = doc.data()!;
       if (data["name"].toLowerCase().contains(input)) {
         final String imageName = data["image"];
-        final Reference ref =
-            storage.ref().child('lgo').child(imageName);
+        final Reference ref = storage.ref().child('lgo').child(imageName);
         String imageUrl = await ref.getDownloadURL();
-        groupements = [
-          ...groupements,
-          Lgo(nom: data["name"],niveau:0)
-        ];
+        groupements = [...groupements, Lgo(nom: data["name"], niveau: 0)];
       }
     }
     return groupements;
   }
+
   Future updateExpereinces(List<Experience> experiences) async {
     final currentUser = firebaseAuth.currentUser;
     await _firebaseFirestore.collection("users").doc(currentUser!.uid).set({
