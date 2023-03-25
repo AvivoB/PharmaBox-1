@@ -194,7 +194,7 @@ class PharmacieCalls {
         .get()
         .then((value) =>
             value.docs.map((e) => Pharmacie.fromJson(e.data())).toList());
-    var newList = [...recherches, ...recherches1, ...recherches3, recherches4];
+    List<Pharmacie> newList = [...recherches, ...recherches1, ...recherches3,...recherches4];
 
     return newList;
   }

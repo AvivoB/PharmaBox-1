@@ -38,28 +38,23 @@ class _MainMapState extends State<MainMap> {
   late Function(String) onSubmitted;
 
   void explorerSubmit(String address) {
+    print("cale");
     BlocProvider.of<MainmapBloc>(context)
         .add(GetLibreResults(address: address));
   }
 
   void nonTituSubmit(String address) {
-    print("caled");
-
     BlocProvider.of<MainmapBloc>(context).add(GetLibreOffres(address: address));
   }
 
   void tituSubmit(String address) {
-    /*BlocProvider.of<MainmapBloc>(context).add(GetOffresMarkersOnAddress(
-      address: address,
-    ));*/
     BlocProvider.of<MainmapBloc>(context)
         .add(GetLibreMembres(address: address));
-
-    /* BlocProvider.of<mem.MembresBloc>(context)
-        .add(mem.RechercheLibre(input: address));*/
   }
 
   void navigationInit(String address) {
+                                        print("dkhelt");
+
     BlocProvider.of<MainmapBloc>(context).add(GetMarkersOnAddress(
       address: address,
     ));
@@ -68,7 +63,7 @@ class _MainMapState extends State<MainMap> {
   @override
   void initState() {
     super.initState();
-    onSubmitted = navigationInit;
+    onSubmitted = explorerSubmit;
   }
 
   final places =
@@ -80,7 +75,7 @@ class _MainMapState extends State<MainMap> {
     final double height = MediaQuery.of(context).size.height;
     return BlocConsumer<NavigationBloc, NavigationState>(
       listener: (context, state) {
-       if (state is PharmaJobTituState) {
+        if (state is PharmaJobTituState) {
           onSubmitted = tituSubmit;
         } else if (state is PharmaJobNonTituState) {
           onSubmitted = nonTituSubmit;
@@ -140,13 +135,13 @@ class _MainMapState extends State<MainMap> {
                                   LatLng? local =
                                       await MapUtils.getLocationFromAddress(
                                           val);
+                                  print(local);
                                   if (local != null) {
                                     widget.animateController(local);
                                     navigationInit(val);
                                   } else {
                                     onSubmitted(val);
                                   }
-                                 
                                 },
                                 controller: widget.localisationController,
                               ),

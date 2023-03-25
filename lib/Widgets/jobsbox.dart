@@ -31,7 +31,9 @@ class _JobBoxState extends State<JobBox> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Container(
-      height: height * 0.3,
+      height: widget.imagePharm.startsWith('assets/')
+          ? height * 0.2
+          : height * 0.35,
       width: width * 0.9,
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -207,7 +209,7 @@ class _JobBoxState extends State<JobBox> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-               Container(
+                Container(
                   margin: const EdgeInsets.all(5),
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(

@@ -141,7 +141,7 @@ class MembersBox extends StatelessWidget {
                 Row(
                   children: [
                     Container(
-                      decoration: BoxDecoration(),
+                      decoration: const BoxDecoration(),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image(

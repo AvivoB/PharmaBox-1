@@ -211,8 +211,8 @@ class _HomePageState extends State<HomePage> {
                 ))
               ],
             ),
-            /* Positioned.fill(
-              top: height * 0.35,
+            Positioned.fill(
+              top: height * 0.45,
               bottom: 80,
               left: 20,
               right: 20,
@@ -230,36 +230,45 @@ class _HomePageState extends State<HomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: List.generate(
                                   state.membres.length,
-                                  (index) => Padding(
-                                    padding: const EdgeInsets.only(
-                                        bottom: 20.0, top: 20),
-                                    child: InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => Profil(
-                                                membre: state.membres[index]),
-                                          ),
-                                        );
-                                      },
-                                      child: MembersBox(
-                                        poste: state.membres[index].poste,
-                                        image:
-                                            state.membres[index].photoUrl != ''
+                                  (index) => Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 20.0, top: 20),
+                                        child: InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => Profil(
+                                                    membre:
+                                                        state.membres[index]),
+                                              ),
+                                            );
+                                          },
+                                          child: MembersBox(
+                                            poste: state.membres[index].poste,
+                                            image: state.membres[index]
+                                                        .photoUrl !=
+                                                    ''
                                                 ? state.membres[index].photoUrl
                                                 : 'assets/images/user.png',
-                                        name: state.membres[index].nom +
-                                            ' ' +
-                                            state.membres[index].prenom,
-                                        zip: state.membres[index].localisation
-                                                .codePostal
-                                                .toString() +
-                                            ' ' +
-                                            state.membres[index].localisation
-                                                .ville,
+                                            name: state.membres[index].nom +
+                                                ' ' +
+                                                state.membres[index].prenom,
+                                            zip: state.membres[index]
+                                                    .localisation.codePostal
+                                                    .toString() +
+                                                ' ' +
+                                                state.membres[index]
+                                                    .localisation.ville,
+                                          ),
+                                        ),
                                       ),
-                                    ),
+                                      state.membres.length > 1
+                                          ? const SizedBox(width: 10)
+                                          : const SizedBox(),
+                                    ],
                                   ),
                                 ));
                           } else {
@@ -277,31 +286,40 @@ class _HomePageState extends State<HomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: List.generate(
                                   state.pharmacies.length,
-                                  (index) => Padding(
-                                    padding: const EdgeInsets.only(bottom: 20),
-                                    child: InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                PharmacyProfile(
-                                                    pharmacie: state
-                                                        .pharmacies[index]),
+                                  (index) => Row(
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 20),
+                                        child: InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PharmacyProfile(
+                                                        pharmacie: state
+                                                            .pharmacies[index]),
+                                              ),
+                                            );
+                                          },
+                                          child: PharmaciesBox(
+                                            zip: state.pharmacies[index]
+                                                .localisation.ville,
+                                            pharmacie: state.pharmacies[index],
+                                            pharm: state.pharmacies[index].nom,
+                                            imagePharm: state.pharmacies[index]
+                                                    .images.isNotEmpty
+                                                ? state
+                                                    .pharmacies[index].images[0]
+                                                : "assets/images/pharma_img.png",
                                           ),
-                                        );
-                                      },
-                                      child: PharmaciesBox(
-                                        zip: state.pharmacies[index]
-                                            .localisation.ville,
-                                        pharmacie: state.pharmacies[index],
-                                        pharm: state.pharmacies[index].nom,
-                                        imagePharm: state.pharmacies[index]
-                                                .images.isNotEmpty
-                                            ? state.pharmacies[index].images[0]
-                                            : "assets/images/pharma_img.png",
+                                        ),
                                       ),
-                                    ),
+                                      state.pharmacies.length > 1
+                                          ? const SizedBox(width: 10)
+                                          : const SizedBox(),
+                                    ],
                                   ),
                                 ));
                           } else {
@@ -317,37 +335,45 @@ class _HomePageState extends State<HomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: List.generate(
                                   state.offres.length,
-                                  (index) => Padding(
-                                    padding: const EdgeInsets.only(
-                                        bottom: 20.0, top: 20),
-                                    child: InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                PharmacyProfile(
-                                                    pharmacie: state
-                                                        .offres[index]
-                                                        .pharmacie),
+                                  (index) => Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 20.0, top: 20),
+                                        child: InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PharmacyProfile(
+                                                        pharmacie: state
+                                                            .offres[index]
+                                                            .pharmacie),
+                                              ),
+                                            );
+                                          },
+                                          child: JobBox(
+                                            zip: state.offres[index].pharmacie
+                                                .localisation.ville,
+                                            pharmacie:
+                                                state.offres[index].pharmacie,
+                                            jobName:
+                                                state.offres[index].nomOffre,
+                                            pharm: state
+                                                .offres[index].pharmacie.nom,
+                                            imagePharm: state.offres[index]
+                                                    .pharmacie.images.isEmpty
+                                                ? 'assets/images/pharma_img.png'
+                                                : state.offres[index].pharmacie
+                                                    .images[0],
                                           ),
-                                        );
-                                      },
-                                      child: JobBox(
-                                        zip: state.offres[index].pharmacie
-                                            .localisation.ville,
-                                        pharmacie:
-                                            state.offres[index].pharmacie,
-                                        jobName: state.offres[index].nomOffre,
-                                        pharm:
-                                            state.offres[index].pharmacie.nom,
-                                        imagePharm: state.offres[index]
-                                                .pharmacie.images.isEmpty
-                                            ? 'assets/images/pharma_img.png'
-                                            : state.offres[index].pharmacie
-                                                .images[0],
+                                        ),
                                       ),
-                                    ),
+                                      state.offres.length > 1
+                                          ? const SizedBox(width: 10)
+                                          : const SizedBox(),
+                                    ],
                                   ),
                                 ));
                           } else {
@@ -357,7 +383,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ]),
               ),
-            ),*/
+            ),
 
             BlocListener<UsersBlocBloc, UsersBlocState>(
               listener: (context, state) {
@@ -397,17 +423,18 @@ class _HomePageState extends State<HomePage> {
                         curve: Curves.easeInOut);
                   },
                   child: DraggableScrollableSheet(
-                    initialChildSize: 0.1,
-                    minChildSize: 0.1,
-                    expand: true,
-                    maxChildSize: 1,
-                    controller: dragController,
-                    builder: (context, scrollController) => BottomNavbar(
-                      scrollController: scrollController,
-                      fromRegister: widget.fromRegister,
-                      draggableScrollableController: dragController,
-                    ),
-                  ),
+                      initialChildSize: 0.1,
+                      minChildSize: 0.1,
+                      expand: true,
+                      maxChildSize: 1,
+                      controller: dragController,
+                      builder: (context, scrollController) {
+                        return BottomNavbar(
+                          scrollController: scrollController,
+                          fromRegister: widget.fromRegister,
+                          draggableScrollableController: dragController,
+                        );
+                      }),
                 ),
               ),
             )

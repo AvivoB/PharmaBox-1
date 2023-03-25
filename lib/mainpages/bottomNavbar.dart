@@ -89,6 +89,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
             tabs.insert(1, const PharmaJobNav());
           } else {
             if (widget.fromRegister) {
+              widget.fromRegister = false;
               WidgetsBinding.instance
                   .addPostFrameCallback((_) async => await showDialog(
                         context: context,
@@ -124,7 +125,6 @@ class _BottomNavbarState extends State<BottomNavbar> {
                           );
                         },
                       ));
-              widget.fromRegister = false;
             }
           }
         }
@@ -254,15 +254,15 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                 Competence(
                                     nom: "Vaccination",
                                     enabled: false,
-                                    asset: "assets/icons/covid.png"),
+                                    asset: "assets/icons/Vaccination.png"),
                                 Competence(
                                     nom: "Gestion du tiers payant",
                                     enabled: false,
-                                    asset: "assets/icons/covid.png"),
+                                    asset: "assets/icons/recherches (1).png"),
                                 Competence(
                                     nom: "Gestion des labos",
                                     enabled: false,
-                                    asset: "assets/icons/covid.png"),
+                                    asset: "assets/icons/TesttubeIcon.png"),
                                 Competence(
                                     nom: "TROD",
                                     enabled: false,
