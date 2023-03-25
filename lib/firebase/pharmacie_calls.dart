@@ -107,9 +107,11 @@ class PharmacieCalls {
     }
     return groupements;
   }
-   Future getSpecialisations(String input) async {
+
+  Future getSpecialisations(String input) async {
     List<Groupement> groupements = [];
-    CollectionReference colRef = _firebaseFirestore.collection('specialisation');
+    CollectionReference colRef =
+        _firebaseFirestore.collection('specialisation');
     QuerySnapshot querySnapshot = await colRef.get();
     final FirebaseStorage storage = FirebaseStorage.instance;
 
@@ -135,15 +137,36 @@ class PharmacieCalls {
             value.docs.map((e) => Pharmacie.fromJson(e.data())).toList());
     List<Pharmacie> results = [];
     for (Pharmacie membre in membres) {
-      places.LatLng dest =
+      places.LatLng? dest =
           await MapUtils.getLocationFromAddress(membre.localisation.ville);
-      if (MapUtils.computeDistance(input, dest) < 1) {
+      if (MapUtils.computeDistance(input, dest!) < 1) {
         results.add(membre);
       }
     }
     print("pharmacies");
     print(results.length);
     return results;
+  }
+
+  Future getLocationPharmacie(String address) async {
+    places.LatLng? location = await MapUtils.getLocationFromAddress(address);
+    List<Pharmacie> membres = await _firebaseFirestore
+        .collection("pharmacie")
+        .get()
+        .then((value) =>
+            value.docs.map((e) => Pharmacie.fromJson(e.data())).toList());
+    int i = 0;
+    while (i < membres.length) {
+      Pharmacie membre = membres[i];
+      places.LatLng? result =
+          await MapUtils.getLocationFromAddress(membre.localisation.ville);
+      if (MapUtils.computeDistance(location!, result!) > 10000) {
+        membres.removeAt(i);
+      }
+      i++;
+    }
+
+    return membres;
   }
 
   Future getLibrePharmacies(String input) async {
@@ -165,7 +188,13 @@ class PharmacieCalls {
         .get()
         .then((value) =>
             value.docs.map((e) => Pharmacie.fromJson(e.data())).toList());
-    var newList = [...recherches, ...recherches1, ...recherches3];
+    List<Pharmacie> recherches4 = await _firebaseFirestore
+        .collection("pharmacie")
+        .where('groupement-name', isEqualTo: input)
+        .get()
+        .then((value) =>
+            value.docs.map((e) => Pharmacie.fromJson(e.data())).toList());
+    var newList = [...recherches, ...recherches1, ...recherches3, recherches4];
 
     return newList;
   }

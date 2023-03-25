@@ -284,6 +284,9 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                             Icons.cake,
                             color: Color.fromRGBO(89, 90, 113, 1),
                           ),
+                          const SizedBox(
+                            width: 5,
+                          ),
                           Text(
                             widget.membre.localisation.codePostal.toString(),
                             style: biggerGrey,
@@ -298,6 +301,9 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                           const Icon(
                             Icons.location_on_outlined,
                             color: Color.fromRGBO(89, 90, 113, 1),
+                          ),
+                          const SizedBox(
+                            width: 5,
                           ),
                           Text(
                             widget.membre.localisation.ville.toString(),
@@ -314,6 +320,9 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                             Icons.email_outlined,
                             color: Color.fromRGBO(89, 90, 113, 1),
                           ),
+                          const SizedBox(
+                            width: 5,
+                          ),
                           Text(
                             widget.membre.email,
                             style: biggerGrey,
@@ -329,6 +338,9 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                             Icons.phone,
                             color: Color.fromRGBO(89, 90, 113, 1),
                           ),
+                          const SizedBox(
+                            width: 5,
+                          ),
                           Text(
                             widget.membre.telephone.numeroTelephone.toString(),
                             style: biggerGrey,
@@ -336,22 +348,24 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                         ],
                       ),
                       SizedBox(
-                        height: height * 0.04,
+                        height: 20,
                       ),
                       SizedBox(
                         width: width * 0.9,
                         child: Wrap(
                           children: [
                             Text(
-                              widget.membre.prenom,
+                              widget.membre.presentation!,
                               style: biggerGrey,
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: height * 0.02,
-                      ),
+                      widget.membre.presentation != ""
+                          ? const SizedBox(
+                              height: 10,
+                            )
+                          : const SizedBox()
                     ],
                   ),
                 ),

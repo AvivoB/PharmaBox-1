@@ -6,8 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:pharmabox/Home/pharmajob.dart';
-import 'package:pharmabox/Home/pharmajob_non_titu.dart';
 import 'package:pharmabox/Onboarding/SignUp.dart';
 import 'package:pharmabox/Theme/text.dart';
 import 'package:pharmabox/bloc/navigation_bloc.dart';

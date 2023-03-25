@@ -35,5 +35,6 @@ class MarkerModel extends Equatable{
   
   @override
   // TODO: implement props
-  List<Object?> get props => [lat,lng,count];
+  List<Object?> get props => [lat,lng];
+  
 }

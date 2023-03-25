@@ -32,7 +32,7 @@ class NonTitulaire extends Equatable {
   set nom(value) => _nom = value;
   String get dateNaissance => _dateNaissance;
   String get prenom => _prenom;
-
+  String? get presentation => _presentation != null ? _presentation : "";
   set prenom(value) => _prenom = value;
 
   String get email => _email;

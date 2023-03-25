@@ -44,9 +44,9 @@ class MembresService {
     List<NonTitulaire> results = [];
     print(input);
     for (NonTitulaire membre in membres) {
-      places.LatLng dest =
+      places.LatLng? dest =
           await MapUtils.getLocationFromAddress(membre.localisation.ville);
-      if (MapUtils.computeDistance(input, dest) < 1) {
+      if (MapUtils.computeDistance(input, dest!) < 1) {
         results.add(membre);
       }
     }
@@ -78,8 +78,33 @@ class MembresService {
         .get()
         .then((value) =>
             value.docs.map((e) => NonTitulaire.fromJson(e.data())).toList());
-    var newList = [...recherches, ...recherches2, ...recherches1,...recherches3];
+    var newList = [
+      ...recherches,
+      ...recherches2,
+      ...recherches1,
+      ...recherches3
+    ];
 
     return newList;
+  }
+
+  Future getLocationMembres(String address) async {
+    places.LatLng? location = await MapUtils.getLocationFromAddress(address);
+    List<NonTitulaire> membres = await _firebaseFirestore
+        .collection("users")
+        .get()
+        .then((value) =>
+            value.docs.map((e) => NonTitulaire.fromJson(e.data())).toList());
+    int i = 0;
+    while (i < membres.length) {
+      NonTitulaire membre = membres[i];
+      places.LatLng? result =
+          await MapUtils.getLocationFromAddress(membre.localisation.ville);
+      if (MapUtils.computeDistance(location!, result!) > 10000) {
+        membres.removeAt(i);
+      }
+      i++;
+    }
+    return membres;
   }
 }

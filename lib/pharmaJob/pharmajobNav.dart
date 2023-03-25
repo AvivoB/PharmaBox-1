@@ -8,7 +8,6 @@ import 'package:pharmabox/pharmaJob/bottomsheet.dart';
 import 'package:pharmabox/tabview/profil.dart';
 
 import '../Home/map.dart';
-import '../Home/pharmajob.dart';
 import '../Theme/text.dart';
 
 class PharmaJobNav extends StatelessWidget {

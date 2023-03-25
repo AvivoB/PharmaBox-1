@@ -56,25 +56,35 @@ class _HomePageState extends State<HomePage> {
   late TextEditingController localisationController;
   late Function(MarkerModel) tapFunction;
   explorerTap(MarkerModel marker) {
-    BlocProvider.of<MembresBloc>(context).add(GetExplorerMembres(
+    BlocProvider.of<MembresBloc>(context).add(GetMarkerMembres(
         input: places.LatLng(lat: marker.lat, lng: marker.lng)));
-    BlocProvider.of<PharmacierechercheBloc>(context).add(GetExplorerPharmacies(
+    BlocProvider.of<PharmacierechercheBloc>(context).add(GetMarkerPharmacies(
         recherche: places.LatLng(lat: marker.lat, lng: marker.lng)));
-    BlocProvider.of<OffresBloc>(context).add(GetExplorerOffres(
+    BlocProvider.of<OffresBloc>(context).add(GetMarkerOffres(
         recherche: places.LatLng(lat: marker.lat, lng: marker.lng)));
+
     setState(() {
       markeOn = true;
     });
   }
 
   pharmaJobTitu(MarkerModel marker) {
-    BlocProvider.of<OffresBloc>(context).add(GetExplorerOffres(
-        recherche: places.LatLng(lat: marker.lat, lng: marker.lng)));
+    BlocProvider.of<MembresBloc>(context).add(GetMarkerMembres(
+        input: places.LatLng(lat: marker.lat, lng: marker.lng)));
+    /*BlocProvider.of<OffresBloc>(context).add(GetExplorerOffres(
+        recherche: places.LatLng(lat: marker.lat, lng: marker.lng)));*/
   }
 
   pharmaJobNonTitu(MarkerModel marker) {
-    BlocProvider.of<MembresBloc>(context).add(GetExplorerMembres(
-        input: places.LatLng(lat: marker.lat, lng: marker.lng)));
+    BlocProvider.of<OffresBloc>(context).add(GetMarkerOffres(
+        recherche: places.LatLng(lat: marker.lat, lng: marker.lng)));
+    /*BlocProvider.of<MembresBloc>(context).add(GetExplorerMembres(
+        input: places.LatLng(lat: marker.lat, lng: marker.lng)));*/
+  }
+
+  void animateController(places.LatLng local) {
+    googleMapController!.animateCamera(
+        Gmap.CameraUpdate.newLatLngZoom(Gmap.LatLng(local.lat, local.lng), 12));
   }
 
   bool markeOn = false;
@@ -149,6 +159,7 @@ class _HomePageState extends State<HomePage> {
                 MainMap(
                   localisationController: localisationController,
                   mapController: googleMapController,
+                  animateController: animateController,
                 ),
                 SizedBox(
                   height: height * 0.04,
@@ -200,7 +211,7 @@ class _HomePageState extends State<HomePage> {
                 ))
               ],
             ),
-            Positioned.fill(
+            /* Positioned.fill(
               top: height * 0.35,
               bottom: 80,
               left: 20,
@@ -346,7 +357,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ]),
               ),
-            ),
+            ),*/
 
             BlocListener<UsersBlocBloc, UsersBlocState>(
               listener: (context, state) {

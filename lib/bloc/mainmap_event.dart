@@ -20,3 +20,19 @@ class GetOffresMarkersOnAddress extends MainmapEvent {
 
   GetOffresMarkersOnAddress({required this.address});
 }
+class GetLibreResults extends MainmapEvent {
+  final String address;
+
+  GetLibreResults({required this.address});
+}
+class GetLibreMembres extends MainmapEvent {
+  final String address;
+
+  GetLibreMembres({required this.address});
+}
+class GetLibreOffres extends MainmapEvent {
+  final String address;
+
+  GetLibreOffres({required this.address});
+}
+

@@ -12,7 +12,7 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
       : super(NavigationInitial()) {
     on<NavItemClicked>((event, emit) {
       if (event.currentIndex == 0) {
-        emit(ExplorerState());
+        emit(NavigationInitial());
       } else if (event.currentIndex == 1) {
         print(authenticationBloc.currentUser!.poste);
         if (authenticationBloc.currentUser!.poste == UserType.tutor) {

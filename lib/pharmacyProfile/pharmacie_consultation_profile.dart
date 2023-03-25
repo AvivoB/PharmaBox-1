@@ -21,7 +21,7 @@ class PharmacyTabBar extends StatefulWidget {
 
 class _PharmacyTabBarState extends State<PharmacyTabBar> {
   final List<String> confortList = [];
-  late geo.LatLng lc;
+  late geo.LatLng? lc;
 
   final List<IconData> confortTemp = <IconData>[
     Icons.self_improvement_outlined,

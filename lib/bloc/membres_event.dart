@@ -7,16 +7,23 @@ class GetMembres extends MembresEvent {
   final Offre offre;
   GetMembres({required this.offre});
 }
+
 class GetExplorerMembres extends MembresEvent {
-  final places.LatLng input;
-  GetExplorerMembres({required this.input});
+  // final places.LatLng input;
+  final List<NonTitulaire> membres;
+  GetExplorerMembres({required this.membres});
 }
+
 class GetPharmaMembres extends MembresEvent {
   final places.LatLng input;
   GetPharmaMembres({required this.input});
 }
+class GetMarkerMembres extends MembresEvent {
+  final places.LatLng input;
+  GetMarkerMembres({required this.input});
+}
+
 class RechercheLibre extends MembresEvent {
   final String input;
   RechercheLibre({required this.input});
 }
-

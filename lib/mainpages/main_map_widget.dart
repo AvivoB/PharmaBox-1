@@ -1,6 +1,7 @@
 import 'package:flutter/Material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_google_places/flutter_google_places.dart' as fp;
+import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:geocoding/geocoding.dart' as geo;
 import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
@@ -21,9 +22,11 @@ import '../utils/map_utils.dart';
 class MainMap extends StatefulWidget {
   final TextEditingController localisationController;
   maps.GoogleMapController? mapController;
+  Function(place.LatLng) animateController;
   MainMap(
       {Key? key,
       required this.localisationController,
+      required this.animateController,
       required this.mapController})
       : super(key: key);
 
@@ -35,28 +38,25 @@ class _MainMapState extends State<MainMap> {
   late Function(String) onSubmitted;
 
   void explorerSubmit(String address) {
-    BlocProvider.of<off.OffresBloc>(context)
-        .add(off.RechercheLibre(input: address));
-    BlocProvider.of<mem.MembresBloc>(context)
-        .add(mem.RechercheLibre(input: address));
-    BlocProvider.of<phar.PharmacierechercheBloc>(context)
-        .add(phar.RechercheLibre(input: address));
+    BlocProvider.of<MainmapBloc>(context)
+        .add(GetLibreResults(address: address));
   }
 
   void nonTituSubmit(String address) {
-    /*BlocProvider.of<MainmapBloc>(context).add(GetMemberMarkersOnAddress(
-      address: address,
-    ));*/
-    BlocProvider.of<off.OffresBloc>(context)
-        .add(off.RechercheLibre(input: address));
+    print("caled");
+
+    BlocProvider.of<MainmapBloc>(context).add(GetLibreOffres(address: address));
   }
 
   void tituSubmit(String address) {
     /*BlocProvider.of<MainmapBloc>(context).add(GetOffresMarkersOnAddress(
       address: address,
     ));*/
-    BlocProvider.of<mem.MembresBloc>(context)
-        .add(mem.RechercheLibre(input: address));
+    BlocProvider.of<MainmapBloc>(context)
+        .add(GetLibreMembres(address: address));
+
+    /* BlocProvider.of<mem.MembresBloc>(context)
+        .add(mem.RechercheLibre(input: address));*/
   }
 
   void navigationInit(String address) {
@@ -80,15 +80,12 @@ class _MainMapState extends State<MainMap> {
     final double height = MediaQuery.of(context).size.height;
     return BlocConsumer<NavigationBloc, NavigationState>(
       listener: (context, state) {
-        print(state);
-        if (state is ExplorerState) {
-          onSubmitted = explorerSubmit;
-        } else if (state is PharmaJobTituState) {
+       if (state is PharmaJobTituState) {
           onSubmitted = tituSubmit;
         } else if (state is PharmaJobNonTituState) {
           onSubmitted = nonTituSubmit;
         } else {
-          onSubmitted = navigationInit;
+          onSubmitted = explorerSubmit;
         }
       },
       builder: (context, state) => Padding(
@@ -121,7 +118,8 @@ class _MainMapState extends State<MainMap> {
                               child: TextField(
                                 readOnly: false,
                                 onChanged: (val) async {
-                                  response = await places.autocomplete(val);
+                                  response = await places
+                                      .autocomplete(val, types: ["(regions)"]);
                                   setState(() {});
                                 },
                                 decoration: InputDecoration(
@@ -139,16 +137,16 @@ class _MainMapState extends State<MainMap> {
                                   ),
                                 ),
                                 onSubmitted: (val) async {
-                                  onSubmitted(val);
-                                  if (state is NavigationInitial) {
-                                    var local =
-                                        await MapUtils.getLocationFromAddress(
-                                            val);
-                                    widget.mapController!.animateCamera(
-                                        maps.CameraUpdate.newLatLngZoom(
-                                            maps.LatLng(local.lat, local.lng),
-                                            12));
+                                  LatLng? local =
+                                      await MapUtils.getLocationFromAddress(
+                                          val);
+                                  if (local != null) {
+                                    widget.animateController(local);
+                                    navigationInit(val);
+                                  } else {
+                                    onSubmitted(val);
                                   }
+                                 
                                 },
                                 controller: widget.localisationController,
                               ),
@@ -217,7 +215,7 @@ class _MainMapState extends State<MainMap> {
             BlocBuilder<NavigationBloc, NavigationState>(
               builder: (context, state) {
                 if (state is NavigationInitial) {
-                  return response != null
+                  return response != null && response!.predictions.isNotEmpty
                       ? Container(
                           height: 200,
                           padding: const EdgeInsets.all(10),
@@ -258,8 +256,7 @@ class _MainMapState extends State<MainMap> {
                                 },
                               );
                             },
-                          ),
-                        )
+                          ))
                       : const SizedBox();
                 } else {
                   return const SizedBox();

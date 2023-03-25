@@ -48,7 +48,7 @@ class _MainMapProfileState extends State<MainMapProfile> {
             var local = await MapUtils.getLocationFromAddress(
                 widget.localisationController.text);
             widget.mapController!.animateCamera(maps.CameraUpdate.newLatLngZoom(
-                maps.LatLng(local.lat, local.lng), 12));
+                maps.LatLng(local!.lat, local.lng), 12));
           },
           controller: widget.localisationController,
         ),

@@ -7,13 +7,14 @@ import 'package:pharmabox/model/user_models/recherche.dart';
 import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart'
     as places;
 import '../model/user_models/offre.dart';
+import '../utils/map_utils.dart';
 
 part 'offres_event.dart';
 part 'offres_state.dart';
 
 class OffresBloc extends Bloc<OffresEvent, OffresState> {
   OffreService offreService = OffreService();
-  MainmapBloc mainmapBloc = MainmapBloc();
+  List<OffreCard> offres = [];
   OffresBloc() : super(OffresInitial()) {
     on<CreateOffre>((event, emit) async {
       await offreService.createOffre(event.offre);
@@ -28,17 +29,25 @@ class OffresBloc extends Bloc<OffresEvent, OffresState> {
       emit(FilteredOffresReady(offres: offres));
     });
     on<GetExplorerOffres>((event, emit) async {
-      List<OffreCard> offres =
-          await offreService.getExplorerOffres(event.recherche);
-      print(offres.length);
+      offres.clear();
+      offres = [...offres, ...event.offreCard];
       emit(FilteredOffresReady(offres: offres));
+    });
+    on<GetMarkerOffres>((event, emit) async {
+      List<OffreCard> results = [];
+      for (OffreCard membre in offres) {
+        places.LatLng? dest = await MapUtils.getLocationFromAddress(
+            membre.pharmacie.localisation.ville);
+        if (MapUtils.computeDistance(event.recherche, dest!) < 1) {
+          results.add(membre);
+        }
+      }
+      emit(FilteredOffresReady(offres: results));
     });
 
     on<RechercheLibre>((event, emit) async {
       List<OffreCard> offres = await offreService.getLibresOffres(event.input);
-      /*mainmapBloc.add(GetOffresMarkersOnAddress(
-      address: address,
-    ));*/
+
       emit(FilteredOffresReady(offres: offres));
     });
   }

@@ -5,26 +5,43 @@ import 'package:pharmabox/model/user_models/offre.dart';
 import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart'
     as places;
 import '../model/user_models/non_titulaire.dart';
+import '../utils/map_utils.dart';
 
 part 'membres_event.dart';
 part 'membres_state.dart';
 
 class MembresBloc extends Bloc<MembresEvent, MembresState> {
   MembresService membresService = MembresService();
+  List<NonTitulaire> membres = [];
   MembresBloc() : super(MembresInitial()) {
     on<GetMembres>((event, emit) async {
-      
-      emit(MembresReady(membres: await membresService.getFilteredMembres(event.offre)));
+      emit(MembresReady(
+          membres: await membresService.getFilteredMembres(event.offre)));
     });
     on<GetExplorerMembres>((event, emit) async {
-      emit(MembresReady(membres: await membresService.getExplorerMembres(event.input)));
+      membres.clear();
+      membres = [...membres, ...event.membres];
+      emit(MembresReady(membres: membres));
     });
     on<GetPharmaMembres>((event, emit) async {
-      emit(MembresReady(membres: await membresService.getExplorerMembres(event.input)));
+      emit(MembresReady(
+          membres: await membresService.getExplorerMembres(event.input)));
     });
-     on<RechercheLibre>((event, emit) async {
-      List<NonTitulaire> membres = await membresService.getLibresMembres(event.input);
-      emit(MembresReady(membres:membres ));
+    on<RechercheLibre>((event, emit) async {
+      List<NonTitulaire> membres =
+          await membresService.getLibresMembres(event.input);
+      emit(MembresReady(membres: membres));
+    });
+    on<GetMarkerMembres>((event, emit) async {
+      List<NonTitulaire> results = [];
+      for (NonTitulaire membre in membres) {
+        places.LatLng? dest =
+            await MapUtils.getLocationFromAddress(membre.localisation.ville);
+        if (MapUtils.computeDistance(event.input, dest!) < 1) {
+          results.add(membre);
+        }
+      }
+      emit(MembresReady(membres: results));
     });
   }
 }

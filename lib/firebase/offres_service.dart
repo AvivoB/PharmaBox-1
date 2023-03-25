@@ -65,9 +65,9 @@ class OffreService {
             (value) => value.docs.map((e) => Offre.fromMap(e.data())).toList());
     List<Offre> res = [];
     for (Offre membre in membres) {
-      places.LatLng dest =
+      places.LatLng? dest =
           await MapUtils.getLocationFromAddress(membre.localisation);
-      if (MapUtils.computeDistance(localisation, dest) < 1) {
+      if (MapUtils.computeDistance(localisation, dest!) < 1) {
         res.add(membre);
       }
     }
@@ -82,6 +82,39 @@ class OffreService {
       OffreCard result =
           OffreCard(pharmacie: pharmacie, nomOffre: offerDoc.poste);
       results.add(result);
+    }
+    return results;
+  }
+
+  Future getLocationOffres(String address) async {
+    places.LatLng? location = await MapUtils.getLocationFromAddress(address);
+    List<Offre> offres = await _firebaseFirestore
+        .collection("offres")
+        .get()
+        .then(
+            (value) => value.docs.map((e) => Offre.fromMap(e.data())).toList());
+    List<OffreCard> results = [];
+    for (Offre offerDoc in offres) {
+      String pharmacyId = offerDoc.pharmacieId;
+      Pharmacie pharmacie = await FirebaseFirestore.instance
+          .collection('pharmacie')
+          .doc(pharmacyId)
+          .get()
+          .then((value) => Pharmacie.fromJson(value.data()));
+      OffreCard result =
+          OffreCard(pharmacie: pharmacie, nomOffre: offerDoc.poste);
+      results.add(result);
+    }
+    int i = 0;
+    while (i < results.length) {
+      OffreCard membre = results[i];
+
+      places.LatLng? result = await MapUtils.getLocationFromAddress(
+          membre.pharmacie.localisation.ville);
+      if (MapUtils.computeDistance(location!, result!) > 10000) {
+        results.removeAt(i);
+      }
+      i++;
     }
     return results;
   }

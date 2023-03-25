@@ -5,7 +5,6 @@ import 'package:page_transition/page_transition.dart';
 import 'package:pharmabox/pharmacyProfile/pharmacie_consultation.dart';
 
 import '../../Home/map.dart';
-import '../../Home/pharmajob_non_titu.dart';
 import '../../Theme/text.dart';
 import '../../Widgets/jobsbox.dart';
 import '../../bloc/offres_bloc.dart';

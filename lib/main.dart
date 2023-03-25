@@ -59,6 +59,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authenticationBloc = UsersBlocBloc(userService: UserService());
+    final membresBloc = MembresBloc();
+    final offresBloc = OffresBloc();
+    final pharmacieRechercheBloc = PharmacierechercheBloc();
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -109,19 +112,19 @@ class MyApp extends StatelessWidget {
               TitulaireBloc(titulaires: [], usersBlocBloc: authenticationBloc),
         ),
         BlocProvider(
-          create: (_) => OffresBloc(),
+          create: (_) => offresBloc,
         ),
         BlocProvider(
           create: (_) => RechercheBloc(),
         ),
         BlocProvider(
-          create: (_) => MembresBloc(),
+          create: (_) =>membresBloc,
         ),
         BlocProvider(
-          create: (_) => PharmacierechercheBloc(),
+          create: (_) => pharmacieRechercheBloc,
         ),
         BlocProvider(
-          create: (_) => MainmapBloc(),
+          create: (_) => MainmapBloc(membresBloc: membresBloc,offresBloc: offresBloc,pharmacierechercheBloc: pharmacieRechercheBloc),
         ),
         BlocProvider(create: (_) => LgosearchBloc()),
         BlocProvider(create: (_) => SpecialisationsearchBloc()),

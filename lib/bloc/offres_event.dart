@@ -18,9 +18,15 @@ class GetFilteredOffres extends OffresEvent {
   final Recherche recherche;
   const GetFilteredOffres({required this.recherche});
 }
+
 class GetExplorerOffres extends OffresEvent {
+  //final places.LatLng recherche;
+  final List<OffreCard> offreCard;
+  const GetExplorerOffres({required this.offreCard});
+}
+class GetMarkerOffres extends OffresEvent {
   final places.LatLng recherche;
-  const GetExplorerOffres({required this.recherche});
+  const GetMarkerOffres({required this.recherche});
 }
 
 class RechercheLibre extends OffresEvent {

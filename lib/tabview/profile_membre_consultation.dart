@@ -127,12 +127,9 @@ class _ProfilTabState extends State<ProfilTab> {
                       children: List.generate(
                           widget.membre.lgos.length,
                           (index) => Row(children: [
-                                SizedBox(
-                                  width: width * 0.05,
-                                ),
                                 CustomSliderConsul(
                                   assetImage: 'assets/icons/computerIcon.png',
-                                  categoryCount: 3,
+                                  categoryCount: 2,
                                   parent: Lgo(
                                     niveau: widget.membre.lgos[index].niveau,
                                     nom: widget.membre.lgos[index].nom,
@@ -270,7 +267,7 @@ class _ProfilTabState extends State<ProfilTab> {
                                     height: height * 0.025,
                                   ),
                                   SizedBox(
-                                    width: width * 0.025,
+                                    width: width * 0.02,
                                   ),
                                   Text(
                                     'Gestion des labos',
@@ -316,7 +313,7 @@ class _ProfilTabState extends State<ProfilTab> {
                     Row(
                       children: [
                         SizedBox(
-                          width: width * 0.05,
+                          width: width * 0.02,
                         ),
                         Text(
                           'Langues',
@@ -332,10 +329,10 @@ class _ProfilTabState extends State<ProfilTab> {
                           widget.membre.langues.length,
                           (index) => Row(children: [
                                 SizedBox(
-                                  width: width * 0.05,
+                                  width: width * 0.02,
                                 ),
                                 CustomSliderConsul(
-                                  assetImage: 'assets/icons/computerIcon.png',
+                                  assetImage: 'assets/icons/worldIcon.png',
                                   categoryCount: 3,
                                   parent: Langue(
                                       niveau:
@@ -372,7 +369,8 @@ class _ProfilTabState extends State<ProfilTab> {
           ...List.generate(
             widget.membre.experiences.length,
             (index) => Container(
-              padding: const EdgeInsets.only(left: 8, right: 8, bottom: 10),
+              padding:
+                  EdgeInsets.only(left: 8 + width * 0.02, right: 8, bottom: 10),
               width: width * 0.9,
               decoration: const BoxDecoration(
                 color: Color.fromRGBO(255, 255, 255, 1),

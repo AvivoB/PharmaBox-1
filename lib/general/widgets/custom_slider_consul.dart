@@ -56,10 +56,13 @@ class _CustomSliderConsulState extends State<CustomSliderConsul> {
       setState(() {});
     } else {
       if (widget.parent.niveau < 50) {
-        labelText = 'Moyen';
+        labelText = 'MAîtrise Basique';
+        _gradient = kbasicGradient;
+      } else if (widget.parent.niveau > 50 && widget.parent.niveau < 80) {
+        labelText = 'Maîtrise Intérmédiaire';
         _gradient = kintermediateLevelGradient;
       } else {
-        labelText = 'Maitrise complète';
+        labelText = 'Maîtrise complète';
         _gradient = kexpertLevelGradient;
       }
       setState(() {});

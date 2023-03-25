@@ -13,25 +13,28 @@ import 'package:flutter/material.dart' as mat;
 import 'dart:ui' as ui;
 
 class MapUtils {
-  static Future<places.LatLng> getLocationFromAddress(String address) async {
-    print("our address is:"+address);
-    List<geo.Location> locations = await geo.locationFromAddress(address);
-    geo.Location location = locations.first;
-    return places.LatLng(lat: location.latitude, lng: location.longitude);
+  static Future<places.LatLng?> getLocationFromAddress(String address) async {
+    try {
+      List<geo.Location> locations = await geo.locationFromAddress(address);
+      geo.Location location = locations.first;
+      return places.LatLng(lat: location.latitude, lng: location.longitude);
+    } catch (e) {
+      return null;
+    }
   }
 
   static double computeDistance(
       places.LatLng source, places.LatLng destination) {
     Point from = Point(source.lat, source.lng);
     Point to = Point(destination.lat, destination.lng);
-
+    print("la distance soouffrance:" +
+        SphericalUtils.computeDistanceBetween(from, to).toString());
     return SphericalUtils.computeDistanceBetween(from, to);
   }
 
   static Future getAddressFromLocation(maps.LatLng coord) async {
     List<geo.Placemark> markers =
         await geo.placemarkFromCoordinates(coord.latitude, coord.longitude);
-    print(markers[0]);
     return markers[0].name!;
   }
 }

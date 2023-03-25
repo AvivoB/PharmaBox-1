@@ -5,8 +5,15 @@ part of 'pharmacierecherche_bloc.dart';
 abstract class PharmacierechercheEvent {}
 
 class GetExplorerPharmacies extends PharmacierechercheEvent {
-  final places.LatLng recherche;
+  // final places.LatLng recherche;
+  final List<Pharmacie> pharmacies;
   GetExplorerPharmacies({
+    required this.pharmacies,
+  });
+}
+class GetMarkerPharmacies extends PharmacierechercheEvent {
+final places.LatLng recherche;
+  GetMarkerPharmacies({
     required this.recherche,
   });
 }

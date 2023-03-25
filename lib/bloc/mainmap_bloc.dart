@@ -1,9 +1,19 @@
 import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
 import 'package:meta/meta.dart';
+import 'package:pharmabox/bloc/membres_bloc.dart';
+import 'package:pharmabox/bloc/offres_bloc.dart';
+import 'package:pharmabox/bloc/pharmacierecherche_bloc.dart';
 import 'package:pharmabox/firebase/main_map_service.dart';
+import 'package:pharmabox/firebase/membres_service.dart';
+import 'package:pharmabox/firebase/offres_service.dart';
+import 'package:pharmabox/firebase/pharmacie_calls.dart';
 import 'package:pharmabox/model/user_models/marker_model.dart';
+import 'package:pharmabox/model/user_models/non_titulaire.dart';
+import 'package:pharmabox/model/user_models/offre_card.dart';
+import 'package:pharmabox/model/user_models/pharmacie.dart';
 
 import '../utils/map_utils.dart';
 
@@ -12,24 +22,183 @@ part 'mainmap_state.dart';
 
 class MainmapBloc extends Bloc<MainmapEvent, MainmapState> {
   MainMapService mainMapService = MainMapService();
-  MainmapBloc() : super(MainmapInitial(models:const [])) {
+  MembresBloc membresBloc;
+  OffresBloc offresBloc;
+  PharmacierechercheBloc pharmacierechercheBloc;
+  MainmapBloc(
+      {required this.membresBloc,
+      required this.offresBloc,
+      required this.pharmacierechercheBloc})
+      : super(MainmapInitial(models: const [])) {
     on<GetMarkersOnAddress>((event, emit) async {
-      emit(ResultsLoading(models:const []));
-      List<MarkerModel> markers =
+      emit(ResultsLoading(models: const []));
+      emit(ResultsLoading(models: const []));
+      MembresService membresService = MembresService();
+      OffreService offreService = OffreService();
+      PharmacieCalls pharmacieCalls = PharmacieCalls();
+      List<NonTitulaire> membres =
+          await membresService.getLocationMembres(event.address);
+      List<Pharmacie> pharmacies =
+          await pharmacieCalls.getLocationPharmacie(event.address);
+
+      List<OffreCard> offresCard =
+          await offreService.getLocationOffres(event.address);
+
+      Map<MarkerModel, int> markers = {};
+      print(membres.length);
+      for (NonTitulaire membre in membres) {
+        LatLng? geo =
+            await MapUtils.getLocationFromAddress(membre.localisation.ville);
+        MarkerModel model = MarkerModel(lat: geo!.lat, lng: geo.lng, count: 0);
+        if (markers.containsKey(model)) {
+          markers[model] = markers[model]! + 1;
+        } else {
+          markers[model] = 1;
+        }
+      }
+      for (Pharmacie membre in pharmacies) {
+        LatLng? geo =
+            await MapUtils.getLocationFromAddress(membre.localisation.ville);
+        MarkerModel model = MarkerModel(lat: geo!.lat, lng: geo.lng, count: 0);
+        if (markers.containsKey(model)) {
+          markers[model] = markers[model]! + 1;
+        } else {
+          markers[model] = 1;
+        }
+      }
+      for (OffreCard membre in offresCard) {
+        LatLng? geo = await MapUtils.getLocationFromAddress(
+            membre.pharmacie.localisation.ville);
+        MarkerModel model = MarkerModel(lat: geo!.lat, lng: geo.lng, count: 0);
+        if (markers.containsKey(model)) {
+          markers[model] = markers[model]! + 1;
+        } else {
+          markers[model] = 1;
+        }
+      }
+      List<MarkerModel> results = [];
+      markers.forEach(
+        (key, value) =>
+            results.add(MarkerModel(lat: key.lat, lng: key.lng, count: value)),
+      );
+      membresBloc.add(GetExplorerMembres(membres: membres));
+      offresBloc.add(GetExplorerOffres(offreCard: offresCard));
+      pharmacierechercheBloc.add(GetExplorerPharmacies(pharmacies: pharmacies));
+      emit(ResultsReady(models: results));
+      /*List<MarkerModel> markers =
           await mainMapService.getCloseLocationResults(event.address);
-      emit(ResultsReady(models: markers));
+      emit(ResultsReady(models: markers));*/
     });
-     on<GetMemberMarkersOnAddress>((event, emit) async {
-      emit(ResultsLoading(models:const []));
-      List<MarkerModel> markers =
-          await mainMapService.getCloseLocationMmebres(event.address);
-      emit(ResultsReady(models: markers));
+
+    on<GetLibreResults>((event, emit) async {
+      emit(ResultsLoading(models: const []));
+      MembresService membresService = MembresService();
+      OffreService offreService = OffreService();
+      PharmacieCalls pharmacieCalls = PharmacieCalls();
+      List<NonTitulaire> membres =
+          await membresService.getLibresMembres(event.address);
+      List<Pharmacie> pharmacies =
+          await pharmacieCalls.getLibrePharmacies(event.address);
+
+      List<OffreCard> offresCard =
+          await offreService.getLibresOffres(event.address);
+
+      Map<MarkerModel, int> markers = {};
+      for (NonTitulaire membre in membres) {
+        LatLng? geo =
+            await MapUtils.getLocationFromAddress(membre.localisation.ville);
+        MarkerModel model = MarkerModel(lat: geo!.lat, lng: geo.lng, count: 0);
+        if (markers.containsKey(model)) {
+          markers[model] = markers[model]! + 1;
+        } else {
+          markers[model] = 1;
+        }
+      }
+      for (Pharmacie membre in pharmacies) {
+        LatLng? geo =
+            await MapUtils.getLocationFromAddress(membre.localisation.ville);
+        MarkerModel model = MarkerModel(lat: geo!.lat, lng: geo.lng, count: 0);
+        if (markers.containsKey(model)) {
+          markers[model] = markers[model]! + 1;
+        } else {
+          markers[model] = 1;
+        }
+      }
+      for (OffreCard membre in offresCard) {
+        LatLng? geo = await MapUtils.getLocationFromAddress(
+            membre.pharmacie.localisation.ville);
+        MarkerModel model = MarkerModel(lat: geo!.lat, lng: geo.lng, count: 0);
+        if (markers.containsKey(model)) {
+          markers[model] = markers[model]! + 1;
+        } else {
+          markers[model] = 1;
+        }
+      }
+      List<MarkerModel> results = [];
+      markers.forEach(
+        (key, value) =>
+            results.add(MarkerModel(lat: key.lat, lng: key.lng, count: value)),
+      );
+      membresBloc.add(GetExplorerMembres(membres: membres));
+      offresBloc.add(GetExplorerOffres(offreCard: offresCard));
+      pharmacierechercheBloc.add(GetExplorerPharmacies(pharmacies: pharmacies));
+      emit(ResultsReady(models: results));
     });
-    on<GetOffresMarkersOnAddress>((event, emit) async {
-      emit(ResultsLoading(models:const []));
-      List<MarkerModel> markers =
-          await mainMapService.getCloseOffresResults(event.address);
-      emit(ResultsReady(models: markers));
+    on<GetLibreMembres>((event, emit) async {
+      print("weeeee");
+
+      emit(ResultsLoading(models: const []));
+      MembresService membresService = MembresService();
+      List<NonTitulaire> membres =
+          await membresService.getLibresMembres(event.address);
+
+      Map<MarkerModel, int> markers = {};
+      for (NonTitulaire membre in membres) {
+        LatLng? geo =
+            await MapUtils.getLocationFromAddress(membre.localisation.ville);
+        MarkerModel model = MarkerModel(lat: geo!.lat, lng: geo.lng, count: 0);
+        if (markers.containsKey(model)) {
+          print("yes");
+          markers[model] = markers[model]! + 1;
+        } else {
+          markers[model] = 1;
+        }
+      }
+
+      List<MarkerModel> results = [];
+      markers.forEach(
+        (key, value) =>
+            results.add(MarkerModel(lat: key.lat, lng: key.lng, count: value)),
+      );
+      membresBloc.add(GetExplorerMembres(membres: membres));
+      emit(ResultsReady(models: results));
+    });
+    on<GetLibreOffres>((event, emit) async {
+      emit(ResultsLoading(models: const []));
+      OffreService offreService = OffreService();
+      print("weeeee");
+      List<OffreCard> offresCard =
+          await offreService.getLibresOffres(event.address);
+
+      Map<MarkerModel, int> markers = {};
+
+      for (OffreCard membre in offresCard) {
+        LatLng? geo = await MapUtils.getLocationFromAddress(
+            membre.pharmacie.localisation.ville);
+        MarkerModel model = MarkerModel(lat: geo!.lat, lng: geo.lng, count: 0);
+        if (markers.containsKey(model)) {
+          markers[model] = markers[model]! + 1;
+        } else {
+          markers[model] = 1;
+        }
+      }
+      List<MarkerModel> results = [];
+      markers.forEach(
+        (key, value) =>
+            results.add(MarkerModel(lat: key.lat, lng: key.lng, count: value)),
+      );
+      offresBloc.add(GetExplorerOffres(offreCard: offresCard));
+      emit(ResultsReady(models: results));
     });
   }
 }
