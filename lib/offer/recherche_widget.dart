@@ -152,9 +152,6 @@ class _RechercheWidgetState extends State<RechercheWidget> {
           ),
           child: Container(
               padding: const EdgeInsets.all(10),
-              height: arrow
-                  ? MediaQuery.of(context).size.height * 2.8
-                  : MediaQuery.of(context).size.height * 0.07,
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(

@@ -19,27 +19,33 @@ class ProfilTabEdit extends StatelessWidget {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return Column(
-      children: [
-        SizedBox(
-          height: height * 0.02,
-        ),
-       // UniversiteContainer(height: height, width: width),
-        SpecialisationContainer(width: width, height: height),
-        LgoContainer(height: height, width: width),
-        CompetencesContainer(height: height, width: width),
-        LanguesContainer(height: height, width: width),
-        ExperiencesContainer(width: width, height: height),
-        AutresContainer(
-          height: height,
-          width: width,
-          conditions: conditions,
-          callbacks: callbacks,
-        ),
-        SizedBox(
-          height: height * 0.025,
-        ),
-      ],
+    return SingleChildScrollView(
+      padding: const EdgeInsets.only(bottom: 50),
+      child: Column(
+        children: [
+          SizedBox(
+            height: height * 0.02,
+          ),
+          // UniversiteContainer(height: height, width: width),
+          SpecialisationContainer(width: width, height: height),
+          LgoContainer(height: height, width: width),
+          CompetencesContainer(height: height, width: width),
+          LanguesContainer(height: height, width: width),
+          ExperiencesContainer(width: width, height: height),
+          AutresContainer(
+            height: height,
+            width: width,
+            conditions: conditions,
+            callbacks: callbacks,
+          ),
+          SizedBox(
+            height: height * 0.025,
+          ),
+          const SizedBox(
+            height: 50,
+          )
+        ],
+      ),
     );
   }
 }

@@ -17,103 +17,90 @@ class PharmaJobNav extends StatelessWidget {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(
-              height: height * 0.01,
-            ),
-            Flexible(
-              child: SingleChildScrollView(
-                child: BlocBuilder<MembresBloc, MembresState>(
-                    builder: (context, state) {
-                  if (state is MembresReady) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Image(
-                                image: AssetImage(
-                                    'assets/images/homeindicator.png'),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              '${state.membres.length} résultats',
-                              style: paragraph,
-                            ),
-                          ],
-                        ),
-                        ...List.generate(
-                          state.membres.length,
-                          (index) => Padding(
-                            padding:
-                                const EdgeInsets.only(bottom: 20.0, top: 20),
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        Profil(membre: state.membres[index]),
-                                  ),
-                                );
-                              },
-                              child: MembersBox(
-                                poste: state.membres[index].poste,
-                                image: state.membres[index].photoUrl != ''
-                                    ? state.membres[index].photoUrl
-                                    : 'assets/images/user.png',
-                                name: state.membres[index].nom +
-                                    ' ' +
-                                    state.membres[index].prenom,
-                                zip: state
-                                        .membres[index].localisation.codePostal
-                                        .toString() +
-                                    ' ' +
-                                    state.membres[index].localisation.ville,
-                              ),
-                            ),
+    return SingleChildScrollView(
+      child: Container(
+        color: Color.fromARGB(255, 251, 251, 251),
+        margin: EdgeInsets.only(top: height * 0.02),
+        child:
+            BlocBuilder<MembresBloc, MembresState>(builder: (context, state) {
+          if (state is MembresReady) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Image(
+                        image: AssetImage('assets/images/homeindicator.png'),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '${state.membres.length} résultats',
+                      style: paragraph,
+                    ),
+                  ],
+                ),
+                ...List.generate(
+                  state.membres.length,
+                  (index) => Padding(
+                    padding: const EdgeInsets.only(bottom: 20.0, top: 20),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                Profil(membre: state.membres[index]),
                           ),
-                        )
-                      ],
-                    );
-                  } else {
-                    return Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Image(
-                                image: AssetImage(
-                                    'assets/images/homeindicator.png'),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Text(
-                          '0 résultats',
-                          style: paragraph,
-                        ),
-                      ],
-                    );
-                  }
-                }),
-              ),
-            ),
-          ],
-        ),
+                        );
+                      },
+                      child: MembersBox(
+                        poste: state.membres[index].poste,
+                        image: state.membres[index].photoUrl != ''
+                            ? state.membres[index].photoUrl
+                            : 'assets/images/user.png',
+                        name: state.membres[index].nom +
+                            ' ' +
+                            state.membres[index].prenom,
+                        zip: state.membres[index].localisation.codePostal
+                                .toString() +
+                            ' ' +
+                            state.membres[index].localisation.ville,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            );
+          } else {
+            return Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Image(
+                        image: AssetImage('assets/images/homeindicator.png'),
+                      ),
+                    ),
+                  ],
+                ),
+                Text(
+                  '0 résultats',
+                  style: paragraph,
+                ),
+              ],
+            );
+          }
+        }),
       ),
     );
   }

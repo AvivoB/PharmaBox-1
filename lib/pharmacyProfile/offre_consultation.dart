@@ -23,30 +23,31 @@ class _OffreConsultationState extends State<OffreConsultation> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: BlocBuilder<OffresBloc, OffresState>(
-        builder: (context, state) {
-          print(state);
-          if (state is OffresReady) {
-            print(state.offres.length);
-            return SingleChildScrollView(
-                child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: List.generate(
-                        state.offres.length,
-                        (index) => InkWell(
-                            onTap: () {
-                              BlocProvider.of<MembresBloc>(context)
-                                  .add(GetMembres(offre: state.offres[index]));
-                            },
-                            child: OffreConslutationWidget(offre: state.offres[index])))));
-          } else {
-            return const Center(
-              child: Text("No offres"),
-            );
-          }
-        },
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: BlocBuilder<OffresBloc, OffresState>(
+          builder: (context, state) {
+            print(state);
+            if (state is OffresReady) {
+              print(state.offres.length);
+              return Column(
+                  children: List.generate(
+                      state.offres.length,
+                      (index) => InkWell(
+                          onTap: () {
+                            BlocProvider.of<MembresBloc>(context)
+                                .add(GetMembres(offre: state.offres[index]));
+                          },
+                          child: OffreConslutationWidget(
+                              offre: state.offres[index]))));
+            } else {
+              return const Center(
+                child: Text("No offres"),
+              );
+            }
+          },
+        ),
       ),
     );
   }

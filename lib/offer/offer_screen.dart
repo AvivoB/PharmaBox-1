@@ -30,13 +30,10 @@ class _OfferScreenState extends State<OfferScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: BlocBuilder<OffresBloc, OffresState>(
         builder: (context, state) {
-          print(state);
           if (state is OffresReady) {
-            print(state.offres.length);
-            return SingleChildScrollView(
-                child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: List.generate(
+            return  SingleChildScrollView(
+              padding: const EdgeInsets.only(bottom:50),
+                   child:Column( children: List.generate(
                         state.offres.length,
                         (index) => InkWell(
                             onTap: () {

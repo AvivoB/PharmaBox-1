@@ -126,7 +126,8 @@ class _PharmacyTabBarState extends State<PharmacyTabBar> {
 
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return Column(
+    return SingleChildScrollView(
+        child: Column(
       children: [
         SizedBox(
           height: height * 0.03,
@@ -685,7 +686,7 @@ class _PharmacyTabBarState extends State<PharmacyTabBar> {
         ),
         const TabBarButton(),
       ],
-    );
+    ));
   }
 }
 

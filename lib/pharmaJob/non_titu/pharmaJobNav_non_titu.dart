@@ -17,179 +17,92 @@ class PharmaJobNavNonTitu extends StatelessWidget {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(
-              height: height * 0.01,
-            ),
-            /*Container(
-              height: height * 0.1,
-              color: Colors.white,
-              child: Column(
+    return SingleChildScrollView(
+      child: Container(
+        color: Color.fromARGB(255, 251, 251, 251),
+        margin:  EdgeInsets.only(top:height*0.02),
+        child: BlocBuilder<OffresBloc, OffresState>(
+          builder: (context, state) {
+            if (state is FilteredOffresReady) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: height * 0.01,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Image(
+                          image: AssetImage('assets/images/homeindicator.png'),
+                        ),
+                      ),
+                    ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: const Color.fromRGBO(208, 209, 222, 1),
-                          ),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        width: width * 0.9,
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: width * 0.8,
-                              child: TextField(
-                                onSubmitted: (val) {
-                                  BlocProvider.of<OffresBloc>(context)
-                                      .add(RechercheLibre(input: val));
-                                },
-                                decoration: const InputDecoration(
-                                  hintText: 'Rechercher',
-                                  border: InputBorder.none,
-                                  icon: Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Icon(
-                                      Icons.search,
-                                      size: 25,
-                                      color: Color.fromRGBO(208, 209, 222, 1),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(25.0),
-                                    ),
-                                  ),
-                                  isScrollControlled: true,
-                                  context: context,
-                                  builder: (context) => const NonTituSheet(),
-                                );
-                              },
-                              child: Image(
-                                height: height * 0.04,
-                                image: const AssetImage(
-                                  'assets/icons/filter.png',
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: height * 0.05,
+                      Text(
+                        '${state.offres.length} résultats',
+                        style: paragraph,
                       ),
                     ],
                   ),
-                ],
-              ),
-            ),*/
-            Flexible(
-              child: SingleChildScrollView(
-                child: BlocBuilder<OffresBloc, OffresState>(
-                  builder: (context, state) {
-                    if (state is FilteredOffresReady) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Image(
-                                  image: AssetImage(
-                                      'assets/images/homeindicator.png'),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                '${state.offres.length} résultats',
-                                style: paragraph,
-                              ),
-                            ],
-                          ),
-                          ...List.generate(
-                            state.offres.length,
-                            (index) => Padding(
-                              padding:
-                                  const EdgeInsets.only(bottom: 20.0, top: 20),
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => PharmacyProfile(
-                                        pharmacie:
-                                            state.offres[index].pharmacie,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                child: JobBox(
-                                  pharmacie: state.offres[index].pharmacie,
-                                  jobName: state.offres[index].nomOffre,
-                                  zip: state.offres[index].pharmacie
-                                          .localisation.codePostal
-                                          .toString() +
-                                      ' ' +
-                                      state.offres[index].pharmacie.localisation
-                                          .ville,
-                                  pharm: state.offres[index].pharmacie.nom,
-                                  imagePharm: state.offres[index].pharmacie
-                                          .images.isEmpty
-                                      ? 'assets/images/pharma_img.png'
-                                      : state.offres[index].pharmacie.images[0],
-                                ),
+                  ...List.generate(
+                    state.offres.length,
+                    (index) => Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0, top: 20),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PharmacyProfile(
+                                pharmacie: state.offres[index].pharmacie,
                               ),
                             ),
-                          )
-                        ],
-                      );
-                    } else {
-                      return Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Image(
-                                  image: AssetImage(
-                                      'assets/images/homeindicator.png'),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            '0 résultats',
-                            style: paragraph,
-                          ),
-                        ],
-                      );
-                    }
-                  },
-                ),
-              ),
-            ),
-          ],
+                          );
+                        },
+                        child: JobBox(
+                          pharmacie: state.offres[index].pharmacie,
+                          jobName: state.offres[index].nomOffre,
+                          zip: state.offres[index].pharmacie.localisation
+                                  .codePostal
+                                  .toString() +
+                              ' ' +
+                              state.offres[index].pharmacie.localisation.ville,
+                          pharm: state.offres[index].pharmacie.nom,
+                          imagePharm:
+                              state.offres[index].pharmacie.images.isEmpty
+                                  ? 'assets/images/pharma_img.png'
+                                  : state.offres[index].pharmacie.images[0],
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              );
+            } else {
+              return Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Image(
+                          image: AssetImage('assets/images/homeindicator.png'),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    '0 résultats',
+                    style: paragraph,
+                  ),
+                ],
+              );
+            }
+          },
         ),
       ),
     );

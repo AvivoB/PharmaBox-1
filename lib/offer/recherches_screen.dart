@@ -21,11 +21,13 @@ class _RechercheScreenState extends State<RechercheScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RechercheBloc, RechercheState>(
+    return SingleChildScrollView(
+            padding: const EdgeInsets.only(bottom: 50),
+            child:BlocBuilder<RechercheBloc, RechercheState>(
       builder: (context, state) {
         print(state);
         if (state is RecherchesReady) {
-          return Column(
+          return  Column(
               children: List.generate(
                   state.recherches.length,
                   (index) => InkWell(
@@ -34,14 +36,16 @@ class _RechercheScreenState extends State<RechercheScreen> {
                             GetFilteredOffres(
                                 recherche: state.recherches[index]));
                       },
-                      child: RechercheWidget(
-                          recherche: state.recherches[index]))));
+                      child:
+                          RechercheWidget(recherche: state.recherches[index]))),
+            
+          );
         } else {
           return const Center(
             child: Text("Pas de recherches"),
           );
         }
       },
-    );
+    ));
   }
 }

@@ -54,7 +54,7 @@ class ConsultationCalendar extends StatelessWidget {
                     ),
                     child: Padding(
                         padding: const EdgeInsets.only(left: 10.0),
-                        child: RangerConsultation(workHours: workHours[index])),
+                        child: RangerConsultation(workHours: workHours[index*2],secondWorkHours:workHours[index*2+1])),
                   ),
                 ])));
   }

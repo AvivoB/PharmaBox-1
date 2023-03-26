@@ -212,8 +212,8 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                       'Préparateur',
                       'Apprenti',
                       'Etudiant Pharmacie',
-                      'Etudiant en 6éme année validée'
-                          'Pharmacien',
+                      'Etudiant en 6éme année validée',
+                      'Pharmacien',
                     ].map((String value) {
                       return DropdownMenuItem<String>(
                         value: value,

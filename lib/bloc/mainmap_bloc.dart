@@ -118,11 +118,14 @@ class MainmapBloc extends Bloc<MainmapEvent, MainmapState> {
       for (Pharmacie membre in pharmacies) {
         LatLng? geo =
             await MapUtils.getLocationFromAddress(membre.localisation.ville);
-        MarkerModel model = MarkerModel(lat: geo!.lat, lng: geo.lng, count: 0);
-        if (markers.containsKey(model)) {
-          markers[model] = markers[model]! + 1;
-        } else {
-          markers[model] = 1;
+        if (geo != null) {
+          MarkerModel model =
+              MarkerModel(lat: geo!.lat, lng: geo.lng, count: 0);
+          if (markers.containsKey(model)) {
+            markers[model] = markers[model]! + 1;
+          } else {
+            markers[model] = 1;
+          }
         }
       }
       for (OffreCard membre in offresCard) {

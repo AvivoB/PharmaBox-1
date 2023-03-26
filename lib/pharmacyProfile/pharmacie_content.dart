@@ -88,6 +88,41 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
       endDate: const TimeOfDay(hour: 0, minute: 0),
       open: false,
     ),
+    WorkHours(
+      startDate: const TimeOfDay(hour: 0, minute: 0),
+      endDate: const TimeOfDay(hour: 0, minute: 0),
+      open: false,
+    ),
+    WorkHours(
+      startDate: const TimeOfDay(hour: 0, minute: 0),
+      endDate: const TimeOfDay(hour: 0, minute: 0),
+      open: false,
+    ),
+    WorkHours(
+      startDate: const TimeOfDay(hour: 0, minute: 0),
+      endDate: const TimeOfDay(hour: 0, minute: 0),
+      open: false,
+    ),
+    WorkHours(
+      startDate: const TimeOfDay(hour: 0, minute: 0),
+      endDate: const TimeOfDay(hour: 0, minute: 0),
+      open: false,
+    ),
+    WorkHours(
+      startDate: const TimeOfDay(hour: 0, minute: 0),
+      endDate: const TimeOfDay(hour: 0, minute: 0),
+      open: false,
+    ),
+    WorkHours(
+      startDate: const TimeOfDay(hour: 0, minute: 0),
+      endDate: const TimeOfDay(hour: 0, minute: 0),
+      open: false,
+    ),
+    WorkHours(
+      startDate: const TimeOfDay(hour: 0, minute: 0),
+      endDate: const TimeOfDay(hour: 0, minute: 0),
+      open: false,
+    ),
   ];
   late AnimationController controller;
   GoogleMapController? mapController;
@@ -316,1104 +351,1113 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
 
-    return Form(
-        key: formKey11,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              height: height * 0.03,
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
-              width: width * 0.9,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(15),
+    return SingleChildScrollView(
+        padding: const EdgeInsets.only(bottom: 50),
+        child: Form(
+            key: formKey11,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: height * 0.03,
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromRGBO(31, 92, 103, 0.17),
-                    offset: Offset(3, 3),
-                    blurRadius: 3,
+                Container(
+                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
+                  width: width * 0.9,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromRGBO(31, 92, 103, 0.17),
+                        offset: Offset(3, 3),
+                        blurRadius: 3,
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: height * 0.015,
-                  ),
-                  Row(
+                  child: Column(
                     children: [
                       SizedBox(
-                        width: width * 0.05,
+                        height: height * 0.015,
                       ),
-                      Text(
-                        'Contact pharmacie',
-                        style: heading,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  CustomPharmacyTextField(
-                    label: 'Email',
-                    prefixIcon: const Icon(Icons.email_outlined),
-                    controller: emailController,
-                  ),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  CustomPharmacyTextField(
-                    label: 'Téléphone',
-                    prefixIcon: const Icon(Icons.phone),
-                    showSuffix: true,
-                    textInputType: TextInputType.phone,
-                    controller: phoneController,
-                  ),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  Stack(
-                    children: [
-                      CustomPharmacyTextField(
-                        controller: prefEmailController,
-                        label: 'Préférences contact',
-                        prefixIcon: const Icon(Icons.settings),
-                        readOnly: true,
-                      ),
-                      Positioned(
-                        right: 7.w,
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            items: <String>[
-                              'Tous',
-                              'Email uniquement',
-                              'Téléphone uniquement'
-                            ].map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(
-                                  value,
-                                ),
-                              );
-                            }).toList(),
-                            alignment: Alignment.bottomCenter,
-                            onChanged: (val) {
-                              prefEmailController.text = val ?? '';
-                            },
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: width * 0.05,
                           ),
-                        ),
+                          Text(
+                            'Contact pharmacie',
+                            style: heading,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: height * 0.02,
+                      ),
+                      CustomPharmacyTextField(
+                        label: 'Email',
+                        prefixIcon: const Icon(Icons.email_outlined),
+                        controller: emailController,
+                      ),
+                      SizedBox(
+                        height: height * 0.02,
+                      ),
+                      CustomPharmacyTextField(
+                        label: 'Téléphone',
+                        prefixIcon: const Icon(Icons.phone),
+                        showSuffix: true,
+                        textInputType: TextInputType.phone,
+                        controller: phoneController,
+                      ),
+                      SizedBox(
+                        height: height * 0.02,
+                      ),
+                      Stack(
+                        children: [
+                          CustomPharmacyTextField(
+                            controller: prefEmailController,
+                            label: 'Préférences contact',
+                            prefixIcon: const Icon(Icons.settings),
+                            readOnly: true,
+                          ),
+                          Positioned(
+                            right: 7.w,
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton<String>(
+                                items: <String>[
+                                  'Tous',
+                                  'Email uniquement',
+                                  'Téléphone uniquement'
+                                ].map((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(
+                                      value,
+                                    ),
+                                  );
+                                }).toList(),
+                                alignment: Alignment.bottomCenter,
+                                onChanged: (val) {
+                                  prefEmailController.text = val ?? '';
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: height * 0.02,
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              height: height * 0.4,
-              width: width * 0.9,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(15),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromRGBO(31, 92, 103, 0.17),
-                    offset: Offset(3, 3),
-                    blurRadius: 3,
-                  ),
-                ],
-              ),
-              child: Column(children: [
-                SizedBox(
-                  height: height * 0.015,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: width * 0.05,
-                    ),
-                    Text(
-                      'Localisation',
-                      style: heading,
-                    ),
-                  ],
                 ),
                 SizedBox(
                   height: height * 0.02,
                 ),
                 Container(
+                  padding: const EdgeInsets.only(left: 8, right: 8),
+                  height: height * 0.4,
                   width: width * 0.9,
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(
-                      Radius.circular(20),
+                      Radius.circular(15),
                     ),
-                  ),
-                  child: MainMapProfile(
-                    localisationController: addressController,
-                    mapController: mapController,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Expanded(
-                  child: GoogleMap(
-                      onMapCreated: (controller) {
-                        mapController = controller;
-                      },
-                      compassEnabled: true,
-                      zoomControlsEnabled: false,
-                      mapType: MapType.normal,
-                      markers: {
-                        Marker(
-                          markerId: const MarkerId("localisation"),
-                          position: LatLng(46, 2),
-                        ),
-                      },
-                      initialCameraPosition: CameraPosition(
-                        target: LatLng(46, 2),
-                        zoom: 12.0,
-                      )),
-                ),
-              ]),
-            ),
-            SizedBox(
-              height: height * 0.02,
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              // height: height * 0.55,
-              width: width * 0.9,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(15),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromRGBO(31, 92, 103, 0.17),
-                    offset: Offset(3, 3),
-                    blurRadius: 3,
-                  ),
-                ],
-              ),
-              child: Column(children: [
-                SizedBox(
-                  height: height * 0.015,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: width * 0.05,
-                    ),
-                    Text(
-                      'Accessibilité',
-                      style: heading,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                PresentField(
-                  label: 'RER',
-                  prefixIcon: transportIcon[0],
-                  controller: rerController,
-                ),
-                Spaces.y2,
-                PresentField(
-                  label: 'Metro',
-                  prefixIcon: transportIcon[1],
-                  controller: metroController,
-                ),
-                Spaces.y2,
-                PresentField(
-                  label: 'Bus',
-                  prefixIcon: transportIcon[2],
-                  controller: busController,
-                ),
-                Spaces.y2,
-                PresentField(
-                  label: 'Tramway',
-                  prefixIcon: transportIcon[3],
-                  controller: tramController,
-                ),
-                Spaces.y2,
-                PresentField(
-                  label: 'Gare',
-                  prefixIcon: transportIcon[4],
-                  controller: gareController,
-                ),
-                Spaces.y2,
-                Stack(
-                  children: [
-                    PresentField(
-                      label: 'Parking',
-                      prefixIcon: transportIcon[5],
-                      readOnly: true,
-                      controller: parkingController,
-                    ),
-                    Positioned(
-                      right: 7.w,
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton<String>(
-                          items:
-                              <String>['Gratuit', 'Payant'].map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          alignment: Alignment.bottomCenter,
-                          onChanged: (val) {
-                            parkingController.text = val ?? '';
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Spaces.y2,
-              ]),
-            ),
-            SizedBox(
-              height: height * 0.02,
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 8, right: 8, bottom: 10),
-              width: width * 0.9,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(15),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromRGBO(31, 92, 103, 0.17),
-                    offset: Offset(3, 3),
-                    blurRadius: 3,
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: height * 0.015,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: width * 0.05,
-                      ),
-                      Text(
-                        'Horaires',
-                        style: heading,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromRGBO(31, 92, 103, 0.17),
+                        offset: Offset(3, 3),
+                        blurRadius: 3,
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  PharmacyRow(
-                    text: 'Non-stop',
-                    image: 'assets/icons/24-7.png',
-                    onChanged: (value) {
-                      nonStop = value;
-                      setState(() {});
-                    },
-                    initialSwitchValue: nonStop,
-                  ),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  Visibility(
-                    visible: !nonStop,
-                    child: Row(
+                  child: Column(children: [
+                    SizedBox(
+                      height: height * 0.015,
+                    ),
+                    Row(
                       children: [
                         SizedBox(
-                          width: width * 0.02,
+                          width: width * 0.05,
                         ),
-                        CalenderPharmacy(
-                          workHours: work_hours,
+                        Text(
+                          'Localisation',
+                          style: heading,
                         ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: height * 0.02,
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
-              width: width * 0.9,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(15),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromRGBO(31, 92, 103, 0.17),
-                    offset: Offset(3, 3),
-                    blurRadius: 3,
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: height * 0.015,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: width * 0.05,
-                      ),
-                      Text(
-                        'Typologie',
-                        style: heading,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  Column(
-                    children: [
-                      PharmacyRow(
-                        text: typologie[0],
-                        image: typologieImage[0],
-                        initialSwitchValue: typocc,
-                        onChanged: (value) {
-                          typocc = value;
-                          typologieController.text = typologie[0];
-
-                          setState(() {
-                            typocv = false;
-                            typoAero = false;
-                            typoGare = false;
-                            typoQuartier = false;
-                            typoTour = false;
-                            typoRula = false;
-                          });
-                        },
-                      ),
-                      PharmacyRow(
-                        text: typologie[1],
-                        image: typologieImage[1],
-                        initialSwitchValue: typocv,
-                        onChanged: (value) {
-                          typocv = value;
-
-                          typologieController.text = typologie[1];
-
-                          setState(() {
-                            typocc = false;
-                            typoAero = false;
-                            typoGare = false;
-                            typoQuartier = false;
-                            typoTour = false;
-                            typoRula = false;
-                          });
-                        },
-                      ),
-                      PharmacyRow(
-                        text: typologie[2],
-                        image: typologieImage[2],
-                        initialSwitchValue: typoAero,
-                        onChanged: (value) {
-                          typoAero = value;
-                          typologieController.text = typologie[2];
-
-                          setState(() {
-                            typocc = false;
-                            typocv = false;
-                            typoGare = false;
-                            typoQuartier = false;
-                            typoTour = false;
-                            typoRula = false;
-                          });
-                        },
-                      ),
-                      PharmacyRow(
-                        text: typologie[3],
-                        image: typologieImage[3],
-                        initialSwitchValue: typoGare,
-                        onChanged: (value) {
-                          typoGare = value;
-                          typologieController.text = typologie[3];
-
-                          setState(() {
-                            typocc = false;
-                            typocv = false;
-                            typoAero = false;
-                            typoQuartier = false;
-                            typoTour = false;
-                            typoRula = false;
-                          });
-                        },
-                      ),
-                      PharmacyRow(
-                        text: typologie[4],
-                        image: typologieImage[4],
-                        initialSwitchValue: typoQuartier,
-                        onChanged: (value) {
-                          typoQuartier = value;
-                          typologieController.text = typologie[4];
-                          setState(() {
-                            typocc = false;
-                            typocv = false;
-                            typoAero = false;
-                            typoGare = false;
-                            typoTour = false;
-                            typoRula = false;
-                          });
-                        },
-                      ),
-                      PharmacyRow(
-                        text: typologie[5],
-                        image: typologieImage[5],
-                        initialSwitchValue: typoTour,
-                        onChanged: (value) {
-                          typoTour = value;
-                          typologieController.text = typologie[5];
-                          setState(() {
-                            typocc = false;
-                            typocv = false;
-                            typoAero = false;
-                            typoGare = false;
-                            typoQuartier = false;
-                            typoRula = false;
-                          });
-                        },
-                      ),
-                      PharmacyRow(
-                        text: typologie[6],
-                        image: typologieImage[6],
-                        initialSwitchValue: typoRula,
-                        onChanged: (value) {
-                          typoRula = value;
-                          typologieController.text = typologie[6];
-
-                          setState(() {
-                            typocc = false;
-                            typocv = false;
-                            typoAero = false;
-                            typoGare = false;
-                            typoQuartier = false;
-                            typoTour = false;
-                          });
-                        },
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  Stack(
-                    children: [
-                      PresentField(
-                        controller: noPatientPerDay,
-                        label: 'Nombre de patients par jour',
-                        prefixIcon: const Icon(Icons.settings),
-                        readOnly: true,
-                      ),
-                      Positioned(
-                        right: 7.w,
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            items: <String>[
-                              '<100',
-                              '100-250',
-                              '250-400',
-                              '>400'
-                            ].map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                            alignment: Alignment.bottomCenter,
-                            onChanged: (val) {
-                              noPatientPerDay.text = val ?? '';
-                            },
-                          ),
+                    SizedBox(
+                      height: height * 0.02,
+                    ),
+                    Container(
+                      width: width * 0.9,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20),
                         ),
                       ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-
-            SizedBox(
-              height: height * 0.02,
-            ),
-            Container(
-              padding: const EdgeInsets.all(8),
-              width: width * 0.9,
-              decoration: const BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromRGBO(31, 92, 103, 0.17),
-                    offset: Offset(3, 3),
-                    blurRadius: 3,
-                  ),
-                ],
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(15),
-                ),
-              ),
-              child: Column(children: [
-                SizedBox(
-                  height: height * 0.015,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: width * 0.05,
+                      child: MainMapProfile(
+                        localisationController: addressController,
+                        mapController: mapController,
+                      ),
                     ),
-                    Text(
-                      'Missions',
-                      style: heading,
+                    const SizedBox(
+                      height: 10,
                     ),
-                  ],
+                    Expanded(
+                      child: GoogleMap(
+                          onMapCreated: (controller) {
+                            mapController = controller;
+                          },
+                          compassEnabled: true,
+                          zoomControlsEnabled: false,
+                          mapType: MapType.normal,
+                          markers: {
+                            Marker(
+                              markerId: const MarkerId("localisation"),
+                              position: LatLng(46, 2),
+                            ),
+                          },
+                          initialCameraPosition: CameraPosition(
+                            target: LatLng(46, 2),
+                            zoom: 12.0,
+                          )),
+                    ),
+                  ]),
                 ),
                 SizedBox(
                   height: height * 0.02,
                 ),
-                Column(children: [
-                  PharmacyRow(
-                    text: 'Test COVID',
-                    image: 'assets/icons/covid.png',
-                    initialSwitchValue: testCovid,
-                    onChanged: (value) {
-                      testCovid = value;
-                    },
-                  ),
-                  PharmacyRow(
-                    text: 'Vaccination',
-                    image: 'assets/icons/Vaccination.png',
-                    initialSwitchValue: vaccination,
-                    onChanged: (value) {
-                      vaccination = value;
-                    },
-                  ),
-                  PharmacyRow(
-                    text: 'Entretien pharmaceutique',
-                    image: 'assets/icons/missions (3).png',
-                    initialSwitchValue: pMaintaince,
-                    onChanged: (value) {
-                      pMaintaince = value;
-                    },
-                  ),
-                  PharmacyRow(
-                    text: 'Préparation par léquipe',
-                    image: 'assets/icons/missions (3).png',
-                    initialSwitchValue: pbTeam,
-                    onChanged: (value) {
-                      pbTeam = value;
-                    },
-                  ),
-                  PharmacyRow(
-                    text: 'Borne télémédecine',
-                    image: 'assets/icons/missions (1).png',
-                    initialSwitchValue: tTerminal,
-                    onChanged: (value) {
-                      tTerminal = value;
-                    },
-                  ),
-                ])
-              ]),
-            ),
-            SizedBox(
-              height: height * 0.02,
-            ),
-            //LgoContainer(width: width, height: height),
-            LgoPharmacie(),
-            SizedBox(
-              height: height * 0.02,
-            ),
-            Container(
-              padding: EdgeInsets.all(8),
-              width: width * 0.9,
-              decoration: const BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromRGBO(31, 92, 103, 0.17),
-                    offset: Offset(3, 3),
-                    blurRadius: 3,
-                  ),
-                ],
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(15),
-                ),
-              ),
-              child: Column(children: [
-                SizedBox(
-                  height: height * 0.015,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: width * 0.05,
-                    ),
-                    Text(
-                      'Confort',
-                      style: heading,
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    PharmacyRow(
-                      text: confortList[0],
-                      icon: confortIcons[0],
-                      initialSwitchValue: breakRoom,
-                      onChanged: (value) {
-                        breakRoom = value;
-                      },
-                    ),
-                    PharmacyRow(
-                      text: confortList[1],
-                      icon: confortIcons[1],
-                      initialSwitchValue: robot,
-                      onChanged: (value) {
-                        robot = value;
-                      },
-                    ),
-                    PharmacyRow(
-                      text: confortList[2],
-                      icon: confortIcons[2],
-                      initialSwitchValue: eLabels,
-                      onChanged: (value) {
-                        eLabels = value;
-                      },
-                    ),
-                    PharmacyRow(
-                      text: confortList[3],
-                      icon: confortIcons[3],
-                      initialSwitchValue: monnaie,
-                      onChanged: (value) {
-                        monnaie = value;
-                      },
-                    ),
-                    PharmacyRow(
-                      text: confortList[4],
-                      icon: confortIcons[4],
-                      initialSwitchValue: climat,
-                      onChanged: (value) {
-                        climat = value;
-                      },
-                    ),
-                    PharmacyRow(
-                      text: confortList[5],
-                      icon: confortIcons[5],
-                      initialSwitchValue: chauffage,
-                      onChanged: (value) {
-                        chauffage = value;
-                      },
-                    ),
-                    PharmacyRow(
-                      text: confortList[6],
-                      icon: confortIcons[6],
-                      initialSwitchValue: vigil,
-                      onChanged: (value) {
-                        vigil = value;
-                      },
-                    ),
-                    PharmacyRow(
-                      text: confortList[7],
-                      icon: confortIcons[7],
-                      initialSwitchValue: workConcil,
-                      onChanged: (value) {
-                        workConcil = value;
-                      },
-                    ),
-                  ],
-                ),
-              ]),
-            ),
-            SizedBox(
-              height: height * 0.02,
-            ),
-            Container(
-              padding: const EdgeInsets.all(8),
-              height: height * 0.3,
-              width: width * 0.9,
-              decoration: const BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromRGBO(31, 92, 103, 0.17),
-                    offset: Offset(3, 3),
-                    blurRadius: 3,
-                  ),
-                ],
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(15),
-                ),
-              ),
-              child: Column(children: [
-                SizedBox(
-                  height: height * 0.015,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: width * 0.05,
-                    ),
-                    Text(
-                      'Tendances',
-                      style: heading,
-                    ),
-                  ],
-                ),
-                Flexible(
-                  child: Column(children: [
-                    CustomTextWithGradientSliderNoText(
-                        title: 'Ordonnances',
-                        tendance: premirere_tendance,
-                        assetImage: 'assets/icons/Tendance (5).png',
-                        categoryCount: 3),
-                    CustomTextWithGradientSliderNoText(
-                        title: 'Cosmétiques',
-                        tendance: deuxieme_tendance,
-                        assetImage: 'assets/icons/Tendance (4).png',
-                        categoryCount: 3),
-                    CustomTextWithGradientSliderNoText(
-                        title: 'Phyto/aroma',
-                        tendance: troisieme_tendance,
-                        assetImage: 'assets/icons/Tendance (3).png',
-                        categoryCount: 3),
-                    CustomTextWithGradientSliderNoText(
-                        title: 'Nutrition',
-                        tendance: quatrieme_tendance,
-                        assetImage: 'assets/icons/Tendance (2).png',
-                        categoryCount: 3),
-                    CustomTextWithGradientSliderNoText(
-                        title: 'Conseil',
-                        tendance: cinqieme_tendance,
-                        assetImage: 'assets/icons/Tendance (1).png',
-                        categoryCount: 3),
-                  ]),
-                ),
-              ]),
-            ),
-            SizedBox(
-              height: height * 0.02,
-            ),
-            Container(
-              padding: const EdgeInsets.all(16),
-              width: width * 0.9,
-              decoration: const BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromRGBO(31, 92, 103, 0.17),
-                    offset: Offset(3, 3),
-                    blurRadius: 3,
-                  ),
-                ],
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(15),
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: height * 0.015,
-                  ),
-                  Text(
-                    'Equipe',
-                    style: heading,
-                  ),
-                  SizedBox(
-                    height: height * 0.015,
-                  ),
-                  Column(
-                    children: [
-                      PresentField(
-                        label: 'Nombre de pharmaciens',
-                        prefixIcon: const Icon(Icons.person),
-                        controller: pharmaistsNumController,
-                        textInputType: TextInputType.number,
-                      ),
-                      SizedBox(
-                        height: height * 0.02,
-                      ),
-                      PresentField(
-                        label: 'Nombre de préparateurs',
-                        controller: prepaersNumController,
-                        textInputType: TextInputType.number,
-                        prefixIcon: const Icon(Icons.person),
-                      ),
-                      SizedBox(
-                        height: height * 0.02,
-                      ),
-                      PresentField(
-                        label: 'Nombre de rayonnistes',
-                        controller: equipeController[0],
-                        textInputType: TextInputType.number,
-                        prefixIcon: const Icon(Icons.person),
-                      ),
-                      SizedBox(
-                        height: height * 0.02,
-                      ),
-                      PresentField(
-                        label: 'Nombre de conseillers',
-                        controller: equipeController[1],
-                        textInputType: TextInputType.number,
-                        prefixIcon: const Icon(Icons.person),
-                      ),
-                      SizedBox(
-                        height: height * 0.02,
-                      ),
-                      PresentField(
-                        label: "Nombre de d'apprentis",
-                        controller: equipeController[2],
-                        textInputType: TextInputType.number,
-                        prefixIcon: const Icon(Icons.person),
-                      ),
-                      SizedBox(
-                        height: height * 0.02,
-                      ),
-                      PresentField(
-                        label: "Nombre de d'étudiants pharmacie",
-                        controller: equipeController[3],
-                        textInputType: TextInputType.number,
-                        prefixIcon: const Icon(Icons.person),
-                      ),
-                      SizedBox(
-                        height: height * 0.02,
-                      ),
-                      PresentField(
-                        label: "Nombre de d'étudiants 6éme année",
-                        controller: equipeController[4],
-                        textInputType: TextInputType.number,
-                        prefixIcon: const Icon(Icons.person),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: height * 0.02,
-            ),
-
-            ///register button
-            GestureDetector(
-              onTap: () {
-                if (widget.formKey.currentState!.validate()) {
-                  if (formKey11.currentState!.validate()) {
-                    if (BlocProvider.of<PharmacieBloc>(context).lgo == "") {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          backgroundColor: const Color(0xFF7CEDAC),
-                          content: const Text("Vous devez choisir un LGO!"),
-                        ),
-                      );
-                    } else {
-                      int nbClosed = 0;
-                      for (WorkHours hour in work_hours) {
-                        if (!hour.open) {
-                          nbClosed = nbClosed + 1;
-                        }
-                      }
-                      if (nbClosed == 7 && !nonStop) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            backgroundColor: const Color(0xFF7CEDAC),
-                            content: const Text(
-                                "Vous devez choisir au moins un horaire de travail!"),
-                          ),
-                        );
-                      } else {
-                        print(
-                            BlocProvider.of<TitulaireBloc>(context).titulaires);
-                        Pharmacie pharmacie = Pharmacie(
-                          email: emailController.text,
-                          typologie: typologieController.text,
-                          workHours: work_hours,
-                          lgoImage:
-                              BlocProvider.of<PharmacieBloc>(context).lgoImage,
-                          lgoName: BlocProvider.of<PharmacieBloc>(context).lgo,
-                          groupementImage:
-                              BlocProvider.of<PharmacieBloc>(context)
-                                  .groupementImage,
-                          groupementName:
-                              BlocProvider.of<PharmacieBloc>(context)
-                                  .groupement,
-                          tendances: [
-                            premirere_tendance,
-                            deuxieme_tendance,
-                            troisieme_tendance,
-                            quatrieme_tendance,
-                            cinqieme_tendance
-                          ],
-                          images: BlocProvider.of<PharmacieBloc>(context)
-                                  .images
-                                  .isNotEmpty
-                              ? BlocProvider.of<PharmacieBloc>(context).images
-                              : [],
-                          prefEmail: prefEmailController.text,
-                          parking: parkingController.text,
-                          gareAccess: gareController.text,
-                          monnaie: monnaie,
-                          climat: climat,
-                          chauffage: chauffage,
-                          vigil: vigil,
-                          workConcil: workConcil,
-                          maitre: widget.maitre!,
-                          telephone: Telephone(
-                              numeroTelephone: int.parse(phoneController.text),
-                              visible: false),
-                          localisation: Localisation(
-                              ville: addressController.text, codePostal: 1),
-                          rer: rerController.text,
-                          metro: metroController.text,
-
-                          bus: busController.text,
-                          tramway: tramController.text,
-                          nom: widget.pharNameController?.text ?? '',
-                          titulaires: BlocProvider.of<TitulaireBloc>(context)
-                              .titulaires,
-                          presentation: widget.pharDesController?.text ?? '',
-                          nbPreparateurs: prepaersNumController.text.isNotEmpty
-                              ? int.parse(prepaersNumController.text)
-                              : 0,
-                          nbPharmaciens: pharmaistsNumController.text.isNotEmpty
-                              ? int.parse(pharmaistsNumController.text)
-                              : 0,
-                          nbRayonnistes: equipeController[0].text.isNotEmpty
-                              ? int.parse(equipeController[0].text)
-                              : 0,
-                          nbConseillers: equipeController[1].text.isNotEmpty
-                              ? int.parse(equipeController[1].text)
-                              : 0,
-                          nbApprentis: equipeController[2].text.isNotEmpty
-                              ? int.parse(equipeController[2].text)
-                              : 0,
-                          nbEtudiants: equipeController[3].text.isNotEmpty
-                              ? int.parse(equipeController[3].text)
-                              : 0,
-                          nbEtudiants6: equipeController[4].text.isNotEmpty
-                              ? int.parse(equipeController[4].text)
-                              : 0,
-                          nonStop: nonStop,
-
-                          ///typo
-
-                          nbPatients: noPatientPerDay.text.isNotEmpty
-                              ? noPatientPerDay.text
-                              : "",
-
-                          ///mission
-                          testCovid: testCovid,
-                          vaccination: vaccination,
-                          entretien: pMaintaince,
-                          preparation: pbTeam,
-                          borneTelemedcine: tTerminal,
-                          breakRoom: breakRoom,
-                          robot: robot,
-                          electronicLabels: eLabels,
-                        );
-                        BlocProvider.of<PharmacieBloc>(context)
-                            .add(AddPharmacie(pharmacie: pharmacie));
-                        if (widget.myPharmacy == null) {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text("Offre d'emploi?"),
-                                content: const Text(
-                                    "Voulez vous créer une offre d'emploi?"),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: const Text('Oui'),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                      showModalBottomSheet(
-                                        shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(25.0),
-                                          ),
-                                        ),
-                                        isScrollControlled: true,
-                                        context: context,
-                                        builder: (context) =>
-                                            const FiltersBottomSheet(),
-                                      );
-                                    },
-                                  ),
-                                  TextButton(
-                                    child: const Text('Non'),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        }
-                      }
-                    }
-                  }
-                } else {
-                  /*  controller.animateTo(0,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeInOut);*/
-                }
-              },
-              child: Container(
-                  height: MediaQuery.of(context).size.height * 0.06,
-                  width: MediaQuery.of(context).size.width * 0.9,
+                Container(
+                  padding: const EdgeInsets.only(left: 8, right: 8),
+                  // height: height * 0.55,
+                  width: width * 0.9,
                   decoration: const BoxDecoration(
+                    color: Colors.white,
                     borderRadius: BorderRadius.all(
                       Radius.circular(15),
                     ),
-                    gradient: LinearGradient(
-                      begin: Alignment.centerRight,
-                      end: Alignment.centerLeft,
-                      colors: [
-                        Color.fromRGBO(66, 210, 255, 1),
-                        Color.fromRGBO(124, 237, 172, 1),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromRGBO(31, 92, 103, 0.17),
+                        offset: Offset(3, 3),
+                        blurRadius: 3,
+                      ),
+                    ],
+                  ),
+                  child: Column(children: [
+                    SizedBox(
+                      height: height * 0.015,
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: width * 0.05,
+                        ),
+                        Text(
+                          'Accessibilité',
+                          style: heading,
+                        ),
                       ],
                     ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      widget.myPharmacy == null
-                          ? 'Créer la pharmacie'
-                          : 'Enregistrer'.tr,
-                      style: bigWhite,
+                    SizedBox(
+                      height: height * 0.02,
                     ),
-                  )),
-            ),
-          ],
-        ));
+                    PresentField(
+                      label: 'RER',
+                      prefixIcon: transportIcon[0],
+                      controller: rerController,
+                    ),
+                    Spaces.y2,
+                    PresentField(
+                      label: 'Metro',
+                      prefixIcon: transportIcon[1],
+                      controller: metroController,
+                    ),
+                    Spaces.y2,
+                    PresentField(
+                      label: 'Bus',
+                      prefixIcon: transportIcon[2],
+                      controller: busController,
+                    ),
+                    Spaces.y2,
+                    PresentField(
+                      label: 'Tramway',
+                      prefixIcon: transportIcon[3],
+                      controller: tramController,
+                    ),
+                    Spaces.y2,
+                    PresentField(
+                      label: 'Gare',
+                      prefixIcon: transportIcon[4],
+                      controller: gareController,
+                    ),
+                    Spaces.y2,
+                    Stack(
+                      children: [
+                        PresentField(
+                          label: 'Parking',
+                          prefixIcon: transportIcon[5],
+                          readOnly: true,
+                          controller: parkingController,
+                        ),
+                        Positioned(
+                          right: 7.w,
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                              items: <String>['Gratuit', 'Payant']
+                                  .map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                              alignment: Alignment.bottomCenter,
+                              onChanged: (val) {
+                                parkingController.text = val ?? '';
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Spaces.y2,
+                  ]),
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                Container(
+                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 10),
+                  width: width * 0.9,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromRGBO(31, 92, 103, 0.17),
+                        offset: Offset(3, 3),
+                        blurRadius: 3,
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: height * 0.015,
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: width * 0.05,
+                          ),
+                          Text(
+                            'Horaires',
+                            style: heading,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: height * 0.02,
+                      ),
+                      PharmacyRow(
+                        text: 'Non-stop',
+                        image: 'assets/icons/24-7.png',
+                        onChanged: (value) {
+                          nonStop = value;
+                          setState(() {});
+                        },
+                        initialSwitchValue: nonStop,
+                      ),
+                      SizedBox(
+                        height: height * 0.02,
+                      ),
+                      Visibility(
+                        visible: !nonStop,
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: width * 0.02,
+                            ),
+                            CalenderPharmacy(
+                              workHours: work_hours,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                Container(
+                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
+                  width: width * 0.9,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromRGBO(31, 92, 103, 0.17),
+                        offset: Offset(3, 3),
+                        blurRadius: 3,
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: height * 0.015,
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: width * 0.05,
+                          ),
+                          Text(
+                            'Typologie',
+                            style: heading,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: height * 0.02,
+                      ),
+                      Column(
+                        children: [
+                          PharmacyRow(
+                            text: typologie[0],
+                            image: typologieImage[0],
+                            initialSwitchValue: typocc,
+                            onChanged: (value) {
+                              typocc = value;
+                              typologieController.text = typologie[0];
+
+                              setState(() {
+                                typocv = false;
+                                typoAero = false;
+                                typoGare = false;
+                                typoQuartier = false;
+                                typoTour = false;
+                                typoRula = false;
+                              });
+                            },
+                          ),
+                          PharmacyRow(
+                            text: typologie[1],
+                            image: typologieImage[1],
+                            initialSwitchValue: typocv,
+                            onChanged: (value) {
+                              typocv = value;
+
+                              typologieController.text = typologie[1];
+
+                              setState(() {
+                                typocc = false;
+                                typoAero = false;
+                                typoGare = false;
+                                typoQuartier = false;
+                                typoTour = false;
+                                typoRula = false;
+                              });
+                            },
+                          ),
+                          PharmacyRow(
+                            text: typologie[2],
+                            image: typologieImage[2],
+                            initialSwitchValue: typoAero,
+                            onChanged: (value) {
+                              typoAero = value;
+                              typologieController.text = typologie[2];
+
+                              setState(() {
+                                typocc = false;
+                                typocv = false;
+                                typoGare = false;
+                                typoQuartier = false;
+                                typoTour = false;
+                                typoRula = false;
+                              });
+                            },
+                          ),
+                          PharmacyRow(
+                            text: typologie[3],
+                            image: typologieImage[3],
+                            initialSwitchValue: typoGare,
+                            onChanged: (value) {
+                              typoGare = value;
+                              typologieController.text = typologie[3];
+
+                              setState(() {
+                                typocc = false;
+                                typocv = false;
+                                typoAero = false;
+                                typoQuartier = false;
+                                typoTour = false;
+                                typoRula = false;
+                              });
+                            },
+                          ),
+                          PharmacyRow(
+                            text: typologie[4],
+                            image: typologieImage[4],
+                            initialSwitchValue: typoQuartier,
+                            onChanged: (value) {
+                              typoQuartier = value;
+                              typologieController.text = typologie[4];
+                              setState(() {
+                                typocc = false;
+                                typocv = false;
+                                typoAero = false;
+                                typoGare = false;
+                                typoTour = false;
+                                typoRula = false;
+                              });
+                            },
+                          ),
+                          PharmacyRow(
+                            text: typologie[5],
+                            image: typologieImage[5],
+                            initialSwitchValue: typoTour,
+                            onChanged: (value) {
+                              typoTour = value;
+                              typologieController.text = typologie[5];
+                              setState(() {
+                                typocc = false;
+                                typocv = false;
+                                typoAero = false;
+                                typoGare = false;
+                                typoQuartier = false;
+                                typoRula = false;
+                              });
+                            },
+                          ),
+                          PharmacyRow(
+                            text: typologie[6],
+                            image: typologieImage[6],
+                            initialSwitchValue: typoRula,
+                            onChanged: (value) {
+                              typoRula = value;
+                              typologieController.text = typologie[6];
+
+                              setState(() {
+                                typocc = false;
+                                typocv = false;
+                                typoAero = false;
+                                typoGare = false;
+                                typoQuartier = false;
+                                typoTour = false;
+                              });
+                            },
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: height * 0.02,
+                      ),
+                      Stack(
+                        children: [
+                          PresentField(
+                            controller: noPatientPerDay,
+                            label: 'Nombre de patients par jour',
+                            prefixIcon: const Icon(Icons.settings),
+                            readOnly: true,
+                          ),
+                          Positioned(
+                            right: 7.w,
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton<String>(
+                                items: <String>[
+                                  '<100',
+                                  '100-250',
+                                  '250-400',
+                                  '>400'
+                                ].map((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                                alignment: Alignment.bottomCenter,
+                                onChanged: (val) {
+                                  noPatientPerDay.text = val ?? '';
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  width: width * 0.9,
+                  decoration: const BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromRGBO(31, 92, 103, 0.17),
+                        offset: Offset(3, 3),
+                        blurRadius: 3,
+                      ),
+                    ],
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15),
+                    ),
+                  ),
+                  child: Column(children: [
+                    SizedBox(
+                      height: height * 0.015,
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: width * 0.05,
+                        ),
+                        Text(
+                          'Missions',
+                          style: heading,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: height * 0.02,
+                    ),
+                    Column(children: [
+                      PharmacyRow(
+                        text: 'Test COVID',
+                        image: 'assets/icons/covid.png',
+                        initialSwitchValue: testCovid,
+                        onChanged: (value) {
+                          testCovid = value;
+                        },
+                      ),
+                      PharmacyRow(
+                        text: 'Vaccination',
+                        image: 'assets/icons/Vaccination.png',
+                        initialSwitchValue: vaccination,
+                        onChanged: (value) {
+                          vaccination = value;
+                        },
+                      ),
+                      PharmacyRow(
+                        text: 'Entretien pharmaceutique',
+                        image: 'assets/icons/missions (3).png',
+                        initialSwitchValue: pMaintaince,
+                        onChanged: (value) {
+                          pMaintaince = value;
+                        },
+                      ),
+                      PharmacyRow(
+                        text: 'Préparation par léquipe',
+                        image: 'assets/icons/missions (3).png',
+                        initialSwitchValue: pbTeam,
+                        onChanged: (value) {
+                          pbTeam = value;
+                        },
+                      ),
+                      PharmacyRow(
+                        text: 'Borne télémédecine',
+                        image: 'assets/icons/missions (1).png',
+                        initialSwitchValue: tTerminal,
+                        onChanged: (value) {
+                          tTerminal = value;
+                        },
+                      ),
+                    ])
+                  ]),
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                //LgoContainer(width: width, height: height),
+                LgoPharmacie(),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                Container(
+                  padding: EdgeInsets.all(8),
+                  width: width * 0.9,
+                  decoration: const BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromRGBO(31, 92, 103, 0.17),
+                        offset: Offset(3, 3),
+                        blurRadius: 3,
+                      ),
+                    ],
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15),
+                    ),
+                  ),
+                  child: Column(children: [
+                    SizedBox(
+                      height: height * 0.015,
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: width * 0.05,
+                        ),
+                        Text(
+                          'Confort',
+                          style: heading,
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        PharmacyRow(
+                          text: confortList[0],
+                          icon: confortIcons[0],
+                          initialSwitchValue: breakRoom,
+                          onChanged: (value) {
+                            breakRoom = value;
+                          },
+                        ),
+                        PharmacyRow(
+                          text: confortList[1],
+                          icon: confortIcons[1],
+                          initialSwitchValue: robot,
+                          onChanged: (value) {
+                            robot = value;
+                          },
+                        ),
+                        PharmacyRow(
+                          text: confortList[2],
+                          icon: confortIcons[2],
+                          initialSwitchValue: eLabels,
+                          onChanged: (value) {
+                            eLabels = value;
+                          },
+                        ),
+                        PharmacyRow(
+                          text: confortList[3],
+                          icon: confortIcons[3],
+                          initialSwitchValue: monnaie,
+                          onChanged: (value) {
+                            monnaie = value;
+                          },
+                        ),
+                        PharmacyRow(
+                          text: confortList[4],
+                          icon: confortIcons[4],
+                          initialSwitchValue: climat,
+                          onChanged: (value) {
+                            climat = value;
+                          },
+                        ),
+                        PharmacyRow(
+                          text: confortList[5],
+                          icon: confortIcons[5],
+                          initialSwitchValue: chauffage,
+                          onChanged: (value) {
+                            chauffage = value;
+                          },
+                        ),
+                        PharmacyRow(
+                          text: confortList[6],
+                          icon: confortIcons[6],
+                          initialSwitchValue: vigil,
+                          onChanged: (value) {
+                            vigil = value;
+                          },
+                        ),
+                        PharmacyRow(
+                          text: confortList[7],
+                          icon: confortIcons[7],
+                          initialSwitchValue: workConcil,
+                          onChanged: (value) {
+                            workConcil = value;
+                          },
+                        ),
+                      ],
+                    ),
+                  ]),
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  height: height * 0.3,
+                  width: width * 0.9,
+                  decoration: const BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromRGBO(31, 92, 103, 0.17),
+                        offset: Offset(3, 3),
+                        blurRadius: 3,
+                      ),
+                    ],
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15),
+                    ),
+                  ),
+                  child: Column(children: [
+                    SizedBox(
+                      height: height * 0.015,
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: width * 0.05,
+                        ),
+                        Text(
+                          'Tendances',
+                          style: heading,
+                        ),
+                      ],
+                    ),
+                    Flexible(
+                      child: Column(children: [
+                        CustomTextWithGradientSliderNoText(
+                            title: 'Ordonnances',
+                            tendance: premirere_tendance,
+                            assetImage: 'assets/icons/Tendance (5).png',
+                            categoryCount: 3),
+                        CustomTextWithGradientSliderNoText(
+                            title: 'Cosmétiques',
+                            tendance: deuxieme_tendance,
+                            assetImage: 'assets/icons/Tendance (4).png',
+                            categoryCount: 3),
+                        CustomTextWithGradientSliderNoText(
+                            title: 'Phyto/aroma',
+                            tendance: troisieme_tendance,
+                            assetImage: 'assets/icons/Tendance (3).png',
+                            categoryCount: 3),
+                        CustomTextWithGradientSliderNoText(
+                            title: 'Nutrition',
+                            tendance: quatrieme_tendance,
+                            assetImage: 'assets/icons/Tendance (2).png',
+                            categoryCount: 3),
+                        CustomTextWithGradientSliderNoText(
+                            title: 'Conseil',
+                            tendance: cinqieme_tendance,
+                            assetImage: 'assets/icons/Tendance (1).png',
+                            categoryCount: 3),
+                      ]),
+                    ),
+                  ]),
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  width: width * 0.9,
+                  decoration: const BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromRGBO(31, 92, 103, 0.17),
+                        offset: Offset(3, 3),
+                        blurRadius: 3,
+                      ),
+                    ],
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15),
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: height * 0.015,
+                      ),
+                      Text(
+                        'Equipe',
+                        style: heading,
+                      ),
+                      SizedBox(
+                        height: height * 0.015,
+                      ),
+                      Column(
+                        children: [
+                          PresentField(
+                            label: 'Nombre de pharmaciens',
+                            prefixIcon: const Icon(Icons.person),
+                            controller: pharmaistsNumController,
+                            textInputType: TextInputType.number,
+                          ),
+                          SizedBox(
+                            height: height * 0.02,
+                          ),
+                          PresentField(
+                            label: 'Nombre de préparateurs',
+                            controller: prepaersNumController,
+                            textInputType: TextInputType.number,
+                            prefixIcon: const Icon(Icons.person),
+                          ),
+                          SizedBox(
+                            height: height * 0.02,
+                          ),
+                          PresentField(
+                            label: 'Nombre de rayonnistes',
+                            controller: equipeController[0],
+                            textInputType: TextInputType.number,
+                            prefixIcon: const Icon(Icons.person),
+                          ),
+                          SizedBox(
+                            height: height * 0.02,
+                          ),
+                          PresentField(
+                            label: 'Nombre de conseillers',
+                            controller: equipeController[1],
+                            textInputType: TextInputType.number,
+                            prefixIcon: const Icon(Icons.person),
+                          ),
+                          SizedBox(
+                            height: height * 0.02,
+                          ),
+                          PresentField(
+                            label: "Nombre de d'apprentis",
+                            controller: equipeController[2],
+                            textInputType: TextInputType.number,
+                            prefixIcon: const Icon(Icons.person),
+                          ),
+                          SizedBox(
+                            height: height * 0.02,
+                          ),
+                          PresentField(
+                            label: "Nombre de d'étudiants pharmacie",
+                            controller: equipeController[3],
+                            textInputType: TextInputType.number,
+                            prefixIcon: const Icon(Icons.person),
+                          ),
+                          SizedBox(
+                            height: height * 0.02,
+                          ),
+                          PresentField(
+                            label: "Nombre de d'étudiants 6éme année",
+                            controller: equipeController[4],
+                            textInputType: TextInputType.number,
+                            prefixIcon: const Icon(Icons.person),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+
+                ///register button
+                GestureDetector(
+                  onTap: () {
+                    if (widget.formKey.currentState!.validate()) {
+                      if (formKey11.currentState!.validate()) {
+                        if (BlocProvider.of<PharmacieBloc>(context).lgo == "") {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              backgroundColor: const Color(0xFF7CEDAC),
+                              content: const Text("Vous devez choisir un LGO!"),
+                            ),
+                          );
+                        } else {
+                          int nbClosed = 0;
+                          for (WorkHours hour in work_hours) {
+                            if (!hour.open) {
+                              nbClosed = nbClosed + 1;
+                            }
+                          }
+                          if (nbClosed == 7 && !nonStop) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                backgroundColor: const Color(0xFF7CEDAC),
+                                content: const Text(
+                                    "Vous devez choisir au moins un horaire de travail!"),
+                              ),
+                            );
+                          } else {
+                            print(BlocProvider.of<TitulaireBloc>(context)
+                                .titulaires);
+                            Pharmacie pharmacie = Pharmacie(
+                              email: emailController.text,
+                              typologie: typologieController.text,
+                              workHours: work_hours,
+                              lgoImage: BlocProvider.of<PharmacieBloc>(context)
+                                  .lgoImage,
+                              lgoName:
+                                  BlocProvider.of<PharmacieBloc>(context).lgo,
+                              groupementImage:
+                                  BlocProvider.of<PharmacieBloc>(context)
+                                      .groupementImage,
+                              groupementName:
+                                  BlocProvider.of<PharmacieBloc>(context)
+                                      .groupement,
+                              tendances: [
+                                premirere_tendance,
+                                deuxieme_tendance,
+                                troisieme_tendance,
+                                quatrieme_tendance,
+                                cinqieme_tendance
+                              ],
+                              images: BlocProvider.of<PharmacieBloc>(context)
+                                      .images
+                                      .isNotEmpty
+                                  ? BlocProvider.of<PharmacieBloc>(context)
+                                      .images
+                                  : [],
+                              prefEmail: prefEmailController.text,
+                              parking: parkingController.text,
+                              gareAccess: gareController.text,
+                              monnaie: monnaie,
+                              climat: climat,
+                              chauffage: chauffage,
+                              vigil: vigil,
+                              workConcil: workConcil,
+                              maitre: widget.maitre!,
+                              telephone: Telephone(
+                                  numeroTelephone:
+                                      int.parse(phoneController.text),
+                                  visible: false),
+                              localisation: Localisation(
+                                  ville: addressController.text, codePostal: 1),
+                              rer: rerController.text,
+                              metro: metroController.text,
+
+                              bus: busController.text,
+                              tramway: tramController.text,
+                              nom: widget.pharNameController?.text ?? '',
+                              titulaires:
+                                  BlocProvider.of<TitulaireBloc>(context)
+                                      .titulaires,
+                              presentation:
+                                  widget.pharDesController?.text ?? '',
+                              nbPreparateurs:
+                                  prepaersNumController.text.isNotEmpty
+                                      ? int.parse(prepaersNumController.text)
+                                      : 0,
+                              nbPharmaciens:
+                                  pharmaistsNumController.text.isNotEmpty
+                                      ? int.parse(pharmaistsNumController.text)
+                                      : 0,
+                              nbRayonnistes: equipeController[0].text.isNotEmpty
+                                  ? int.parse(equipeController[0].text)
+                                  : 0,
+                              nbConseillers: equipeController[1].text.isNotEmpty
+                                  ? int.parse(equipeController[1].text)
+                                  : 0,
+                              nbApprentis: equipeController[2].text.isNotEmpty
+                                  ? int.parse(equipeController[2].text)
+                                  : 0,
+                              nbEtudiants: equipeController[3].text.isNotEmpty
+                                  ? int.parse(equipeController[3].text)
+                                  : 0,
+                              nbEtudiants6: equipeController[4].text.isNotEmpty
+                                  ? int.parse(equipeController[4].text)
+                                  : 0,
+                              nonStop: nonStop,
+
+                              ///typo
+
+                              nbPatients: noPatientPerDay.text.isNotEmpty
+                                  ? noPatientPerDay.text
+                                  : "",
+
+                              ///mission
+                              testCovid: testCovid,
+                              vaccination: vaccination,
+                              entretien: pMaintaince,
+                              preparation: pbTeam,
+                              borneTelemedcine: tTerminal,
+                              breakRoom: breakRoom,
+                              robot: robot,
+                              electronicLabels: eLabels,
+                            );
+                            BlocProvider.of<PharmacieBloc>(context)
+                                .add(AddPharmacie(pharmacie: pharmacie));
+                            if (widget.myPharmacy == null) {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text("Offre d'emploi?"),
+                                    content: const Text(
+                                        "Voulez vous créer une offre d'emploi?"),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: const Text('Oui'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                          showModalBottomSheet(
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.vertical(
+                                                top: Radius.circular(25.0),
+                                              ),
+                                            ),
+                                            isScrollControlled: true,
+                                            context: context,
+                                            builder: (context) =>
+                                                const FiltersBottomSheet(),
+                                          );
+                                        },
+                                      ),
+                                      TextButton(
+                                        child: const Text('Non'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
+                          }
+                        }
+                      }
+                    } else {
+                      /*  controller.animateTo(0,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut);*/
+                    }
+                  },
+                  child: Container(
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(15),
+                        ),
+                        gradient: LinearGradient(
+                          begin: Alignment.centerRight,
+                          end: Alignment.centerLeft,
+                          colors: [
+                            Color.fromRGBO(66, 210, 255, 1),
+                            Color.fromRGBO(124, 237, 172, 1),
+                          ],
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          widget.myPharmacy == null
+                              ? 'Créer la pharmacie'
+                              : 'Enregistrer'.tr,
+                          style: bigWhite,
+                        ),
+                      )),
+                ),
+              ],
+            )));
   }
 }
 
@@ -1461,7 +1505,6 @@ class CalenderPharmacy extends StatelessWidget {
                   Container(
                     alignment: Alignment.centerLeft,
                     width: MediaQuery.of(context).size.width * 0.65,
-                    height: MediaQuery.of(context).size.height * 0.05,
                     decoration: const BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
@@ -1471,7 +1514,9 @@ class CalenderPharmacy extends StatelessWidget {
                     ),
                     child: Padding(
                         padding: const EdgeInsets.only(left: 10.0),
-                        child: TimeRangePicker(workHours: workHours[index])),
+                        child: TimeRangePicker(
+                            workHours: workHours[index * 2],
+                            secondWorkHours: workHours[index * 2 + 1])),
                   ),
                 ])));
   }

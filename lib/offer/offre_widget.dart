@@ -46,6 +46,7 @@ class _OffreWidgetState extends State<OffreWidget> {
     stations[4] = widget.offre.gareAccess;
     stations[5] = widget.offre.parking;
     salaireCreche[0] = widget.offre.salaireEnsemble;
+    contractController.text = widget.offre.contrat[0];
     salaireCreche[1] = salaireCreche[1];
   }
 
@@ -154,9 +155,6 @@ class _OffreWidgetState extends State<OffreWidget> {
           ),
           child: Container(
               padding: const EdgeInsets.all(10),
-              height: arrow
-                  ? MediaQuery.of(context).size.height * 4
-                  : MediaQuery.of(context).size.height * 0.07,
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(
@@ -175,15 +173,17 @@ class _OffreWidgetState extends State<OffreWidget> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          widget.offre.poste,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
+                        Flexible(
+                          child: Text(
+                            widget.offre.poste,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
                           ),
                         ),
-                        const Spacer(),
                         InkWell(
                           onTap: () {
                             setState(() {
@@ -507,7 +507,7 @@ class _OffreWidgetState extends State<OffreWidget> {
                                         visible: !salaireCreche[1],
                                         child: CustomTable(
                                           horraires: widget.offre.horaires,
-                                        ),    
+                                        ),
                                       ),
                                       const SizedBox(
                                         height: 20,

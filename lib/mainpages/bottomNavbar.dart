@@ -52,18 +52,11 @@ class _BottomNavbarState extends State<BottomNavbar> {
   @override
   void initState() {
     super.initState();
-    tabs = [
-      const Explorer(),
-      const PharmaJobNavNonTitu(),
-      const ProfilTabBar()
-    ];
+    tabs = [const Explorer(), const PharmaJobNavNonTitu(), ProfilTabBar()];
     controller = widget.draggableScrollableController;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.addListener(() {
         print(controller.size);
-        if (controller.size == 0.1) {
-          //BlocProvider.of<NavigationBloc>(context).add(Reset());
-        }
         bool oldResult = result;
         result = controller.size > 0.3 ? true : false;
         if (oldResult != result) {
@@ -86,7 +79,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
               widget.fromRegister = false;
             }
             tabs.removeAt(1);
-            tabs.insert(1, const PharmaJobNav());
+            tabs.insert(1, PharmaJobNav());
           } else {
             if (widget.fromRegister) {
               widget.fromRegister = false;
@@ -132,11 +125,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
           backgroundColor: Colors.white,
           //appBar: appBarCustom(),
           body: SingleChildScrollView(
-              controller: widget.scrollController,
-              child: SizedBox(
-                child: tabs[startIndex],
-                height: MediaQuery.of(context).size.height,
-              )),
+            controller: widget.scrollController,
+            child: tabs[startIndex],
+          ),
           bottomNavigationBar: Visibility(
             visible: result,
             child: BottomNavigationBar(
@@ -194,7 +185,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                             onTap: () {
                               setState(() {
                                 tabs.removeLast();
-                                tabs.add(const ProfilTabBar());
+                                tabs.add(ProfilTabBar());
                                 Navigator.pop(context);
                               });
                             },

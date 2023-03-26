@@ -156,9 +156,6 @@ class _OffreConslutationWidgetState extends State<OffreConslutationWidget> {
           ),
           child: Container(
               padding: const EdgeInsets.all(10),
-              height: arrow
-                  ? MediaQuery.of(context).size.height * 4
-                  : MediaQuery.of(context).size.height * 0.07,
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(
@@ -177,15 +174,17 @@ class _OffreConslutationWidgetState extends State<OffreConslutationWidget> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          widget.offre.poste,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
+                        Flexible(
+                          child: Text(
+                            widget.offre.poste,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
                           ),
                         ),
-                        const Spacer(),
                         InkWell(
                           onTap: () {
                             setState(() {
@@ -305,7 +304,7 @@ class _OffreConslutationWidgetState extends State<OffreConslutationWidget> {
                                                       ? Text(
                                                           widget.offre.contrat[
                                                                   index] +
-                                                              ',',
+                                                              ', ',
                                                           style:
                                                               const TextStyle(
                                                             color:
