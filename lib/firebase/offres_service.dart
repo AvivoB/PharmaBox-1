@@ -86,6 +86,79 @@ class OffreService {
     return results;
   }
 
+  Future getCustomOffres(Recherche recherche) async {
+    List<Offre> offres = await _firebaseFirestore
+        .collection("offres")
+        .where('poste', isEqualTo: recherche.poste)
+        .get()
+        .then(
+            (value) => value.docs.map((e) => Offre.fromMap(e.data())).toList());
+    List<Offre> offres1 = await _firebaseFirestore
+        .collection("offres")
+        .where('contrat', arrayContainsAny: recherche.contrat)
+        .get()
+        .then(
+            (value) => value.docs.map((e) => Offre.fromMap(e.data())).toList());
+    List<Offre> offres2 = await _firebaseFirestore
+        .collection("offres")
+        .where('logement', isEqualTo: recherche.logement)
+        .get()
+        .then(
+            (value) => value.docs.map((e) => Offre.fromMap(e.data())).toList());
+    List<Offre> offres3 = await _firebaseFirestore
+        .collection("offres")
+        .where('salaire', isEqualTo: recherche.salaireNet)
+        .get()
+        .then(
+            (value) => value.docs.map((e) => Offre.fromMap(e.data())).toList());
+    List<OffreCard> results = [];
+    for (Offre offerDoc in offres) {
+      String pharmacyId = offerDoc.pharmacieId;
+      Pharmacie pharmacie = await FirebaseFirestore.instance
+          .collection('pharmacie')
+          .doc(pharmacyId)
+          .get()
+          .then((value) => Pharmacie.fromJson(value.data()));
+      OffreCard result =
+          OffreCard(pharmacie: pharmacie, nomOffre: offerDoc.poste);
+      results.add(result);
+    }
+    for (Offre offerDoc in offres1) {
+      String pharmacyId = offerDoc.pharmacieId;
+      Pharmacie pharmacie = await FirebaseFirestore.instance
+          .collection('pharmacie')
+          .doc(pharmacyId)
+          .get()
+          .then((value) => Pharmacie.fromJson(value.data()));
+      OffreCard result =
+          OffreCard(pharmacie: pharmacie, nomOffre: offerDoc.poste);
+      results.add(result);
+    }
+    for (Offre offerDoc in offres2) {
+      String pharmacyId = offerDoc.pharmacieId;
+      Pharmacie pharmacie = await FirebaseFirestore.instance
+          .collection('pharmacie')
+          .doc(pharmacyId)
+          .get()
+          .then((value) => Pharmacie.fromJson(value.data()));
+      OffreCard result =
+          OffreCard(pharmacie: pharmacie, nomOffre: offerDoc.poste);
+      results.add(result);
+    }
+    for (Offre offerDoc in offres3) {
+      String pharmacyId = offerDoc.pharmacieId;
+      Pharmacie pharmacie = await FirebaseFirestore.instance
+          .collection('pharmacie')
+          .doc(pharmacyId)
+          .get()
+          .then((value) => Pharmacie.fromJson(value.data()));
+      OffreCard result =
+          OffreCard(pharmacie: pharmacie, nomOffre: offerDoc.poste);
+      results.add(result);
+    }
+    return results;
+  }
+
   Future getLocationOffres(String address) async {
     places.LatLng? location = await MapUtils.getLocationFromAddress(address);
     List<Offre> offres = await _firebaseFirestore
@@ -122,7 +195,8 @@ class OffreService {
   Future getLibresOffres(String input) async {
     List<Offre> offres = await _firebaseFirestore
         .collection("offres")
-        .where('poste', isEqualTo: input)
+        .where('poste', isGreaterThanOrEqualTo: input)
+        .where('poste', isLessThanOrEqualTo: input + '\uf8ff')
         .get()
         .then(
             (value) => value.docs.map((e) => Offre.fromMap(e.data())).toList());

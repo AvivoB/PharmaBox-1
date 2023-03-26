@@ -29,9 +29,7 @@ class _PharmaciesBoxState extends State<PharmaciesBox> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Container(
-      height: widget.imagePharm.startsWith('assets/')
-          ? height * 0.2
-          : height * 0.35,
+      height: height * 0.35,
       width: width * 0.9,
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -51,27 +49,24 @@ class _PharmaciesBoxState extends State<PharmaciesBox> {
           SizedBox(
             height: height * 0.01,
           ),
-          widget.imagePharm.startsWith('assets/')
-              ? const SizedBox()
-              : Container(
-                  padding: const EdgeInsets.all(8),
-                  height: height * 0.18,
-                  width: width * 0.82,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(15),
-                    ),
-                    color: Color(0xfF161730),
-                    image: DecorationImage(
-                      image:
-                          // ? SizedBox()
-                          //   as ImageProvider //AssetImage(widget.imagePharm)
-                          NetworkImage(widget.imagePharm) as ImageProvider,
-                      // 'assets/images/pharmacy 1.png'
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  /*Row(
+          Container(
+            padding:
+                EdgeInsets.all(widget.imagePharm.startsWith('assets/') ? 8 : 0),
+            height: height * 0.18,
+            width: width * 0.82,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(15),
+              ),
+              color: Color(0xfF161730),
+            ),
+            child: widget.imagePharm.startsWith('assets/')
+                ? Image.asset(
+                    widget.imagePharm,
+                    fit: BoxFit.contain,
+                  )
+                : Image.network(widget.imagePharm, fit: BoxFit.cover),
+            /*Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -93,7 +88,7 @@ class _PharmaciesBoxState extends State<PharmaciesBox> {
                 LikeButton(isLiked: false),
               ],
             ),*/
-                ),
+          ),
           SizedBox(
             height: height * 0.01,
           ),

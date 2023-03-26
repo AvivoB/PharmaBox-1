@@ -146,8 +146,12 @@ class PharmaJobNavNonTitu extends StatelessWidget {
                                 child: JobBox(
                                   pharmacie: state.offres[index].pharmacie,
                                   jobName: state.offres[index].nomOffre,
-                                  zip: state
-                                      .offres[index].pharmacie.localisation,
+                                  zip: state.offres[index].pharmacie
+                                          .localisation.codePostal
+                                          .toString() +
+                                      ' ' +
+                                      state.offres[index].pharmacie.localisation
+                                          .ville,
                                   pharm: state.offres[index].pharmacie.nom,
                                   imagePharm: state.offres[index].pharmacie
                                           .images.isEmpty

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pharmabox/pharmacyProfile/textfield.dart';
 import 'package:google_maps_webservice/places.dart';
 
+import '../pharmaJob/non_titu/special.dart';
+
 class LocalisationSearch extends StatefulWidget {
   final TextEditingController localisationController;
   const LocalisationSearch({Key? key, required this.localisationController})
@@ -19,7 +21,7 @@ class _LocalisationSearchState extends State<LocalisationSearch> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomPharmacyTextField(
+        Special(
           label: 'Localisation',
           readOnly: false,
           onSaved: (val) {

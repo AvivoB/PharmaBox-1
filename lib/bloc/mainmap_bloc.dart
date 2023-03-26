@@ -14,6 +14,7 @@ import 'package:pharmabox/model/user_models/marker_model.dart';
 import 'package:pharmabox/model/user_models/non_titulaire.dart';
 import 'package:pharmabox/model/user_models/offre_card.dart';
 import 'package:pharmabox/model/user_models/pharmacie.dart';
+import 'package:pharmabox/model/user_models/recherche.dart';
 
 import '../utils/map_utils.dart';
 
@@ -145,8 +146,6 @@ class MainmapBloc extends Bloc<MainmapEvent, MainmapState> {
       emit(ResultsReady(models: results));
     });
     on<GetLibreMembres>((event, emit) async {
-      print("weeeee");
-
       emit(ResultsLoading(models: const []));
       MembresService membresService = MembresService();
       List<NonTitulaire> membres =
@@ -179,6 +178,32 @@ class MainmapBloc extends Bloc<MainmapEvent, MainmapState> {
       print("weeeee");
       List<OffreCard> offresCard =
           await offreService.getLibresOffres(event.address);
+
+      Map<MarkerModel, int> markers = {};
+
+      for (OffreCard membre in offresCard) {
+        LatLng? geo = await MapUtils.getLocationFromAddress(
+            membre.pharmacie.localisation.ville);
+        MarkerModel model = MarkerModel(lat: geo!.lat, lng: geo.lng, count: 0);
+        if (markers.containsKey(model)) {
+          markers[model] = markers[model]! + 1;
+        } else {
+          markers[model] = 1;
+        }
+      }
+      List<MarkerModel> results = [];
+      markers.forEach(
+        (key, value) =>
+            results.add(MarkerModel(lat: key.lat, lng: key.lng, count: value)),
+      );
+      offresBloc.add(GetExplorerOffres(offreCard: offresCard));
+      emit(ResultsReady(models: results));
+    });
+    on<GetMixedOffres>((event, emit) async {
+      emit(ResultsLoading(models: const []));
+      OffreService offreService = OffreService();
+      List<OffreCard> offresCard =
+          await offreService.getCustomOffres(event.recherche);
 
       Map<MarkerModel, int> markers = {};
 

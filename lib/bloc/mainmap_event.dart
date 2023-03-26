@@ -35,4 +35,8 @@ class GetLibreOffres extends MainmapEvent {
 
   GetLibreOffres({required this.address});
 }
+class GetMixedOffres extends MainmapEvent {
+  final Recherche recherche;
 
+  GetMixedOffres({required this.recherche});
+}

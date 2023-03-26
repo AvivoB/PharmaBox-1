@@ -31,9 +31,7 @@ class _JobBoxState extends State<JobBox> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Container(
-      height: widget.imagePharm.startsWith('assets/')
-          ? height * 0.2
-          : height * 0.35,
+      height: height * 0.35,
       width: width * 0.9,
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -54,7 +52,8 @@ class _JobBoxState extends State<JobBox> {
             height: height * 0.01,
           ),
           Container(
-            padding: const EdgeInsets.all(8),
+            padding:
+                EdgeInsets.all(widget.imagePharm.startsWith('assets/') ? 8 : 0),
             height: height * 0.13,
             width: width * 0.82,
             decoration: BoxDecoration(
@@ -62,14 +61,15 @@ class _JobBoxState extends State<JobBox> {
                 Radius.circular(15),
               ),
               color: Color(0xfF161730),
-              image: DecorationImage(
-                image: widget.imagePharm.startsWith('assets/')
-                    ? AssetImage(widget.imagePharm)
-                    : NetworkImage(widget.imagePharm) as ImageProvider,
-                // 'assets/images/pharmacy 1.png'
-                fit: BoxFit.cover,
-              ),
             ),
+            child: widget.imagePharm.startsWith('assets/')
+                ? Image.asset(
+                    widget.imagePharm,
+                    fit: BoxFit.contain,
+                  )
+                : Image.network(widget.imagePharm, fit: BoxFit.cover),
+            // 'assets/images/pharmacy 1.png'
+
             /*Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -146,8 +146,11 @@ class _JobBoxState extends State<JobBox> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(
-                        Icons.location_on_outlined,
+                      Image.network(
+                        widget.pharmacie.groupementImage,
+                        height: 24,
+                        width: 24,
+                        fit: BoxFit.cover,
                       ),
                       SizedBox(
                         width: width * 0.02,

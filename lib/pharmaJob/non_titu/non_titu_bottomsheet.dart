@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmabox/Theme/color.dart';
 import 'package:pharmabox/Theme/text.dart';
+import 'package:pharmabox/bloc/mainmap_bloc.dart';
 import 'package:pharmabox/bloc/offres_bloc.dart';
 import 'package:pharmabox/business_logic/users_bloc/users_bloc_bloc.dart';
 import 'package:pharmabox/mainpages/mult_selection.dart';
@@ -14,6 +15,7 @@ import 'package:sizer/sizer.dart';
 import '../../bloc/recherche_bloc.dart';
 import '../../general/widgets/custom_registration_date_picker.dart';
 import '../../general/widgets/custom_registration_textfield.dart';
+import '../../general/widgets/present_field.dart';
 import '../../offer/offer_screen.dart';
 import '../../pharmacyProfile/localisation_search.dart';
 import '../../pharmacyProfile/pharmacyrow.dart';
@@ -86,7 +88,7 @@ class _NonTituSheetState extends State<NonTituSheet> {
   ];
   final List<bool> confort = [false, false, false, false];
   final List<bool> missions = [false, false, false];
-  final List<bool> salaireCreche = [false, false, false, false, false,false];
+  final List<bool> salaireCreche = [false, false, false, false, false, false];
   final List<bool> stations = [false, false, false, false, false, false];
 
   bool debut = false;
@@ -185,7 +187,7 @@ class _NonTituSheetState extends State<NonTituSheet> {
             const SizedBox(
               height: 20,
             ),
-            CustomRegistrationTextField(
+            PresentField(
               label: 'Poste',
               readOnly: true,
               padding: 1,
@@ -202,7 +204,7 @@ class _NonTituSheetState extends State<NonTituSheet> {
             const SizedBox(
               height: 20,
             ),
-            CustomRegistrationTextField(
+            PresentField(
               padding: 1,
               label: 'Rayon km',
               textInputType: TextInputType.number,
@@ -218,7 +220,7 @@ class _NonTituSheetState extends State<NonTituSheet> {
             Stack(
               alignment: Alignment.centerLeft,
               children: [
-                CustomRegistrationTextField(
+                PresentField(
                   padding: 1,
                   label: 'Temps Plein/Temps Partiel',
                   readOnly: true,
@@ -251,7 +253,7 @@ class _NonTituSheetState extends State<NonTituSheet> {
               height: 20,
             ),
             Stack(children: [
-              CustomRegistrationTextField(
+              PresentField(
                 padding: 1,
                 label: 'Contrat',
                 readOnly: true,
@@ -311,7 +313,7 @@ class _NonTituSheetState extends State<NonTituSheet> {
             const SizedBox(
               height: 20,
             ),
-            CustomRegistrationTextField(
+            PresentField(
               padding: 1,
               label: 'Durée',
               prefixIcon: const Icon(
@@ -325,7 +327,7 @@ class _NonTituSheetState extends State<NonTituSheet> {
             ),
             Visibility(
               visible: !salaireCreche[0],
-              child: CustomRegistrationTextField(
+              child: PresentField(
                 padding: 1,
                 label: 'Salaire Net',
                 textInputType: TextInputType.number,
@@ -531,7 +533,7 @@ class _NonTituSheetState extends State<NonTituSheet> {
                   Recherche recherche = Recherche(
                     state: true,
                     bus: stations[2],
-                    salaireNet: double.parse(salaireController.text),
+                    salaireNet:salaireController.text!=""? double.parse(salaireController.text):0.0,
                     rer: stations[0],
                     metro: stations[1],
                     tramway: stations[2],
@@ -545,17 +547,16 @@ class _NonTituSheetState extends State<NonTituSheet> {
                     vaccination: missions[1],
                     entretien: missions[2],
                     salaireEnsemble: salaireCreche[0],
-                    maitre : salaireCreche[1],
+                    maitre: salaireCreche[1],
                     creche: salaireCreche[2],
                     frais: salaireCreche[3],
                     logement: salaireCreche[4],
                     emploisDuTemps: salaireCreche[5],
-                    
                     semainePaire: semainesImpaires,
                     horairesImpaires: horrairesImpaires,
                     debut: debut,
                     localisation: locationController.text,
-                    rayon: int.parse(routeController.text),
+                    rayon:routeController.text != ""? int.parse(routeController.text):0,
                     temps: timeController.text,
                     poste: posteController.text,
                     duree: durationController.text,
@@ -690,7 +691,7 @@ class _NonTituBottomFilterState extends State<NonTituBottomFilter> {
             key: formKey,
             child: SizedBox(
               width: MediaQuery.of(context).size.width * 0.9,
-              child: CustomRegistrationTextField(
+              child: PresentField(
                 padding: 1,
                 label: 'Nom de la recherche',
                 controller: nomController,
@@ -706,8 +707,10 @@ class _NonTituBottomFilterState extends State<NonTituBottomFilter> {
                 widget.recherche.nom = nomController.text;
                 BlocProvider.of<RechercheBloc>(context)
                     .add(CreateRecherche(recherche: widget.recherche));
-                BlocProvider.of<OffresBloc>(context)
-                    .add(GetFilteredOffres(recherche: widget.recherche));
+                /* BlocProvider.of<OffresBloc>(context)
+                    .add(GetFilteredOffres(recherche: widget.recherche));*/
+                BlocProvider.of<MainmapBloc>(context)
+                    .add(GetMixedOffres(recherche: widget.recherche));
                 Navigator.pop(context, true);
               }
             },

@@ -235,7 +235,29 @@ class _PharmacyProfileState extends State<PharmacyProfile>
                               );
                             }).toList(),
                           )
-                        : const SizedBox(),
+                        : Container(
+                            width: double.infinity,
+                            height: height * 0.2,
+                            decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [
+                                Color.fromRGBO(145, 234, 228, 1),
+                                Color.fromRGBO(134, 168, 231, 1),
+                                Color.fromRGBO(127, 127, 213, 1),
+                              ],
+                            )),
+                            child: Container(
+                                padding: const EdgeInsets.all(5),
+                                margin: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border:
+                                      Border.all(color: Colors.white, width: 1),
+                                ),
+                                child: Image.asset(
+                                    'assets/images/pharma_img.png'))),
                     Container(
                       color: Colors.white,
                       height: height * 0.02,

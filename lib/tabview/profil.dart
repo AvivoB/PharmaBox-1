@@ -170,14 +170,20 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                         children: [
                           Stack(
                             children: [
-                              CircleAvatar(
-                                radius: 80,
-                                backgroundImage: widget.membre.photoUrl != ''
-                                    ? NetworkImage(widget.membre.photoUrl)
-                                        as ImageProvider
-                                    : const AssetImage(
-                                        'assets/images/user.png',
-                                      ),
+                              Container(
+                                padding: const EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(color: Colors.white)),
+                                child: CircleAvatar(
+                                  radius: 70,
+                                  backgroundImage: widget.membre.photoUrl != ''
+                                      ? NetworkImage(widget.membre.photoUrl)
+                                          as ImageProvider
+                                      : const AssetImage(
+                                          'assets/images/user.png',
+                                        ),
+                                ),
                               ),
                               /*Align(
                                 alignment: Alignment.bottomCenter,
@@ -224,23 +230,19 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                                             height: width * 0.15,
                                             width: width * 0.15,
                                             decoration: BoxDecoration(
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                Radius.circular(30),
-                                              ),
-                                              image: DecorationImage(
-                                                image: snapshot
-                                                        .data!.images.isNotEmpty
-                                                    ? NetworkImage(
-                                                        snapshot
-                                                            .data!.images[0],
-                                                      ) as ImageProvider
-                                                    : AssetImage(
-                                                        'assets/images/pharmacy 1.png',
-                                                      ),
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
+                                                border: Border.all(
+                                                    color: Colors.white),
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(30),
+                                                )),
+                                            child: snapshot
+                                                    .data!.images.isNotEmpty
+                                                ? Image.network(
+                                                    snapshot.data!.images[0],
+                                                  )
+                                                : Image.asset(
+                                                    'assets/images/pharma_img.png',
+                                                  ),
                                           ),
                                           SizedBox(
                                             width: width * 0.04,

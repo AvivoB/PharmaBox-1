@@ -172,7 +172,8 @@ class PharmacieCalls {
   Future getLibrePharmacies(String input) async {
     List<Pharmacie> recherches = await _firebaseFirestore
         .collection("pharmacie")
-        .where('nom', isEqualTo: input)
+        .where('nom', isGreaterThanOrEqualTo: input)
+        .where('nom', isLessThanOrEqualTo: input + '\uf8ff')
         .get()
         .then((value) =>
             value.docs.map((e) => Pharmacie.fromJson(e.data())).toList());
@@ -190,11 +191,17 @@ class PharmacieCalls {
             value.docs.map((e) => Pharmacie.fromJson(e.data())).toList());
     List<Pharmacie> recherches4 = await _firebaseFirestore
         .collection("pharmacie")
-        .where('groupement-name', isEqualTo: input)
+        .where('groupement-name', isGreaterThanOrEqualTo: input)
+        .where('groupement-name', isLessThanOrEqualTo: input + '\uf8ff')
         .get()
         .then((value) =>
             value.docs.map((e) => Pharmacie.fromJson(e.data())).toList());
-    List<Pharmacie> newList = [...recherches, ...recherches1, ...recherches3,...recherches4];
+    List<Pharmacie> newList = [
+      ...recherches,
+      ...recherches1,
+      ...recherches3,
+      ...recherches4
+    ];
 
     return newList;
   }

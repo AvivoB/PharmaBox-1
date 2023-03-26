@@ -56,19 +56,23 @@ class MembresService {
   Future getLibresMembres(String input) async {
     List<NonTitulaire> recherches = await _firebaseFirestore
         .collection("users")
-        .where('nom', isEqualTo: input)
+       .where('nom', isGreaterThanOrEqualTo: input)
+                .where('nom', isLessThanOrEqualTo: input+'\uf8ff')
         .get()
         .then((value) =>
             value.docs.map((e) => NonTitulaire.fromJson(e.data())).toList());
     List<NonTitulaire> recherches1 = await _firebaseFirestore
         .collection("users")
-        .where('prenom', isEqualTo: input)
+        .where('prenom', isGreaterThanOrEqualTo: input)
+                .where('prenom', isLessThanOrEqualTo: input+'\uf8ff')
+
         .get()
         .then((value) =>
             value.docs.map((e) => NonTitulaire.fromJson(e.data())).toList());
     List<NonTitulaire> recherches2 = await _firebaseFirestore
         .collection("users")
-        .where('poste', isEqualTo: input)
+         .where('poste', isGreaterThanOrEqualTo: input)
+                .where('poste', isLessThanOrEqualTo: input+'\uf8ff')
         .get()
         .then((value) =>
             value.docs.map((e) => NonTitulaire.fromJson(e.data())).toList());

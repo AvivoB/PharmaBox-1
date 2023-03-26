@@ -28,6 +28,9 @@ class _ExplorerState extends State<Explorer> {
   bool pharmacies = true;
   bool jobs = true;
   int nbResults = 0;
+  int members = 0;
+  int joobs = 0;
+  int phars = 0;
   TextEditingController localisationController = TextEditingController();
   gmaps.GoogleMapController? googleMapController;
   @override
@@ -73,11 +76,22 @@ class _ExplorerState extends State<Explorer> {
                           ),
                           BlocBuilder<MembresBloc, MembresState>(
                             builder: (context, membreState) {
+                              membreState is MembresReady
+                                  ? nbResults = membreState.membres.length
+                                  : null;
                               return BlocBuilder<OffresBloc, OffresState>(
                                 builder: (context, offreState) {
+                                  offreState is FilteredOffresReady
+                                      ? nbResults =
+                                          nbResults + offreState.offres.length
+                                      : null;
                                   return BlocBuilder<PharmacierechercheBloc,
                                       PharmacierechercheState>(
                                     builder: (context, pharmaState) {
+                                      pharmaState is ExplorerPharmacieReady
+                                          ? nbResults = nbResults +
+                                              pharmaState.pharmacies.length
+                                          : null;
                                       return Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -100,7 +114,6 @@ class _ExplorerState extends State<Explorer> {
                           BlocBuilder<MembresBloc, MembresState>(
                               builder: (context, state) {
                             if (state is MembresReady) {
-                              nbResults = nbResults + state.membres.length;
                               return InkWell(
                                 onTap: () {
                                   setState(() {
@@ -181,7 +194,6 @@ class _ExplorerState extends State<Explorer> {
                                   PharmacierechercheState>(
                               builder: (context, state) {
                             if (state is ExplorerPharmacieReady) {
-                              nbResults = nbResults + state.pharmacies.length;
                               return InkWell(
                                 onTap: () {
                                   setState(() {
@@ -261,7 +273,6 @@ class _ExplorerState extends State<Explorer> {
                           BlocBuilder<OffresBloc, OffresState>(
                               builder: (context, state) {
                             if (state is FilteredOffresReady) {
-                              nbResults += state.offres.length;
                               return InkWell(
                                 onTap: () {
                                   setState(() {

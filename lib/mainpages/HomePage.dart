@@ -402,7 +402,7 @@ class _HomePageState extends State<HomePage> {
               },
               child: BlocListener<NavigationBloc, NavigationState>(
                 listener: (context, state) {
-                  if (state is ExplorerState ||
+                  if (state is NavigationInitial ||
                       state is PharmaJobTituState ||
                       state is PharmaJobNonTituState) {
                     animationMax = 0.7;
