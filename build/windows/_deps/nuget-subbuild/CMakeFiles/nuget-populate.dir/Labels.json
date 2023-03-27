@@ -1,0 +1,49 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/nuget-populate"
+		},
+		{
+			"file" : "D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/2d49be3be3b67c68136a4f34a384b8bf/nuget-populate.rule"
+		},
+		{
+			"file" : "D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/fa74e5515381c7e81d0c57498b2e81d9/nuget-populate-complete.rule"
+		},
+		{
+			"file" : "D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/2c77a69571dd780b524fb3d7e36fc356/nuget-populate-build.rule"
+		},
+		{
+			"file" : "D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/2c77a69571dd780b524fb3d7e36fc356/nuget-populate-configure.rule"
+		},
+		{
+			"file" : "D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/2c77a69571dd780b524fb3d7e36fc356/nuget-populate-copyfile.rule"
+		},
+		{
+			"file" : "D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/2c77a69571dd780b524fb3d7e36fc356/nuget-populate-download.rule"
+		},
+		{
+			"file" : "D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/2c77a69571dd780b524fb3d7e36fc356/nuget-populate-install.rule"
+		},
+		{
+			"file" : "D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/2c77a69571dd780b524fb3d7e36fc356/nuget-populate-mkdir.rule"
+		},
+		{
+			"file" : "D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/2c77a69571dd780b524fb3d7e36fc356/nuget-populate-patch.rule"
+		},
+		{
+			"file" : "D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/2c77a69571dd780b524fb3d7e36fc356/nuget-populate-test.rule"
+		},
+		{
+			"file" : "D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/2c77a69571dd780b524fb3d7e36fc356/nuget-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"nuget-populate"
+		],
+		"name" : "nuget-populate"
+	}
+}

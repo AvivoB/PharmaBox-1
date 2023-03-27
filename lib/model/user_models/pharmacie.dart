@@ -8,6 +8,7 @@ import '../tendance.dart';
 
 class Pharmacie {
   final String nom;
+  final String id;
   List<String> titulaires;
   final List<String> images;
   final List<WorkHours> workHours;
@@ -85,9 +86,9 @@ class Pharmacie {
       "electronic": electronicLabels,
       "monnaie": monnaie,
       "climat": climat,
-      "chauffage":chauffage,
-      "vigil":vigil,
-      "workConcil":workConcil,
+      "chauffage": chauffage,
+      "vigil": vigil,
+      "workConcil": workConcil,
       "groupement-image": groupementImage,
       "groupement-name": groupementName,
       "lgo-name": lgoName,
@@ -133,13 +134,14 @@ class Pharmacie {
       bus: json.containsKey("bus") ? json["bus"] ?? "" : "",
       nonStop: json["non-stop"] ?? "",
       electronicLabels: json["electronic"],
-      monnaie:json['monnaie'],
-      climat:json['climat'],
-      chauffage:json['chauffage'],
-      vigil:json['vigil'],
-      workConcil:json['workConcil'],
+      monnaie: json['monnaie'],
+      climat: json['climat'],
+      chauffage: json['chauffage'],
+      vigil: json['vigil'],
+      workConcil: json['workConcil'],
       entretien: json["entretien"],
       gareAccess: json["gare"],
+      id: json["id"],
       images: images,
       maitre: json["maitre"],
       typologie: json["typologie"],
@@ -170,8 +172,9 @@ class Pharmacie {
     );
   }
 
-  Pharmacie( {
+  Pharmacie({
     required this.nom,
+    required this.id,
     required this.groupementImage,
     required this.groupementName,
     required this.lgoImage,
@@ -202,11 +205,11 @@ class Pharmacie {
     required this.breakRoom,
     required this.robot,
     required this.electronicLabels,
- 
- required this.monnaie,
- required  this.climat,
- required this.chauffage,
-  required this.vigil,required this.workConcil,
+    required this.monnaie,
+    required this.climat,
+    required this.chauffage,
+    required this.vigil,
+    required this.workConcil,
     required this.tendances,
     required this.nbPharmaciens,
     required this.nbPreparateurs,

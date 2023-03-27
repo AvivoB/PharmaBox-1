@@ -247,6 +247,7 @@ class _HomePageState extends State<HomePage> {
                                             );
                                           },
                                           child: MembersBox(
+                                            user: state.membres[index],
                                             poste: state.membres[index].poste,
                                             image: state.membres[index]
                                                         .photoUrl !=

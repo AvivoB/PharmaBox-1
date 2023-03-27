@@ -4,7 +4,9 @@ import 'package:pharmabox/Theme/color.dart';
 import 'package:pharmabox/Theme/text.dart';
 import 'package:pharmabox/Widgets/gradientText.dart';
 import 'package:pharmabox/Widgets/likeandroundbutton.dart';
+import 'package:pharmabox/model/user_models/non_titulaire.dart';
 
+import '../firebase/like_service.dart';
 import '../general/widgets/custom_elevated_button.dart';
 import '../general/widgets/custom_registration_textfield.dart';
 import '../tabview/profil.dart';
@@ -14,7 +16,8 @@ class MembersBox extends StatelessWidget {
   var name;
   var zip;
   var poste;
-  MembersBox({Key? key, this.image, this.name, this.zip, required this.poste})
+  NonTitulaire user;
+  MembersBox({Key? key, this.image, this.name, this.zip, required this.poste,required this.user})
       : super(key: key);
 
   @override
@@ -125,7 +128,6 @@ class MembersBox extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-               
                 Container(
                   margin: const EdgeInsets.all(5),
                   decoration: const BoxDecoration(
@@ -133,8 +135,27 @@ class MembersBox extends StatelessWidget {
                       Radius.circular(15),
                     ),
                   ),
-                  child: LikeButton(
-                    isLiked: true,
+                  child: FutureBuilder(
+                    future: LikeService().getUserLikes(user.id),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return LikeButton(
+                          numberLikes: snapshot.data as int,
+                          removeFunction: LikeService().removeUserLikes,
+                          addFunction: LikeService().addUserLikes,
+                          docId: user.id,
+                          checkFunction: LikeService().checkUsersLikes,
+                        );
+                      } else {
+                        return LikeButton(
+                          numberLikes: 0,
+                          removeFunction: LikeService().removeUserLikes,
+                          addFunction: LikeService().addUserLikes,
+                          checkFunction: LikeService().checkUsersLikes,
+                          docId: user.id
+                        );
+                      }
+                    },
                   ),
                 ),
                 const Spacer(),
@@ -279,9 +300,32 @@ class MembersBoxDelete extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: LikeButton(
-                    isLiked: true,
-                  ),
+                  child: /* FutureBuilder(
+                    future:
+                        LikeService().getPharmacieLikes(widget.pharmacie.id),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return LikeButton(
+                          numberLikes: snapshot.data as int,
+                          removeFunction: LikeService().removePharmacieLikes,
+                          addFunction: LikeService().addPharmacieLikes,
+                                                    docId: widget.pharmacie.id,
+                                                    checkFunction: LikeService().checkPharmacieUser,
+
+                        );
+                      } else {
+                        return LikeButton(
+                          numberLikes: 0,
+                          removeFunction: LikeService().removePharmacieLikes,
+                          addFunction: LikeService().addPharmacieLikes,
+                                                                              checkFunction: LikeService().checkPharmacieUser,
+
+                          docId: widget.pharmacie.id,
+                        );
+                      }
+                    },
+                  ),*/
+                      SizedBox(),
                 ),
               ],
             ),

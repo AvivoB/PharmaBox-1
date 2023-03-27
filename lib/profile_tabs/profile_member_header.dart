@@ -121,6 +121,7 @@ class _ProfilTabBarState extends State<ProfilTabBar>
     // TODO: implement didChangeDependencies
     NonTitulaire nonTitulaire = NonTitulaire.creation(
         nom: firstNameController.text,
+        id: _usersBlocBloc.currentUser!.id,
         specialisations: _specialisationsBloc.state.specialisations,
         prenom: lastNameController.text,
         photoUrl: _usersBlocBloc.currentUser!.photoUrl,

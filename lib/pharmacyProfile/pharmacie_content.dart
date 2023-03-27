@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pharmabox/bloc/pharmacie_bloc.dart';
 import 'package:pharmabox/bloc/titulaires_bloc.dart';
+import 'package:pharmabox/business_logic/users_bloc/users_bloc_bloc.dart';
 import 'package:pharmabox/general/widgets/present_field.dart';
 import 'package:pharmabox/member_registration/lgo_widgets.dart';
 import 'package:pharmabox/model/user_models/pharmacie.dart';
@@ -1289,6 +1290,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                             print(BlocProvider.of<TitulaireBloc>(context)
                                 .titulaires);
                             Pharmacie pharmacie = Pharmacie(
+                              id:BlocProvider.of<UsersBlocBloc>(context).currentUser!.id,
                               email: emailController.text,
                               typologie: typologieController.text,
                               workHours: work_hours,

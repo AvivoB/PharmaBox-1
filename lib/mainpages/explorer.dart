@@ -168,6 +168,7 @@ class _ExplorerState extends State<Explorer> {
                                             ' ' +
                                             state.membres[index].localisation
                                                 .ville,
+                                                user: state.membres[index],
                                       ),
                                     ),
                                   ),

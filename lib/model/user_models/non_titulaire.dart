@@ -12,6 +12,7 @@ import '../universite.dart';
 class NonTitulaire extends Equatable {
   String _nom;
   String _prenom;
+  final String id;
   String _email;
   String? _presentation;
   Telephone _telephone;
@@ -73,6 +74,7 @@ class NonTitulaire extends Equatable {
   set accepterConditions(value) => _accepterConditions = value;
   NonTitulaire({
     required String nom,
+    required this.id,
     required String prenom,
     required String email,
     required Telephone telephone,
@@ -100,6 +102,7 @@ class NonTitulaire extends Equatable {
         _competences = [];
   NonTitulaire.creation({
     required String nom,
+    required this.id,
     required this.photoUrl,
     required this.specialisations,
     required String prenom,
@@ -139,6 +142,7 @@ class NonTitulaire extends Equatable {
       "email": email,
       "specialisations": specialisations.map((e) => e.toJson()).toList(),
       "photo": photoUrl,
+      "id": id,
       "date-naissance": _dateNaissance,
       "telephone": _telephone.numeroTelephone,
       "code-postal": _localisation.codePostal,
@@ -189,6 +193,7 @@ class NonTitulaire extends Equatable {
         poste: json['poste'] as String,
         droitOffres: json['droit_offres'] as bool,
         lgos: lgos,
+        id:json["id"],
         langues: langues,
         experiences: experiences,
         universites: universites,

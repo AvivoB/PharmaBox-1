@@ -1,12 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharmabox/business_logic/users_bloc/users_bloc_bloc.dart';
+import 'package:pharmabox/firebase/like_service.dart';
 
 import '../Theme/color.dart';
 import '../Theme/text.dart';
 
 // ignore: must_be_immutable
 class LikeButton extends StatefulWidget {
-  bool isLiked = false;
-  LikeButton({Key? key, required this.isLiked}) : super(key: key);
+  int numberLikes;
+  String docId;
+  Function removeFunction;
+  Future<bool> Function(String, String) checkFunction;
+  Function addFunction;
+  LikeButton(
+      {Key? key,
+      required this.numberLikes,
+      required this.checkFunction,
+      required this.removeFunction,
+      required this.docId,
+      required this.addFunction})
+      : super(key: key);
 
   @override
   State<LikeButton> createState() => _LikeButtonState();
@@ -17,36 +31,61 @@ class _LikeButtonState extends State<LikeButton> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return InkWell(
-      onTap: () {
-        setState(() {
-          widget.isLiked = !widget.isLiked;
+    return FutureBuilder<bool>(
+        future: widget.checkFunction(
+          BlocProvider.of<UsersBlocBloc>(context).currentUser!.id,
+          widget.docId,
+        ),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            bool isLiked = snapshot.data!;
+            print(isLiked);
+
+            return InkWell(
+              onTap: () async {
+                if (isLiked) {
+                  widget.numberLikes = widget.numberLikes - 1;
+                  await widget.removeFunction(
+                    BlocProvider.of<UsersBlocBloc>(context).currentUser!.id,
+                    widget.docId,
+                  );
+                } else {
+                  widget.numberLikes = widget.numberLikes + 1;
+                  await widget.addFunction(
+                    BlocProvider.of<UsersBlocBloc>(context).currentUser!.id,
+                    widget.docId,
+                  );
+                }
+                setState(() {});
+              },
+              child: Container(
+                padding: const EdgeInsets.only(left: 5),
+                decoration: BoxDecoration(
+                  color: isLiked ? lightGreen : Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                width: width * 0.18,
+                height: height * 0.03,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const Icon(
+                      Icons.thumb_up_alt_outlined,
+                      color: Colors.black,
+                      size: 25,
+                    ),
+                    Text(
+                      widget.numberLikes.toString(),
+                      style: headingWhite.copyWith(color: Colors.black),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          } else {
+            return CircularProgressIndicator();
+          }
         });
-      },
-      child: Container(
-        padding: const EdgeInsets.only(left: 5),
-        decoration: BoxDecoration(
-          color: !widget.isLiked ? lightGreen : Colors.white,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        width: width * 0.18,
-        height: height * 0.03,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const Icon(
-              Icons.thumb_up_alt_outlined,
-              color: Colors.black,
-              size: 25,
-            ),
-            Text(
-              !widget.isLiked ? '0' : '0',
-              style: headingWhite.copyWith(color: Colors.black),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }
 

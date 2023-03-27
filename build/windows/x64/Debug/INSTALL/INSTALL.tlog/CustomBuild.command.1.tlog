@@ -1,0 +1,10 @@
+^D:\FREELANCE PROJECTS\PHARMABOX\PHARMABOX-1\BUILD\WINDOWS\CMAKEFILES\CF99988B25DA9C32803377229BA7D57D\INSTALL_FORCE.RULE
+setlocal
+cd .
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -260,7 +260,14 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                               SizedBox(
                                 height: height * 0.01,
                               ),
-                              LikeButton(isLiked: false),
+                             /* LikeButton(
+                              numberLikes: 0,
+                              addFunction: (){},
+                              checkFunction: (){},
+                              removeFunction: (){},
+                              docId: "",
+
+                              ),*/
                             ],
                           ),
                         ],

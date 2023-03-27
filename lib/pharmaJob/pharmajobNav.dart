@@ -62,6 +62,7 @@ class PharmaJobNav extends StatelessWidget {
                         );
                       },
                       child: MembersBox(
+                        user: state.membres[index],
                         poste: state.membres[index].poste,
                         image: state.membres[index].photoUrl != ''
                             ? state.membres[index].photoUrl

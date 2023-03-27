@@ -169,11 +169,11 @@ class _PharmacyProfileState extends State<PharmacyProfile>
                                                 ),
                                               ),
                                             ),
-                                            Padding(
+                                            /*Padding(
                                               padding: const EdgeInsets.only(
                                                   bottom: 10.0),
                                               child: LikeButton(isLiked: false),
-                                            ),
+                                            ),*/
                                           ],
                                         ),
                                         Row(

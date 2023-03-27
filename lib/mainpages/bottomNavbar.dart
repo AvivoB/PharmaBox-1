@@ -16,7 +16,6 @@ import 'package:pharmabox/business_logic/langues_bloc/langues_bloc.dart';
 import 'package:pharmabox/business_logic/lgo_bloc/lgo_bloc.dart';
 import 'package:pharmabox/business_logic/specialisations_bloc/specialisations_bloc.dart';
 import 'package:pharmabox/business_logic/universites_bloc/universites_bloc.dart';
-import 'package:pharmabox/configurations/mainConfig.dart';
 import 'package:pharmabox/profile_tabs/profile_member_header.dart';
 import 'package:pharmabox/mainpages/explorer.dart';
 import 'package:pharmabox/pharmaJob/non_titu/pharmaJobNav_non_titu.dart';
@@ -49,6 +48,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
   var color = const Color.fromRGBO(89, 90, 113, 1);
   bool result = false;
   int startIndex = 0;
+  int cpt = 0;
   @override
   void initState() {
     super.initState();
@@ -81,8 +81,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
             tabs.removeAt(1);
             tabs.insert(1, PharmaJobNav());
           } else {
-            if (widget.fromRegister) {
+            if (widget.fromRegister && cpt == 0) {
               widget.fromRegister = false;
+              cpt++;
               WidgetsBinding.instance
                   .addPostFrameCallback((_) async => await showDialog(
                         context: context,

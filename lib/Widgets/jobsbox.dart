@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmabox/Theme/text.dart';
 import 'package:pharmabox/Widgets/circularwidget.dart';
 import 'package:pharmabox/Widgets/likeandroundbutton.dart';
+import 'package:pharmabox/firebase/like_service.dart';
 import 'package:pharmabox/model/user_models/pharmacie.dart';
 
 import '../Theme/color.dart';
@@ -219,8 +220,30 @@ class _JobBoxState extends State<JobBox> {
                       Radius.circular(15),
                     ),
                   ),
-                  child: LikeButton(
-                    isLiked: true,
+                  child: FutureBuilder(
+                    future:
+                        LikeService().getPharmacieLikes(widget.pharmacie.id),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return LikeButton(
+                          numberLikes: snapshot.data as int,
+                          removeFunction: LikeService().removePharmacieLikes,
+                          addFunction: LikeService().addPharmacieLikes,
+                                                    docId: widget.pharmacie.id,
+                                                    checkFunction: LikeService().checkPharmacieUser,
+
+                        );
+                      } else {
+                        return LikeButton(
+                          numberLikes: 0,
+                          removeFunction: LikeService().removePharmacieLikes,
+                          addFunction: LikeService().addPharmacieLikes,
+                                                                              checkFunction: LikeService().checkPharmacieUser,
+
+                          docId: widget.pharmacie.id,
+                        );
+                      }
+                    },
                   ),
                 ),
                 const Spacer(),

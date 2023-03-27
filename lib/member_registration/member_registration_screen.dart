@@ -249,6 +249,7 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                       } else {
                         NonTitulaire nonTitulaire = NonTitulaire.creation(
                             nom: firstNameController.text,
+                            id:FirebaseAuth.instance.currentUser!.uid,
                             photoUrl:
                                 BlocProvider.of<UsersBlocBloc>(context).imagePath !=
                                         null
