@@ -42,7 +42,7 @@
             android:value="AIzaSyD2iAVuME8f_hACkixmDwAWb-VSxz1lCwU" />
 
         <activity
-            android:name="com.example.pharmabox.MainActivity"
+            android:name="com.application.pharmaboxmain.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:exported="true"
             android:hardwareAccelerated="true"

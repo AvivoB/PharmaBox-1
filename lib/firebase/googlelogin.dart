@@ -5,9 +5,7 @@ import 'package:pharmabox/member_registration/member_registration_screen.dart';
 
 import '../main.dart';
 
-GoogleSignIn googleSignIn = GoogleSignIn(scopes: [
-  'email',
-]);
+GoogleSignIn googleSignIn = GoogleSignIn();
 Future signInWithGoogle(BuildContext context) async {
   // Trigger the authentication flow
   try {
