@@ -180,7 +180,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
       pMaintaince = widget.myPharmacy?.entretien ?? false;
       pbTeam = widget.myPharmacy?.preparation ?? false;
       tTerminal = widget.myPharmacy?.borneTelemedcine ?? false;
-      
+
       breakRoom = widget.myPharmacy?.breakRoom ?? false;
       robot = widget.myPharmacy?.robot ?? false;
       eLabels = widget.myPharmacy?.electronicLabels ?? false;
@@ -1269,6 +1269,16 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                               content: const Text("Vous devez choisir un LGO!"),
                             ),
                           );
+                        } else if (addressController.text == "") {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              backgroundColor: const Color(0xFF7CEDAC),
+                              content:
+                                  const Text("Vous devez choisir une adresse!"),
+                            ),
+                          );
                         } else {
                           int nbClosed = 0;
                           for (WorkHours hour in work_hours) {
@@ -1287,11 +1297,6 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                               ),
                             );
                           } else {
-                            print(BlocProvider.of<TitulaireBloc>(context)
-                                .titulaires);
-                            print(BlocProvider.of<UsersBlocBloc>(context)
-                                .currentUser!
-                                .id);
                             Pharmacie pharmacie = Pharmacie(
                               id: BlocProvider.of<UsersBlocBloc>(context)
                                   .currentUser!

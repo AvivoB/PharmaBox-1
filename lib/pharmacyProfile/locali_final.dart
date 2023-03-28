@@ -32,25 +32,29 @@ class _MainMapProfileState extends State<MainMapProfile> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextField(
-          readOnly: false,
-          onChanged: (val) async {
-            response = await places.autocomplete(val);
-            setState(() {});
-          },
-          decoration: InputDecoration(
-              hintText: "Rechercher",
-              prefixIcon: const Icon(Icons.map),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5),
-              )),
-          onSubmitted: (val) async {
-            var local = await MapUtils.getLocationFromAddress(
-                widget.localisationController.text);
-            widget.mapController!.animateCamera(maps.CameraUpdate.newLatLngZoom(
-                maps.LatLng(local!.lat, local.lng), 12));
-          },
-          controller: widget.localisationController,
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: TextField(
+            readOnly: false,
+            onChanged: (val) async {
+              response = await places.autocomplete(val);
+              setState(() {});
+            },
+            decoration: InputDecoration(
+                hintText: "Rechercher",
+                prefixIcon: const Icon(Icons.map),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5),
+                )),
+            onSubmitted: (val) async {
+              var local = await MapUtils.getLocationFromAddress(
+                  widget.localisationController.text);
+              widget.mapController!.animateCamera(
+                  maps.CameraUpdate.newLatLngZoom(
+                      maps.LatLng(local!.lat, local.lng), 12));
+            },
+            controller: widget.localisationController,
+          ),
         ),
         response != null
             ? Container(
