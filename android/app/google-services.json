@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "258018021289-888jn8opqvl6luq64frfmn3cc7td1gql.apps.googleusercontent.com",
+          "client_id": "258018021289-ulkmd533dg6gb5ksi7h722klfl984asm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.application.pharmaboxmain",
-            "certificate_hash": "6f0e45113b4bad6edad40379bac3134865cde8eb"
+            "certificate_hash": "625d1355fca7a300dd54a10b12f7e6ec8f66cc56"
           }
         },
         {
@@ -28,7 +28,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDU06opW-FU8JgMAS-8OrBThjCHBaZCjow"
+          "current_key": "AIzaSyDyFRiEakAX-xW63ZpA6D6mDlQYAw1xAAo"
         }
       ],
       "services": {

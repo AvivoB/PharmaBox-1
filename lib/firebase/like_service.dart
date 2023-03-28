@@ -7,6 +7,9 @@ class LikeService {
   Future<int> getPharmacieLikes(String id) async {
     final DocumentSnapshot pharmacieDoc =
         await _firebaseFirestore.collection("pharmacies_likes").doc(id).get();
+    if (!pharmacieDoc.exists) {
+      return 0;
+    }
     final dynamic infos = pharmacieDoc.data()!;
     return infos["count"];
   }
@@ -19,10 +22,10 @@ class LikeService {
         .get();
     if (pharmacieDoc.exists) {
       final dynamic infos = pharmacieDoc.data()!;
-      if (infos["users"].contains(userId)) {
-        return true;
-      } else {
+      if (!infos["users"].contains(userId)) {
         return false;
+      } else {
+        return true;
       }
     } else {
       return false;
@@ -30,20 +33,24 @@ class LikeService {
   }
 
   Future<bool> checkUsersLikes(String userId, String docId) async {
-    print("hi");
+    print(docId);
+    print(userId);
     final DocumentSnapshot pharmacieDoc =
         await _firebaseFirestore.collection("user_likes").doc(docId).get();
     final dynamic infos = pharmacieDoc.data()!;
     if (!infos["users"].contains(userId)) {
-      return true;
-    } else {
       return false;
+    } else {
+      return true;
     }
   }
 
   Future<int> getUserLikes(String id) async {
     final DocumentSnapshot pharmacieDoc =
         await _firebaseFirestore.collection("user_likes").doc(id).get();
+    if (!pharmacieDoc.exists) {
+      return 0;
+    }
     final dynamic infos = pharmacieDoc.data()!;
     return infos["count"];
   }

@@ -37,6 +37,7 @@ class _LikeButtonState extends State<LikeButton> {
           widget.docId,
         ),
         builder: (context, snapshot) {
+          print(snapshot.data);
           if (snapshot.hasData) {
             bool isLiked = snapshot.data!;
             print(isLiked);
@@ -83,7 +84,49 @@ class _LikeButtonState extends State<LikeButton> {
               ),
             );
           } else {
-            return CircularProgressIndicator();
+            bool isLiked = false;
+            return InkWell(
+              onTap: () async {
+                if (isLiked) {
+                  widget.numberLikes = widget.numberLikes - 1;
+                  await widget.removeFunction(
+                    BlocProvider.of<UsersBlocBloc>(context).currentUser!.id,
+                    widget.docId,
+                  );
+                } else {
+                  widget.numberLikes = widget.numberLikes + 1;
+                  await widget.addFunction(
+                    BlocProvider.of<UsersBlocBloc>(context).currentUser!.id,
+                    widget.docId,
+                  );
+                }
+                isLiked = !isLiked;
+                setState(() {});
+              },
+              child: Container(
+                padding: const EdgeInsets.only(left: 5),
+                decoration: BoxDecoration(
+                  color: isLiked ? lightGreen : Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                width: width * 0.18,
+                height: height * 0.03,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const Icon(
+                      Icons.thumb_up_alt_outlined,
+                      color: Colors.black,
+                      size: 25,
+                    ),
+                    Text(
+                      widget.numberLikes.toString(),
+                      style: headingWhite.copyWith(color: Colors.black),
+                    ),
+                  ],
+                ),
+              ),
+            );
           }
         });
   }

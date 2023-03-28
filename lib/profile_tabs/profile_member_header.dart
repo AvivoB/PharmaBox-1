@@ -24,6 +24,7 @@ import '../business_logic/experiences_bloc/experiences_bloc.dart';
 import '../business_logic/langues_bloc/langues_bloc.dart';
 import '../business_logic/lgo_bloc/lgo_bloc.dart';
 import '../constants.dart';
+import '../firebase/like_service.dart';
 import '../general/widgets/custom_registration_date_picker.dart';
 import '../general/widgets/custom_registration_textfield.dart';
 import '../model/localisation.dart';
@@ -348,9 +349,27 @@ class _ProfilTabBarState extends State<ProfilTabBar>
                                             color: Colors.white,
                                             size: 25,
                                           ),
-                                          Text(
-                                            '535',
-                                            style: headingWhite,
+                                          FutureBuilder(
+                                            future: LikeService().getUserLikes(
+                                                BlocProvider.of<UsersBlocBloc>(
+                                                        context)
+                                                    .currentUser!
+                                                    .id),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.hasData) {
+                                                return Text(
+                                                  snapshot.data.toString(),
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                );
+                                              } else {
+                                                return Text(
+                                                  "0",
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                );
+                                              }
+                                            },
                                           ),
                                         ],
                                       ),
