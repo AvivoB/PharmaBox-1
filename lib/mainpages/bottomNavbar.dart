@@ -56,7 +56,6 @@ class _BottomNavbarState extends State<BottomNavbar> {
     controller = widget.draggableScrollableController;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.addListener(() {
-        print(controller.size);
         bool oldResult = result;
         result = controller.size > 0.3 ? true : false;
         if (oldResult != result) {
@@ -70,6 +69,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
   Widget build(BuildContext context) {
     return BlocBuilder<UsersBlocBloc, UsersBlocState>(
       builder: (context, state) {
+        print(state);
         if (state is UserAdded) {
           if (state.user!.poste == UserType.tutor) {
             if (widget.fromRegister) {
@@ -135,11 +135,13 @@ class _BottomNavbarState extends State<BottomNavbar> {
               type: BottomNavigationBarType.fixed,
               currentIndex: startIndex,
               onTap: (index) {
+                print(index);
                 BlocProvider.of<NavigationBloc>(context)
                     .add(NavItemClicked(currentIndex: index));
                 setState(() {
                   startIndex = index;
                 });
+                print("clicked");
                 if (index == 2) {
                   showModalBottomSheet(
                     shape: const RoundedRectangleBorder(

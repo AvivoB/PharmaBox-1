@@ -21,6 +21,7 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
           emit(PharmaJobNonTituState());
         }
       } else {
+        print("we here");
         emit(ProfileState());
       }
     });

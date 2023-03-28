@@ -403,6 +403,7 @@ class _HomePageState extends State<HomePage> {
               },
               child: BlocListener<NavigationBloc, NavigationState>(
                 listener: (context, state) {
+                  print(state);
                   if (state is NavigationInitial ||
                       state is PharmaJobTituState ||
                       state is PharmaJobNonTituState) {

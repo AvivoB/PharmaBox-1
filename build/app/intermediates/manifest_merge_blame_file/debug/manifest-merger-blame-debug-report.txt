@@ -60,7 +60,7 @@
 39        android:label="pharmabox" >
 40        <meta-data
 41            android:name="com.google.android.geo.API_KEY"
-42            android:value="AIzaSyD2iAVuME8f_hACkixmDwAWb-VSxz1lCwU" />
+42            android:value="AIzaSyDU06opW-FU8JgMAS-8OrBThjCHBaZCjow" />
 43
 44        <activity
 45            android:name="com.application.pharmaboxmain.MainActivity"
