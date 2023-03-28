@@ -35,7 +35,8 @@ class UsersBlocBloc extends Bloc<UsersBlocEvent, UsersBlocState> {
         print("wa alooooo");
         emit(UserAdded(currentUser));
       } catch (e) {
-        print("exception throwns");
+        //print("exception thrown");
+        print(e.toString());
         emit(const NoUserState(null));
       }
     });

@@ -23,6 +23,7 @@ class _LgoPharmacieState extends State<LgoPharmacie> {
   @override
   void initState() {
     super.initState();
+    
   }
 
   TextEditingController groupementController = TextEditingController();

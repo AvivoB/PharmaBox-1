@@ -26,9 +26,7 @@ class PharmacieBloc extends Bloc<PharmacieEvent, PharmacieState> {
       try {
         pharmacie = await pharmacieCalls.getPharmacie();
         images = pharmacie!.images;
-
-        print("${images.length} alo");
-        print("origianl est:${pharmacie!.images.length}");
+        lgo = pharmacie!.lgoName;
         emit(PharmacieReady(pharmacie: pharmacie!));
       } catch (e) {
         emit(PharmacieFailed());

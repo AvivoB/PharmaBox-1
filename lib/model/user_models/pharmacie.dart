@@ -60,6 +60,7 @@ class Pharmacie {
       "nom": nom,
       "email": email,
       "bus": bus,
+      "id":id,
       "prefEmail": prefEmail,
       "telephone": telephone.numeroTelephone,
       "code-postal": localisation.codePostal,
@@ -159,6 +160,7 @@ class Pharmacie {
       preparation: json["preparation"],
       rer: json["rer"],
       robot: json["robot"],
+      
       telephone: Telephone(numeroTelephone: json["telephone"], visible: false),
       testCovid: json["test-covid"],
       titulaires: titulaires,

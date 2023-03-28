@@ -180,7 +180,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
       pMaintaince = widget.myPharmacy?.entretien ?? false;
       pbTeam = widget.myPharmacy?.preparation ?? false;
       tTerminal = widget.myPharmacy?.borneTelemedcine ?? false;
-
+      
       breakRoom = widget.myPharmacy?.breakRoom ?? false;
       robot = widget.myPharmacy?.robot ?? false;
       eLabels = widget.myPharmacy?.electronicLabels ?? false;
@@ -1289,8 +1289,13 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                           } else {
                             print(BlocProvider.of<TitulaireBloc>(context)
                                 .titulaires);
+                            print(BlocProvider.of<UsersBlocBloc>(context)
+                                .currentUser!
+                                .id);
                             Pharmacie pharmacie = Pharmacie(
-                              id:BlocProvider.of<UsersBlocBloc>(context).currentUser!.id,
+                              id: BlocProvider.of<UsersBlocBloc>(context)
+                                  .currentUser!
+                                  .id,
                               email: emailController.text,
                               typologie: typologieController.text,
                               workHours: work_hours,
