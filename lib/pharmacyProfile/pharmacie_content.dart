@@ -1286,7 +1286,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                               nbClosed = nbClosed + 1;
                             }
                           }
-                          if (nbClosed == 7 && !nonStop) {
+                          if (nbClosed == 14 && !nonStop) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 shape: RoundedRectangleBorder(
@@ -1297,142 +1297,159 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                               ),
                             );
                           } else {
-                            Pharmacie pharmacie = Pharmacie(
-                              id: BlocProvider.of<UsersBlocBloc>(context)
-                                  .currentUser!
-                                  .id,
-                              email: emailController.text,
-                              typologie: typologieController.text,
-                              workHours: work_hours,
-                              lgoImage: BlocProvider.of<PharmacieBloc>(context)
-                                  .lgoImage,
-                              lgoName:
-                                  BlocProvider.of<PharmacieBloc>(context).lgo,
-                              groupementImage:
-                                  BlocProvider.of<PharmacieBloc>(context)
-                                      .groupementImage,
-                              groupementName:
-                                  BlocProvider.of<PharmacieBloc>(context)
-                                      .groupement,
-                              tendances: [
-                                premirere_tendance,
-                                deuxieme_tendance,
-                                troisieme_tendance,
-                                quatrieme_tendance,
-                                cinqieme_tendance
-                              ],
-                              images: BlocProvider.of<PharmacieBloc>(context)
-                                      .images
-                                      .isNotEmpty
-                                  ? BlocProvider.of<PharmacieBloc>(context)
-                                      .images
-                                  : [],
-                              prefEmail: prefEmailController.text,
-                              parking: parkingController.text,
-                              gareAccess: gareController.text,
-                              monnaie: monnaie,
-                              climat: climat,
-                              chauffage: chauffage,
-                              vigil: vigil,
-                              workConcil: workConcil,
-                              maitre: widget.maitre!,
-                              telephone: Telephone(
-                                  numeroTelephone:
-                                      int.parse(phoneController.text),
-                                  visible: false),
-                              localisation: Localisation(
-                                  ville: addressController.text, codePostal: 1),
-                              rer: rerController.text,
-                              metro: metroController.text,
+                            if (typologieController.text == "") {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                backgroundColor: const Color(0xFF7CEDAC),
+                                content: const Text(
+                                    "Vous devez choisir une typologie"),
+                              ));
+                            } else {
+                              Pharmacie pharmacie = Pharmacie(
+                                id: BlocProvider.of<UsersBlocBloc>(context)
+                                    .currentUser!
+                                    .id,
+                                email: emailController.text,
+                                typologie: typologieController.text,
+                                workHours: work_hours,
+                                lgoImage:
+                                    BlocProvider.of<PharmacieBloc>(context)
+                                        .lgoImage,
+                                lgoName:
+                                    BlocProvider.of<PharmacieBloc>(context).lgo,
+                                groupementImage:
+                                    BlocProvider.of<PharmacieBloc>(context)
+                                        .groupementImage,
+                                groupementName:
+                                    BlocProvider.of<PharmacieBloc>(context)
+                                        .groupement,
+                                tendances: [
+                                  premirere_tendance,
+                                  deuxieme_tendance,
+                                  troisieme_tendance,
+                                  quatrieme_tendance,
+                                  cinqieme_tendance
+                                ],
+                                images: BlocProvider.of<PharmacieBloc>(context)
+                                        .images
+                                        .isNotEmpty
+                                    ? BlocProvider.of<PharmacieBloc>(context)
+                                        .images
+                                    : [],
+                                prefEmail: prefEmailController.text,
+                                parking: parkingController.text,
+                                gareAccess: gareController.text,
+                                monnaie: monnaie,
+                                climat: climat,
+                                chauffage: chauffage,
+                                vigil: vigil,
+                                workConcil: workConcil,
+                                maitre: widget.maitre!,
+                                telephone: Telephone(
+                                    numeroTelephone:
+                                        int.parse(phoneController.text),
+                                    visible: false),
+                                localisation: Localisation(
+                                    ville: addressController.text,
+                                    codePostal: 1),
+                                rer: rerController.text,
+                                metro: metroController.text,
 
-                              bus: busController.text,
-                              tramway: tramController.text,
-                              nom: widget.pharNameController?.text ?? '',
-                              titulaires:
-                                  BlocProvider.of<TitulaireBloc>(context)
-                                      .titulaires,
-                              presentation:
-                                  widget.pharDesController?.text ?? '',
-                              nbPreparateurs:
-                                  prepaersNumController.text.isNotEmpty
-                                      ? int.parse(prepaersNumController.text)
-                                      : 0,
-                              nbPharmaciens:
-                                  pharmaistsNumController.text.isNotEmpty
-                                      ? int.parse(pharmaistsNumController.text)
-                                      : 0,
-                              nbRayonnistes: equipeController[0].text.isNotEmpty
-                                  ? int.parse(equipeController[0].text)
-                                  : 0,
-                              nbConseillers: equipeController[1].text.isNotEmpty
-                                  ? int.parse(equipeController[1].text)
-                                  : 0,
-                              nbApprentis: equipeController[2].text.isNotEmpty
-                                  ? int.parse(equipeController[2].text)
-                                  : 0,
-                              nbEtudiants: equipeController[3].text.isNotEmpty
-                                  ? int.parse(equipeController[3].text)
-                                  : 0,
-                              nbEtudiants6: equipeController[4].text.isNotEmpty
-                                  ? int.parse(equipeController[4].text)
-                                  : 0,
-                              nonStop: nonStop,
+                                bus: busController.text,
+                                tramway: tramController.text,
+                                nom: widget.pharNameController?.text ?? '',
+                                titulaires:
+                                    BlocProvider.of<TitulaireBloc>(context)
+                                        .titulaires,
+                                presentation:
+                                    widget.pharDesController?.text ?? '',
+                                nbPreparateurs:
+                                    prepaersNumController.text.isNotEmpty
+                                        ? int.parse(prepaersNumController.text)
+                                        : 0,
+                                nbPharmaciens: pharmaistsNumController
+                                        .text.isNotEmpty
+                                    ? int.parse(pharmaistsNumController.text)
+                                    : 0,
+                                nbRayonnistes:
+                                    equipeController[0].text.isNotEmpty
+                                        ? int.parse(equipeController[0].text)
+                                        : 0,
+                                nbConseillers:
+                                    equipeController[1].text.isNotEmpty
+                                        ? int.parse(equipeController[1].text)
+                                        : 0,
+                                nbApprentis: equipeController[2].text.isNotEmpty
+                                    ? int.parse(equipeController[2].text)
+                                    : 0,
+                                nbEtudiants: equipeController[3].text.isNotEmpty
+                                    ? int.parse(equipeController[3].text)
+                                    : 0,
+                                nbEtudiants6:
+                                    equipeController[4].text.isNotEmpty
+                                        ? int.parse(equipeController[4].text)
+                                        : 0,
+                                nonStop: nonStop,
 
-                              ///typo
+                                ///typo
 
-                              nbPatients: noPatientPerDay.text.isNotEmpty
-                                  ? noPatientPerDay.text
-                                  : "",
+                                nbPatients: noPatientPerDay.text.isNotEmpty
+                                    ? noPatientPerDay.text
+                                    : "",
 
-                              ///mission
-                              testCovid: testCovid,
-                              vaccination: vaccination,
-                              entretien: pMaintaince,
-                              preparation: pbTeam,
-                              borneTelemedcine: tTerminal,
-                              breakRoom: breakRoom,
-                              robot: robot,
-                              electronicLabels: eLabels,
-                            );
-                            BlocProvider.of<PharmacieBloc>(context)
-                                .add(AddPharmacie(pharmacie: pharmacie));
-                            if (widget.myPharmacy == null) {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: const Text("Offre d'emploi?"),
-                                    content: const Text(
-                                        "Voulez vous créer une offre d'emploi?"),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        child: const Text('Oui'),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                          showModalBottomSheet(
-                                            shape: const RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.vertical(
-                                                top: Radius.circular(25.0),
-                                              ),
-                                            ),
-                                            isScrollControlled: true,
-                                            context: context,
-                                            builder: (context) =>
-                                                const FiltersBottomSheet(),
-                                          );
-                                        },
-                                      ),
-                                      TextButton(
-                                        child: const Text('Non'),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                },
+                                ///mission
+                                testCovid: testCovid,
+                                vaccination: vaccination,
+                                entretien: pMaintaince,
+                                preparation: pbTeam,
+                                borneTelemedcine: tTerminal,
+                                breakRoom: breakRoom,
+                                robot: robot,
+                                electronicLabels: eLabels,
                               );
+                              BlocProvider.of<PharmacieBloc>(context)
+                                  .add(AddPharmacie(pharmacie: pharmacie));
+                              if (widget.myPharmacy == null) {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text("Offre d'emploi?"),
+                                      content: const Text(
+                                          "Voulez vous créer une offre d'emploi?"),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: const Text('Oui'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                            showModalBottomSheet(
+                                              shape:
+                                                  const RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.vertical(
+                                                  top: Radius.circular(25.0),
+                                                ),
+                                              ),
+                                              isScrollControlled: true,
+                                              context: context,
+                                              builder: (context) =>
+                                                  const FiltersBottomSheet(),
+                                            );
+                                          },
+                                        ),
+                                        TextButton(
+                                          child: const Text('Non'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
                             }
                           }
                         }

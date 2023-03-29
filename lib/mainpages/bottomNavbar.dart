@@ -141,7 +141,6 @@ class _BottomNavbarState extends State<BottomNavbar> {
                 setState(() {
                   startIndex = index;
                 });
-                print("clicked");
                 if (index == 2) {
                   showModalBottomSheet(
                     shape: const RoundedRectangleBorder(
@@ -232,12 +231,12 @@ class _BottomNavbarState extends State<BottomNavbar> {
                           InkWell(
                             onTap: () {
                               FirebaseAuth.instance.signOut().then(
-                                    (value) => Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const SignUp(),
-                                      ),
-                                    ),
+                                    (value) => Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => const SignUp(),
+                                        ),
+                                        (route) => false),
                                   );
                               BlocProvider.of<CompetencesBloc>(context)
                                   .add(InitialiseCompetence(competences: [

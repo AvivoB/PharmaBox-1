@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\freelance projects\pharmabox\PharmaBox-1\build\windows\CMakeFiles\cf99988b25da9c32803377229ba7d57d\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{1503975D-0D22-36AC-B9F7-4794DD074227}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

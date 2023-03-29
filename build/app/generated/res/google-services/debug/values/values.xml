@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="default_web_client_id" translatable="false">258018021289-qlornfqb1f6c3j506k1i77v6eg3fmd7b.apps.googleusercontent.com</string>
     <string name="gcm_defaultSenderId" translatable="false">258018021289</string>
-    <string name="google_api_key" translatable="false">AIzaSyDyFRiEakAX-xW63ZpA6D6mDlQYAw1xAAo</string>
-    <string name="google_app_id" translatable="false">1:258018021289:android:5e33d5d6b80ba6a90bbeb8</string>
-    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDyFRiEakAX-xW63ZpA6D6mDlQYAw1xAAo</string>
+    <string name="google_api_key" translatable="false">AIzaSyCDQJudwjMmFMmxwbnncxANc4lBNxrupM4</string>
+    <string name="google_app_id" translatable="false">1:258018021289:android:7355dbe0af4d73240bbeb8</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCDQJudwjMmFMmxwbnncxANc4lBNxrupM4</string>
     <string name="google_storage_bucket" translatable="false">pharmabox-effd0.appspot.com</string>
     <string name="project_id" translatable="false">pharmabox-effd0</string>
 </resources>

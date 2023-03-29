@@ -53,7 +53,7 @@ class _MainMapState extends State<MainMap> {
   }
 
   void navigationInit(String address) {
-                                        print("dkhelt");
+    print("dkhelt");
 
     BlocProvider.of<MainmapBloc>(context).add(GetMarkersOnAddress(
       address: address,
@@ -142,6 +142,7 @@ class _MainMapState extends State<MainMap> {
                                   } else {
                                     onSubmitted(val);
                                   }
+                                  response = null;
                                 },
                                 controller: widget.localisationController,
                               ),

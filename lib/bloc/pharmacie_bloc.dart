@@ -18,6 +18,7 @@ class PharmacieBloc extends Bloc<PharmacieEvent, PharmacieState> {
   final PharmacieCalls pharmacieCalls = PharmacieCalls();
   PharmacieBloc() : super(PharmacieInitial()) {
     on<AddPharmacie>((event, emit) async {
+      emit(PharmacieLoading());
       pharmacie = event.pharmacie;
       await pharmacieCalls.createPharmacie(event.pharmacie);
       emit(PharmacieReady(pharmacie: pharmacie!));

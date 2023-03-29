@@ -38,6 +38,7 @@ class _OffreWidgetState extends State<OffreWidget> {
     dateController.text = widget.offre.date;
     durationController.text = widget.offre.duree;
     salaryController.text = widget.offre.salaireNet.toString();
+
     descriptionController.text = widget.offre.description;
     stations[0] = widget.offre.rer;
     stations[1] = widget.offre.metro;
@@ -323,25 +324,6 @@ class _OffreWidgetState extends State<OffreWidget> {
                                       const SizedBox(
                                         height: 20,
                                       ),
-                                      /*LocalisationSearch(
-                                          localisationController:
-                                              locationController),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      CustomRegistrationTextField(
-                                        padding: 1,
-                                        label: 'Rayon km',
-                                        textInputType: TextInputType.number,
-                                        prefixIcon: const Icon(
-                                          Icons.map_outlined,
-                                          color: Color(0xfF161730),
-                                        ),
-                                        controller: routeController,
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),*/
                                       Stack(
                                         alignment: Alignment.centerLeft,
                                         children: [
@@ -461,7 +443,7 @@ class _OffreWidgetState extends State<OffreWidget> {
                                             Icons.money,
                                             color: Color(0xfF161730),
                                           ),
-                                          controller: salaireController,
+                                          controller: salaryController,
                                         ),
                                       ),
                                       ...List.generate(

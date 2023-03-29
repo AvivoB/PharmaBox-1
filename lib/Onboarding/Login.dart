@@ -182,10 +182,10 @@ class _LogInState extends State<LogIn> {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.of(context).push(
+              Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
                   builder: (context) => HomePage(),
-                ),
+                ),(route)=>false
               );
             },
             child: InkWell(
@@ -226,10 +226,10 @@ class _LogInState extends State<LogIn> {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.of(context).push(
+              Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
                   builder: (context) => HomePage(),
-                ),
+                ),(route)=>false
               );
             },
             child: InkWell(

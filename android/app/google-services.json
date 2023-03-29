@@ -7,37 +7,29 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:258018021289:android:5e33d5d6b80ba6a90bbeb8",
+        "mobilesdk_app_id": "1:258018021289:android:7355dbe0af4d73240bbeb8",
         "android_client_info": {
           "package_name": "com.application.pharmaboxmain"
         }
       },
       "oauth_client": [
         {
-          "client_id": "258018021289-ulkmd533dg6gb5ksi7h722klfl984asm.apps.googleusercontent.com",
+          "client_id": "258018021289-t8lpuq18dm8ebpfi8qov2kiakjj8d17c.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.application.pharmaboxmain",
-            "certificate_hash": "625d1355fca7a300dd54a10b12f7e6ec8f66cc56"
+            "certificate_hash": "d1645c1f04e0ef2b50db2f8e1b6cccb66ccab2e1"
           }
-        },
-        {
-          "client_id": "258018021289-qlornfqb1f6c3j506k1i77v6eg3fmd7b.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDyFRiEakAX-xW63ZpA6D6mDlQYAw1xAAo"
+          "current_key": "AIzaSyCDQJudwjMmFMmxwbnncxANc4lBNxrupM4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
-            {
-              "client_id": "258018021289-9qlkciq9g0888r893odpkp93pi9smq8g.apps.googleusercontent.com",
-              "client_type": 3
-            },
             {
               "client_id": "258018021289-q1mb9o4b8pudlqhsvfrdrmmj6uso84hv.apps.googleusercontent.com",
               "client_type": 2,

@@ -288,11 +288,11 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                             accepterConditions: conditions[1]);
                         BlocProvider.of<UsersBlocBloc>(context)
                             .add(AddUser(user: nonTitulaire));
-                        Navigator.pushReplacement(
+                        Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
                               builder: (context) => HomePage(fromRegister: true),
-                            ));
+                            ),(route)=>false);
                       }
                     } else {
                       controller.animateTo(0,

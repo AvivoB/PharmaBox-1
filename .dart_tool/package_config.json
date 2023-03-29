@@ -902,6 +902,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "skeletons",
+      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/skeletons-0.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///D:/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -1052,7 +1058,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2023-03-28T22:40:52.379291Z",
+  "generated": "2023-03-29T00:58:31.563833Z",
   "generator": "pub",
   "generatorVersion": "2.19.5"
 }

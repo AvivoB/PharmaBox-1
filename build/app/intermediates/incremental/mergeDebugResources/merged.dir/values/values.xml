@@ -792,14 +792,13 @@
     <string name="common_signin_button_text">Sign in</string>
     <string name="common_signin_button_text_long">Sign in with Google</string>
     <string name="copy_toast_msg">Link copied to clipboard</string>
-    <string name="default_web_client_id" translatable="false">258018021289-qlornfqb1f6c3j506k1i77v6eg3fmd7b.apps.googleusercontent.com</string>
     <string name="fallback_menu_item_copy_link">Copy link</string>
     <string name="fallback_menu_item_open_in_browser">Open in browser</string>
     <string name="fallback_menu_item_share_link">Share link</string>
     <string name="gcm_defaultSenderId" translatable="false">258018021289</string>
-    <string name="google_api_key" translatable="false">AIzaSyDyFRiEakAX-xW63ZpA6D6mDlQYAw1xAAo</string>
-    <string name="google_app_id" translatable="false">1:258018021289:android:5e33d5d6b80ba6a90bbeb8</string>
-    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDyFRiEakAX-xW63ZpA6D6mDlQYAw1xAAo</string>
+    <string name="google_api_key" translatable="false">AIzaSyCDQJudwjMmFMmxwbnncxANc4lBNxrupM4</string>
+    <string name="google_app_id" translatable="false">1:258018021289:android:7355dbe0af4d73240bbeb8</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCDQJudwjMmFMmxwbnncxANc4lBNxrupM4</string>
     <string name="google_storage_bucket" translatable="false">pharmabox-effd0.appspot.com</string>
     <string name="places_autocomplete_clear_button">Clear search</string>
     <string name="places_autocomplete_label">Pick a place</string>

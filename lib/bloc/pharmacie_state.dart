@@ -11,3 +11,5 @@ class PharmacieReady extends PharmacieState {
 }
 
 class PharmacieFailed extends PharmacieState {}
+class PharmacieLoading extends PharmacieState {}
+
