@@ -3,12 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmabox/bloc/membres_bloc.dart';
 
 import 'package:pharmabox/bloc/offres_bloc.dart';
+import 'package:pharmabox/model/user_models/pharmacie.dart';
 import 'package:pharmabox/offer/offre_widget.dart';
 import '../model/horaire.dart';
 import 'offre_consultation_widget.dart';
 
 class OffreConsultation extends StatefulWidget {
-  const OffreConsultation({super.key});
+  final Pharmacie pharmacie;
+  const OffreConsultation({super.key,required this.pharmacie});
 
   @override
   State<OffreConsultation> createState() => _OffreConsultationState();
@@ -18,7 +20,7 @@ class _OffreConsultationState extends State<OffreConsultation> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<OffresBloc>(context).add(GetPharmacieOffres());
+    BlocProvider.of<OffresBloc>(context).add(GetCurrentOffres(pharmacieId: widget.pharmacie.id));
   }
 
   @override

@@ -39,7 +39,7 @@
         android:label="pharmabox" >
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDyFRiEakAX-xW63ZpA6D6mDlQYAw1xAAo" />
+            android:value="AIzaSyA_cdEvBvs-uWSOpXmBC7SzdVnTTmOZJns" />
 
         <activity
             android:name="com.application.pharmaboxmain.MainActivity"

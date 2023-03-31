@@ -30,8 +30,8 @@ class _PharmaciesBoxState extends State<PharmaciesBox> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Container(
-      height: height * 0.35,
       width: width * 0.9,
+      height: height * 0.4,
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(
@@ -66,7 +66,13 @@ class _PharmaciesBoxState extends State<PharmaciesBox> {
                     widget.imagePharm,
                     fit: BoxFit.contain,
                   )
-                : Image.network(widget.imagePharm, fit: BoxFit.cover),
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Image.network(
+                      widget.imagePharm,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
             /*Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -200,7 +206,7 @@ class _PharmaciesBoxState extends State<PharmaciesBox> {
                       Radius.circular(15),
                     ),
                   ),
-                  child:  FutureBuilder(
+                  child: FutureBuilder(
                     future:
                         LikeService().getPharmacieLikes(widget.pharmacie.id),
                     builder: (context, snapshot) {
@@ -209,17 +215,15 @@ class _PharmaciesBoxState extends State<PharmaciesBox> {
                           numberLikes: snapshot.data as int,
                           removeFunction: LikeService().removePharmacieLikes,
                           addFunction: LikeService().addPharmacieLikes,
-                                                    docId: widget.pharmacie.id,
-                                                    checkFunction: LikeService().checkPharmacieUser,
-
+                          docId: widget.pharmacie.id,
+                          checkFunction: LikeService().checkPharmacieUser,
                         );
                       } else {
                         return LikeButton(
                           numberLikes: 0,
                           removeFunction: LikeService().removePharmacieLikes,
                           addFunction: LikeService().addPharmacieLikes,
-                                                                              checkFunction: LikeService().checkPharmacieUser,
-
+                          checkFunction: LikeService().checkPharmacieUser,
                           docId: widget.pharmacie.id,
                         );
                       }

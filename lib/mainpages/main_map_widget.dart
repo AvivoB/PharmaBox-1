@@ -38,7 +38,6 @@ class _MainMapState extends State<MainMap> {
   late Function(String) onSubmitted;
 
   void explorerSubmit(String address) {
-    print("cale");
     BlocProvider.of<MainmapBloc>(context)
         .add(GetLibreResults(address: address));
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:pharmabox/Theme/text.dart';
 import 'package:pharmabox/Widgets/customAppbar.dart';
@@ -6,8 +7,11 @@ import 'package:pharmabox/Widgets/likeandroundbutton.dart';
 import 'package:pharmabox/model/user_models/non_titulaire.dart';
 import 'package:pharmabox/tabview/profile_membre_consultation.dart';
 
+import '../Theme/color.dart';
+import '../business_logic/users_bloc/users_bloc_bloc.dart';
 import '../constants.dart';
 import '../firebase/firebase_calls.dart';
+import '../firebase/like_service.dart';
 import '../model/user_models/pharmacie.dart';
 
 class Profil extends StatefulWidget {
@@ -44,7 +48,8 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
               children: [
                 Container(
                   width: double.infinity,
-                  height: height * 0.25,
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  //height: height * 0.25,
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.centerLeft,
@@ -59,27 +64,27 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                   child: Column(
                     children: [
                       SizedBox(
-                          width: width * 0.9,
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Padding(
-                                    padding: EdgeInsets.only(top: 8.0),
-                                    child: Image(
-                                      image: AssetImage(
-                                          'assets/images/backButton.png'),
-                                    ),
-                                  ),
+                        width: width * 0.9,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.only(top: 8.0),
+                                child: Image(
+                                  image: AssetImage(
+                                      'assets/images/backButton.png'),
                                 ),
-                                /* Row(
+                              ),
+                            ),
+                            Row(
                               children: [
                                 InkWell(
                                   onTap: () {
-                                    showModalBottomSheet(
+                                    /* showModalBottomSheet(
                                       shape: const RoundedRectangleBorder(
                                         borderRadius: BorderRadius.vertical(
                                           top: Radius.circular(25.0),
@@ -142,7 +147,7 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                                           ],
                                         ),
                                       ),
-                                    );
+                                    );*/
                                   },
                                   child: Image(
                                     image: AssetImage(
@@ -162,8 +167,7 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                             ),
                           ],
                         ),
-                      ),*/
-                              ])),
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -229,20 +233,26 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                                           Container(
                                             height: width * 0.15,
                                             width: width * 0.15,
+                                            padding: const EdgeInsets.all(3),
                                             decoration: BoxDecoration(
                                                 border: Border.all(
                                                     color: Colors.white),
                                                 borderRadius: BorderRadius.all(
                                                   Radius.circular(30),
                                                 )),
-                                            child: snapshot
-                                                    .data!.images.isNotEmpty
-                                                ? Image.network(
-                                                    snapshot.data!.images[0],
-                                                  )
-                                                : Image.asset(
-                                                    'assets/images/pharma_img.png',
-                                                  ),
+                                            child:
+                                                snapshot.data!.images.isNotEmpty
+                                                    ? CircleAvatar(
+                                                        child: ClipOval(
+                                                          child: Image.network(
+                                                            snapshot.data!
+                                                                .images[0],
+                                                          ),
+                                                        ),
+                                                      )
+                                                    : Image.asset(
+                                                        'assets/images/pharma_img.png',
+                                                      ),
                                           ),
                                           SizedBox(
                                             width: width * 0.04,
@@ -260,7 +270,79 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                               SizedBox(
                                 height: height * 0.01,
                               ),
-                             /* LikeButton(
+                              Container(
+                                  decoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(15),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color:
+                                            Color.fromRGBO(31, 92, 103, 0.17),
+                                        offset: Offset(3, 3),
+                                        blurRadius: 3,
+                                      ),
+                                    ],
+                                  ),
+                                  child: Row(children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: lightGreen,
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(15),
+                                          bottomLeft: Radius.circular(15),
+                                        ),
+                                      ),
+                                      width: width * 0.18,
+                                      height: height * 0.05,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          const Icon(
+                                            Icons.thumb_up_alt_outlined,
+                                            color: Colors.white,
+                                            size: 25,
+                                          ),
+                                          FutureBuilder(
+                                            future: LikeService()
+                                                .getUserLikes(widget.membre.id),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.hasData) {
+                                                return Text(
+                                                  snapshot.data.toString(),
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                );
+                                              } else {
+                                                return Text(
+                                                  "0",
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                );
+                                              }
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(15),
+                                          bottomRight: Radius.circular(15),
+                                        ),
+                                      ),
+                                      width: width * 0.08,
+                                      height: height * 0.05,
+                                      child: const Icon(
+                                        Icons.arrow_forward_ios_rounded,
+                                        color: Color.fromRGBO(89, 90, 113, 1),
+                                      ),
+                                    ),
+                                  ])
+                                  /* LikeButton(
                               numberLikes: 0,
                               addFunction: (){},
                               checkFunction: (){},
@@ -268,6 +350,7 @@ class _ProfilState extends State<Profil> with TickerProviderStateMixin {
                               docId: "",
 
                               ),*/
+                                  ),
                             ],
                           ),
                         ],

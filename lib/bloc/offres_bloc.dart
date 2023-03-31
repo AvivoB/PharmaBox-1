@@ -23,6 +23,10 @@ class OffresBloc extends Bloc<OffresEvent, OffresState> {
       List<Offre> offres = await offreService.getPharmacieOffres();
       emit(OffresReady(offres: offres));
     });
+      on<GetCurrentOffres>((event, emit) async {
+      List<Offre> offres = await offreService.getOffres(event.pharmacieId);
+      emit(OffresReady(offres: offres));
+    });
     on<GetFilteredOffres>((event, emit) async {
       List<OffreCard> offres =
           await offreService.getFilteredOffres(event.recherche);

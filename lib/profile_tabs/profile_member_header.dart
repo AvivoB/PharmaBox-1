@@ -76,6 +76,7 @@ class _ProfilTabBarState extends State<ProfilTabBar>
       BlocProvider.of<LgoBloc>(context).add(InitialiseLgo(lgos: user!.lgos));
       firstNameController.text = user!.nom;
       lastNameController.text = user!.prenom;
+      descriptionController.text = user!.presentation!;
       jobTitleController.text = user!.poste;
       phoneController.text = user!.telephone.numeroTelephone.toString();
       postalCodeController.text = user!.localisation.codePostal.toString();
@@ -248,7 +249,7 @@ class _ProfilTabBarState extends State<ProfilTabBar>
                                                     .currentUser!
                                                     .photoUrl ==
                                                 ''
-                                            ? AssetImage(
+                                            ?const AssetImage(
                                                 'assets/images/user.png')
                                             : isLocalImage(BlocProvider.of<
                                                         UsersBlocBloc>(context)

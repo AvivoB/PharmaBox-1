@@ -134,99 +134,11 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
   void initState() {
     super.initState();
     formKey11 = GlobalKey<FormState>();
-    if (widget.myPharmacy != null) {
-      BlocProvider.of<TitulaireBloc>(context)
-          .add(InitialiseTitulaire(titulaires: widget.myPharmacy!.titulaires));
-      emailController.text = widget.myPharmacy?.email ?? '';
-
-      phoneController.text =
-          widget.myPharmacy?.telephone.numeroTelephone.toString() ?? '';
-      addressController.text =
-          widget.myPharmacy?.localisation.ville.toString() ?? '';
-      rerController.text = widget.myPharmacy?.rer ?? '';
-      parkingController.text = widget.myPharmacy?.parking ?? "";
-      metroController.text = widget.myPharmacy?.metro ?? '';
-      busController.text = widget.myPharmacy?.bus ?? '';
-      tramController.text = widget.myPharmacy?.tramway ?? '';
-      stationController.text = widget.myPharmacy?.parking ?? '';
-      typologieController.text = widget.myPharmacy?.typologie ?? '';
-      prepaersNumController.text =
-          widget.myPharmacy?.nbPreparateurs.toString() ?? '';
-      pharmaistsNumController.text =
-          widget.myPharmacy?.nbPharmaciens.toString() ?? '';
-      equipeController[0].text =
-          widget.myPharmacy?.nbRayonnistes.toString() ?? '';
-      equipeController[1].text =
-          widget.myPharmacy?.nbConseillers.toString() ?? '';
-      equipeController[2].text =
-          widget.myPharmacy?.nbApprentis.toString() ?? '';
-      equipeController[3].text =
-          widget.myPharmacy?.nbEtudiants.toString() ?? '';
-      equipeController[4].text =
-          widget.myPharmacy?.nbEtudiants6.toString() ?? '';
-      nonStop = widget.myPharmacy?.nonStop ?? false;
-      work_hours = widget.myPharmacy!.workHours;
-      premirere_tendance = widget.myPharmacy!.tendances[0];
-      deuxieme_tendance = widget.myPharmacy!.tendances[1];
-      troisieme_tendance = widget.myPharmacy!.tendances[2];
-      quatrieme_tendance = widget.myPharmacy!.tendances[3];
-      cinqieme_tendance = widget.myPharmacy!.tendances[4];
-
-      noPatientPerDay.text = widget.myPharmacy?.nbPatients.toString() ?? '';
-      gareController.text = widget.myPharmacy!.gareAccess;
-      prefEmailController.text = widget.myPharmacy!.prefEmail;
-      testCovid = widget.myPharmacy?.testCovid ?? false;
-      vaccination = widget.myPharmacy?.vaccination ?? false;
-      pMaintaince = widget.myPharmacy?.entretien ?? false;
-      pbTeam = widget.myPharmacy?.preparation ?? false;
-      tTerminal = widget.myPharmacy?.borneTelemedcine ?? false;
-
-      breakRoom = widget.myPharmacy?.breakRoom ?? false;
-      robot = widget.myPharmacy?.robot ?? false;
-      eLabels = widget.myPharmacy?.electronicLabels ?? false;
-      monnaie = widget.myPharmacy?.monnaie ?? false;
-      climat = widget.myPharmacy?.climat ?? false;
-      chauffage = widget.myPharmacy?.chauffage ?? false;
-      vigil = widget.myPharmacy?.vigil ?? false;
-      workConcil = widget.myPharmacy?.workConcil ?? false;
-      typologieController.text = widget.myPharmacy?.typologie ?? "";
-      for (int i = 0; i < typologie.length; i++) {
-        if (widget.myPharmacy?.typologie == typologie[i]) {
-          print(typologieController.text);
-          switch (i) {
-            case 0:
-              typocc = true;
-              break;
-            case 1:
-              typocv = true;
-              break;
-            case 2:
-              typoAero = true;
-              break;
-            case 3:
-              typoGare = true;
-              break;
-            case 4:
-              typoQuartier = true;
-              break;
-            case 5:
-              typoTour = true;
-              break;
-            case 6:
-              typoRula = true;
-          }
-        }
-      }
-      controller = AnimationController(
+    controller = AnimationController(
         duration: const Duration(milliseconds: 500),
         vsync: this,
       );
-
-      marker = Marker(
-        markerId: const MarkerId("localisation"),
-        position: LatLng(46, 2),
-      );
-    }
+   
   }
 
   final List<String> confortList = <String>[
@@ -349,6 +261,97 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
 
   @override
   Widget build(BuildContext context) {
+     if (widget.myPharmacy != null) {
+      print("not null");
+      BlocProvider.of<TitulaireBloc>(context)
+          .add(InitialiseTitulaire(titulaires: widget.myPharmacy!.titulaires));
+      emailController.text = widget.myPharmacy?.email ?? '';
+
+      phoneController.text =
+          widget.myPharmacy?.telephone.numeroTelephone.toString() ?? '';
+      addressController.text =
+          widget.myPharmacy?.localisation.ville.toString() ?? '';
+      rerController.text = widget.myPharmacy?.rer ?? '';
+      parkingController.text = widget.myPharmacy?.parking ?? "";
+      metroController.text = widget.myPharmacy?.metro ?? '';
+      busController.text = widget.myPharmacy?.bus ?? '';
+      tramController.text = widget.myPharmacy?.tramway ?? '';
+      stationController.text = widget.myPharmacy?.parking ?? '';
+      typologieController.text = widget.myPharmacy?.typologie ?? '';
+      prepaersNumController.text =
+          widget.myPharmacy?.nbPreparateurs.toString() ?? '';
+      pharmaistsNumController.text =
+          widget.myPharmacy?.nbPharmaciens.toString() ?? '';
+      equipeController[0].text =
+          widget.myPharmacy?.nbRayonnistes.toString() ?? '';
+      equipeController[1].text =
+          widget.myPharmacy?.nbConseillers.toString() ?? '';
+      equipeController[2].text =
+          widget.myPharmacy?.nbApprentis.toString() ?? '';
+      equipeController[3].text =
+          widget.myPharmacy?.nbEtudiants.toString() ?? '';
+      equipeController[4].text =
+          widget.myPharmacy?.nbEtudiants6.toString() ?? '';
+      nonStop = widget.myPharmacy?.nonStop ?? false;
+      work_hours = widget.myPharmacy!.workHours;
+      premirere_tendance = widget.myPharmacy!.tendances[0];
+      deuxieme_tendance = widget.myPharmacy!.tendances[1];
+      troisieme_tendance = widget.myPharmacy!.tendances[2];
+      quatrieme_tendance = widget.myPharmacy!.tendances[3];
+      cinqieme_tendance = widget.myPharmacy!.tendances[4];
+
+      noPatientPerDay.text = widget.myPharmacy?.nbPatients.toString() ?? '';
+      gareController.text = widget.myPharmacy!.gareAccess;
+      prefEmailController.text = widget.myPharmacy!.prefEmail;
+      testCovid = widget.myPharmacy?.testCovid ?? false;
+      vaccination = widget.myPharmacy?.vaccination ?? false;
+      pMaintaince = widget.myPharmacy?.entretien ?? false;
+      pbTeam = widget.myPharmacy?.preparation ?? false;
+      tTerminal = widget.myPharmacy?.borneTelemedcine ?? false;
+
+      breakRoom = widget.myPharmacy?.breakRoom ?? false;
+      robot = widget.myPharmacy?.robot ?? false;
+      eLabels = widget.myPharmacy?.electronicLabels ?? false;
+      monnaie = widget.myPharmacy?.monnaie ?? false;
+      climat = widget.myPharmacy?.climat ?? false;
+      chauffage = widget.myPharmacy?.chauffage ?? false;
+      vigil = widget.myPharmacy?.vigil ?? false;
+      workConcil = widget.myPharmacy?.workConcil ?? false;
+      typologieController.text = widget.myPharmacy?.typologie ?? "";
+      for (int i = 0; i < typologie.length; i++) {
+        if (widget.myPharmacy?.typologie == typologie[i]) {
+          print(typologieController.text);
+          switch (i) {
+            case 0:
+              typocc = true;
+              break;
+            case 1:
+              typocv = true;
+              break;
+            case 2:
+              typoAero = true;
+              break;
+            case 3:
+              typoGare = true;
+              break;
+            case 4:
+              typoQuartier = true;
+              break;
+            case 5:
+              typoTour = true;
+              break;
+            case 6:
+              typoRula = true;
+          }
+        }
+      }
+      
+
+      marker = Marker(
+        markerId: const MarkerId("localisation"),
+        position: LatLng(46, 2),
+      );
+    }
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
 

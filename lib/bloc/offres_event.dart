@@ -14,6 +14,11 @@ class CreateOffre extends OffresEvent {
 
 class GetPharmacieOffres extends OffresEvent {}
 
+class GetCurrentOffres extends OffresEvent {
+  final String pharmacieId;
+  GetCurrentOffres({required this.pharmacieId});
+}
+
 class GetFilteredOffres extends OffresEvent {
   final Recherche recherche;
   const GetFilteredOffres({required this.recherche});
@@ -24,6 +29,7 @@ class GetExplorerOffres extends OffresEvent {
   final List<OffreCard> offreCard;
   const GetExplorerOffres({required this.offreCard});
 }
+
 class GetMarkerOffres extends OffresEvent {
   final places.LatLng recherche;
   const GetMarkerOffres({required this.recherche});

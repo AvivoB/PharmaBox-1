@@ -35,6 +35,17 @@ class OffreService {
             (value) => value.docs.map((e) => Offre.fromMap(e.data())).toList());
   }
 
+  Future getOffres(id) async {
+    final currentUser = firebaseAuth.currentUser;
+    return await _firebaseFirestore
+        .collection("pharmacie")
+        .doc(id)
+        .collection("offres")
+        .get()
+        .then(
+            (value) => value.docs.map((e) => Offre.fromMap(e.data())).toList());
+  }
+
   Future getFilteredOffres(Recherche recherche) async {
     List<Offre> offres = await _firebaseFirestore
         .collection("offres")

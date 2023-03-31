@@ -93,7 +93,6 @@ class _PharmacieHeaderState extends State<PharmacieHeader>
             state.pharmacie.groupementName;
         BlocProvider.of<PharmacieBloc>(context).groupementImage =
             state.pharmacie.groupementImage;
-
         myPharmacy = state.pharmacie;
         maitre = myPharmacy!.maitre;
         pharmacyName.text = myPharmacy!.nom;
@@ -320,7 +319,7 @@ class _PharmacieHeaderState extends State<PharmacieHeader>
                   pharUserNameController: name,
                   pharDesController: presentation,
                   maitre: maitre,
-                  myPharmacy: myPharmacy,
+                  myPharmacy: state.pharmacie,
                 ),
 
                 // const AdvisorTab(),
