@@ -284,7 +284,7 @@ class _PharmacyProfileState extends State<PharmacyProfile>
                                           ),
                               ),
                               title: Text(
-                                'Titulaire du poste',
+                                'Pharmacien titulaire',
                                 style: heading,
                               ),
                               subtitle: Text(

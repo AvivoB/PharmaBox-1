@@ -145,7 +145,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
     'Salle de pause',
     'Robot',
     'Etiquettes éléctroniques',
-    'Monnayeur/caisse classique',
+    'Monnayeur',
     'Climatisation',
     'Chauffage',
     'Vigile',
@@ -962,8 +962,8 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                         },
                       ),
                       PharmacyRow(
-                        text: 'Préparation par léquipe',
-                        image: 'assets/icons/missions (3).png',
+                        text: "Préparation par l'équipe",
+                        image: 'assets/icons/missions (2).png',
                         initialSwitchValue: pbTeam,
                         onChanged: (value) {
                           pbTeam = value;
@@ -1226,7 +1226,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                             height: height * 0.02,
                           ),
                           PresentField(
-                            label: "Nombre de d'apprentis",
+                            label: "Nombre d'apprentis",
                             controller: equipeController[2],
                             textInputType: TextInputType.number,
                             prefixIcon: const Icon(Icons.person),
@@ -1235,7 +1235,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                             height: height * 0.02,
                           ),
                           PresentField(
-                            label: "Nombre de d'étudiants pharmacie",
+                            label: "Nombre d'étudiants pharmacie",
                             controller: equipeController[3],
                             textInputType: TextInputType.number,
                             prefixIcon: const Icon(Icons.person),
@@ -1244,7 +1244,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                             height: height * 0.02,
                           ),
                           PresentField(
-                            label: "Nombre de d'étudiants 6éme année",
+                            label: "Nombre d'étudiants 6ème année",
                             controller: equipeController[4],
                             textInputType: TextInputType.number,
                             prefixIcon: const Icon(Icons.person),
@@ -1514,7 +1514,7 @@ class CalenderPharmacy extends StatelessWidget {
             (index) => Row(children: [
                   Container(
                     width: MediaQuery.of(context).size.width * 0.14,
-                    height: MediaQuery.of(context).size.height * 0.05,
+                    height: MediaQuery.of(context).size.height * 0.13,
                     decoration: const BoxDecoration(
                       color: Color.fromRGBO(239, 246, 247, 1),
                     ),
@@ -1532,7 +1532,7 @@ class CalenderPharmacy extends StatelessWidget {
                   Container(
                     color: const Color.fromRGBO(89, 90, 113, 1),
                     width: MediaQuery.of(context).size.width * 0.005,
-                    height: MediaQuery.of(context).size.height * 0.05,
+                    height: MediaQuery.of(context).size.height * 0.13,
                   ),
                   Container(
                     alignment: Alignment.centerLeft,

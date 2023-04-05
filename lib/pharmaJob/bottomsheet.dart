@@ -212,7 +212,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                       'Préparateur',
                       'Apprenti',
                       'Etudiant Pharmacie',
-                      'Etudiant en 6éme année validée',
+                      'Etudiant en 6ᵉ année validée',
                       'Pharmacien',
                     ].map((String value) {
                       return DropdownMenuItem<String>(
@@ -341,7 +341,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                 visible: !salaireCreche[0],
                 child: CustomRegistrationTextField(
                   padding: 1,
-                  label: 'Salaire Net',
+                  label: 'Salaire net mensuel',
                   textInputType: TextInputType.number,
                   prefixIcon: const Icon(
                     Icons.money,
