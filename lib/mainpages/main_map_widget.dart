@@ -118,7 +118,7 @@ class _MainMapState extends State<MainMap> {
                                 },
                                 decoration: InputDecoration(
                                   hintText: state is NavigationInitial
-                                      ? 'Rechercher Par Région'
+                                      ? 'Recherche par région, nom ou pharmacie'
                                       : "Rechercher",
                                   border: InputBorder.none,
                                   icon: const Padding(

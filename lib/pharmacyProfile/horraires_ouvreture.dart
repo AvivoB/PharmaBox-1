@@ -31,7 +31,7 @@ class _TimeRangePickerState extends State<TimeRangePicker> {
                             color: Color.fromRGBO(89, 90, 113, 1)),
                       ),
                       Text(
-                        ' vers ${widget.workHours.endDate.format(context)}',
+                        ' à ${widget.workHours.endDate.format(context)}',
                         style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
@@ -63,32 +63,37 @@ class _TimeRangePickerState extends State<TimeRangePicker> {
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Visibility(
-              visible: widget.secondWorkHours.open,
-              child: Row(
-                children: [
-                  Text(
-                    'de ${widget.secondWorkHours.startDate.format(context)}',
+            widget.secondWorkHours.open
+                ? Row(
+                    children: [
+                      Text(
+                        'de ${widget.secondWorkHours.startDate.format(context)}',
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: Color.fromRGBO(89, 90, 113, 1)),
+                      ),
+                      Text(
+                        ' à ${widget.workHours.endDate.format(context)}',
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: Color.fromRGBO(89, 90, 113, 1)),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.edit),
+                        onPressed: () =>
+                            _showTimePickerDialog(context, widget.workHours),
+                      ),
+                    ],
+                  )
+                : const Text(
+                    '   Fermé',
                     style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
-                        color: Color.fromRGBO(89, 90, 113, 1)),
+                        color: Color.fromRGBO(248, 153, 153, 1)),
                   ),
-                  Text(
-                    ' vers ${widget.secondWorkHours.endDate.format(context)}',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: Color.fromRGBO(89, 90, 113, 1)),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.edit),
-                    onPressed: () =>
-                        _showTimePickerDialog(context, widget.secondWorkHours),
-                  ),
-                ],
-              ),
-            ),
             const Spacer(),
             Switch(
               value: widget.secondWorkHours.open,
@@ -107,11 +112,25 @@ class _TimeRangePickerState extends State<TimeRangePicker> {
     final TimeOfDay? startTime = await showTimePicker(
       context: context,
       initialTime: workHours.startDate,
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+          child: child!,
+        );
+      },
     );
 
     if (startTime != null) {
       final TimeOfDay? endTime = await showTimePicker(
-          context: context, initialTime: workHours.endDate);
+          context: context, 
+          initialTime: workHours.endDate,
+          builder: (BuildContext context, Widget? child) {
+            return MediaQuery(
+                data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+                child: child!,
+              );
+            },
+          );
 
       if (endTime != null) {
         setState(() {

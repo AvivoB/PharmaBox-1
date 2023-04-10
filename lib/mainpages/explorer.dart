@@ -75,7 +75,7 @@ class _ExplorerState extends State<Explorer> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '$nbResults résultats',
+                            '${nbResults} résultats',
                             style: paragraph,
                           ),
                         ],

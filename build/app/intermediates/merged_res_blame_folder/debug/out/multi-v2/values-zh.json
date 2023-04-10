@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\freelance projects\\pharmabox\\PharmaBox-1\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-zh\\values-zh.xml",
+            "outputFile": "D:\\Flutter Appli mobile\\pharmabox-1-avivob\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-zh\\values-zh.xml",
             "map": [
                 {
-                    "source": "D:\\.gradle\\caches\\transforms-3\\84bf3fe0e60be253e8311f0c663492ee\\transformed\\jetified-ucrop-2.2.8\\res\\values-zh\\values-zh.xml",
+                    "source": "C:\\Users\\Aviel\\.gradle\\caches\\transforms-3\\84bf3fe0e60be253e8311f0c663492ee\\transformed\\jetified-ucrop-2.2.8\\res\\values-zh\\values-zh.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7",
                         "startColumns": "4,4,4,4,4,4",
