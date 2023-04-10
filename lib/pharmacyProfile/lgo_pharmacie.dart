@@ -4,6 +4,7 @@ import 'package:pharmabox/bloc/groupement_bloc.dart';
 import 'package:pharmabox/general/widgets/custom_registration_textfield.dart';
 import 'package:pharmabox/pharmacyProfile/textfield.dart';
 
+import '../Theme/color.dart';
 import '../Theme/text.dart';
 import '../Widgets/gradientText.dart';
 import '../bloc/lgosearch_bloc.dart';
@@ -23,7 +24,6 @@ class _LgoPharmacieState extends State<LgoPharmacie> {
   @override
   void initState() {
     super.initState();
-    
   }
 
   TextEditingController groupementController = TextEditingController();
@@ -66,96 +66,109 @@ class _LgoPharmacieState extends State<LgoPharmacie> {
               InkWell(
                 onTap: () {
                   showModalBottomSheet(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(25.0),
-                        ),
+                    constraints: BoxConstraints.expand(height: height * 0.8),
+                    enableDrag: true,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(25.0),
                       ),
-                      context: context,
-                      builder: (context) => Padding(
+                    ),
+                    context: context,
+                    builder: (context) => SingleChildScrollView(
+                      child: SizedBox(
+                          height: height,
+                          child: Padding(
                             padding: EdgeInsets.only(
                                 left: 20,
                                 right: 20,
                                 top: 20,
                                 bottom:
                                     MediaQuery.of(context).viewInsets.bottom),
-                            child: SizedBox(
-                                height: height * 0.4,
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    children: [
-                                      CustomPharmacyTextField(
-                                        label: "LGO",
-                                        controller: groupementController,
-                                        onRealChanged: (val) {
-                                          BlocProvider.of<LgosearchBloc>(
-                                                  context)
-                                              .add(GetAllLgos(input: val));
-                                        },
-                                      ),
-                                      BlocBuilder<LgosearchBloc,
-                                          LgosearchState>(
-                                        builder: (context, state) {
-                                          if (state is LgosearchReady) {
-                                            return SingleChildScrollView(
-                                              padding: const EdgeInsets.only(
-                                                  top: 20),
-                                              child: Column(
-                                                children: List.generate(
-                                                  state.groupements.length,
-                                                  (index) => ListTile(
-                                                    onTap: () {
-                                                      BlocProvider.of<PharmacieBloc>(
-                                                                  context)
-                                                              .lgo =
-                                                          state
-                                                              .groupements[
-                                                                  index]
-                                                              .groupement;
-                                                      BlocProvider.of<PharmacieBloc>(
-                                                                  context)
-                                                              .lgoImage =
-                                                          state
-                                                              .groupements[
-                                                                  index]
-                                                              .image;
-                                                      setState(() {});
-                                                      Navigator.pop(context);
-                                                    },
-                                                    leading: Image(
-                                                        height: height * 0.045,
-                                                        image: NetworkImage(
-                                                            state
-                                                                .groupements[
-                                                                    index]
-                                                                .image)),
-                                                    title: Text(
-                                                      state.groupements[index]
-                                                          .groupement,
-                                                      style: heading,
-                                                    ),
-                                                  ),
-                                                ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Stack(
+                                  children: [
+                                    CustomPharmacyTextField(
+                                      label: "LGO",
+                                      controller: groupementController,
+                                      onRealChanged: (val) {},
+                                    ),
+                                    Positioned(
+                                        right: 10,
+                                        top: 10,
+                                        bottom: 10,
+                                        child: IconButton(
+                                          color: lightGreen,
+                                          icon: const Icon(Icons.search),
+                                          onPressed: () {
+                                            BlocProvider.of<LgosearchBloc>(
+                                                    context)
+                                                .add(GetAllLgos(
+                                                    input: groupementController
+                                                        .text));
+                                          },
+                                        ))
+                                  ],
+                                ),
+                              
+                                BlocBuilder<LgosearchBloc, LgosearchState>(
+                                  builder: (context, state) {
+                                    if (state is LgosearchReady) {
+                                      return SingleChildScrollView(
+                                        physics:
+                                            AlwaysScrollableScrollPhysics(),
+                                        padding: const EdgeInsets.only(top: 20),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: List.generate(
+                                            state.groupements.length,
+                                            (index) => ListTile(
+                                              onTap: () {
+                                                BlocProvider.of<PharmacieBloc>(
+                                                            context)
+                                                        .lgo =
+                                                    state.groupements[index]
+                                                        .groupement;
+                                                BlocProvider.of<PharmacieBloc>(
+                                                            context)
+                                                        .lgoImage =
+                                                    state.groupements[index]
+                                                        .image;
+                                                setState(() {});
+                                                Navigator.pop(context);
+                                              },
+                                              leading: Image(
+                                                  height: height * 0.045,
+                                                  image: NetworkImage(state
+                                                      .groupements[index]
+                                                      .image)),
+                                              title: Text(
+                                                state.groupements[index]
+                                                    .groupement,
+                                                style: heading,
                                               ),
-                                            );
-                                          } else if (state
-                                              is LgosearchLoading) {
-                                            return const Padding(
-                                              padding: EdgeInsets.all(10.0),
-                                              child: Center(
-                                                child:
-                                                    CircularProgressIndicator(),
-                                              ),
-                                            );
-                                          } else {
-                                            return const SizedBox();
-                                          }
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                )),
-                          ));
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    } else if (state is LgosearchLoading) {
+                                      return const Padding(
+                                        padding: EdgeInsets.all(10.0),
+                                        child: Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                      );
+                                    } else {
+                                      return const SizedBox();
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),
+                          )),
+                    ),
+                  );
                 },
                 child: Container(
                     height: height * 0.035,
@@ -195,9 +208,9 @@ class _LgoPharmacieState extends State<LgoPharmacie> {
                 width: MediaQuery.of(context).size.width * 0.035,
               ),
               Image(
-                image: const AssetImage('assets/icons/computerIcon.png'),
-                height: MediaQuery.of(context).size.height * 0.02,
-              ),
+                  height: height * 0.02,
+                  image: NetworkImage(
+                      BlocProvider.of<PharmacieBloc>(context).lgoImage)),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.02,
               ),

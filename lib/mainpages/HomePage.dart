@@ -56,6 +56,11 @@ class _HomePageState extends State<HomePage> {
   late TextEditingController localisationController;
   late Function(MarkerModel) tapFunction;
   explorerTap(MarkerModel marker) {
+    BlocProvider.of<OffresBloc>(context).add(GetExplorerOffres(offreCard: []));
+    BlocProvider.of<MembresBloc>(context).add(GetExplorerMembres(membres: []));
+    BlocProvider.of<PharmacierechercheBloc>(context)
+        .add(GetExplorerPharmacies(pharmacies: []));
+
     BlocProvider.of<MembresBloc>(context).add(GetMarkerMembres(
         input: places.LatLng(lat: marker.lat, lng: marker.lng)));
     BlocProvider.of<PharmacierechercheBloc>(context).add(GetMarkerPharmacies(
@@ -69,15 +74,21 @@ class _HomePageState extends State<HomePage> {
   }
 
   pharmaJobTitu(MarkerModel marker) {
+    BlocProvider.of<PharmacierechercheBloc>(context)
+        .add(GetExplorerPharmacies(pharmacies: []));
     BlocProvider.of<MembresBloc>(context).add(GetMarkerMembres(
         input: places.LatLng(lat: marker.lat, lng: marker.lng)));
+    BlocProvider.of<OffresBloc>(context).add(GetExplorerOffres(offreCard: []));
     /*BlocProvider.of<OffresBloc>(context).add(GetExplorerOffres(
         recherche: places.LatLng(lat: marker.lat, lng: marker.lng)));*/
   }
 
   pharmaJobNonTitu(MarkerModel marker) {
+    BlocProvider.of<PharmacierechercheBloc>(context)
+        .add(GetExplorerPharmacies(pharmacies: []));
     BlocProvider.of<OffresBloc>(context).add(GetMarkerOffres(
         recherche: places.LatLng(lat: marker.lat, lng: marker.lng)));
+    BlocProvider.of<MembresBloc>(context).add(GetExplorerMembres(membres: []));
     /*BlocProvider.of<MembresBloc>(context).add(GetExplorerMembres(
         input: places.LatLng(lat: marker.lat, lng: marker.lng)));*/
   }

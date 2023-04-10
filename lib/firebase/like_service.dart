@@ -33,8 +33,6 @@ class LikeService {
   }
 
   Future<bool> checkUsersLikes(String userId, String docId) async {
-    print(docId);
-    print(userId);
     final DocumentSnapshot pharmacieDoc =
         await _firebaseFirestore.collection("user_likes").doc(docId).get();
     final dynamic infos = pharmacieDoc.data()!;

@@ -4,6 +4,7 @@ import 'package:pharmabox/bloc/groupement_bloc.dart';
 import 'package:pharmabox/general/widgets/custom_registration_textfield.dart';
 import 'package:pharmabox/pharmacyProfile/textfield.dart';
 
+import '../Theme/color.dart';
 import '../Theme/text.dart';
 import '../Widgets/gradientText.dart';
 import '../bloc/pharmacie_bloc.dart';
@@ -60,18 +61,57 @@ class _ModifierGroupementState extends State<ModifierGroupement> {
                       top: 20,
                       bottom: MediaQuery.of(context).viewInsets.bottom),
                   child: SizedBox(
-                    height: height * 0.4,
+                    height: height,
                     child: SingleChildScrollView(
                         child: Column(
                       children: [
-                        CustomPharmacyTextField(
-                          label: "Groupement",
-                          controller: groupementController,
-                          onRealChanged: (val) {
-                            BlocProvider.of<GroupementBloc>(context)
-                                .add(GetAllGroupements(input: val));
-                          },
+                        Stack(
+                          children: [
+                            CustomPharmacyTextField(
+                              label: "Groupement",
+                              controller: groupementController,
+                              onRealChanged: (val) {},
+                            ),
+                            Positioned(
+                                right: 10,
+                                top: 10,
+                                bottom: 10,
+                                child: IconButton(
+                                  color: lightGreen,
+                                  icon: const Icon(Icons.search),
+                                  onPressed: () {
+                                    BlocProvider.of<GroupementBloc>(context)
+                                        .add(GetAllGroupements(
+                                            input: groupementController.text));
+                                  },
+                                ))
+                          ],
                         ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        InkWell(
+                            onTap: () {
+                              BlocProvider.of<PharmacieBloc>(context)
+                                  .groupement = groupementController.text;
+                              BlocProvider.of<PharmacieBloc>(context)
+                                      .groupementImage =
+                                  "https://www.labodata.com/media/category/img/origin/paraph.png";
+                              setState(() {});
+                              Navigator.pop(context);
+                            },
+                            child: Text(groupementController.text)),
+                        InkWell(
+                            onTap: () {
+                              BlocProvider.of<PharmacieBloc>(context)
+                                  .groupement = "Pas de groupement";
+                              BlocProvider.of<PharmacieBloc>(context)
+                                      .groupementImage =
+                                  "https://www.labodata.com/media/category/img/origin/paraph.png";
+                              setState(() {});
+                              Navigator.pop(context);
+                            },
+                            child: const Text("Pas de groupement")),
                         BlocBuilder<GroupementBloc, GroupementState>(
                           builder: (context, state) {
                             if (state is GroupementsReady) {
