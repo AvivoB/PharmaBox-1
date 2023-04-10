@@ -44,7 +44,6 @@ class _PharmacyProfileState extends State<PharmacyProfile>
   int _current = 0;
   final CarouselController _controller = CarouselController();
   Future getProfilePicture(String input) async {
-    print(input.split(" ")[0]);
     final QuerySnapshot user = await FirebaseFirestore.instance
         .collection("users")
         .where("prenom", isEqualTo: input.split(" ")[0])
@@ -417,7 +416,7 @@ class _PharmacyProfileState extends State<PharmacyProfile>
               PharmacyTabBar(pharmacie: widget.pharmacie),
               //const AdvisorTab(),
               // const Reseau(),
-               OffreConsultation(pharmacie:widget.pharmacie),
+              OffreConsultation(pharmacie: widget.pharmacie),
             ],
           ),
         ),

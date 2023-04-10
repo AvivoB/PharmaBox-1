@@ -292,7 +292,6 @@ class _HomePageState extends State<HomePage> {
                           PharmacierechercheState>(
                         builder: (context, state) {
                           if (state is ExplorerPharmacieReady) {
-                            print("" + state.pharmacies.length.toString());
                             return Row(
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -414,7 +413,6 @@ class _HomePageState extends State<HomePage> {
               },
               child: BlocListener<NavigationBloc, NavigationState>(
                 listener: (context, state) {
-                  print(state);
                   if (state is NavigationInitial ||
                       state is PharmaJobTituState ||
                       state is PharmaJobNonTituState) {

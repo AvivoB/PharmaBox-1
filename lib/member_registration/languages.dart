@@ -291,7 +291,6 @@ class Languages {
     Languages.thai,
     Languages.tibetan,
     Languages.tigrinya,
-    Languages.tongaTongaIslands,
     Languages.tsonga,
     Languages.tswana,
     Languages.turkish,

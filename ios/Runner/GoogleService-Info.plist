@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>258018021289-q1mb9o4b8pudlqhsvfrdrmmj6uso84hv.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.258018021289-q1mb9o4b8pudlqhsvfrdrmmj6uso84hv</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>258018021289-h1rs4ec1vj01sb66id4vaaskvf516bid.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAPgR2S9HW4vVWOASwNcG-GVn1Vm3zLtxQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>258018021289</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.pharmabox</string>
+	<key>PROJECT_ID</key>
+	<string>pharmabox-effd0</string>
+	<key>STORAGE_BUCKET</key>
+	<string>pharmabox-effd0.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:258018021289:ios:90f60aabd7fd45ad0bbeb8</string>
+</dict>
+</plist>

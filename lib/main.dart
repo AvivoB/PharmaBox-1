@@ -116,13 +116,16 @@ class MyApp extends StatelessWidget {
           create: (_) => RechercheBloc(),
         ),
         BlocProvider(
-          create: (_) =>membresBloc,
+          create: (_) => membresBloc,
         ),
         BlocProvider(
           create: (_) => pharmacieRechercheBloc,
         ),
         BlocProvider(
-          create: (_) => MainmapBloc(membresBloc: membresBloc,offresBloc: offresBloc,pharmacierechercheBloc: pharmacieRechercheBloc),
+          create: (_) => MainmapBloc(
+              membresBloc: membresBloc,
+              offresBloc: offresBloc,
+              pharmacierechercheBloc: pharmacieRechercheBloc),
         ),
         BlocProvider(create: (_) => LgosearchBloc()),
         BlocProvider(create: (_) => SpecialisationsearchBloc()),
