@@ -131,15 +131,9 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                           'Préparateur',
                           'Apprenti',
                           'Etudiant pharmacie',
-<<<<<<< HEAD
-                          'Etudiant 6éme année validée',
-                          'Pharmacien',
-                          'Pharmacien(ne) Titulaire'
-=======
                           'Etudiant 6ème année validée',
                           'Pharmacien(ne)',
                           'Pharmacien(ne) titulaire'
->>>>>>> avivob
                         ].map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
