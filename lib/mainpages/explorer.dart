@@ -32,7 +32,6 @@ class _ExplorerState extends State<Explorer> {
   int joobs = 0;
   int phars = 0;
   TextEditingController localisationController = TextEditingController();
-  gmaps.GoogleMapController? googleMapController;
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;

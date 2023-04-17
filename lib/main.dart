@@ -5,8 +5,13 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pharmabox/Onboarding/SignUp.dart';
+import 'package:pharmabox/bloc/chat_display_bloc.dart';
+import 'package:pharmabox/bloc/chat_managment_bloc.dart';
+import 'package:pharmabox/bloc/discussions_bloc.dart';
 import 'package:pharmabox/bloc/lgosearch_bloc.dart';
 import 'package:pharmabox/bloc/mainmap_bloc.dart';
+import 'package:pharmabox/bloc/membres_gestion_bloc.dart';
+import 'package:pharmabox/bloc/membres_titualaires_reseau_bloc.dart';
 import 'package:pharmabox/bloc/navigation_bloc.dart';
 import 'package:pharmabox/mainpages/HomePage.dart';
 import 'package:pharmabox/bloc/groupement_bloc.dart';
@@ -130,8 +135,19 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => LgosearchBloc()),
         BlocProvider(create: (_) => SpecialisationsearchBloc()),
         BlocProvider(
+          create: (context) => DiscussionsBloc(),
+        ),
+        BlocProvider(create: (context) => ChatManagmentBloc()),
+        BlocProvider(create: (context) => ChatDisplayBloc()),
+        BlocProvider(
             create: (_) =>
-                NavigationBloc(authenticationBloc: authenticationBloc))
+                NavigationBloc(authenticationBloc: authenticationBloc)),
+        BlocProvider(
+          create: (_) => MembresTitualairesReseauBloc(),
+        ),
+        BlocProvider(
+          create: (_) => MembresGestionBloc(),
+        ),
       ],
       child: const HomeApp(),
     );

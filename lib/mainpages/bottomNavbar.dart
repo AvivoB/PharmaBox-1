@@ -233,6 +233,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                         ),
                                         (route) => false),
                                   );
+                              BlocProvider.of<UsersBlocBloc>(context)
+                                  .currentUser = null;
                               BlocProvider.of<CompetencesBloc>(context)
                                   .add(InitialiseCompetence(competences: [
                                 Competence(

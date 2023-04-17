@@ -4,7 +4,7 @@ part of 'mainmap_bloc.dart';
 @immutable
 abstract class MainmapState {
   final List<MarkerModel> models;
-   MainmapState({
+  MainmapState({
     required this.models,
   });
 }
@@ -19,5 +19,4 @@ class ResultsLoading extends MainmapState {
 
 class ResultsReady extends MainmapState {
   ResultsReady({required super.models});
-  
 }

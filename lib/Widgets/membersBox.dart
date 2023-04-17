@@ -4,8 +4,12 @@ import 'package:pharmabox/Theme/color.dart';
 import 'package:pharmabox/Theme/text.dart';
 import 'package:pharmabox/Widgets/gradientText.dart';
 import 'package:pharmabox/Widgets/likeandroundbutton.dart';
+import 'package:pharmabox/model/user_models/chat_model.dart';
 import 'package:pharmabox/model/user_models/non_titulaire.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
+import '../chat/chat_screen.dart';
 import '../firebase/like_service.dart';
 import '../general/widgets/custom_elevated_button.dart';
 import '../general/widgets/custom_registration_textfield.dart';
@@ -17,7 +21,13 @@ class MembersBox extends StatelessWidget {
   var zip;
   var poste;
   NonTitulaire user;
-  MembersBox({Key? key, this.image, this.name, this.zip, required this.poste,required this.user})
+  MembersBox(
+      {Key? key,
+      this.image,
+      this.name,
+      this.zip,
+      required this.poste,
+      required this.user})
       : super(key: key);
 
   @override
@@ -148,12 +158,11 @@ class MembersBox extends StatelessWidget {
                         );
                       } else {
                         return LikeButton(
-                          numberLikes: 0,
-                          removeFunction: LikeService().removeUserLikes,
-                          addFunction: LikeService().addUserLikes,
-                          checkFunction: LikeService().checkUsersLikes,
-                          docId: user.id
-                        );
+                            numberLikes: 0,
+                            removeFunction: LikeService().removeUserLikes,
+                            addFunction: LikeService().addUserLikes,
+                            checkFunction: LikeService().checkUsersLikes,
+                            docId: user.id);
                       }
                     },
                   ),
@@ -172,20 +181,56 @@ class MembersBox extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image(
-                        image: AssetImage('assets/images/EmailGreen.png'),
-                        height: height * 0.03,
-                        fit: BoxFit.cover,
+                    InkWell(
+                      onTap: () async {
+                        try {
+                          final Uri params = Uri(
+                            scheme: 'mailto',
+                            path: user.email,
+                            query: 'subject=Objet Subject&body=Body',
+                          );
+                          if (await canLaunch(params.toString())) {
+                            await launch(params.toString());
+                          } else {
+                            throw 'Could not launch';
+                          }
+                        } catch (e) {
+                          debugPrint(e.toString());
+                        }
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image(
+                          image: AssetImage('assets/images/EmailGreen.png'),
+                          height: height * 0.03,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image(
-                        image: AssetImage('assets/images/SendGreen.png'),
-                        height: height * 0.03,
-                        fit: BoxFit.cover,
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChatScreen(
+                              receiverUser: ChatModel(
+                                senderName: name,
+                                senderMessage: "",
+                                senderImage: image,
+                                senderPoste: poste,
+                                senderId: user.id,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image(
+                          image: AssetImage('assets/images/SendGreen.png'),
+                          height: height * 0.03,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ],
@@ -200,12 +245,14 @@ class MembersBox extends StatelessWidget {
 }
 
 class MembersBoxDelete extends StatelessWidget {
+  final NonTitulaire membre;
   var image;
   var name;
   var zip;
   var text;
   var icon;
   MembersBoxDelete({
+    required this.membre,
     Key? key,
     this.image,
     this.name,

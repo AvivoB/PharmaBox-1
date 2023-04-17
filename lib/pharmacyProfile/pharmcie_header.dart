@@ -18,6 +18,7 @@ import 'package:skeletons/skeletons.dart';
 
 import '../bloc/titulaires_bloc.dart';
 import '../firebase/image_service.dart';
+import '../tabview/Reseau.dart';
 import 'pharmacie_content.dart';
 
 ///phromicy screen
@@ -31,7 +32,7 @@ class PharmacieHeader extends StatefulWidget {
 
 class _PharmacieHeaderState extends State<PharmacieHeader>
     with TickerProviderStateMixin {
-  final List<String> _tabs = ['Profile', 'Offres'];
+  final List<String> _tabs = ['Profile', 'Offres', 'Réseau'];
   late TabController tabController;
   TextEditingController pharmacyName = TextEditingController();
   TextEditingController name = TextEditingController();
@@ -323,7 +324,7 @@ class _PharmacieHeaderState extends State<PharmacieHeader>
                 ),
 
                 // const AdvisorTab(),
-                //const Reseau(),
+                const Reseau(),
                 const OfferScreen(),
               ],
             ),
@@ -545,6 +546,7 @@ class _PharmacieHeaderState extends State<PharmacieHeader>
                   myPharmacy: myPharmacy,
                 ),
                 OfferScreen(),
+                const Reseau()
               ],
             ),
           ),

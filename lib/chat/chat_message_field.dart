@@ -1,8 +1,9 @@
 part of 'chat_screen.dart';
 
 class CustomChatMessageField extends StatelessWidget {
-  const CustomChatMessageField({super.key});
-
+  final String receiverId;
+  CustomChatMessageField({super.key, required this.receiverId});
+  TextEditingController textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -29,6 +30,7 @@ class CustomChatMessageField extends StatelessWidget {
             children: [
               Flexible(
                 child: TextFormField(
+                  controller: textController,
                   decoration: InputDecoration(
                     label: const Text("Message"),
                     floatingLabelStyle: const TextStyle(
@@ -63,13 +65,32 @@ class CustomChatMessageField extends StatelessWidget {
                       ],
                     ),
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Padding(
-                      padding: EdgeInsets.only(left: 5),
-                      child: Icon(
-                        Icons.send,
-                        size: 30,
-                        color: Colors.white,
+                      padding: const EdgeInsets.only(left: 5),
+                      child: IconButton(
+                        onPressed: () {
+                          if (textController.text.isNotEmpty) {
+                            NonTitulaire user =
+                                BlocProvider.of<UsersBlocBloc>(context)
+                                    .currentUser!;
+                            BlocProvider.of<ChatManagmentBloc>(context).add(
+                                SendMessage(
+                                    chat: ChatModel(
+                                        senderMessage: textController.text,
+                                        senderId: user.id,
+                                        senderImage: user.photoUrl,
+                                        senderName:
+                                            user.nom + ' ' + user.prenom,
+                                        senderPoste: user.poste),
+                                    receiverId: receiverId));
+                          }
+                        },
+                        icon: const Icon(
+                          Icons.send,
+                          size: 30,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),

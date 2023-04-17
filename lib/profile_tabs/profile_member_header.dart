@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:pharmabox/Theme/color.dart';
 import 'package:pharmabox/Theme/text.dart';
+import 'package:pharmabox/Widgets/customAppbar.dart';
 import 'package:pharmabox/business_logic/specialisations_bloc/specialisations_bloc.dart';
 import 'package:pharmabox/business_logic/universites_bloc/universites_bloc.dart';
 import 'package:pharmabox/business_logic/users_bloc/users_bloc_bloc.dart';
@@ -29,6 +30,7 @@ import '../general/widgets/custom_registration_date_picker.dart';
 import '../general/widgets/custom_registration_textfield.dart';
 import '../model/localisation.dart';
 import '../model/telephone.dart';
+import 'ReseauEdit.dart';
 
 class ProfilTabBar extends StatefulWidget {
   const ProfilTabBar({Key? key}) : super(key: key);
@@ -55,7 +57,7 @@ class _ProfilTabBarState extends State<ProfilTabBar>
 
   final TextEditingController addressController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  final List<String> _tabs = ['Profile', 'Recherches'];
+  final List<String> _tabs = ['Profile', 'Recherches', 'Réseau'];
   late List<bool> conditions;
 
   late TabController tabController;
@@ -71,6 +73,7 @@ class _ProfilTabBarState extends State<ProfilTabBar>
     super.initState();
     tabController =
         TabController(length: _tabs.length, initialIndex: 0, vsync: this);
+    BlocProvider.of<UsersBlocBloc>(context).add(GetCurrentUser());
     user = BlocProvider.of<UsersBlocBloc>(context).state.user;
     if (user != null) {
       BlocProvider.of<LgoBloc>(context).add(InitialiseLgo(lgos: user!.lgos));
@@ -118,9 +121,6 @@ class _ProfilTabBarState extends State<ProfilTabBar>
 
   @override
   void dispose() {
-    print(_lgoBloc.state.lgos.length);
-
-    // TODO: implement didChangeDependencies
     NonTitulaire nonTitulaire = NonTitulaire.creation(
         nom: firstNameController.text,
         id: _usersBlocBloc.currentUser!.id,
@@ -152,40 +152,34 @@ class _ProfilTabBarState extends State<ProfilTabBar>
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
-          return Container(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Container(
-                  child: ListTile(
-                    onTap: () async {
-                      image = await imageService.pickImageFromGallery();
-                      if (image != null) {
-                        _usersBlocBloc.imagePath = image!.path;
-                        _usersBlocBloc.currentUser!.photoUrl = image!.path;
-                      }
-                      setState(() {});
-                    },
-                    title: const Text("Gallery"),
-                    leading: Icon(Icons.image),
-                  ),
-                ),
-                Container(
-                  child: ListTile(
-                    onTap: () async {
-                      image = await imageService.pickImageFromCamera();
-                      if (image != null) {
-                        _usersBlocBloc.imagePath = image!.path;
-                        _usersBlocBloc.currentUser!.photoUrl = image!.path;
-                      }
-                      setState(() {});
-                    },
-                    title: const Text("Camera"),
-                    leading: Icon(Icons.camera),
-                  ),
-                )
-              ],
-            ),
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                onTap: () async {
+                  image = await imageService.pickImageFromGallery();
+                  if (image != null) {
+                    _usersBlocBloc.imagePath = image!.path;
+                    _usersBlocBloc.currentUser!.photoUrl = image!.path;
+                  }
+                  setState(() {});
+                },
+                title: const Text("Gallery"),
+                leading: const Icon(Icons.image),
+              ),
+              ListTile(
+                onTap: () async {
+                  image = await imageService.pickImageFromCamera();
+                  if (image != null) {
+                    _usersBlocBloc.imagePath = image!.path;
+                    _usersBlocBloc.currentUser!.photoUrl = image!.path;
+                  }
+                  setState(() {});
+                },
+                title: const Text("Camera"),
+                leading: const Icon(Icons.camera),
+              ),
+            ],
           );
         });
   }
@@ -195,11 +189,11 @@ class _ProfilTabBarState extends State<ProfilTabBar>
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
 
-    ImageService imageService = ImageService();
     return SizedBox(
       height: height - 56,
       child: NestedScrollView(
         headerSliverBuilder: (context, val) => [
+          SliverToBoxAdapter(child: appBarCustom()),
           SliverToBoxAdapter(
             child: Container(
                 color: Colors.white,
@@ -249,7 +243,7 @@ class _ProfilTabBarState extends State<ProfilTabBar>
                                                     .currentUser!
                                                     .photoUrl ==
                                                 ''
-                                            ?const AssetImage(
+                                            ? const AssetImage(
                                                 'assets/images/user.png')
                                             : isLocalImage(BlocProvider.of<
                                                         UsersBlocBloc>(context)
@@ -360,11 +354,11 @@ class _ProfilTabBarState extends State<ProfilTabBar>
                                               if (snapshot.hasData) {
                                                 return Text(
                                                   snapshot.data.toString(),
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: Colors.white),
                                                 );
                                               } else {
-                                                return Text(
+                                                return const Text(
                                                   "0",
                                                   style: TextStyle(
                                                       color: Colors.white),
@@ -401,7 +395,7 @@ class _ProfilTabBarState extends State<ProfilTabBar>
                   ),
                 )),
           ),
-          SliverToBoxAdapter(child: const SizedBox(height: 20)),
+          const SliverToBoxAdapter(child: SizedBox(height: 20)),
           SliverToBoxAdapter(
             child: Form(
               key: formKey,
@@ -533,8 +527,8 @@ class _ProfilTabBarState extends State<ProfilTabBar>
               ],
             ),
             //AdvisorTabEdit(),
-            // ReseauEdit(),
             RechercheScreen(),
+            ReseauEdit(),
           ],
         ),
       ),

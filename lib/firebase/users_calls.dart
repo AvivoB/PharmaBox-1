@@ -11,7 +11,6 @@ class UserService {
   FirebaseStorage firebaseStorage = FirebaseStorage.instance;
   Future creerNonTitulaire(NonTitulaire user) async {
     User? authUser = firebaseAuth.currentUser!;
-    print(user.photoUrl);
     if (user.photoUrl != '') {
       File file = File(user.photoUrl);
       if (file.existsSync()) {
@@ -21,14 +20,11 @@ class UserService {
             .child(authUser.uid)
             .child('${authUser.uid}.jpg');
         try {
-          print(authUser.uid);
           await profileRef.getDownloadURL();
           await profileRef.delete();
           await profileRef.putFile(file);
           user.photoUrl = await profileRef.getDownloadURL();
         } catch (e) {
-          print(e.toString());
-
           if (e.toString() ==
               "[firebase_storage/object-not-found] No object exists at the desired reference.") {
             await profileRef.putFile(file);
