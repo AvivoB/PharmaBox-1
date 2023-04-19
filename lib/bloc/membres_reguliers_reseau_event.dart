@@ -1,8 +1,5 @@
 part of 'membres_reguliers_reseau_bloc.dart';
 
-abstract class MembresReguliersReseauEvent extends Equatable {
+abstract class MembresReguliersReseauEvent {
   const MembresReguliersReseauEvent();
-
-  @override
-  List<Object> get props => [];
 }

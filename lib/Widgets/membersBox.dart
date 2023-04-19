@@ -1,21 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmabox/Theme/color.dart';
 import 'package:pharmabox/Theme/text.dart';
 import 'package:pharmabox/Widgets/gradientText.dart';
 import 'package:pharmabox/Widgets/likeandroundbutton.dart';
+import 'package:pharmabox/bloc/membres_bloc.dart';
+import 'package:pharmabox/bloc/membres_gestion_bloc.dart';
+import 'package:pharmabox/bloc/verifier_membre_bloc.dart';
 import 'package:pharmabox/model/user_models/chat_model.dart';
 import 'package:pharmabox/model/user_models/non_titulaire.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
+import '../bloc/membres_titualaires_reseau_bloc.dart';
 import '../chat/chat_screen.dart';
 import '../firebase/like_service.dart';
 import '../general/widgets/custom_elevated_button.dart';
 import '../general/widgets/custom_registration_textfield.dart';
-import '../tabview/profil.dart';
 
-class MembersBox extends StatelessWidget {
+class MembersBox extends StatefulWidget {
   var image;
   var name;
   var zip;
@@ -29,6 +32,18 @@ class MembersBox extends StatelessWidget {
       required this.poste,
       required this.user})
       : super(key: key);
+
+  @override
+  State<MembersBox> createState() => _MembersBoxState();
+}
+
+class _MembersBoxState extends State<MembersBox> {
+  VerifierMembreBloc verifierMembreBloc = VerifierMembreBloc();
+  @override
+  void initState() {
+    super.initState();
+    verifierMembreBloc.add(VerifierMembre(membre: widget.user));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,8 +82,8 @@ class MembersBox extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 20,
-                      backgroundImage: image.startsWith("https")
-                          ? NetworkImage(image) as ImageProvider
+                      backgroundImage: widget.image.startsWith("https")
+                          ? NetworkImage(widget.image) as ImageProvider
                           : const AssetImage(
                               "assets/images/user.png",
                             ),
@@ -79,14 +94,14 @@ class MembersBox extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            name,
+                            widget.name,
                             style: paragraph,
                           ),
                           const SizedBox(
                             height: 5,
                           ),
                           Text(
-                            poste,
+                            widget.poste,
                             style: normGrey,
                           ),
                           SizedBox(
@@ -103,7 +118,8 @@ class MembersBox extends StatelessWidget {
                     ),
                   ],
                 ),
-                //AjouterContainer(),
+                AjouterContainer(
+                    membre: widget.user, verifierMembreBloc: verifierMembreBloc)
               ],
             ),
           ),
@@ -121,7 +137,7 @@ class MembersBox extends StatelessWidget {
                       width: width * 0.02,
                     ),
                     Text(
-                      '$zip',
+                      '${widget.zip}',
                       style: paragraph,
                     ),
                   ],
@@ -146,14 +162,14 @@ class MembersBox extends StatelessWidget {
                     ),
                   ),
                   child: FutureBuilder(
-                    future: LikeService().getUserLikes(user.id),
+                    future: LikeService().getUserLikes(widget.user.id),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return LikeButton(
                           numberLikes: snapshot.data as int,
                           removeFunction: LikeService().removeUserLikes,
                           addFunction: LikeService().addUserLikes,
-                          docId: user.id,
+                          docId: widget.user.id,
                           checkFunction: LikeService().checkUsersLikes,
                         );
                       } else {
@@ -162,7 +178,7 @@ class MembersBox extends StatelessWidget {
                             removeFunction: LikeService().removeUserLikes,
                             addFunction: LikeService().addUserLikes,
                             checkFunction: LikeService().checkUsersLikes,
-                            docId: user.id);
+                            docId: widget.user.id);
                       }
                     },
                   ),
@@ -175,7 +191,8 @@ class MembersBox extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image(
-                          image: AssetImage('assets/images/PhoneGreen.png'),
+                          image:
+                              const AssetImage('assets/images/PhoneGreen.png'),
                           height: height * 0.03,
                           fit: BoxFit.cover,
                         ),
@@ -186,7 +203,7 @@ class MembersBox extends StatelessWidget {
                         try {
                           final Uri params = Uri(
                             scheme: 'mailto',
-                            path: user.email,
+                            path: widget.user.email,
                             query: 'subject=Objet Subject&body=Body',
                           );
                           if (await canLaunch(params.toString())) {
@@ -214,11 +231,11 @@ class MembersBox extends StatelessWidget {
                           MaterialPageRoute(
                             builder: (context) => ChatScreen(
                               receiverUser: ChatModel(
-                                senderName: name,
+                                senderName: widget.name,
                                 senderMessage: "",
-                                senderImage: image,
-                                senderPoste: poste,
-                                senderId: user.id,
+                                senderImage: widget.image,
+                                senderPoste: widget.poste,
+                                senderId: widget.user.id,
                               ),
                             ),
                           ),
@@ -267,6 +284,7 @@ class MembersBoxDelete extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     return Container(
       padding: EdgeInsets.all(8),
+      margin: const EdgeInsets.only(bottom: 10),
       // height: height * 0.28,
       width: width * 0.9,
       decoration: const BoxDecoration(
@@ -298,9 +316,11 @@ class MembersBoxDelete extends StatelessWidget {
                     Image(
                       height: height * 0.08,
                       fit: BoxFit.cover,
-                      image: AssetImage(
-                        image,
-                      ),
+                      image: image.startsWith("https")
+                          ? NetworkImage(image) as ImageProvider
+                          : const AssetImage(
+                              "assets/images/user.png",
+                            ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(4.0),
@@ -315,20 +335,12 @@ class MembersBoxDelete extends StatelessWidget {
                             height: height * 0.015,
                           ),
                           Text(
-                            'Préparatrice',
+                            membre.poste,
                             style: normGrey,
                           ),
                           SizedBox(
                             height: height * 0.015,
                           ),
-                          name == 'Arnaud Roche' || name == 'Isabelle Rettig'
-                              ? Image(
-                                  height: height * 0.05,
-                                  image: AssetImage(
-                                    'assets/images/GoldMember.png',
-                                  ),
-                                )
-                              : Container(),
                         ],
                       ),
                     ),
@@ -347,32 +359,7 @@ class MembersBoxDelete extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: /* FutureBuilder(
-                    future:
-                        LikeService().getPharmacieLikes(widget.pharmacie.id),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return LikeButton(
-                          numberLikes: snapshot.data as int,
-                          removeFunction: LikeService().removePharmacieLikes,
-                          addFunction: LikeService().addPharmacieLikes,
-                                                    docId: widget.pharmacie.id,
-                                                    checkFunction: LikeService().checkPharmacieUser,
-
-                        );
-                      } else {
-                        return LikeButton(
-                          numberLikes: 0,
-                          removeFunction: LikeService().removePharmacieLikes,
-                          addFunction: LikeService().addPharmacieLikes,
-                                                                              checkFunction: LikeService().checkPharmacieUser,
-
-                          docId: widget.pharmacie.id,
-                        );
-                      }
-                    },
-                  ),*/
-                      SizedBox(),
+                  child: const SizedBox(),
                 ),
               ],
             ),
@@ -428,24 +415,28 @@ class MembersBoxDelete extends StatelessWidget {
           SizedBox(
             height: height * 0.02,
           ),
-          zip != 'removeDelete'
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(
-                      Icons.delete_outline,
-                      color: Color.fromRGBO(248, 153, 153, 1),
-                    ),
-                    Text(
-                      'Supprimer',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Color.fromRGBO(248, 153, 153, 1),
-                      ),
-                    )
-                  ],
+          InkWell(
+            onTap: () {
+              BlocProvider.of<MembresGestionBloc>(context)
+                  .add(DeleteMembre(membre: membre));
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(
+                  Icons.delete_outline,
+                  color: Color.fromRGBO(248, 153, 153, 1),
+                ),
+                Text(
+                  'Supprimer',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Color.fromRGBO(248, 153, 153, 1),
+                  ),
                 )
-              : Container(),
+              ],
+            ),
+          )
         ],
       ),
     );
@@ -453,38 +444,58 @@ class MembersBoxDelete extends StatelessWidget {
 }
 
 class AjouterContainer extends StatelessWidget {
-  const AjouterContainer({Key? key}) : super(key: key);
-
+  NonTitulaire membre;
+  AjouterContainer(
+      {Key? key, required this.membre, required this.verifierMembreBloc})
+      : super(key: key);
+  VerifierMembreBloc verifierMembreBloc;
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return Container(
-        height: height * 0.05,
-        width: width * 0.2,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Color.fromRGBO(31, 92, 103, 0.17),
-              offset: Offset(3, 3),
-              blurRadius: 3,
-            ),
-          ],
-          borderRadius: BorderRadius.all(
-            Radius.circular(8),
-          ),
-        ),
-        child: const Center(
-            child: GradientText(
-          'Ajouter',
-          gradient: LinearGradient(
-            colors: [
-              Color.fromRGBO(124, 237, 172, 1),
-              Color.fromRGBO(66, 210, 255, 1),
-            ],
-          ),
-        )));
+    return BlocBuilder<VerifierMembreBloc, VerifierMembreState>(
+        bloc: verifierMembreBloc,
+        builder: (context, state) {
+          return InkWell(
+            onTap: () {
+              if (state is MembreAbsent) {
+                BlocProvider.of<MembresGestionBloc>(context)
+                    .add(AddMembre(membre: membre));
+                verifierMembreBloc.add(VerifierMembre(membre: membre));
+              } else {
+                BlocProvider.of<MembresGestionBloc>(context)
+                    .add(DeleteMembre(membre: membre));
+                verifierMembreBloc.add(VerifierMembre(membre: membre));
+              }
+            },
+            child: Container(
+                height: height * 0.05,
+                width: width * 0.2,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromRGBO(31, 92, 103, 0.17),
+                      offset: Offset(3, 3),
+                      blurRadius: 3,
+                    ),
+                  ],
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(8),
+                  ),
+                ),
+                child: Center(
+                    child: GradientText(
+                  state is MembreAbsent ? 'Ajouter' : "Supprimer",
+                  gradient: const LinearGradient(
+                    colors: [
+                      Color.fromRGBO(124, 237, 172, 1),
+                      Color.fromRGBO(66, 210, 255, 1),
+                    ],
+                  ),
+                ))),
+          );
+        });
   }
 }
 
@@ -507,7 +518,7 @@ class ModifierContainer extends StatelessWidget {
           isScrollControlled: true,
           context: context,
           builder: (BuildContext context) {
-            return Container(
+            return SizedBox(
               height: height * 0.52,
               child: Column(
                 children: [

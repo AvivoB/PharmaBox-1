@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -121,7 +122,7 @@ class _ProfilTabBarState extends State<ProfilTabBar>
 
   @override
   void dispose() {
-    NonTitulaire nonTitulaire = NonTitulaire.creation(
+    /* NonTitulaire nonTitulaire = NonTitulaire.creation(
         nom: firstNameController.text,
         id: _usersBlocBloc.currentUser!.id,
         specialisations: _specialisationsBloc.state.specialisations,
@@ -143,7 +144,7 @@ class _ProfilTabBarState extends State<ProfilTabBar>
         competences: _competencesBloc.state.competences,
         droitOffres: conditions[0],
         accepterConditions: conditions[1]);
-    _usersBlocBloc.add(AddUser(user: nonTitulaire));
+    _usersBlocBloc.add(AddUser(user: nonTitulaire));*/
     super.dispose();
   }
 
@@ -522,13 +523,47 @@ class _ProfilTabBarState extends State<ProfilTabBar>
                 (val) {
                   setState(() {
                     conditions[1] = !conditions[1];
+                    (val) async {
+                      if (formKey.currentState!.validate()) {
+                        String? token =
+                            await FirebaseMessaging.instance.getToken();
+                        NonTitulaire nonTitulaire = NonTitulaire.creation(
+                            token: token!,
+                            nom: firstNameController.text,
+                            id: _usersBlocBloc.currentUser!.id,
+                            specialisations:
+                                _specialisationsBloc.state.specialisations,
+                            prenom: lastNameController.text,
+                            photoUrl: _usersBlocBloc.currentUser!.photoUrl,
+                            presentation: descriptionController.text,
+                            email: emailController.text,
+                            telephone: Telephone(
+                                numeroTelephone:
+                                    int.parse(phoneController.text),
+                                visible: false),
+                            poste: jobTitleController.text,
+                            experiences: _experiencesBloc.state.experiences,
+                            lgos: _lgoBloc.state.lgos,
+                            universites: _universitesBloc.state.universities,
+                            naissance: dateOfBirthController.text,
+                            langues: _languesBloc.state.langues,
+                            localisation: Localisation(
+                                codePostal:
+                                    int.parse(postalCodeController.text),
+                                ville: addressController.text),
+                            competences: _competencesBloc.state.competences,
+                            droitOffres: conditions[0],
+                            accepterConditions: conditions[1]);
+                        _usersBlocBloc.add(AddUser(user: nonTitulaire));
+                      }
+                    };
                   });
                 }
               ],
             ),
             //AdvisorTabEdit(),
-            RechercheScreen(),
-            ReseauEdit(),
+            const RechercheScreen(),
+            const ReseauEdit(),
           ],
         ),
       ),

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pharmabox/Theme/text.dart';
 import 'package:pharmabox/Widgets/button.dart';
 
 import '../Widgets/countContainer.dart';
-import '../Widgets/jobsbox.dart';
 import '../Widgets/membersBox.dart';
-import '../Widgets/pharmaciesbox.dart';
 import '../bloc/membres_bloc.dart';
 import '../bloc/membres_titualaires_reseau_bloc.dart';
 

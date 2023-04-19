@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -247,9 +248,12 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                           ),
                         );
                       } else {
+                        final String? token =
+                            await FirebaseMessaging.instance.getToken();
                         NonTitulaire nonTitulaire = NonTitulaire.creation(
                             nom: firstNameController.text,
-                            id:FirebaseAuth.instance.currentUser!.uid,
+                            token: token!,
+                            id: FirebaseAuth.instance.currentUser!.uid,
                             photoUrl:
                                 BlocProvider.of<UsersBlocBloc>(context).imagePath !=
                                         null
@@ -291,8 +295,10 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => HomePage(fromRegister: true),
-                            ),(route)=>false);
+                              builder: (context) =>
+                                  HomePage(fromRegister: true),
+                            ),
+                            (route) => false);
                       }
                     } else {
                       controller.animateTo(0,

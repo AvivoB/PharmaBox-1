@@ -15,6 +15,7 @@ class MembresTitualairesReseauBloc
       try {
         List<NonTitulaire> membresTitulaires =
             await membresReseauService.getMembresTitulaire();
+        debugPrint(membresTitulaires.length.toString() + ":nombre de membres");
         emit(MembresTitulairesReady(membresTitulaires: membresTitulaires));
       } catch (e) {
         debugPrint(e.toString());

@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pharmabox/firebase/notifications_service.dart';
 import 'package:pharmabox/model/user_models/non_titulaire.dart';
 
 import '../model/user_models/chat_model.dart';
 
 class ChatService {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+  NotificationsService notificationsService = NotificationsService();
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   String getDocId(String firstId, String secondId) {
     if (firstId.compareTo(secondId) < 0) {
@@ -49,6 +51,7 @@ class ChatService {
         .collection("latest_discussions")
         .doc(chat.senderId)
         .set(chat.toMap());
+    await notificationsService.sendChatMessage(chat.senderMessage, receiverId);
   }
 
   Future<NonTitulaire> getPharmacieOwner(String userId) async {

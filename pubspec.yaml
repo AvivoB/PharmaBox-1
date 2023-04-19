@@ -70,6 +70,11 @@ dependencies:
   google_sign_in: ^6.0.2
   skeletons: ^0.0.3
   url_launcher: ^6.1.10
+  cloud_functions: ^4.1.1
+  firebase_messaging: ^14.4.1
+  flutter_local_notifications: ^8.2.0
+  timezone: ^0.8.0
+  rxdart: ^0.26.0
 flutter_icons:
   android: "launcher_icon"
   ios: true

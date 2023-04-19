@@ -62,8 +62,8 @@ class _JobBoxState extends State<JobBox> {
                 EdgeInsets.all(widget.imagePharm.startsWith('assets/') ? 8 : 0),
             height: height * 0.18,
             width: width * 0.82,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(
                 Radius.circular(15),
               ),
               color: Color(0xfF161730),
@@ -282,7 +282,8 @@ class _JobBoxState extends State<JobBox> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image(
-                          image: AssetImage('assets/images/EmailGreen.png'),
+                          image:
+                              const AssetImage('assets/images/EmailGreen.png'),
                           height: height * 0.03,
                           fit: BoxFit.cover,
                         ),

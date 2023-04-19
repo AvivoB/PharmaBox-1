@@ -1,18 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pharmabox/firebase/notifications_service.dart';
 import 'package:pharmabox/model/user_models/non_titulaire.dart';
 import 'package:pharmabox/model/user_models/pharmacie.dart';
 
 class MembresReseauService {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  NotificationsService notificationsService = NotificationsService();
 
   Future getMembres() async {
     return await _firebaseFirestore
         .collection("users")
         .doc(firebaseAuth.currentUser?.uid)
         .collection("membres")
-        .where("poste", isNotEqualTo: "Pharmacien(ne) Titulaire")
+        .where("poste", isNotEqualTo: "Pharmacien(ne) titulaire")
         .get()
         .then((value) =>
             value.docs.map((e) => NonTitulaire.fromJson(e.data())).toList());
@@ -25,9 +27,13 @@ class MembresReseauService {
         .collection("membres")
         .doc(membre.id)
         .set(membre.toJson());
+    if (membre.poste == "Pharmacien(ne) titulaire") {
+      await notificationsService.sendChatMessage(
+          "Voulez-vous rejoindre le réseau de la pharmacie?", membre.token);
+    }
   }
 
-  Future checkMembre(NonTitulaire membre) async {
+  Future<bool> checkMembre(NonTitulaire membre) async {
     DocumentSnapshot doc = await _firebaseFirestore
         .collection("users")
         .doc(firebaseAuth.currentUser!.uid)
@@ -56,7 +62,7 @@ class MembresReseauService {
         .collection("users")
         .doc(firebaseAuth.currentUser?.uid)
         .collection("membres")
-        .where("poste", isEqualTo: "Pharmacien(ne) Titulaire")
+        .where("poste", isEqualTo: "Pharmacien(ne) titulaire")
         .get()
         .then((value) =>
             value.docs.map((e) => NonTitulaire.fromJson(e.data())).toList());

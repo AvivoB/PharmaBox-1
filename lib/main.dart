@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -13,6 +15,8 @@ import 'package:pharmabox/bloc/mainmap_bloc.dart';
 import 'package:pharmabox/bloc/membres_gestion_bloc.dart';
 import 'package:pharmabox/bloc/membres_titualaires_reseau_bloc.dart';
 import 'package:pharmabox/bloc/navigation_bloc.dart';
+import 'package:pharmabox/bloc/verifier_membre_bloc.dart';
+import 'package:pharmabox/firebase/notifications_service.dart';
 import 'package:pharmabox/mainpages/HomePage.dart';
 import 'package:pharmabox/bloc/groupement_bloc.dart';
 import 'package:pharmabox/bloc/membres_bloc.dart';
@@ -39,10 +43,27 @@ import 'model/competence.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await NotificationsService.init();
   await [
     Permission.location,
     Permission.storage,
   ].request();
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  _firebaseMessaging.requestPermission();
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    if (message.data.containsKey('message') &&
+        message.data.containsKey('recipientToken') &&
+        message.data['recipientToken'] ==
+            FirebaseMessaging.instance.getToken()) {
+      String messageContent = message.data['message'];
+      NotificationsService.showScheduledNotifcation(
+          body: messageContent,
+          title: 'Message',
+          id: messageContent.length,
+          payload: 'payload',
+          scheduledDate: DateTime.now());
+    }
+  });
   runApp(const MyApp());
 }
 
@@ -65,6 +86,7 @@ class MyApp extends StatelessWidget {
     final membresBloc = MembresBloc();
     final offresBloc = OffresBloc();
     final pharmacieRechercheBloc = PharmacierechercheBloc();
+    final membreTitulairesBloc = MembresTitualairesReseauBloc();
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -143,10 +165,15 @@ class MyApp extends StatelessWidget {
             create: (_) =>
                 NavigationBloc(authenticationBloc: authenticationBloc)),
         BlocProvider(
-          create: (_) => MembresTitualairesReseauBloc(),
+          create: (_) => membreTitulairesBloc,
         ),
         BlocProvider(
-          create: (_) => MembresGestionBloc(),
+          create: (_) => VerifierMembreBloc(),
+        ),
+        BlocProvider(
+          create: (_) => MembresGestionBloc(
+              membresTitualairesReseauBloc: membreTitulairesBloc,
+              membresBloc: membresBloc),
         ),
       ],
       child: const HomeApp(),

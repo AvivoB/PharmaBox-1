@@ -1,11 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'membres_titualaires_reseau_bloc.dart';
 
-abstract class MembresTitualairesReseauState extends Equatable {
+abstract class MembresTitualairesReseauState {
   const MembresTitualairesReseauState();
-
-  @override
-  List<Object> get props => [];
 }
 
 class MembresTitualairesReseauInitial extends MembresTitualairesReseauState {}
