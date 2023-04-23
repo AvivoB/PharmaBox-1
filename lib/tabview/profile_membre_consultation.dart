@@ -133,7 +133,6 @@ class _ProfilTabState extends State<ProfilTab> {
                                   parent: Lgo(
                                     niveau: widget.membre.lgos[index].niveau,
                                     nom: widget.membre.lgos[index].nom,
-                                    image: widget.membre.lgos[index].image,
                                   ),
                                 )
                               ])),
@@ -370,7 +369,6 @@ class _ProfilTabState extends State<ProfilTab> {
           ...List.generate(
             widget.membre.experiences.length,
             (index) => Container(
-              margin: const EdgeInsets.only(bottom: 10),
               padding:
                   EdgeInsets.only(left: 8 + width * 0.02, right: 8, bottom: 10),
               width: width * 0.9,
@@ -397,11 +395,9 @@ class _ProfilTabState extends State<ProfilTab> {
                       SizedBox(
                         width: width * 0.015,
                       ),
-                      Flexible(
-                        child: Text(
-                          widget.membre.experiences[index].nomPharmacie,
-                          style: heading,
-                        ),
+                      Text(
+                        widget.membre.experiences[index].nomPharmacie,
+                        style: heading,
                       ),
                     ],
                   ),

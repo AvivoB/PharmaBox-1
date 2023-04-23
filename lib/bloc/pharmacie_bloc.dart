@@ -14,7 +14,7 @@ class PharmacieBloc extends Bloc<PharmacieEvent, PharmacieState> {
   String groupementImage =
       "https://www.labodata.com/media/category/img/origin/paraph.png";
   String lgo = "";
-  String lgoImage = "https://www.labodata.com/media/category/img/origin/paraph.png";
+  String lgoImage = "";
   final PharmacieCalls pharmacieCalls = PharmacieCalls();
   PharmacieBloc() : super(PharmacieInitial()) {
     on<AddPharmacie>((event, emit) async {
@@ -28,7 +28,6 @@ class PharmacieBloc extends Bloc<PharmacieEvent, PharmacieState> {
         pharmacie = await pharmacieCalls.getPharmacie();
         images = pharmacie!.images;
         lgo = pharmacie!.lgoName;
-        lgoImage = pharmacie!.lgoImage;
         emit(PharmacieReady(pharmacie: pharmacie!));
       } catch (e) {
         emit(PharmacieFailed());

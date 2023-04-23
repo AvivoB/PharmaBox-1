@@ -304,9 +304,9 @@ class _OffreWidgetState extends State<OffreWidget> {
                                                 'Préparateur',
                                                 'Apprenti',
                                                 'Etudiant pharmacie',
-                                                'Etudiant 6éme année validée',
+                                                'Etudiant 6éme annéee validée',
                                                 'Pharmacien',
-                                                'Pharmacien(ne) Titulaire'
+                                                'Titulaire'
                                               ].map((String value) {
                                                 return DropdownMenuItem<String>(
                                                   value: value,

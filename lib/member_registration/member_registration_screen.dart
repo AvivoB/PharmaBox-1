@@ -132,9 +132,15 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                           'Préparateur',
                           'Apprenti',
                           'Etudiant pharmacie',
+<<<<<<< HEAD
                           'Etudiant 6ème année validée',
                           'Pharmacien(ne)',
                           'Pharmacien(ne) titulaire'
+=======
+                          'Etudiant 6éme annéee validée',
+                          'Pharmacien',
+                          'Titulaire'
+>>>>>>> parent of a4a7365e (new requirements)
                         ].map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,

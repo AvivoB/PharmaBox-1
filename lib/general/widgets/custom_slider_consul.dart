@@ -98,17 +98,14 @@ class _CustomSliderConsulState extends State<CustomSliderConsul> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20.0),
-                  child: GradientText(
-                    labelText,
-                    style: const TextStyle(fontSize: 10),
-                    gradient: _gradient,
-                  ),
+                GradientText(
+                  labelText,
+                  style: const TextStyle(fontSize: 10),
+                  gradient: _gradient,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.03,
-                  width: MediaQuery.of(context).size.width * 0.5,
+                  width: MediaQuery.of(context).size.width * 0.45,
                   child: SliderTheme(
                     data: SliderThemeData(
                       showValueIndicator: ShowValueIndicator.never,

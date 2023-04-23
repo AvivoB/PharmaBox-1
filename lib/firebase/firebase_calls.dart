@@ -37,10 +37,14 @@ class FirebaseCalls {
         final String imageName = data["image"];
         final Reference ref = storage.ref().child('lgo').child(imageName);
         String imageUrl = await ref.getDownloadURL();
+<<<<<<< HEAD
         groupements = [
           ...groupements,
           Lgo(nom: data["name"], niveau: 0, image: imageUrl)
         ];
+=======
+        groupements = [...groupements, Lgo(nom: data["name"], niveau: 0)];
+>>>>>>> parent of a4a7365e (new requirements)
       }
     }
     return groupements;

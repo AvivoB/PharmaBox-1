@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #Sat Apr 22 11:00:54 CEST 2023
+=======
+#Fri Mar 31 07:21:22 CEST 2023
+>>>>>>> parent of a4a7365e (new requirements)
 path.4=7/classes.dex
 path.3=1/classes.dex
 path.2=0/classes.dex

@@ -1,6 +1,5 @@
 import 'package:flutter/Material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pharmabox/Theme/color.dart';
 import 'package:pharmabox/bloc/specialisationsearch_bloc.dart';
 
 import '../Theme/text.dart';
@@ -22,8 +21,8 @@ class SpecialisationContainer extends StatelessWidget {
   late SpecialisationsBloc specialisationsBloc;
   final TextEditingController controller = TextEditingController();
   void addSpecialisation(BuildContext context, String name) {
-    BlocProvider.of<SpecialisationsBloc>(context)
-        .add(AddLocalSpecialisation(specialisation: Specialisation(nom: name)));
+    BlocProvider.of<SpecialisationsBloc>(context).add(AddLocalSpecialisation(
+        specialisation: Specialisation(nom: name)));
   }
 
   @override
@@ -61,7 +60,7 @@ class SpecialisationContainer extends StatelessWidget {
                   style: heading,
                 ),
               ),
-              InkWell(
+             InkWell(
                 onTap: () {
                   showModalBottomSheet(
                       shape: const RoundedRectangleBorder(
@@ -78,44 +77,25 @@ class SpecialisationContainer extends StatelessWidget {
                                 bottom:
                                     MediaQuery.of(context).viewInsets.bottom),
                             child: SizedBox(
-                                height: height * 0.7,
+                                height: height * 0.4,
                                 child: SingleChildScrollView(
                                   child: Column(
                                     children: [
-                                      Stack(
-                                        children: [
-                                          CustomPharmacyTextField(
-                                            label: "Spécialisation",
-                                            controller: controller,
-                                            onRealChanged: (val) {},
-                                          ),
-                                          Positioned(
-                                              right: 10,
-                                              top: 10,
-                                              bottom: 10,
-                                              child: IconButton(
-                                                color: lightGreen,
-                                                icon: const Icon(Icons.search),
-                                                onPressed: () {
-                                                  BlocProvider.of<
-                                                              SpecialisationsearchBloc>(
-                                                          context)
-                                                      .add(
-                                                          GetAllSpecialisations(
-                                                              input: controller
-                                                                  .text));
-                                                },
-                                              ))
-                                        ],
+                                      CustomPharmacyTextField(
+                                        label: "Spécialisation",
+                                        controller: controller,
+                                        onRealChanged: (val) {
+                                          BlocProvider.of<SpecialisationsearchBloc>(
+                                                  context)
+                                              .add(GetAllSpecialisations(input: val));
+                                        },
                                       ),
                                       BlocBuilder<SpecialisationsearchBloc,
                                           SpecialisationsearchState>(
                                         builder: (context, state) {
-                                          if (state
-                                              is SpecialisationsearchReady) {
+                                          if (state is SpecialisationsearchReady) {
                                             return SingleChildScrollView(
-                                              padding: const EdgeInsets.only(
-                                                  top: 20),
+                                              padding:const EdgeInsets.only(top: 20),
                                               child: Column(
                                                 children: List.generate(
                                                   state.groupements.length,
@@ -129,7 +109,8 @@ class SpecialisationContainer extends StatelessWidget {
                                                               .groupement);
                                                       Navigator.pop(context);
                                                     },
-                                                    leading: Text(
+                                                    leading: 
+                                                     Text(
                                                       state.groupements[index]
                                                           .groupement,
                                                       style: heading,
@@ -141,8 +122,9 @@ class SpecialisationContainer extends StatelessWidget {
                                           } else if (state
                                               is SpecialisationsearchLoading) {
                                             return const Padding(
-                                              padding: EdgeInsets.all(10.0),
-                                              child: Center(
+                                              padding:
+                                                   EdgeInsets.all(10.0),
+                                              child:  Center(
                                                 child:
                                                     CircularProgressIndicator(),
                                               ),

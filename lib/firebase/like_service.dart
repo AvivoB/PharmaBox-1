@@ -36,6 +36,7 @@ class LikeService {
   }
 
   Future<bool> checkUsersLikes(String userId, String docId) async {
+<<<<<<< HEAD
     try {
       final DocumentSnapshot pharmacieDoc =
           await _firebaseFirestore.collection("user_likes").doc(docId).get();
@@ -46,6 +47,14 @@ class LikeService {
         return true;
       }
     } catch (e) {
+=======
+    print(docId);
+    print(userId);
+    final DocumentSnapshot pharmacieDoc =
+        await _firebaseFirestore.collection("user_likes").doc(docId).get();
+    final dynamic infos = pharmacieDoc.data()!;
+    if (!infos["users"].contains(userId)) {
+>>>>>>> parent of a4a7365e (new requirements)
       return false;
     }
   }
