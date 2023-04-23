@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:pharmabox/Theme/text.dart';
 import 'package:pharmabox/Widgets/circularwidget.dart';
 import 'package:pharmabox/Widgets/likeandroundbutton.dart';
+import 'package:pharmabox/firebase/chat_service.dart';
 import 'package:pharmabox/firebase/like_service.dart';
+import 'package:pharmabox/model/user_models/non_titulaire.dart';
 import 'package:pharmabox/model/user_models/pharmacie.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../Theme/color.dart';
+import '../chat/chat_screen.dart';
+import '../model/user_models/chat_model.dart';
 
 class JobBox extends StatefulWidget {
   var pharm;
@@ -57,8 +62,8 @@ class _JobBoxState extends State<JobBox> {
                 EdgeInsets.all(widget.imagePharm.startsWith('assets/') ? 8 : 0),
             height: height * 0.18,
             width: width * 0.82,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(
                 Radius.circular(15),
               ),
               color: Color(0xfF161730),
@@ -71,30 +76,7 @@ class _JobBoxState extends State<JobBox> {
                 : ClipRRect(
                     borderRadius: BorderRadius.circular(15),
                     child: Image.network(widget.imagePharm, fit: BoxFit.cover)),
-            // 'assets/images/pharmacy 1.png'
-
-            /*Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    StackMark(
-                      back: 'assets/images/golden.png',
-                      front: 'assets/images/front 1.png',
-                    ),
-                    SizedBox(
-                      width: width * 0.05,
-                    ),
-                    StackMark(
-                      back: 'assets/images/back 2.png',
-                      front: 'assets/images/front 2.png',
-                    ),
-                  ],
-                ),
-                LikeButton(isLiked: false),
-              ],
-            ),*/
+          
           ),
           SizedBox(
             height: height * 0.01,
@@ -254,26 +236,68 @@ class _JobBoxState extends State<JobBox> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Image(
-                          image: AssetImage('assets/images/PhoneGreen.png'),
+                          image:
+                              const AssetImage('assets/images/PhoneGreen.png'),
                           height: height * 0.03,
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image(
-                        image: AssetImage('assets/images/EmailGreen.png'),
-                        height: height * 0.03,
-                        fit: BoxFit.cover,
+                    InkWell(
+                      onTap: () async {
+                        try {
+                          final Uri params = Uri(
+                            scheme: 'mailto',
+                            path: widget.pharmacie.email,
+                            query: 'subject=Objet Subject&body=Body',
+                          );
+                          await launchUrl(params);
+                        } catch (e) {
+                          debugPrint(e.toString());
+                        }
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image(
+                          image:
+                              const AssetImage('assets/images/EmailGreen.png'),
+                          height: height * 0.03,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image(
-                        image: AssetImage('assets/images/SendGreen.png'),
-                        height: height * 0.03,
-                        fit: BoxFit.cover,
+                    InkWell(
+                      onTap: () async {
+                        try {
+                          ChatService chatService = ChatService();
+                          NonTitulaire owner = await chatService
+                              .getPharmacieOwner(widget.pharmacie.id);
+                          // ignore: use_build_context_synchronously
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ChatScreen(
+                                receiverUser: ChatModel(
+                                  senderName: owner.nom + ' ' + owner.prenom,
+                                  senderMessage: "",
+                                  senderImage: owner.photoUrl,
+                                  senderPoste: owner.poste,
+                                  senderId: widget.pharmacie.id,
+                                ),
+                              ),
+                            ),
+                          );
+                        } catch (e) {
+                          debugPrint(e.toString());
+                        }
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image(
+                          image: AssetImage('assets/images/SendGreen.png'),
+                          height: height * 0.03,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ],

@@ -7,6 +7,7 @@ import 'package:pharmabox/Theme/text.dart';
 import 'package:pharmabox/bloc/mainmap_bloc.dart';
 import 'package:pharmabox/bloc/offres_bloc.dart';
 import 'package:pharmabox/business_logic/users_bloc/users_bloc_bloc.dart';
+import 'package:pharmabox/general/widgets/custom_date_picker_min_date.dart';
 import 'package:pharmabox/mainpages/mult_selection.dart';
 import 'package:pharmabox/model/horaire.dart';
 import 'package:pharmabox/model/user_models/recherche.dart';
@@ -300,7 +301,7 @@ class _NonTituSheetState extends State<NonTituSheet> {
             (_selectedValues.contains("CDD") ||
                     _selectedValues.contains("Alternance") ||
                     _selectedValues.contains("Stage"))
-                ? CustomRegistrationDatePicker(
+                ? CustomRegistrationDatePickerToDayMindate(
                     padding: 1,
                     label: 'Début du contrat',
                     prefixIcon: const Icon(
@@ -329,7 +330,7 @@ class _NonTituSheetState extends State<NonTituSheet> {
               visible: !salaireCreche[0],
               child: PresentField(
                 padding: 1,
-                label: 'Salaire Net',
+                label: 'Salaire net mensuel',
                 textInputType: TextInputType.number,
                 prefixIcon: const Icon(
                   Icons.money,

@@ -32,7 +32,7 @@ class _PharmacieNomState extends State<PharmacieNom> {
           },
           controller: widget.pharmacyName,
         ),
-        response != null
+        response != null && response!.predictions.isNotEmpty
             ? Container(
                 height: 200,
                 padding: const EdgeInsets.all(10),

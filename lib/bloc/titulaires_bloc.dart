@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:pharmabox/business_logic/users_bloc/users_bloc_bloc.dart';
 
 import '../firebase/firebase_calls.dart';
@@ -47,7 +48,7 @@ class TitulaireBloc extends Bloc<TitulairesEvent, TitulairesState> {
         ...titulaires,
         usersBlocBloc.currentUser!.prenom + ' ' + usersBlocBloc.currentUser!.nom
       ];
-      print("is:" + titulaires[0]);
+      debugPrint("is:" + titulaires[0]);
       emit(TitulairesInitial(titulaires));
     });
   }

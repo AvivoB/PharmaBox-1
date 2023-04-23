@@ -1,14 +1,46 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pharmabox/bloc/chat_display_bloc.dart';
+import 'package:pharmabox/bloc/chat_managment_bloc.dart';
+import 'package:pharmabox/business_logic/users_bloc/users_bloc_bloc.dart';
+
 import 'package:pharmabox/constant.dart';
 import 'package:pharmabox/general/widgets/custom_chat_bubble.dart';
 import 'package:pharmabox/general/widgets/custom_date_text_widget.dart';
 import 'package:pharmabox/general/widgets/custom_rounded_icon_button.dart';
+import 'package:pharmabox/model/user_models/non_titulaire.dart';
+
+import '../model/user_models/chat_model.dart';
+
 part 'chat_app_bar.dart';
 part 'chat_message_field.dart';
 
-class ChatScreen extends StatelessWidget {
-  const ChatScreen({super.key});
+class ChatScreen extends StatefulWidget {
+  final ChatModel receiverUser;
+  const ChatScreen({
+    Key? key,
+    required this.receiverUser,
+  }) : super(key: key);
 
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  @override
+  void initState() {
+    BlocProvider.of<ChatDisplayBloc>(context).add(DisplayMessages(
+        senderId: BlocProvider.of<UsersBlocBloc>(context).currentUser!.id,
+        receiverId: widget.receiverUser.senderId));
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.animateTo(controller.position.maxScrollExtent + 100,
+          duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
+    });
+  }
+
+  ScrollController controller = ScrollController();
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -23,6 +55,7 @@ class ChatScreen extends StatelessWidget {
             },
             child: SafeArea(
               child: SingleChildScrollView(
+                controller: controller,
                 child: Column(
                   children: [
                     Container(
@@ -59,26 +92,31 @@ class ChatScreen extends StatelessWidget {
                                     child: Image(
                                       height: height * 0.1,
                                       fit: BoxFit.fitHeight,
-                                      image: const AssetImage(
-                                          'assets/images/profile 1.png'),
+                                      image: widget.receiverUser.senderImage
+                                              .startsWith("https")
+                                          ? NetworkImage(widget.receiverUser
+                                              .senderImage) as ImageProvider
+                                          : const AssetImage(
+                                              "assets/images/user.png",
+                                            ),
                                     ),
                                   ),
                                   SizedBox(
                                     width: width * 0.02,
                                   ),
                                   Column(
-                                    children: const <Widget>[
+                                    children: <Widget>[
                                       Text(
-                                        "Isabelle Rettig",
-                                        style: TextStyle(
+                                        widget.receiverUser.senderName,
+                                        style: const TextStyle(
                                           fontSize: 18,
                                           color: Colors.white,
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
                                       Text(
-                                        "Pharmacienne",
-                                        style: TextStyle(
+                                        widget.receiverUser.senderPoste,
+                                        style: const TextStyle(
                                           fontSize: 11,
                                           color: Colors.white,
                                           fontWeight: FontWeight.w300,
@@ -104,42 +142,59 @@ class ChatScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.14,
-                    ),
-                    const CustomDateTextWidget(
-                      date: '24 Août 2022',
-                      textColor: Color(0xfF161730),
-                      fontWeight: FontWeight.w500,
-                    ),
-                    SizedBox(
                       height: MediaQuery.of(context).size.height * 0.03,
                     ),
-                    CustomChatBubble(
-                      text: kLeftChatMessage,
-                      bubbleColor: Colors.white,
-                      textColor: Colors.grey.shade600,
-                      alignment: MainAxisAlignment.start,
-                      fontSize: 17,
+                    BlocBuilder<ChatDisplayBloc, ChatDisplayState>(
+                      builder: (context, state) {
+                        debugPrint(state.toString());
+                        if (state is MessagesReady) {
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            controller.animateTo(
+                                controller.position.maxScrollExtent + 100,
+                                duration: const Duration(milliseconds: 500),
+                                curve: Curves.easeOut);
+                          });
+
+                          return Column(
+                              children: List.generate(
+                            state.messages.length,
+                            (index) => CustomChatBubble(
+                              text: state.messages[index].senderMessage,
+                              bubbleColor: state.messages[index].senderId ==
+                                      widget.receiverUser.senderId
+                                  ? Colors.white
+                                  : const Color.fromRGBO(124, 237, 172, 1),
+                              textColor: state.messages[index].senderId ==
+                                      widget.receiverUser.senderId
+                                  ? Colors.grey.shade600
+                                  : Colors.white,
+                              alignment: state.messages[index].senderId ==
+                                      widget.receiverUser.senderId
+                                  ? MainAxisAlignment.start
+                                  : MainAxisAlignment.end,
+                              fontSize: 17,
+                            ),
+                          ));
+                        } else {
+                          return const SizedBox();
+                        }
+                      },
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.025,
-                    ),
-                    const CustomChatBubble(
-                      text: kRightChatMessage,
-                      bubbleColor: Color.fromRGBO(124, 237, 172, 1),
-                      textColor: Colors.white,
-                      alignment: MainAxisAlignment.end,
-                      fontSize: 17,
+                    const SizedBox(
+                      height: 100,
                     ),
                   ],
                 ),
               ),
             ),
           ),
+
           // const Align(alignment: Alignment.topCenter, child: ChatAppBar()),
-          const Align(
+          Align(
               alignment: Alignment.bottomCenter,
-              child: CustomChatMessageField())
+              child: CustomChatMessageField(
+                receiverId: widget.receiverUser.senderId,
+              ))
         ],
       ),
     );

@@ -27,7 +27,6 @@ class RechercheWidget extends StatefulWidget {
 class _RechercheWidgetState extends State<RechercheWidget> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     locationController.text = widget.recherche.localisation;
     routeController.text = widget.recherche.rayon.toString();
@@ -426,7 +425,7 @@ class _RechercheWidgetState extends State<RechercheWidget> {
                                             !widget.recherche.salaireEnsemble,
                                         child: CustomRegistrationTextField(
                                           padding: 1,
-                                          label: 'Salaire Net',
+                                          label: 'Salaire net mensuel',
                                           textInputType: TextInputType.number,
                                           prefixIcon: const Icon(
                                             Icons.money,

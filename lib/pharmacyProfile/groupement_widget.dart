@@ -39,7 +39,7 @@ class _ModifierGroupementState extends State<ModifierGroupement> {
           )),
       title: Text(
         "Groupement",
-        style: heading.copyWith(fontSize: 16),
+        style: heading.copyWith(fontSize: 14),
       ),
       subtitle: Text(
         BlocProvider.of<PharmacieBloc>(context).groupement,

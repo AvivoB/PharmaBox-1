@@ -88,7 +88,7 @@ class _ReseauTabState extends State<ReseauTab> {
               SizedBox(
                 height: height * 0.02,
               ),
-              membres1
+              /*membres1
                   ? MembersBoxDelete(
                       image: 'assets/images/profile 3.png',
                       name: 'Arnaud Roche',
@@ -96,7 +96,7 @@ class _ReseauTabState extends State<ReseauTab> {
                       text: "Grande Pharmacie\n D'Aulnay, 94160,\n Paris",
                       icon: Icons.local_hospital,
                     )
-                  : Container(),
+                  : Container(),*/
               SizedBox(
                 height: height * 0.02,
               ),
@@ -117,7 +117,7 @@ class _ReseauTabState extends State<ReseauTab> {
               SizedBox(
                 height: height * 0.02,
               ),
-              membres2
+              /*membres2
                   ? Column(
                       children: [
                         MembersBoxDelete(
@@ -139,7 +139,7 @@ class _ReseauTabState extends State<ReseauTab> {
                         ),
                       ],
                     )
-                  : Container(),
+                  : Container(),*/
               SizedBox(
                 height: height * 0.02,
               ),
@@ -163,7 +163,7 @@ class _ReseauTabState extends State<ReseauTab> {
               pharmacies
                   ? Column(
                       children: [
-                       /* PharmaciesBox(
+                        /* PharmaciesBox(
                           zip: '75016',
                           pharm: "Grande Pharmacie D'Aulnay",
                           imagePharm: 'assets/images/pharmacy 1.png',

@@ -31,10 +31,10 @@ class CountContainer extends StatelessWidget {
       child: Row(
         children: [
           Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: Icon(
               icon ?? Icons.keyboard_arrow_up_outlined,
-              color: Color.fromRGBO(189, 189, 201, 1),
+              color: const Color.fromRGBO(189, 189, 201, 1),
               size: 30,
             ),
           ),

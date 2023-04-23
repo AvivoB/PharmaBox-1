@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pharmabox/chat/chat_screen.dart';
 
 import '../Theme/text.dart';
 import '../chat/discussions.dart';
@@ -9,12 +8,14 @@ class appBarCustom extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return /*AppBar(
+    return AppBar(
       automaticallyImplyLeading: false,
       elevation: 0,
       backgroundColor: Colors.white,
+      centerTitle: false,
       title: Text(
         'Pharma-Box',
+        textAlign: TextAlign.start,
         style: heading,
       ),
       actions: [
@@ -70,7 +71,7 @@ class appBarCustom extends StatelessWidget with PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
 class Notifications extends StatelessWidget {
@@ -236,10 +237,6 @@ class NotificationContainerNoImage extends StatelessWidget {
       trailing: const Image(
         image: AssetImage('assets/images/deleteRed.png'),
       ),
-    );*/
-        AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0.0,
     );
   }
 

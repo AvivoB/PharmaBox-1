@@ -10,12 +10,18 @@
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon"
        >
+       <meta-data
+  android:name="com.google.firebase.messaging.default_notification_channel_id"
+  android:value="high_importance_channel" />
+       <!-- Provide required visibility configuration for API level 30 and above -->
+
         <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyA_cdEvBvs-uWSOpXmBC7SzdVnTTmOZJns"/>
         <activity
             android:name=".MainActivity"
-            
-            android:exported="true"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true"
+            android:exported = "true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -26,6 +32,8 @@
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues
                  to determine the Window background behind the Flutter UI. -->
+  
+
             <meta-data
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"

@@ -144,6 +144,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
     // TODO: implement initState
     super.initState();
     BlocProvider.of<PharmacieBloc>(context).add(GetPharmacie());
+    salaireController.text = "0";
   }
 
   @override
@@ -212,7 +213,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                       'Préparateur',
                       'Apprenti',
                       'Etudiant Pharmacie',
-                      'Etudiant en 6éme année validée',
+                      'Etudiant en 6ᵉ année validée',
                       'Pharmacien',
                     ].map((String value) {
                       return DropdownMenuItem<String>(
@@ -305,19 +306,23 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
               initialSwitchValue: debut,
               onChanged: (value) {
                 debut = value;
+                setState(() {});
               },
             ),
             const SizedBox(
               height: 20,
             ),
-            CustomRegistrationDatePicker(
-              padding: 1,
-              label: 'Début du contrat',
-              prefixIcon: const Icon(
-                Icons.calendar_today_outlined,
-                color: Color(0xfF161730),
+            Visibility(
+              visible: !debut,
+              child: CustomRegistrationDatePicker(
+                padding: 1,
+                label: 'Début du contrat',
+                prefixIcon: const Icon(
+                  Icons.calendar_today_outlined,
+                  color: Color(0xfF161730),
+                ),
+                controller: dateController,
               ),
-              controller: dateController,
             ),
             (_selectedValues.contains("CDD") ||
                     _selectedValues.contains("Alternance") ||
@@ -335,13 +340,13 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                     ),
                   )
                 : const SizedBox(),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: Visibility(
-                visible: !salaireCreche[0],
+            Visibility(
+              visible: !salaireCreche[0],
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20.0, bottom: 20),
                 child: CustomRegistrationTextField(
                   padding: 1,
-                  label: 'Salaire Net',
+                  label: 'Salaire net mensuel',
                   textInputType: TextInputType.number,
                   prefixIcon: const Icon(
                     Icons.money,
@@ -350,9 +355,6 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                   controller: salaireController,
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 20,
             ),
             Column(
                 children: List.generate(
@@ -363,9 +365,7 @@ class _FiltersBottomSheetState extends State<FiltersBottomSheet> {
                 initialSwitchValue: salaireCreche[index],
                 onChanged: (value) {
                   salaireCreche[index] = value;
-                  if (index == 1) {
-                    setState(() {});
-                  }
+                  setState(() {});
                 },
               ),
             )),

@@ -17,11 +17,8 @@ class FirebaseCalls {
           .where('titulaires', arrayContains: '${membre.prenom} ${membre.nom}')
           .get()
           .then((value) {
-        print("alo");
-        print(value);
         return value.docs.map((e) => Pharmacie.fromJson(e.data())).toList();
       });
-      print(result[0].nom);
       return result[0];
     }
     return null;
@@ -40,7 +37,10 @@ class FirebaseCalls {
         final String imageName = data["image"];
         final Reference ref = storage.ref().child('lgo').child(imageName);
         String imageUrl = await ref.getDownloadURL();
-        groupements = [...groupements, Lgo(nom: data["name"], niveau: 0,image:imageUrl)];
+        groupements = [
+          ...groupements,
+          Lgo(nom: data["name"], niveau: 0, image: imageUrl)
+        ];
       }
     }
     return groupements;

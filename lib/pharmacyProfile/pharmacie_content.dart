@@ -135,17 +135,16 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
     super.initState();
     formKey11 = GlobalKey<FormState>();
     controller = AnimationController(
-        duration: const Duration(milliseconds: 500),
-        vsync: this,
-      );
-   
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
   }
 
   final List<String> confortList = <String>[
     'Salle de pause',
     'Robot',
     'Etiquettes éléctroniques',
-    'Monnayeur/caisse classique',
+    'Monnayeur',
     'Climatisation',
     'Chauffage',
     'Vigile',
@@ -261,7 +260,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
 
   @override
   Widget build(BuildContext context) {
-     if (widget.myPharmacy != null) {
+    if (widget.myPharmacy != null) {
       print("not null");
       BlocProvider.of<TitulaireBloc>(context)
           .add(InitialiseTitulaire(titulaires: widget.myPharmacy!.titulaires));
@@ -345,7 +344,6 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
           }
         }
       }
-      
 
       marker = Marker(
         markerId: const MarkerId("localisation"),
@@ -354,7 +352,23 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
     }
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-
+    final mapWidget = GoogleMap(
+        onMapCreated: (controller) {
+          mapController = controller;
+        },
+        compassEnabled: true,
+        zoomControlsEnabled: false,
+        mapType: MapType.normal,
+        markers: {
+          Marker(
+            markerId: const MarkerId("localisation"),
+            position: LatLng(46, 2),
+          ),
+        },
+        initialCameraPosition: CameraPosition(
+          target: LatLng(46, 2),
+          zoom: 12.0,
+        ));
     return SingleChildScrollView(
         padding: const EdgeInsets.only(bottom: 50),
         child: Form(
@@ -507,25 +521,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                     const SizedBox(
                       height: 10,
                     ),
-                    Expanded(
-                      child: GoogleMap(
-                          onMapCreated: (controller) {
-                            mapController = controller;
-                          },
-                          compassEnabled: true,
-                          zoomControlsEnabled: false,
-                          mapType: MapType.normal,
-                          markers: {
-                            Marker(
-                              markerId: const MarkerId("localisation"),
-                              position: LatLng(46, 2),
-                            ),
-                          },
-                          initialCameraPosition: CameraPosition(
-                            target: LatLng(46, 2),
-                            zoom: 12.0,
-                          )),
-                    ),
+                    Expanded(child: mapWidget),
                   ]),
                 ),
                 SizedBox(
@@ -962,8 +958,8 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                         },
                       ),
                       PharmacyRow(
-                        text: 'Préparation par léquipe',
-                        image: 'assets/icons/missions (3).png',
+                        text: "Préparation par l'équipe",
+                        image: 'assets/icons/missions (2).png',
                         initialSwitchValue: pbTeam,
                         onChanged: (value) {
                           pbTeam = value;
@@ -1226,7 +1222,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                             height: height * 0.02,
                           ),
                           PresentField(
-                            label: "Nombre de d'apprentis",
+                            label: "Nombre d'apprentis",
                             controller: equipeController[2],
                             textInputType: TextInputType.number,
                             prefixIcon: const Icon(Icons.person),
@@ -1235,7 +1231,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                             height: height * 0.02,
                           ),
                           PresentField(
-                            label: "Nombre de d'étudiants pharmacie",
+                            label: "Nombre d'étudiants pharmacie",
                             controller: equipeController[3],
                             textInputType: TextInputType.number,
                             prefixIcon: const Icon(Icons.person),
@@ -1244,7 +1240,7 @@ class _ProfilEditPharmacyState extends State<ProfilEditPharmacy>
                             height: height * 0.02,
                           ),
                           PresentField(
-                            label: "Nombre de d'étudiants 6éme année",
+                            label: "Nombre d'étudiants 6ème année",
                             controller: equipeController[4],
                             textInputType: TextInputType.number,
                             prefixIcon: const Icon(Icons.person),
@@ -1514,7 +1510,7 @@ class CalenderPharmacy extends StatelessWidget {
             (index) => Row(children: [
                   Container(
                     width: MediaQuery.of(context).size.width * 0.14,
-                    height: MediaQuery.of(context).size.height * 0.05,
+                    height: MediaQuery.of(context).size.height * 0.13,
                     decoration: const BoxDecoration(
                       color: Color.fromRGBO(239, 246, 247, 1),
                     ),
@@ -1532,7 +1528,7 @@ class CalenderPharmacy extends StatelessWidget {
                   Container(
                     color: const Color.fromRGBO(89, 90, 113, 1),
                     width: MediaQuery.of(context).size.width * 0.005,
-                    height: MediaQuery.of(context).size.height * 0.05,
+                    height: MediaQuery.of(context).size.height * 0.13,
                   ),
                   Container(
                     alignment: Alignment.centerLeft,

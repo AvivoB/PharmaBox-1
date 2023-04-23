@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:pharmabox/Widgets/customAppbar.dart';
 import 'package:pharmabox/mainpages/bottomNavbar.dart';
 import 'package:pharmabox/bloc/offres_bloc.dart';
 import 'package:pharmabox/bloc/pharmacierecherche_bloc.dart';
@@ -159,6 +160,7 @@ class _HomePageState extends State<HomePage> {
     var height = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
+        appBar: appBarCustom(),
         body: Stack(
           children: [
             Column(
@@ -171,9 +173,6 @@ class _HomePageState extends State<HomePage> {
                   localisationController: localisationController,
                   mapController: googleMapController,
                   animateController: animateController,
-                ),
-                SizedBox(
-                  height: height * 0.04,
                 ),
                 Flexible(
                     child: BlocBuilder<MainmapBloc, MainmapState>(
@@ -292,7 +291,6 @@ class _HomePageState extends State<HomePage> {
                           PharmacierechercheState>(
                         builder: (context, state) {
                           if (state is ExplorerPharmacieReady) {
-                            print("" + state.pharmacies.length.toString());
                             return Row(
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -412,42 +410,43 @@ class _HomePageState extends State<HomePage> {
                   }
                 }
               },
-              child: BlocListener<NavigationBloc, NavigationState>(
-                listener: (context, state) {
-                  print(state);
-                  if (state is NavigationInitial ||
-                      state is PharmaJobTituState ||
-                      state is PharmaJobNonTituState) {
-                    animationMax = 0.7;
-                    dragController.animateTo(animationMax,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeInOut);
-                  } else {
-                    animationMax = 1;
-                    dragController.animateTo(animationMax,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeInOut);
-                  }
-                },
-                child: GestureDetector(
-                  onTap: () {
-                    dragController.animateTo(animationMax,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeInOut);
+              child: SafeArea(
+                child: BlocListener<NavigationBloc, NavigationState>(
+                  listener: (context, state) {
+                    if (state is NavigationInitial ||
+                        state is PharmaJobTituState ||
+                        state is PharmaJobNonTituState) {
+                      animationMax = 0.7;
+                      dragController.animateTo(animationMax,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut);
+                    } else {
+                      animationMax = 1;
+                      dragController.animateTo(animationMax,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut);
+                    }
                   },
-                  child: DraggableScrollableSheet(
-                      initialChildSize: 0.1,
-                      minChildSize: 0.1,
-                      expand: true,
-                      maxChildSize: 1,
-                      controller: dragController,
-                      builder: (context, scrollController) {
-                        return BottomNavbar(
-                          scrollController: scrollController,
-                          fromRegister: widget.fromRegister,
-                          draggableScrollableController: dragController,
-                        );
-                      }),
+                  child: GestureDetector(
+                    onTap: () {
+                      dragController.animateTo(animationMax,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut);
+                    },
+                    child: DraggableScrollableSheet(
+                        initialChildSize: 0.15,
+                        minChildSize: 0.15,
+                        expand: true,
+                        maxChildSize: 1,
+                        controller: dragController,
+                        builder: (context, scrollController) {
+                          return BottomNavbar(
+                            scrollController: scrollController,
+                            fromRegister: widget.fromRegister,
+                            draggableScrollableController: dragController,
+                          );
+                        }),
+                  ),
                 ),
               ),
             )
