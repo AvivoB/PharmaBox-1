@@ -1,6 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:pharmabox/Onboarding/SignUp.dart';
 import 'package:pharmabox/Theme/text.dart';
 import 'package:pharmabox/bloc/navigation_bloc.dart';
@@ -41,12 +46,23 @@ class _BottomNavbarState extends State<BottomNavbar> {
   late List tabs;
   late DraggableScrollableController controller;
   var color = const Color.fromRGBO(89, 90, 113, 1);
+  bool result = false;
   int startIndex = 0;
   int cpt = 0;
   @override
   void initState() {
     super.initState();
     tabs = [const Explorer(), const PharmaJobNavNonTitu(), ProfilTabBar()];
+    controller = widget.draggableScrollableController;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.addListener(() {
+        bool oldResult = result;
+        result = controller.size > 0.3 ? true : false;
+        if (oldResult != result) {
+          setState(() {});
+        }
+      });
+    });
   }
 
   @override
@@ -113,81 +129,83 @@ class _BottomNavbarState extends State<BottomNavbar> {
             controller: widget.scrollController,
             child: tabs[startIndex],
           ),
-          bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            currentIndex: startIndex,
-            onTap: (index) {
-              print(index);
-              BlocProvider.of<NavigationBloc>(context)
-                  .add(NavItemClicked(currentIndex: index));
-              setState(() {
-                startIndex = index;
-              });
-              if (index == 2) {
-                showModalBottomSheet(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(25.0),
+          bottomNavigationBar: Visibility(
+            visible: result,
+            child: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              currentIndex: startIndex,
+              onTap: (index) {
+                print(index);
+                BlocProvider.of<NavigationBloc>(context)
+                    .add(NavItemClicked(currentIndex: index));
+                setState(() {
+                  startIndex = index;
+                });
+                if (index == 2) {
+                  showModalBottomSheet(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(25.0),
+                      ),
                     ),
-                  ),
-                  context: context,
-                  builder: (context) => SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.3,
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 20,
-                        ),
+                    context: context,
+                    builder: (context) => SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 20,
+                          ),
 
-                        ///profile pramacy
-                        if (state.user!.poste == UserType.tutor)
+                          ///profile pramacy
+                          if (state.user!.poste == UserType.tutor)
+                            InkWell(
+                              onTap: () {
+                                BlocProvider.of<PharmacieBloc>(context)
+                                    .add(GetPharmacie());
+                                setState(() {
+                                  tabs.removeLast();
+                                  tabs.add(PharmacieHeader());
+                                  Navigator.pop(context);
+                                });
+                              },
+                              child: Row(children: [
+                                const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Icon(Icons.local_hospital),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Profil pharmacie',
+                                    style: paragraph,
+                                  ),
+                                ),
+                              ]),
+                            ),
                           InkWell(
                             onTap: () {
-                              BlocProvider.of<PharmacieBloc>(context)
-                                  .add(GetPharmacie());
                               setState(() {
                                 tabs.removeLast();
-                                tabs.add(PharmacieHeader());
+                                tabs.add(ProfilTabBar());
                                 Navigator.pop(context);
                               });
                             },
                             child: Row(children: [
                               const Padding(
                                 padding: EdgeInsets.all(8.0),
-                                child: Icon(Icons.local_hospital),
+                                child: Icon(Icons.person),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  'Profil pharmacie',
+                                  'Profil membre',
                                   style: paragraph,
                                 ),
                               ),
                             ]),
                           ),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              tabs.removeLast();
-                              tabs.add(ProfilTabBar());
-                              Navigator.pop(context);
-                            });
-                          },
-                          child: Row(children: [
-                            const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Icon(Icons.person),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Profil membre',
-                                style: paragraph,
-                              ),
-                            ),
-                          ]),
-                        ),
-                        /* InkWell(
+                          /* InkWell(
                             onTap: () {
                               Navigator.push(
                                 context,
@@ -210,106 +228,104 @@ class _BottomNavbarState extends State<BottomNavbar> {
                               ),
                             ]),
                           ),*/
-                        InkWell(
-                          onTap: () {
-                            FirebaseAuth.instance.signOut().then(
-                                  (value) => Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const SignUp(),
-                                      ),
-                                      (route) => false),
-                                );
-                            BlocProvider.of<UsersBlocBloc>(context)
-                                .currentUser = null;
-                            BlocProvider.of<CompetencesBloc>(context)
-                                .add(InitialiseCompetence(competences: [
-                              Competence(
-                                  nom: "Test COVID",
-                                  enabled: false,
-                                  asset: "assets/icons/covid.png"),
-                              Competence(
-                                  nom: "Vaccination",
-                                  enabled: false,
-                                  asset: "assets/icons/Vaccination.png"),
-                              Competence(
-                                  nom: "Gestion du tiers payant",
-                                  enabled: false,
-                                  asset: "assets/icons/recherches (1).png"),
-                              Competence(
-                                  nom: "Gestion des labos",
-                                  enabled: false,
-                                  asset: "assets/icons/TesttubeIcon.png"),
-                              Competence(
-                                  nom: "TROD",
-                                  enabled: false,
-                                  asset: "assets/icons/trod.png"),
-                            ]));
-                            BlocProvider.of<ExperiencesBloc>(context).add(
-                                InitialiseExperience(experiences: const []));
-                            BlocProvider.of<LanguesBloc>(context)
-                                .add(InitialiseLangue(langues: const []));
-                            BlocProvider.of<LgoBloc>(context)
-                                .add(InitialiseLgo(lgos: const []));
-                            BlocProvider.of<UniversitesBloc>(context)
-                                .add(Initi());
-                            BlocProvider.of<SpecialisationsBloc>(context).add(
-                                InitialiseSpecialisation(
-                                    specialisations: const []));
-                            // BlocProvider.of<TitulaireBloc>(context).add(InitTitu());
-                          },
-                          child: Row(children: const [
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Icon(Icons.logout, color: Colors.red),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text(
-                                'Deconnexion',
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400),
+                          InkWell(
+                            onTap: () {
+                              FirebaseAuth.instance.signOut().then(
+                                    (value) => Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => const SignUp(),
+                                        ),
+                                        (route) => false),
+                                  );
+                              BlocProvider.of<CompetencesBloc>(context)
+                                  .add(InitialiseCompetence(competences: [
+                                Competence(
+                                    nom: "Test COVID",
+                                    enabled: false,
+                                    asset: "assets/icons/covid.png"),
+                                Competence(
+                                    nom: "Vaccination",
+                                    enabled: false,
+                                    asset: "assets/icons/Vaccination.png"),
+                                Competence(
+                                    nom: "Gestion du tiers payant",
+                                    enabled: false,
+                                    asset: "assets/icons/recherches (1).png"),
+                                Competence(
+                                    nom: "Gestion des labos",
+                                    enabled: false,
+                                    asset: "assets/icons/TesttubeIcon.png"),
+                                Competence(
+                                    nom: "TROD",
+                                    enabled: false,
+                                    asset: "assets/icons/trod.png"),
+                              ]));
+                              BlocProvider.of<ExperiencesBloc>(context).add(
+                                  InitialiseExperience(experiences: const []));
+                              BlocProvider.of<LanguesBloc>(context)
+                                  .add(InitialiseLangue(langues: const []));
+                              BlocProvider.of<LgoBloc>(context)
+                                  .add(InitialiseLgo(lgos: const []));
+                              BlocProvider.of<UniversitesBloc>(context)
+                                  .add(Initi());
+                              BlocProvider.of<SpecialisationsBloc>(context).add(
+                                  InitialiseSpecialisation(
+                                      specialisations: const []));
+                              // BlocProvider.of<TitulaireBloc>(context).add(InitTitu());
+                            },
+                            child: Row(children: const [
+                              Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Icon(Icons.logout, color: Colors.red),
                               ),
-                            ),
-                          ]),
-                        ),
-                      ],
+                              Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Deconnexion',
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                            ]),
+                          ),
+                        ],
+                      ),
                     ),
+                  );
+                }
+              },
+              backgroundColor: Colors.white,
+              selectedFontSize: 10,
+              unselectedFontSize: 10,
+              elevation: 2.0,
+              items: [
+                BottomNavigationBarItem(
+                  activeIcon: Image(
+                    height: MediaQuery.of(context).size.height * 0.035,
+                    image: AssetImage('assets/images/search.png'),
                   ),
-                );
-              }
-            },
-            backgroundColor: Colors.white,
-            selectedFontSize: 10,
-            unselectedFontSize: 10,
-            elevation: 2.0,
-            items: [
-              BottomNavigationBarItem(
-                activeIcon: Image(
-                  height: MediaQuery.of(context).size.height * 0.035,
-                  image: AssetImage('assets/images/search.png'),
+                  icon: Image(
+                    height: MediaQuery.of(context).size.height * 0.035,
+                    image: const AssetImage('assets/images/search.png'),
+                    color: color,
+                  ),
+                  label: 'Explorer',
                 ),
-                icon: Image(
-                  height: MediaQuery.of(context).size.height * 0.035,
-                  image: const AssetImage('assets/images/search.png'),
-                  color: color,
+                BottomNavigationBarItem(
+                  activeIcon: Image(
+                    height: MediaQuery.of(context).size.height * 0.035,
+                    image: AssetImage('assets/images/Pharmajob green.png'),
+                  ),
+                  icon: Image(
+                    height: MediaQuery.of(context).size.height * 0.035,
+                    image: AssetImage('assets/images/pharmjob.png'),
+                  ),
+                  label: 'PharmaJob',
                 ),
-                label: 'Explorer',
-              ),
-              BottomNavigationBarItem(
-                activeIcon: Image(
-                  height: MediaQuery.of(context).size.height * 0.035,
-                  image: AssetImage('assets/images/Pharmajob green.png'),
-                ),
-                icon: Image(
-                  height: MediaQuery.of(context).size.height * 0.035,
-                  image: AssetImage('assets/images/pharmjob.png'),
-                ),
-                label: 'PharmaJob',
-              ),
-              /* BottomNavigationBarItem(
+                /* BottomNavigationBarItem(
                     activeIcon: Image(
                       height: MediaQuery.of(context).size.height * 0.035,
                       image:
@@ -332,18 +348,19 @@ class _BottomNavbarState extends State<BottomNavbar> {
                     ),
                     label: 'Réseau',
                   ),*/
-              BottomNavigationBarItem(
-                activeIcon: Image(
-                  height: MediaQuery.of(context).size.height * 0.035,
-                  image: const AssetImage('assets/images/profilegreen.png'),
+                BottomNavigationBarItem(
+                  activeIcon: Image(
+                    height: MediaQuery.of(context).size.height * 0.035,
+                    image: AssetImage('assets/images/profilegreen.png'),
+                  ),
+                  icon: Image(
+                    height: MediaQuery.of(context).size.height * 0.035,
+                    image: AssetImage('assets/images/Profil.png'),
+                  ),
+                  label: 'Profil',
                 ),
-                icon: Image(
-                  height: MediaQuery.of(context).size.height * 0.035,
-                  image: const AssetImage('assets/images/Profil.png'),
-                ),
-                label: 'Profile',
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

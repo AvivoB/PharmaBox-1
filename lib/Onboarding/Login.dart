@@ -2,7 +2,6 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pharmabox/mainpages/HomePage.dart';
 import 'package:pharmabox/Onboarding/SignUp.dart';
 import 'package:pharmabox/Onboarding/forgotPass.dart';
@@ -10,7 +9,6 @@ import 'package:pharmabox/Theme/text.dart';
 import 'package:pharmabox/Widgets/button.dart';
 
 import '../Widgets/utility.dart';
-import '../business_logic/users_bloc/users_bloc_bloc.dart';
 import '../firebase/googlelogin.dart';
 import '../main.dart';
 
@@ -184,9 +182,11 @@ class _LogInState extends State<LogIn> {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => HomePage(),
-              ));
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => HomePage(),
+                ),(route)=>false
+              );
             },
             child: InkWell(
               onTap: () async {
@@ -196,12 +196,8 @@ class _LogInState extends State<LogIn> {
                   await FirebaseAuth.instance.signInWithEmailAndPassword(
                       email: emailController.text.trim(),
                       password: passwordController.text.trim());
-                  BlocProvider.of<UsersBlocBloc>(context).add(GetCurrentUser());
-
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (_) => HomePage()),
-                      (route) => false);
+                  Navigator.push(
+                      context, MaterialPageRoute(builder:(_)=> HomePage()));
                 } on FirebaseAuthException catch (error) {
                   if (error.code == 'user-not-found') {
                     setState(() {
@@ -230,9 +226,11 @@ class _LogInState extends State<LogIn> {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => HomePage()),
-          );
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => HomePage(),
+                ),(route)=>false
+              );
             },
             child: InkWell(
               onTap: () {
@@ -248,3 +246,28 @@ class _LogInState extends State<LogIn> {
     );
   }
 }
+
+// Future signIn(
+//     TextEditingController emailController,
+//     TextEditingController passwordController,
+//     BuildContext context,
+//     GlobalKey<FormState> formKey) async {
+//   final isValid = formKey.currentState!.validate();
+//   if (!isValid) return;
+//   try {
+//     await FirebaseAuth.instance
+//         .signInWithEmailAndPassword(
+//             email: emailController.text.trim(),
+//             password: passwordController.text.trim())
+//         .then(
+//           (value) =>
+//               navigatorKey.currentState!.popUntil((route) => route.isFirst),
+//         );
+//   } on FirebaseAuthException catch (error) {
+//     if (error.code == 'user-not-found') {
+//       loginError = 'Utilisateur non trouvé';
+//     } else if (error.code == 'wrong-password') {
+//       loginError = 'Mauvais mot de passe';
+//     }
+//   }
+// }

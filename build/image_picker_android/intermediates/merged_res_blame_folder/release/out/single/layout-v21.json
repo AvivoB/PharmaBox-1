@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "D:\\freelance projects\\pharmabox\\PharmaBox-1\\build\\image_picker_android\\intermediates\\merged_res\\release\\layout-v21\\notification_template_custom_big.xml",
+        "source": "D:\\.gradle\\caches\\transforms-3\\dec2858781fba9b5ae3e23e74d56a67d\\transformed\\core-1.8.0\\res\\layout-v21\\notification_template_custom_big.xml"
+    },
+    {
+        "merged": "D:\\freelance projects\\pharmabox\\PharmaBox-1\\build\\image_picker_android\\intermediates\\merged_res\\release\\layout-v21\\notification_action_tombstone.xml",
+        "source": "D:\\.gradle\\caches\\transforms-3\\dec2858781fba9b5ae3e23e74d56a67d\\transformed\\core-1.8.0\\res\\layout-v21\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "D:\\freelance projects\\pharmabox\\PharmaBox-1\\build\\image_picker_android\\intermediates\\merged_res\\release\\layout-v21\\notification_action.xml",
+        "source": "D:\\.gradle\\caches\\transforms-3\\dec2858781fba9b5ae3e23e74d56a67d\\transformed\\core-1.8.0\\res\\layout-v21\\notification_action.xml"
+    },
+    {
+        "merged": "D:\\freelance projects\\pharmabox\\PharmaBox-1\\build\\image_picker_android\\intermediates\\merged_res\\release\\layout-v21\\notification_template_icon_group.xml",
+        "source": "D:\\.gradle\\caches\\transforms-3\\dec2858781fba9b5ae3e23e74d56a67d\\transformed\\core-1.8.0\\res\\layout-v21\\notification_template_icon_group.xml"
+    }
+]

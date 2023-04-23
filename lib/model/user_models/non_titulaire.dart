@@ -11,7 +11,6 @@ import '../universite.dart';
 
 class NonTitulaire extends Equatable {
   String _nom;
-  String token;
   String _prenom;
   final String id;
   String _email;
@@ -76,7 +75,6 @@ class NonTitulaire extends Equatable {
   NonTitulaire({
     required String nom,
     required this.id,
-    required this.token,
     required String prenom,
     required String email,
     required Telephone telephone,
@@ -106,7 +104,6 @@ class NonTitulaire extends Equatable {
     required String nom,
     required this.id,
     required this.photoUrl,
-    required this.token,
     required this.specialisations,
     required String prenom,
     required String email,
@@ -146,7 +143,6 @@ class NonTitulaire extends Equatable {
       "specialisations": specialisations.map((e) => e.toJson()).toList(),
       "photo": photoUrl,
       "id": id,
-      "token": token,
       "date-naissance": _dateNaissance,
       "telephone": _telephone.numeroTelephone,
       "code-postal": _localisation.codePostal,
@@ -188,7 +184,6 @@ class NonTitulaire extends Equatable {
     List<Competence> competences = Competence.fromJson(competencesJson);
     return NonTitulaire.creation(
         nom: json['nom'] as String,
-        token: json["token"],
         specialisations: specialisations,
         photoUrl: json.containsKey("photo") ? json["photo"] ?? "" : "",
         prenom: json['prenom'] as String,
@@ -198,7 +193,7 @@ class NonTitulaire extends Equatable {
         poste: json['poste'] as String,
         droitOffres: json['droit_offres'] as bool,
         lgos: lgos,
-        id: json["id"],
+        id:json["id"],
         langues: langues,
         experiences: experiences,
         universites: universites,

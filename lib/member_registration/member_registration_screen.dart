@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -133,6 +132,7 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                           'Apprenti',
                           'Etudiant pharmacie',
 <<<<<<< HEAD
+<<<<<<< HEAD
                           'Etudiant 6ème année validée',
                           'Pharmacien(ne)',
                           'Pharmacien(ne) titulaire'
@@ -141,6 +141,11 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                           'Pharmacien',
                           'Titulaire'
 >>>>>>> parent of a4a7365e (new requirements)
+=======
+                          'Etudiant 6éme année validée',
+                          'Pharmacien',
+                          'Pharmacien(ne) Titulaire'
+>>>>>>> parent of 000e9f71 (new changes)
                         ].map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -199,8 +204,8 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                       Icons.location_city_outlined,
                     ),
                     controller: descriptionController,
-                    maxLines: 6,
-                    // textInputaction: TextInputAction.newline,
+                    maxLines: 2,
+                    textInputaction: TextInputAction.newline,
                   ),
                 ),
                 Flexible(
@@ -254,12 +259,9 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                           ),
                         );
                       } else {
-                        final String? token =
-                            await FirebaseMessaging.instance.getToken();
                         NonTitulaire nonTitulaire = NonTitulaire.creation(
                             nom: firstNameController.text,
-                            token: token!,
-                            id: FirebaseAuth.instance.currentUser!.uid,
+                            id:FirebaseAuth.instance.currentUser!.uid,
                             photoUrl:
                                 BlocProvider.of<UsersBlocBloc>(context).imagePath !=
                                         null
@@ -301,10 +303,8 @@ class _MemberRegistrationScreenState extends State<MemberRegistrationScreen> {
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  HomePage(fromRegister: true),
-                            ),
-                            (route) => false);
+                              builder: (context) => HomePage(fromRegister: true),
+                            ),(route)=>false);
                       }
                     } else {
                       controller.animateTo(0,

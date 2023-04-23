@@ -26,11 +26,14 @@ class PharmacieCalls {
       File file = File(pharmacie.images[i]);
       if (file.existsSync()) {
         try {
+          print(authUser.uid);
           await profileRef.getDownloadURL();
           await profileRef.delete();
           await profileRef.putFile(file);
           pharmacie.images[i] = await profileRef.getDownloadURL();
         } catch (e) {
+          print(e.toString());
+
           if (e.toString() ==
               "[firebase_storage/object-not-found] No object exists at the desired reference.") {
             await profileRef.putFile(file);

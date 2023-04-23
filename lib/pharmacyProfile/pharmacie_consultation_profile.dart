@@ -89,7 +89,7 @@ class _PharmacyTabBarState extends State<PharmacyTabBar> {
     }
 
     if (widget.pharmacie.monnaie) {
-      confortList.add('Monnayeur');
+      confortList.add('Monnayeur/caisse éléctronique');
       confortIcons.add(confortTemp[3]);
     }
     if (widget.pharmacie.climat) {
@@ -394,7 +394,7 @@ class _PharmacyTabBarState extends State<PharmacyTabBar> {
                     image: icon,
                   ),
                   PharmacyRowWithoutSwitch(
-                    text: " ${widget.pharmacie.nbPatients} par jour",
+                    text: widget.pharmacie.nbPatients + " par jour",
                     icon: Icons.group,
                   ),
                 ],
@@ -672,7 +672,7 @@ class _PharmacyTabBarState extends State<PharmacyTabBar> {
                   ),
                   Flexible(
                     child: Text(
-                      "${widget.pharmacie.nbPharmaciens} pharmaciens, ${widget.pharmacie.nbPreparateurs} préparateurs , ${widget.pharmacie.nbRayonnistes} rayonnistes, ${widget.pharmacie.nbConseillers} conseillers,\n${widget.pharmacie.nbEtudiants} étudiants, ${widget.pharmacie.nbApprentis} apprentis, ${widget.pharmacie.nbEtudiants6} étudiants en 6ème année  ",
+                      "${widget.pharmacie.nbPharmaciens} pharmaciens, ${widget.pharmacie.nbPreparateurs} préparateurs , ${widget.pharmacie.nbRayonnistes} rayonnistes, ${widget.pharmacie.nbConseillers} conseillers,\n${widget.pharmacie.nbEtudiants} étudiants, ${widget.pharmacie.nbApprentis} apprentis, ${widget.pharmacie.nbEtudiants6} étudiants en 6éme annéee  ",
                       style: normGrey,
                     ),
                   ),

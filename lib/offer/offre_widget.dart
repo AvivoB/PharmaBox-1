@@ -437,7 +437,7 @@ class _OffreWidgetState extends State<OffreWidget> {
                                         visible: !widget.offre.salaireEnsemble,
                                         child: CustomRegistrationTextField(
                                           padding: 1,
-                                          label: 'Salaire net mensuel',
+                                          label: 'Salaire Net',
                                           textInputType: TextInputType.number,
                                           prefixIcon: const Icon(
                                             Icons.money,

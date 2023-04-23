@@ -15,27 +15,25 @@ class LikeService {
   }
 
   Future<bool> checkPharmacieUser(String userId, String docId) async {
-    try {
-      final DocumentSnapshot pharmacieDoc = await _firebaseFirestore
-          .collection("pharmacies_likes")
-          .doc(docId)
-          .get();
-      if (pharmacieDoc.exists) {
-        final dynamic infos = pharmacieDoc.data()!;
-        if (!infos["users"].contains(userId)) {
-          return false;
-        } else {
-          return true;
-        }
-      } else {
+    print("called");
+    final DocumentSnapshot pharmacieDoc = await _firebaseFirestore
+        .collection("pharmacies_likes")
+        .doc(docId)
+        .get();
+    if (pharmacieDoc.exists) {
+      final dynamic infos = pharmacieDoc.data()!;
+      if (!infos["users"].contains(userId)) {
         return false;
+      } else {
+        return true;
       }
-    } catch (e) {
+    } else {
       return false;
     }
   }
 
   Future<bool> checkUsersLikes(String userId, String docId) async {
+<<<<<<< HEAD
 <<<<<<< HEAD
     try {
       final DocumentSnapshot pharmacieDoc =
@@ -50,12 +48,19 @@ class LikeService {
 =======
     print(docId);
     print(userId);
+=======
+>>>>>>> parent of 000e9f71 (new changes)
     final DocumentSnapshot pharmacieDoc =
         await _firebaseFirestore.collection("user_likes").doc(docId).get();
     final dynamic infos = pharmacieDoc.data()!;
     if (!infos["users"].contains(userId)) {
+<<<<<<< HEAD
 >>>>>>> parent of a4a7365e (new requirements)
+=======
+>>>>>>> parent of 000e9f71 (new changes)
       return false;
+    } else {
+      return true;
     }
   }
 

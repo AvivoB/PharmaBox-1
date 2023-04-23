@@ -56,7 +56,7 @@ class _MainMapProfileState extends State<MainMapProfile> {
             controller: widget.localisationController,
           ),
         ),
-        response != null && response!.predictions.isNotEmpty
+        response != null
             ? Container(
                 height: 150,
                 padding: const EdgeInsets.all(10),
@@ -84,14 +84,9 @@ class _MainMapProfileState extends State<MainMapProfile> {
                         color: Theme.of(context).primaryColor,
                       ),
                       title: Text(prediction.description!),
-                      onTap: () async {
+                      onTap: () {
                         widget.localisationController.text =
                             prediction.structuredFormatting!.mainText;
-                        var local = await MapUtils.getLocationFromAddress(
-                            widget.localisationController.text);
-                        widget.mapController!.animateCamera(
-                            maps.CameraUpdate.newLatLngZoom(
-                                maps.LatLng(local!.lat, local.lng), 12));
                         response = null;
                         setState(() {});
                       },

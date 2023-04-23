@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"name": "PharmaBox-1",
+			"path": "."
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
+}

@@ -29,10 +29,9 @@ class Languages {
   static Language get akan => Language('ak', 'Akan');
 <<<<<<< HEAD
   static Language get albanian => Language('sq', 'Albanais');
-  static Language get dutch => Language('nl', 'Allemand');
-  static Language get english => Language('en', 'Anglais');
-  static Language get amharic => Language('am', 'Amharic');
+  static Language get amharic => Language('am', 'Amharique');
   static Language get arabic => Language('ar', 'Arabe');
+<<<<<<< HEAD
   static Language get aragonese => Language('an', 'Aragonese');
   static Language get armenian => Language('hy', 'Armenien');
 =======
@@ -51,9 +50,19 @@ class Languages {
 =======
   static Language get azerbaijani => Language('az', 'Azerbaijani');
 >>>>>>> parent of a4a7365e (new requirements)
+=======
+  static Language get aragonese => Language('an', 'Aragonais');
+  static Language get armenian => Language('hy', 'Arménien');
+  static Language get assamese => Language('as', 'Assamais');
+  static Language get avaric => Language('av', 'Avar');
+  static Language get avestan => Language('ae', 'Avestique');
+  static Language get aymara => Language('ay', 'Aymara');
+  static Language get azerbaijani => Language('az', 'Azéri');
+>>>>>>> parent of 000e9f71 (new changes)
   static Language get bambara => Language('bm', 'Bambara');
   static Language get bashkir => Language('ba', 'Bashkir');
   static Language get basque => Language('eu', 'Basque');
+<<<<<<< HEAD
 <<<<<<< HEAD
   static Language get belarusian => Language('be', 'Bielorusse');
   static Language get bengali => Language('bn', 'Bengali');
@@ -124,6 +133,20 @@ class Languages {
   static Language get fulah => Language('ff', 'Fulah');
   static Language get gaelic => Language('gd', 'Gaelic');
   static Language get galician => Language('gl', 'Galician');
+=======
+  static Language get belarusian => Language('be', "Biélorusse");
+  static Language get english => Language('en', 'Anglais');
+  static Language get esperanto => Language('eo', 'Espéranto');
+  static Language get estonian => Language('et', 'Estonien');
+  static Language get ewe => Language('ee', 'Éwé');
+  static Language get faroese => Language('fo', 'Féroïen');
+  static Language get fijian => Language('fj', 'Fidjien');
+  static Language get finnish => Language('fi', 'Finnois');
+  static Language get french => Language('fr', 'Français');
+  static Language get fulah => Language('ff', 'Peul');
+  static Language get gaelic => Language('gd', 'Gaélique écossais');
+  static Language get galician => Language('gl', 'Galicien');
+>>>>>>> parent of 000e9f71 (new changes)
   static Language get ganda => Language('lg', 'Ganda');
   static Language get georgian => Language('ka', 'Georgian');
   static Language get german => Language('de', 'German');
@@ -233,6 +256,7 @@ class Languages {
   static Language get thai => Language('th', 'Thaï');
   static Language get tibetan => Language('bo', 'Tibétain');
   static Language get tigrinya => Language('ti', 'Tigrigna');
+<<<<<<< HEAD
 =======
   static Language get telugu => Language('te', 'Telugu');
   static Language get thai => Language('th', 'Thai');
@@ -241,6 +265,37 @@ class Languages {
   static Language get tongaTongaIslands =>
       Language('to', 'Tonga (Tonga Islands)');
 >>>>>>> parent of a4a7365e (new requirements)
+=======
+  static Language get bengali => Language('bn', 'Bengali');
+  static Language get bihariLanguages => Language('bh', 'Languages Bihar');
+  static Language get bislama => Language('bi', 'Bichelamar');
+  static Language get bosnian => Language('bs', 'Bosniaque');
+  static Language get breton => Language('br', 'Breton');
+  static Language get bulgarian => Language('bg', 'Bulgare');
+  static Language get burmese => Language('my', 'Birman');
+  static Language get catalan => Language('ca', 'Catalan');
+  static Language get centralKhmer => Language('km', 'Khmer central');
+  static Language get chamorro => Language('ch', 'Chamorro');
+  static Language get chechen => Language('ce', 'Tchétchène');
+  static Language get chewaNyanja => Language('ny', 'Chichewa (Nyanja)');
+  static Language get chineseSimplified =>
+      Language('zh_Hans', 'Chinois (Simplifié)');
+  static Language get chineseTraditional =>
+      Language('zh_Hant', 'Chinois (Traditionnel)');
+  static Language get churchSlavonic => Language('cu', 'Slavon ecclésiastique');
+  static Language get chuvash => Language('cv', 'Tchouvache');
+  static Language get cornish => Language('kw', 'Cornique');
+  static Language get corsican => Language('co', 'Corse');
+  static Language get cree => Language('cr', 'Cree');
+  static Language get croatian => Language('hr', 'Croate');
+  static Language get czech => Language('cs', 'Tchèque');
+  static Language get danish => Language('da', 'Danois');
+  static Language get dhivehi => Language('dv', 'Maldivien');
+  static Language get dutch => Language('nl', 'Néerlandais');
+  static Language get dzongkha => Language('dz', 'Dzongkha');
+  static Language get tongaTongaIslands =>
+      Language('to', 'Tongan (Îles Tonga)');
+>>>>>>> parent of 000e9f71 (new changes)
   static Language get tsonga => Language('ts', 'Tsonga');
   static Language get tswana => Language('tn', 'Tswana');
   static Language get turkish => Language('tr', 'Turkish');
@@ -426,6 +481,7 @@ class Languages {
     Languages.thai,
     Languages.tibetan,
     Languages.tigrinya,
+    Languages.tongaTongaIslands,
     Languages.tsonga,
     Languages.tswana,
     Languages.turkish,

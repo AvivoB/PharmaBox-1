@@ -1,15 +1,18 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 #Sat Apr 22 11:00:54 CEST 2023
 =======
 #Fri Mar 31 07:21:22 CEST 2023
 >>>>>>> parent of a4a7365e (new requirements)
+=======
+#Wed Apr 05 23:17:16 CEST 2023
+>>>>>>> parent of 000e9f71 (new changes)
 path.4=7/classes.dex
 path.3=1/classes.dex
 path.2=0/classes.dex
 path.1=0/classes.dex
-path.7=classes3.dex
-path.6=classes2.dex
-path.5=classes1000.dex
+path.6=classes3.dex
+path.5=classes2.dex
 path.0=classes.dex
 base.4=D\:\\freelance projects\\pharmabox\\PharmaBox-1\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\7\\classes.dex
 base.3=D\:\\freelance projects\\pharmabox\\PharmaBox-1\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
@@ -20,10 +23,8 @@ renamed.3=classes4.dex
 renamed.2=classes3.dex
 renamed.1=classes2.dex
 renamed.0=classes.dex
-renamed.7=classes8.dex
 renamed.6=classes7.dex
-base.7=D\:\\freelance projects\\pharmabox\\PharmaBox-1\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes3.dex
 renamed.5=classes6.dex
-base.6=D\:\\freelance projects\\pharmabox\\PharmaBox-1\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
+base.6=D\:\\freelance projects\\pharmabox\\PharmaBox-1\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes3.dex
 renamed.4=classes5.dex
-base.5=D\:\\freelance projects\\pharmabox\\PharmaBox-1\\build\\app\\intermediates\\desugar_lib_dex\\debug\\classes1000.dex
+base.5=D\:\\freelance projects\\pharmabox\\PharmaBox-1\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex

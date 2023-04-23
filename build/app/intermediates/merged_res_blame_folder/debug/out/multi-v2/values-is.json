@@ -4,7 +4,7 @@
             "outputFile": "D:\\freelance projects\\pharmabox\\PharmaBox-1\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-is\\values-is.xml",
             "map": [
                 {
-                    "source": "D:\\.gradle\\caches\\transforms-3\\a35165de1ba302ca404faa4c69778aee\\transformed\\jetified-play-services-base-18.1.0\\res\\values-is\\values.xml",
+                    "source": "D:\\.gradle\\caches\\transforms-3\\74d4547918e76ed7001eab60744966c2\\transformed\\jetified-play-services-base-18.0.1\\res\\values-is\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",

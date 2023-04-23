@@ -47,12 +47,13 @@ class _MainMapState extends State<MainMap> {
   }
 
   void tituSubmit(String address) {
-    print("first call");
     BlocProvider.of<MainmapBloc>(context)
-        .add(GetLibreRecherches(address: address));
+        .add(GetLibreMembres(address: address));
   }
 
   void navigationInit(String address) {
+    print("dkhelt");
+
     BlocProvider.of<MainmapBloc>(context).add(GetMarkersOnAddress(
       address: address,
     ));
@@ -113,12 +114,11 @@ class _MainMapState extends State<MainMap> {
                                 onChanged: (val) async {
                                   response = await places
                                       .autocomplete(val, types: ["(regions)"]);
-
                                   setState(() {});
                                 },
                                 decoration: InputDecoration(
                                   hintText: state is NavigationInitial
-                                      ? 'Recherche par région, nom ou pharmacie'
+                                      ? 'Rechercher Par Région'
                                       : "Rechercher",
                                   border: InputBorder.none,
                                   icon: const Padding(
@@ -134,6 +134,7 @@ class _MainMapState extends State<MainMap> {
                                   LatLng? local =
                                       await MapUtils.getLocationFromAddress(
                                           val);
+                                  print(local);
                                   if (local != null) {
                                     widget.animateController(local);
                                     navigationInit(val);

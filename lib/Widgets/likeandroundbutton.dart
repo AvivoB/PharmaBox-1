@@ -27,7 +27,6 @@ class LikeButton extends StatefulWidget {
 }
 
 class _LikeButtonState extends State<LikeButton> {
-  bool isLiked = false;
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -38,29 +37,27 @@ class _LikeButtonState extends State<LikeButton> {
           widget.docId,
         ),
         builder: (context, snapshot) {
+          print(snapshot.data);
           if (snapshot.hasData) {
             bool isLiked = snapshot.data!;
+            print(isLiked);
+
             return InkWell(
               onTap: () async {
                 if (isLiked) {
-                  setState(() {
-                    isLiked = false;
-                    widget.numberLikes = widget.numberLikes - 1;
-                  });
+                  widget.numberLikes = widget.numberLikes - 1;
                   await widget.removeFunction(
                     BlocProvider.of<UsersBlocBloc>(context).currentUser!.id,
                     widget.docId,
                   );
                 } else {
-                  setState(() {
-                    isLiked = true;
-                    widget.numberLikes = widget.numberLikes + 1;
-                  });
+                  widget.numberLikes = widget.numberLikes + 1;
                   await widget.addFunction(
                     BlocProvider.of<UsersBlocBloc>(context).currentUser!.id,
                     widget.docId,
                   );
                 }
+                setState(() {});
               },
               child: Container(
                 padding: const EdgeInsets.only(left: 5),
@@ -87,28 +84,24 @@ class _LikeButtonState extends State<LikeButton> {
               ),
             );
           } else {
-            isLiked = false;
+            bool isLiked = false;
             return InkWell(
               onTap: () async {
                 if (isLiked) {
-                  setState(() {
-                    isLiked = false;
-                    widget.numberLikes = widget.numberLikes - 1;
-                  });
+                  widget.numberLikes = widget.numberLikes - 1;
                   await widget.removeFunction(
                     BlocProvider.of<UsersBlocBloc>(context).currentUser!.id,
                     widget.docId,
                   );
                 } else {
-                  setState(() {
-                    isLiked = true;
-                    widget.numberLikes = widget.numberLikes + 1;
-                  });
+                  widget.numberLikes = widget.numberLikes + 1;
                   await widget.addFunction(
                     BlocProvider.of<UsersBlocBloc>(context).currentUser!.id,
                     widget.docId,
                   );
                 }
+                isLiked = !isLiked;
+                setState(() {});
               },
               child: Container(
                 padding: const EdgeInsets.only(left: 5),

@@ -4,16 +4,11 @@ import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pharmabox/Widgets/membersBox.dart';
 import 'package:pharmabox/bloc/membres_bloc.dart';
-import 'package:pharmabox/bloc/recherche_bloc.dart';
-import 'package:pharmabox/bloc/recherche_pharmajob_bloc.dart';
 import 'package:pharmabox/pharmaJob/bottomsheet.dart';
 import 'package:pharmabox/tabview/profil.dart';
 
 import '../Home/map.dart';
 import '../Theme/text.dart';
-import '../bloc/offres_bloc.dart';
-import '../offer/recherche_widget.dart';
-import '../offer/recherches_display.dart';
 
 class PharmaJobNav extends StatelessWidget {
   const PharmaJobNav({Key? key}) : super(key: key);
@@ -26,9 +21,9 @@ class PharmaJobNav extends StatelessWidget {
       child: Container(
         color: Color.fromARGB(255, 251, 251, 251),
         margin: EdgeInsets.only(top: height * 0.02),
-        child: BlocBuilder<RecherchePharmajobBloc, RecherchePharmajobState>(
-            builder: (context, state) {
-          if (state is RecherchesJobReady) {
+        child:
+            BlocBuilder<MembresBloc, MembresState>(builder: (context, state) {
+          if (state is MembresReady) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -47,21 +42,42 @@ class PharmaJobNav extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${state.recherches.length} résultats',
+                      '${state.membres.length} résultats',
                       style: paragraph,
                     ),
                   ],
                 ),
                 ...List.generate(
-                    state.recherches.length,
-                    (index) => InkWell(
-                        onTap: () {
-                          BlocProvider.of<OffresBloc>(context).add(
-                              GetFilteredOffres(
-                                  recherche: state.recherches[index]));
-                        },
-                        child: RechercheDisplay(
-                            recherche: state.recherches[index]))),
+                  state.membres.length,
+                  (index) => Padding(
+                    padding: const EdgeInsets.only(bottom: 20.0, top: 20),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                Profil(membre: state.membres[index]),
+                          ),
+                        );
+                      },
+                      child: MembersBox(
+                        user: state.membres[index],
+                        poste: state.membres[index].poste,
+                        image: state.membres[index].photoUrl != ''
+                            ? state.membres[index].photoUrl
+                            : 'assets/images/user.png',
+                        name: state.membres[index].nom +
+                            ' ' +
+                            state.membres[index].prenom,
+                        zip: state.membres[index].localisation.codePostal
+                                .toString() +
+                            ' ' +
+                            state.membres[index].localisation.ville,
+                      ),
+                    ),
+                  ),
+                )
               ],
             );
           } else {

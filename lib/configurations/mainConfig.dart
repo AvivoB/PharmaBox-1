@@ -721,8 +721,7 @@ class Configuration extends StatelessWidget {
                               ),
                               contentPadding:
                                   EdgeInsets.symmetric(horizontal: -10),
-                              trailing: // AjouterContainer(),
-                                  SizedBox(),
+                              trailing: AjouterContainer(),
                               title: Text('Type contrat'),
                               subtitle: Text(
                                   "CDI, CDD, Alternance, Contrat de professionnalisation, Stage, Apprenti"),
@@ -756,8 +755,7 @@ class Configuration extends StatelessWidget {
                               ),
                               contentPadding:
                                   EdgeInsets.symmetric(horizontal: -10),
-                              trailing: //AjouterContainer(),
-                                  SizedBox(),
+                              trailing: AjouterContainer(),
                               title: Text('Nb patient par jour'),
                               subtitle: Text("<100, 100-250, 250-400, >400"),
                             ),

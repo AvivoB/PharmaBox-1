@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:pharmabox/firebase/membres_service.dart';
-import 'package:pharmabox/firebase/reseau_membres_service.dart';
 import 'package:pharmabox/model/user_models/offre.dart';
 import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart'
     as places;
@@ -14,7 +12,6 @@ part 'membres_state.dart';
 
 class MembresBloc extends Bloc<MembresEvent, MembresState> {
   MembresService membresService = MembresService();
-  MembresReseauService membresReseauService = MembresReseauService();
   List<NonTitulaire> membres = [];
   MembresBloc() : super(MembresInitial()) {
     on<GetMembres>((event, emit) async {
@@ -45,15 +42,6 @@ class MembresBloc extends Bloc<MembresEvent, MembresState> {
         }
       }
       emit(MembresReady(membres: results));
-    });
-    on<GetReseauMembres>((event, state) async {
-      try {
-        List<NonTitulaire> membres = await membresReseauService.getMembres();
-        emit(MembresProfileReady(membres: membres));
-      } catch (e) {
-        debugPrint(e.toString());
-        emit(MembresInitial());
-      }
     });
   }
 }

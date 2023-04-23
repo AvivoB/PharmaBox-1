@@ -1,0 +1,15 @@
+# Target labels
+ nuget-populate
+# Source files and their labels
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/nuget-populate
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/2d49be3be3b67c68136a4f34a384b8bf/nuget-populate.rule
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/fa74e5515381c7e81d0c57498b2e81d9/nuget-populate-complete.rule
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/2c77a69571dd780b524fb3d7e36fc356/nuget-populate-build.rule
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/2c77a69571dd780b524fb3d7e36fc356/nuget-populate-configure.rule
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/2c77a69571dd780b524fb3d7e36fc356/nuget-populate-copyfile.rule
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/2c77a69571dd780b524fb3d7e36fc356/nuget-populate-download.rule
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/2c77a69571dd780b524fb3d7e36fc356/nuget-populate-install.rule
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/2c77a69571dd780b524fb3d7e36fc356/nuget-populate-mkdir.rule
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/2c77a69571dd780b524fb3d7e36fc356/nuget-populate-patch.rule
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/2c77a69571dd780b524fb3d7e36fc356/nuget-populate-test.rule
+D:/freelance projects/pharmabox/PharmaBox-1/build/windows/_deps/nuget-subbuild/CMakeFiles/2c77a69571dd780b524fb3d7e36fc356/nuget-populate-update.rule

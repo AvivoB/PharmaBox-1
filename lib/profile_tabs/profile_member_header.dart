@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +7,6 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:pharmabox/Theme/color.dart';
 import 'package:pharmabox/Theme/text.dart';
-import 'package:pharmabox/Widgets/customAppbar.dart';
 import 'package:pharmabox/business_logic/specialisations_bloc/specialisations_bloc.dart';
 import 'package:pharmabox/business_logic/universites_bloc/universites_bloc.dart';
 import 'package:pharmabox/business_logic/users_bloc/users_bloc_bloc.dart';
@@ -31,7 +29,6 @@ import '../general/widgets/custom_registration_date_picker.dart';
 import '../general/widgets/custom_registration_textfield.dart';
 import '../model/localisation.dart';
 import '../model/telephone.dart';
-import 'ReseauEdit.dart';
 
 class ProfilTabBar extends StatefulWidget {
   const ProfilTabBar({Key? key}) : super(key: key);
@@ -58,7 +55,7 @@ class _ProfilTabBarState extends State<ProfilTabBar>
 
   final TextEditingController addressController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  final List<String> _tabs = ['Profile', 'Recherches', 'Réseau'];
+  final List<String> _tabs = ['Profile', 'Recherches'];
   late List<bool> conditions;
 
   late TabController tabController;
@@ -74,7 +71,6 @@ class _ProfilTabBarState extends State<ProfilTabBar>
     super.initState();
     tabController =
         TabController(length: _tabs.length, initialIndex: 0, vsync: this);
-    BlocProvider.of<UsersBlocBloc>(context).add(GetCurrentUser());
     user = BlocProvider.of<UsersBlocBloc>(context).state.user;
     if (user != null) {
       BlocProvider.of<LgoBloc>(context).add(InitialiseLgo(lgos: user!.lgos));
@@ -122,7 +118,10 @@ class _ProfilTabBarState extends State<ProfilTabBar>
 
   @override
   void dispose() {
-    /* NonTitulaire nonTitulaire = NonTitulaire.creation(
+    print(_lgoBloc.state.lgos.length);
+
+    // TODO: implement didChangeDependencies
+    NonTitulaire nonTitulaire = NonTitulaire.creation(
         nom: firstNameController.text,
         id: _usersBlocBloc.currentUser!.id,
         specialisations: _specialisationsBloc.state.specialisations,
@@ -144,7 +143,7 @@ class _ProfilTabBarState extends State<ProfilTabBar>
         competences: _competencesBloc.state.competences,
         droitOffres: conditions[0],
         accepterConditions: conditions[1]);
-    _usersBlocBloc.add(AddUser(user: nonTitulaire));*/
+    _usersBlocBloc.add(AddUser(user: nonTitulaire));
     super.dispose();
   }
 
@@ -153,34 +152,40 @@ class _ProfilTabBarState extends State<ProfilTabBar>
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                onTap: () async {
-                  image = await imageService.pickImageFromGallery();
-                  if (image != null) {
-                    _usersBlocBloc.imagePath = image!.path;
-                    _usersBlocBloc.currentUser!.photoUrl = image!.path;
-                  }
-                  setState(() {});
-                },
-                title: const Text("Gallery"),
-                leading: const Icon(Icons.image),
-              ),
-              ListTile(
-                onTap: () async {
-                  image = await imageService.pickImageFromCamera();
-                  if (image != null) {
-                    _usersBlocBloc.imagePath = image!.path;
-                    _usersBlocBloc.currentUser!.photoUrl = image!.path;
-                  }
-                  setState(() {});
-                },
-                title: const Text("Camera"),
-                leading: const Icon(Icons.camera),
-              ),
-            ],
+          return Container(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Container(
+                  child: ListTile(
+                    onTap: () async {
+                      image = await imageService.pickImageFromGallery();
+                      if (image != null) {
+                        _usersBlocBloc.imagePath = image!.path;
+                        _usersBlocBloc.currentUser!.photoUrl = image!.path;
+                      }
+                      setState(() {});
+                    },
+                    title: const Text("Gallery"),
+                    leading: Icon(Icons.image),
+                  ),
+                ),
+                Container(
+                  child: ListTile(
+                    onTap: () async {
+                      image = await imageService.pickImageFromCamera();
+                      if (image != null) {
+                        _usersBlocBloc.imagePath = image!.path;
+                        _usersBlocBloc.currentUser!.photoUrl = image!.path;
+                      }
+                      setState(() {});
+                    },
+                    title: const Text("Camera"),
+                    leading: Icon(Icons.camera),
+                  ),
+                )
+              ],
+            ),
           );
         });
   }
@@ -190,11 +195,11 @@ class _ProfilTabBarState extends State<ProfilTabBar>
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
 
+    ImageService imageService = ImageService();
     return SizedBox(
       height: height - 56,
       child: NestedScrollView(
         headerSliverBuilder: (context, val) => [
-          //SliverToBoxAdapter(child: appBarCustom()),
           SliverToBoxAdapter(
             child: Container(
                 color: Colors.white,
@@ -244,7 +249,7 @@ class _ProfilTabBarState extends State<ProfilTabBar>
                                                     .currentUser!
                                                     .photoUrl ==
                                                 ''
-                                            ? const AssetImage(
+                                            ?const AssetImage(
                                                 'assets/images/user.png')
                                             : isLocalImage(BlocProvider.of<
                                                         UsersBlocBloc>(context)
@@ -355,11 +360,11 @@ class _ProfilTabBarState extends State<ProfilTabBar>
                                               if (snapshot.hasData) {
                                                 return Text(
                                                   snapshot.data.toString(),
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                       color: Colors.white),
                                                 );
                                               } else {
-                                                return const Text(
+                                                return Text(
                                                   "0",
                                                   style: TextStyle(
                                                       color: Colors.white),
@@ -396,7 +401,7 @@ class _ProfilTabBarState extends State<ProfilTabBar>
                   ),
                 )),
           ),
-          const SliverToBoxAdapter(child: SizedBox(height: 20)),
+          SliverToBoxAdapter(child: const SizedBox(height: 20)),
           SliverToBoxAdapter(
             child: Form(
               key: formKey,
@@ -524,43 +529,12 @@ class _ProfilTabBarState extends State<ProfilTabBar>
                   setState(() {
                     conditions[1] = !conditions[1];
                   });
-                },
-                (val) async {
-                  if (formKey.currentState!.validate()) {
-                    String? token = await FirebaseMessaging.instance.getToken();
-                    NonTitulaire nonTitulaire = NonTitulaire.creation(
-                        token: token!,
-                        nom: firstNameController.text,
-                        id: _usersBlocBloc.currentUser!.id,
-                        specialisations:
-                            _specialisationsBloc.state.specialisations,
-                        prenom: lastNameController.text,
-                        photoUrl: _usersBlocBloc.currentUser!.photoUrl,
-                        presentation: descriptionController.text,
-                        email: emailController.text,
-                        telephone: Telephone(
-                            numeroTelephone: int.parse(phoneController.text),
-                            visible: false),
-                        poste: jobTitleController.text,
-                        experiences: _experiencesBloc.state.experiences,
-                        lgos: _lgoBloc.state.lgos,
-                        universites: _universitesBloc.state.universities,
-                        naissance: dateOfBirthController.text,
-                        langues: _languesBloc.state.langues,
-                        localisation: Localisation(
-                            codePostal: int.parse(postalCodeController.text),
-                            ville: addressController.text),
-                        competences: _competencesBloc.state.competences,
-                        droitOffres: conditions[0],
-                        accepterConditions: conditions[1]);
-                    _usersBlocBloc.add(AddUser(user: nonTitulaire));
-                  }
                 }
               ],
             ),
             //AdvisorTabEdit(),
-            const RechercheScreen(),
-            const ReseauEdit(),
+            // ReseauEdit(),
+            RechercheScreen(),
           ],
         ),
       ),

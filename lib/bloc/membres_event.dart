@@ -18,13 +18,10 @@ class GetPharmaMembres extends MembresEvent {
   final places.LatLng input;
   GetPharmaMembres({required this.input});
 }
-
 class GetMarkerMembres extends MembresEvent {
   final places.LatLng input;
   GetMarkerMembres({required this.input});
 }
-
-class GetReseauMembres extends MembresEvent {}
 
 class RechercheLibre extends MembresEvent {
   final String input;

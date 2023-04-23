@@ -163,13 +163,13 @@ class _AjouterContainerRegState extends State<AjouterContainerReg> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text('Annuler'),
+                  child: Text('Cancel'),
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context, _selectedLanguages);
                   },
-                  child: Text('Valider'),
+                  child: Text('OK'),
                 ),
               ],
             );

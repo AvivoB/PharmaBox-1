@@ -9,9 +9,9 @@
     },
     {
       "name": "_flutterfire_internals",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/_flutterfire_internals-1.1.1",
+      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/_flutterfire_internals-1.0.12",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "2.16"
     },
     {
       "name": "analyzer",
@@ -158,24 +158,6 @@
       "languageVersion": "2.16"
     },
     {
-      "name": "cloud_functions",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/cloud_functions-4.1.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.18"
-    },
-    {
-      "name": "cloud_functions_platform_interface",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/cloud_functions_platform_interface-5.2.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.18"
-    },
-    {
-      "name": "cloud_functions_web",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/cloud_functions_web-4.4.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.18"
-    },
-    {
       "name": "clustering_google_maps",
       "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/clustering_google_maps-0.1.2-nullsafety.3",
       "packageUri": "lib/",
@@ -230,12 +212,6 @@
       "languageVersion": "2.17"
     },
     {
-      "name": "dbus",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/dbus-0.7.8",
-      "packageUri": "lib/",
-      "languageVersion": "2.15"
-    },
-    {
       "name": "email_validator",
       "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/email_validator-2.1.17",
       "packageUri": "lib/",
@@ -285,39 +261,21 @@
     },
     {
       "name": "firebase_core",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core-2.10.0",
+      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core-2.4.1",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "2.16"
     },
     {
       "name": "firebase_core_platform_interface",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core_platform_interface-4.6.0",
+      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core_platform_interface-4.5.2",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "2.16"
     },
     {
       "name": "firebase_core_web",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core_web-2.3.0",
+      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_core_web-2.1.0",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
-    },
-    {
-      "name": "firebase_messaging",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_messaging-14.4.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.18"
-    },
-    {
-      "name": "firebase_messaging_platform_interface",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_messaging_platform_interface-4.3.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.18"
-    },
-    {
-      "name": "firebase_messaging_web",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_messaging_web-3.3.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "2.16"
     },
     {
       "name": "firebase_storage",
@@ -408,24 +366,6 @@
       "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-2.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.17"
-    },
-    {
-      "name": "flutter_local_notifications",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_local_notifications-9.9.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "flutter_local_notifications_linux",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_local_notifications_linux-0.5.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "flutter_local_notifications_platform_interface",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_local_notifications_platform_interface-5.0.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
     },
     {
       "name": "flutter_localizations",
@@ -1046,12 +986,6 @@
       "languageVersion": "2.18"
     },
     {
-      "name": "timezone",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/timezone-0.8.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "timing",
       "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/timing-1.0.0",
       "packageUri": "lib/",
@@ -1068,54 +1002,6 @@
       "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/universal_io-2.0.4",
       "packageUri": "lib/",
       "languageVersion": "2.12"
-    },
-    {
-      "name": "url_launcher",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher-6.1.10",
-      "packageUri": "lib/",
-      "languageVersion": "2.14"
-    },
-    {
-      "name": "url_launcher_android",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_android-6.0.27",
-      "packageUri": "lib/",
-      "languageVersion": "2.18"
-    },
-    {
-      "name": "url_launcher_ios",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_ios-6.1.4",
-      "packageUri": "lib/",
-      "languageVersion": "2.18"
-    },
-    {
-      "name": "url_launcher_linux",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_linux-3.0.4",
-      "packageUri": "lib/",
-      "languageVersion": "2.17"
-    },
-    {
-      "name": "url_launcher_macos",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_macos-3.0.5",
-      "packageUri": "lib/",
-      "languageVersion": "2.17"
-    },
-    {
-      "name": "url_launcher_platform_interface",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_platform_interface-2.1.2",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "url_launcher_web",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_web-2.0.16",
-      "packageUri": "lib/",
-      "languageVersion": "2.17"
-    },
-    {
-      "name": "url_launcher_windows",
-      "rootUri": "file:///C:/Users/Abdel/AppData/Local/Pub/Cache/hosted/pub.dev/url_launcher_windows-3.0.5",
-      "packageUri": "lib/",
-      "languageVersion": "2.17"
     },
     {
       "name": "vector_math",
@@ -1172,7 +1058,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2023-04-23T09:45:56.721812Z",
+  "generated": "2023-04-23T09:49:16.519162Z",
   "generator": "pub",
   "generatorVersion": "2.19.5"
 }
